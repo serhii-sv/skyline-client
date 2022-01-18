@@ -102,6 +102,17 @@ class TranslationController extends Controller
 
         try {
             foreach ($request->translations as $lang => $translation) {
+                if ($request->import) {
+                    if(Storage::disk('lang')->exists($lang . '.json')) {
+                        $fromFile = Storage::disk('lang')->get($lang . '.json');
+
+                        Storage::disk('lang')->put($lang.'.backup.json', $fromFile);
+                    }
+                    if(Storage::disk('lang')->exists($lang . '_manual.json')) {
+                        $fromFile = Storage::disk('lang')->get($lang . '_manual.json');
+                        Storage::disk('lang')->put($lang.'_manual.backup.json', $fromFile);
+                    }
+                }
                 foreach ($translation as $name => $value) {
 
                     // Check lang file
