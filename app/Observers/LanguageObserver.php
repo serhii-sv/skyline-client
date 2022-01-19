@@ -23,17 +23,17 @@ class LanguageObserver
 //            $tpl->delete();
 //        }
 
-        foreach ($language->tplTranslate()->get() as $translate) {
-            $translate->delete();
-        }
-
-        foreach ($language->news()->get() as $news) {
-            $news->delete();
-        }
-
-        foreach ($language->reviews()->get() as $review) {
-            $review->delete();
-        }
+//        foreach ($language->tplTranslate()->get() as $translate) {
+//            $translate->delete();
+//        }
+//
+//        foreach ($language->news()->get() as $news) {
+//            $news->delete();
+//        }
+//
+//        foreach ($language->reviews()->get() as $review) {
+//            $review->delete();
+//        }
     }
 
     /**
@@ -45,7 +45,7 @@ class LanguageObserver
      */
     public function created(Language $language)
     {
-    
+
     }
 
     /**
@@ -57,7 +57,7 @@ class LanguageObserver
      */
     public function deleted(Language $language)
     {
-    
+
     }
 
     /**
@@ -69,6 +69,6 @@ class LanguageObserver
      */
     public function updated(Language $language)
     {
-    
+
     }
 }
