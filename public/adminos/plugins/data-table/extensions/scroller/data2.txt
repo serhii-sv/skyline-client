@@ -1,0 +1,24 @@
+{
+    "data": [{
+            "Name": "Andrew Carson",
+            "Date": "2020-01-29T20:33:57.00163Z",
+            "Status": "active"
+        },
+        {
+            "Name": "Anna Simth",
+            "Date": "2020-01-29T20:33:57.000167Z",
+            "Status": "Not active"
+        },
+        {
+            "Name": "Jasmine Andy",
+            "Date": "2020-01-29T20:33:57.000167Z",
+            "Status": "Not active"
+        },
+        {
+            "Name": "John Carlos",
+            "Date": "2020-01-29T20:33:57.000171Z",
+            "Status": "offline"
+        }
+    ]
+ 
+}
