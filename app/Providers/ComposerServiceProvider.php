@@ -23,13 +23,16 @@ class ComposerServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer(
-            ['layouts.accountPanel.header'], DashboardComposer::class
+            ['layouts.accountPanel.header', 'adminos.partials.top-nav', 'adminos.partials.sidebar'], DashboardComposer::class
         );
         View::composer(
             ['layouts.accountPanel.app'], AppComposer::class
         );
         View::composer(
-            ['layouts.app-header'], NavbarComposer::class
+            ['layouts.app-header', 'adminos.partials.top-nav'], NavbarComposer::class
+        );
+        View::composer(
+            ['adminos.layouts.account'], NavbarComposer::class
         );
         View::composer(
             ['layouts.accountPanel.header'], NavbarComposer::class

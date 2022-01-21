@@ -84,7 +84,7 @@ class DashboardController extends Controller
         $countries_stat = $countries_stat->sortByDesc('count')->take(7);
 
 
-        return view('accountPanel.dashboard', [
+        return view(\request()->old ? 'accountPanel.dashboard' : 'adminos.pages.dashboard', [
             'transactions' => Transaction::with('type', 'currency', 'paymentSystem')->where('user_id', $user->id)->orderByDesc('created_at')->limit(5)->get(),
             'wallets' => $wallets,
             /* 'deposits' => Deposit::where('user_id', $user->id)->orderByDesc('created_at')->paginate(5),*/
