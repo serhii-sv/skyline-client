@@ -40,8 +40,8 @@
                 </div>
             </div>
         </li>
-        <li class="nav-item {{ Route::is('accountPanel.dashboard') ? 'active' : '' }}">
-            <a href="{{ route('accountPanel.dashboard') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link">
+        <li class="nav-item {{ Route::is('accountPanel.customer.main') ? 'active' : '' }}">
+            <a href="{{ route('accountPanel.customer.main') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link">
                 <i class="fa feather icon-home"></i>
                 <span class="nav-label">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Dashboard' contenteditable="true">{{ __('Dashboard') }}</editor_block> @else {{ __('Dashboard') }} @endif</span>
             </a>

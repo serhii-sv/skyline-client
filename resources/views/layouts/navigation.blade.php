@@ -1,6 +1,6 @@
 <nav class="navigation">
     <ul class="navigation__list">
-        <li id="homePageMenuItem" class="navigation__item"><a class="navigation__link" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif href="{{ route('customer.main') }}">
+        <li id="homePageMenuItem" class="navigation__item"><a class="navigation__link" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif href="{{ route('accountPanel.customer.main') }}">
             @if(canEditLang() && checkRequestOnEdit())
               <editor_block data-name='Home' contenteditable="true">{{ __('Home') }}</editor_block>
             @else

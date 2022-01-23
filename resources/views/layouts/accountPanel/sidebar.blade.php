@@ -1,7 +1,7 @@
 <div class="sidebar-wrapper">
   <div>
     <div class="logo-wrapper">
-      <a href="{{ route('customer.main') }}" target="_blank">
+      <a href="{{ route('accountPanel.customer.main') }}" target="_blank">
         <img class="img-fluid for-light" src="{{ asset('accountPanel/images/logo/sprint_bank.png') }}" width="120" alt="">
         <img class="img-fluid for-dark" src="{{ asset('accountPanel/images/logo/sprint_bank.png') }}" width="120" alt="">
       </a>
@@ -9,7 +9,7 @@
       <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle" data-feather="grid"> </i></div>
     </div>
     <div class="logo-icon-wrapper">
-      <a href="{{ route('customer.main') }}" target="_blank"><img class="img-fluid" src="{{ asset('accountPanel/images/logo/logo-icon.png') }}" alt="">
+      <a href="{{ route('accountPanel.customer.main') }}" target="_blank"><img class="img-fluid" src="{{ asset('accountPanel/images/logo/logo-icon.png') }}" alt="">
       </a>
     </div>
     <nav class="sidebar-main">
@@ -17,21 +17,21 @@
       <div id="sidebar-menu">
         <ul class="sidebar-links" id="simple-bar">
           <li class="back-btn">
-            <a href="{{ route('customer.main') }}" target="_blank" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
+            <a href="{{ route('accountPanel.customer.main') }}" target="_blank" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
               <img class="img-fluid" src="{{ asset('accountPanel/images/logo/logo-icon.png') }}" alt=""></a>
             <div class="mobile-back text-end">
               <span>@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Back' contenteditable="true">{{ __('Back') }}</editor_block> @else {{ __('Back') }} @endif</span>
               <i class="fa fa-angle-right ps-2" aria-hidden="true"></i></div>
           </li>
           <li class="sidebar-main-title">
-            <a href="{{ route('customer.main') }}" class="d-block" target="_blank" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
+            <a href="{{ route('accountPanel.customer.main') }}" class="d-block" target="_blank" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
               <h6 class="lan-1">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='General' contenteditable="true">{{ __('General') }}</editor_block> @else {{ __('General') }} @endif</h6>
               <p class="lan-2">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Dashboards,widgets & layout.' contenteditable="true">{{ __('Dashboards,widgets & layout.') }}</editor_block> @else {{ __('Dashboards,widgets & layout.') }} @endif</p>
             </a>
           </li>
           <li class="sidebar-list">
             {{--<label class="badge badge-success">2</label>--}}
-            <a class="sidebar-link sidebar-title" href="{{ route('accountPanel.dashboard') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
+            <a class="sidebar-link sidebar-title" href="{{ route('accountPanel.customer.main') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
               <i data-feather="home"></i>
               <span class="lan-3">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Dashboard' contenteditable="true">{{ __('Dashboard') }}</editor_block> @else {{ __('Dashboard') }} @endif</span>
             </a>

@@ -25,7 +25,7 @@
                     </h1>
                     <ul class="breadcrumb">
                         <li>
-                            <a href="{{ route('customer.main') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>@if(canEditLang() && checkRequestOnEdit())
+                            <a href="{{ route('accountPanel.customer.main') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>@if(canEditLang() && checkRequestOnEdit())
                                     <editor_block data-name='Home' contenteditable="true">{{ __('Home') }}</editor_block>
                                 @else
                                     {{ __('Home') }}

@@ -326,8 +326,8 @@
         <div class="container">
             <div class="header-area">
                 <div class="logo">
-                    @if(Route::is('customer.main'))
-                        <a href="{{ route('customer.main') }}">
+                    @if(Route::is('accountPanel.customer.main'))
+                        <a href="{{ route('accountPanel.customer.main') }}">
                             <img src="{{ asset('accountPanel/images/logo/sprint_bank.png') }}" width="150" alt="logo">
                         </a>
                         @if(\App\Models\Setting::getValue('enable_snow', '', true) == 'true')
@@ -336,9 +336,9 @@
                     @endif
                 </div>
                 <ul class="menu">
-                    @if(!Route::is('customer.main'))
+                    @if(!Route::is('accountPanel.customer.main'))
                         <li>
-                            <a href="{{ route('customer.main') }}">@if(canEditLang() && checkRequestOnEdit())
+                            <a href="{{ route('accountPanel.customer.main') }}">@if(canEditLang() && checkRequestOnEdit())
                                     <editor_block data-name='Home' contenteditable="true">{{ __('Home') }}</editor_block>
                                 @else
                                     {{ __('Home') }}

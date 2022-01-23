@@ -43,20 +43,20 @@ Route::post('/translations/create-translations', [\App\Http\Controllers\Ajax\Tra
 
 Route::group(['middleware' => ['checkSiteEnabled', 'activity-log', 'http-log']], function () {
 
-    Route::get('/banner/{id}', [ReferralsController::class, 'getBanner'])->name('get.banner');
+//    Route::get('/banner/{id}', [ReferralsController::class, 'getBanner'])->name('get.banner');
 
     Route::post('/ajax/change-lang', [\App\Http\Controllers\Ajax\TranslationController::class, 'changeLang'])->name('ajax.change.lang');
     Route::post('/ajax/get-paysystem-currencies', [ReplenishmentController::class, 'getPaySystemCurrencies'])->name('ajax.paysystem.currencies');
 
-    Route::get('/', [\App\Http\Controllers\CustomerPagesController::class, 'homepage'])->name('customer.main');
-    Route::get('/aboutus', [\App\Http\Controllers\CustomerPagesController::class, 'aboutUs'])->name('customer.aboutus');
-    Route::get('/documents', [\App\Http\Controllers\CustomerPagesController::class, 'documents'])->name('customer.documents');
-    Route::get('/investors', [\App\Http\Controllers\CustomerPagesController::class, 'investors'])->name('customer.investors');
-    Route::get('/partners', [\App\Http\Controllers\CustomerPagesController::class, 'partners'])->name('customer.partners');
-    Route::get('/contact', [\App\Http\Controllers\CustomerPagesController::class, 'contacts'])->name('customer.contact');
-    Route::get('/faq', [\App\Http\Controllers\CustomerPagesController::class, 'faq'])->name('customer.faq');
-    Route::get('/agreement', [\App\Http\Controllers\CustomerPagesController::class, 'agreement'])->name('customer.agreement');
-    Route::get('/news/{id?}', [\App\Http\Controllers\CustomerPagesController::class, 'news'])->name('customer.news');
+//    Route::get('/home', [\App\Http\Controllers\CustomerPagesController::class, 'homepage'])->name('customer.main');
+//    Route::get('/aboutus', [\App\Http\Controllers\CustomerPagesController::class, 'aboutUs'])->name('customer.aboutus');
+//    Route::get('/documents', [\App\Http\Controllers\CustomerPagesController::class, 'documents'])->name('customer.documents');
+//    Route::get('/investors', [\App\Http\Controllers\CustomerPagesController::class, 'investors'])->name('customer.investors');
+//    Route::get('/partners', [\App\Http\Controllers\CustomerPagesController::class, 'partners'])->name('customer.partners');
+//    Route::get('/contact', [\App\Http\Controllers\CustomerPagesController::class, 'contacts'])->name('customer.contact');
+//    Route::get('/faq', [\App\Http\Controllers\CustomerPagesController::class, 'faq'])->name('customer.faq');
+//    Route::get('/agreement', [\App\Http\Controllers\CustomerPagesController::class, 'agreement'])->name('customer.agreement');
+//    Route::get('/news/{id?}', [\App\Http\Controllers\CustomerPagesController::class, 'news'])->name('customer.news');
 
     /*Route::get('/payout', [\App\Http\Controllers\Customer\PayoutController::class, 'index'])->name('customer.payout');
 
@@ -93,7 +93,7 @@ Route::group(['middleware' => ['checkSiteEnabled', 'activity-log', 'http-log']],
 
             Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index'])->name('log')->middleware('permission.check');
 
-            Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+            Route::get('/', [DashboardController::class, 'index'])->name('customer.main');
             Route::post('/theme-settings', [UserThemeSettingController::class, 'store'])->name('theme-settings');
             Route::post('/dashboard/send-money', [DashboardController::class, 'sendMoney'])->name('dashboard.send.money');
             Route::post('/dashboard/store-user-video', [DashboardController::class, 'storeUserVideo'])->name('dashboard.store.user.video');

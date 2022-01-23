@@ -64,7 +64,7 @@ class CustomerPagesController extends Controller
     public function homepage() {
         $rate_groups = RateGroup::all();
         $rates = Rate::orderBy('min')->get();
-        return view('customer.main', [
+        return view('accountPanel.customer.main', [
             'rate_groups' => $rate_groups,
             'rates' => $rates,
 
