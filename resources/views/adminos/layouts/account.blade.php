@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>@yield('title')</title>
     <link href="{{ asset('adminos/img/favicon.ico') }}" rel="icon" type="image/x-icon">
     <!-- Bootstrap CSS -->
@@ -35,6 +36,8 @@
     <link rel="stylesheet" href="{{ asset('adminos/img/flag-icon-css/css/flag-icon.css') }}">
     <!-- Custom CSS Style-->
     <link href="{{ asset('adminos/css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('adminos/icon/themify-icons/themify-icons.css') }}" rel="stylesheet">
+
     <style>
         .sidebar-collapse .nav-item.active {
             box-shadow: inset 0px 0px 2px rgb(116 90 155 / 90%);
@@ -85,6 +88,49 @@
 <!--Custom JS-->
 <script src="{{ asset('adminos/js/AdminosJS.js') }}"></script>
 
+<script src="{{ asset('accountPanel/js/jquery.mask.min.js') }}"></script>
+
 @stack('scripts')
+
+<script>
+    $(document).ready(function () {
+        $('.notifications').on('click', function () {
+            return false;
+        })
+        $(".notifications li.notification").on('click', function (e) {
+            e.preventDefault();
+            var $notification_count;
+            var $count = parseInt($(".show-notification").find('.label.label-success').text());
+
+            console.log($count)
+
+            if ($count > 0) {
+                var $id = parseInt($(this).attr('data-id'));
+                $.ajax({
+                    url: "/ajax/notification/status/read",
+                    method: 'post',
+                    data: 'id=' + $id,
+                    headers: {
+                        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function success(data) {
+                        var $data = $.parseJSON(data);
+
+                        if ($data['status'] == 'good') {
+                            $(".notifications li.notification[data-id='" + $id + "']").remove();
+                            $notification_count = $data['notification_count'];
+                            $(".show-notification").find('.label.label-success').text($notification_count);
+
+                            if ($notification_count == 0) {
+                                $(".notifications").append(' <li class="nav-item"><div class="dropdown-messages-box"><div class="media-body" style="padding: 0 15px"> <strong>{{ __('No notifications!') }}</strong> </div> </div> </li>');
+                            }
+                        }
+                    }
+                });
+            }
+            return false;
+        });
+    })
+</script>
 </body>
 </html>

@@ -14,7 +14,7 @@
                 </a>
             </li>
             <li class="nav-item dropdown message-dropdown">
-                <a class="nav-link dropdown-toggle count-msg show-notification" data-toggle="dropdown" href="#">
+                <a class="nav-link dropdown-toggle count-msg show-notification" data-toggle="dropdown" href="#" data-keyboard="false" data-backdrop="static">
                     <i class="fa fa-envelope-o"></i> <span class="label label-success">{{ $counts['notifications'] ?? 0 }}</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right notifications bounce animated  ml-auto">
@@ -29,7 +29,7 @@
                                     continue;
                                 }
                                 ?>
-                                <li class="nav-item">
+                                <li class="nav-item notification" data-id="{{ $item->id }}" data-count="{{ $counts['notifications'] ?? 0 }}">
                                     <div class="dropdown-messages-box">
                                         <div class="media-body" style="padding: 0 15px">
                                             <small

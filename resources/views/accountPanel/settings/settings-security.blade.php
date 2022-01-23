@@ -63,8 +63,6 @@ Security settings
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
 

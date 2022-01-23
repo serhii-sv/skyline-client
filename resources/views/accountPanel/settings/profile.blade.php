@@ -1,6 +1,6 @@
 @extends('layouts.accountPanel.app')
 @section('title')
-Edit profile
+    Edit profile
 @endsection
 @section('content')
 

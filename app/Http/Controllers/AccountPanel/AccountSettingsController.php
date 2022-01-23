@@ -40,7 +40,7 @@ class AccountSettingsController extends Controller
         $verification_enable = $verification_enable !== null ? $verification_enable->s_value : 'off';
         $auth_log = UserAuthLog::orderByDesc('created_at')->limit(5)->get();
 
-        return view('accountPanel.settings.settings-security')->with([
+        return view('adminos.pages.settings.security')->with([
             'fa_field' => auth()->user()->loginSecurity()->first()->google2fa_enable ?? false,
             'user' => Auth::user(),
             'verification_enable' => $verification_enable,
@@ -113,7 +113,7 @@ class AccountSettingsController extends Controller
 
     public function editProfile()
     {
-        return view('accountPanel.settings.profile', [
+        return view('adminos.pages.settings.profile', [
             'user' => Auth::user(),
         ]);
     }
@@ -122,7 +122,7 @@ class AccountSettingsController extends Controller
     {
         $wallets = Wallet::with('currency')->where('user_id', auth()->user()->id)->with('currency')->get();
 
-        return view('accountPanel.settings.wallets', [
+        return view('adminos.pages.settings.wallets', [
             'user' => Auth::user(),
             'wallets' => $wallets,
         ]);
@@ -130,7 +130,7 @@ class AccountSettingsController extends Controller
 
     public function verifyAccount()
     {
-        return view('accountPanel.settings.verify', [
+        return view('adminos.pages.settings.verification', [
             'user' => Auth::user(),
         ]);
     }
