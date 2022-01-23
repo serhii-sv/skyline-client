@@ -1,0 +1,144 @@
+/* Confirm Email CSS */
+.confirm-temp{
+    width:40%;
+    background-color: #fff;
+    border-radius: 4px;
+    margin: auto;
+    padding-bottom: 15px;
+}
+.email-temp-bg-success{
+    background: #28a745;
+    color:#fff;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 30px;
+    padding:10px; 
+}
+.email-temp-bg-info{
+    background: #138496;
+    color:#fff;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 30px;
+    padding:10px; 
+}
+.email-temp-bg-primary{
+    background: #007bff;
+    color:#fff;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 30px;
+    padding:10px; 
+}
+.email-temp-bg-default{
+    background: #6c757d;
+    color:#fff;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 30px;
+    padding:10px; 
+}
+.email-temp-bg-warning{
+    background: #ffc107;
+    color:#fff;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 30px;
+    padding:10px; 
+}
+.email-temp-bg-danger{
+    background: #dc3545;
+    color:#fff;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 30px;
+    padding:10px; 
+}
+.confirm-content p{
+    margin: 15px 0px;
+}
+/* Email Alert CSS */
+.mail-alert-temp{
+    width:40%;
+    background-color: #fff;
+    border-radius: 4px;
+    margin: auto;
+    padding-bottom: 15px;
+}
+.email-alert-bg-success p{
+    font-size:11px;
+}
+.email-alert-bg-info p{
+    font-size:11px;
+}
+.email-alert-bg-primary p{
+    font-size:11px;
+}
+.email-alert-bg-default p{
+    font-size:11px;
+}
+.email-alert-bg-danger p{
+    font-size:11px;
+}
+.email-alert-bg-warning p{
+    font-size:11px;
+}
+.email-alert-bg-success{
+    background: #28a745;
+    color:#fff;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 30px;
+    padding:10px; 
+}
+.email-alert-bg-info{
+    background: #138496;
+    color:#fff;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 30px;
+    padding:10px; 
+}
+.email-alert-bg-primary{
+    background: #007bff;
+    color:#fff;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 30px;
+    padding:10px; 
+}
+.email-alert-bg-default{
+    background: #6c757d;
+    color:#fff;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 30px;
+    padding:10px; 
+}
+.email-alert-bg-warning{
+    background: #ffc107;
+    color:#fff;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 30px;
+    padding:10px; 
+}
+.email-alert-bg-danger{
+    background: #dc3545;
+    color:#fff;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 30px;
+    padding:10px;  
+}
+.alert-content p{
+    margin: 15px 0px;
+}
+@media (max-width: 767px) {
+    .confirm-temp{
+        width:100%;
+    }
+    .mail-alert-temp {
+        width:100%;
+    }
+}

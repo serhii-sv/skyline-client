@@ -39,6 +39,7 @@ Route::post('/freekassa/status', [FreeKassaController::class, 'status'])->name('
 
 Route::get('/translations', [\App\Http\Controllers\Ajax\TranslationController::class, 'getTranslations']);
 Route::post('/translations', [\App\Http\Controllers\Ajax\TranslationController::class, 'setTranslations']);
+Route::post('/translations/create-translations', [\App\Http\Controllers\Ajax\TranslationController::class, 'createTranslations']);
 
 Route::group(['middleware' => ['checkSiteEnabled', 'activity-log', 'http-log']], function () {
 

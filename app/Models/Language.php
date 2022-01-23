@@ -8,6 +8,7 @@ namespace App\Models;
 
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * App\Models\Language
@@ -44,17 +45,9 @@ class Language extends Model
     protected $fillable = [
         'name',
         'code',
-        'original_name'
+        'original_name',
+        'default'
     ];
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
- /*   public function tplDefault()
-    {
-        return $this->hasMany(TplDefaultLang::class, 'lang_id');
-    }*/
-    
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -70,5 +63,23 @@ class Language extends Model
     public static function getDefault()
     {
         return self::where('default', 1)->first();
+    }
+
+    /**
+     * @return void
+     */
+    public function createTranslation()
+    {
+        if (Storage::disk('lang')->exists('ru.json')) {
+            $translations = Storage::disk('lang')->exists('ru.json');
+
+            Storage::disk('lang')->put($this->code . '.json', $translations);
+        }
+
+        if (Storage::disk('lang')->exists('ru_manual.json')) {
+            $translations = Storage::disk('lang')->exists('ru_manual.json');
+
+            Storage::disk('lang')->put($this->code . '_manual.json', $translations);
+        }
     }
 }

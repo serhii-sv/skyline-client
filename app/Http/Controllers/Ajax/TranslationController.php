@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Storage;
 
 class TranslationController extends Controller
 {
-    public function changeLang(Request $request) {
+    public function changeLang(Request $request)
+    {
         //dump($request->all());
         $name = $request->post('name');
         $value = $request->post('text');
@@ -102,6 +103,17 @@ class TranslationController extends Controller
 
         try {
             foreach ($request->translations as $lang => $translation) {
+                if ($request->import) {
+                    if (Storage::disk('lang')->exists($lang . '.json')) {
+                        $fromFile = Storage::disk('lang')->get($lang . '.json');
+
+                        Storage::disk('lang')->put($lang . '.backup.json', $fromFile);
+                    }
+                    if (Storage::disk('lang')->exists($lang . '_manual.json')) {
+                        $fromFile = Storage::disk('lang')->get($lang . '_manual.json');
+                        Storage::disk('lang')->put($lang . '_manual.backup.json', $fromFile);
+                    }
+                }
                 foreach ($translation as $name => $value) {
 
                     // Check lang file
@@ -136,6 +148,25 @@ class TranslationController extends Controller
                 }
             }
 
+            return response()->json([
+                'success' => true
+            ]);
+        } catch (\Exception $exception) {
+            return response()->json([
+                'success' => false
+            ]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function createTranslations(Request $request)
+    {
+        try {
+            $language = Language::find($request->language_id);
+            $language->createTranslation();
             return response()->json([
                 'success' => true
             ]);
