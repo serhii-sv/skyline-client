@@ -15,7 +15,7 @@ use App\Http\Controllers\AccountPanel\DashboardController;
 use App\Http\Controllers\AccountPanel\LanguageController;
 use App\Http\Controllers\AccountPanel\ProfileController;
 use App\Http\Controllers\AccountPanel\ReferralsController;
-use App\Http\Controllers\AccountPan el\TransactionsController;
+use App\Http\Controllers\AccountPanel\TransactionsController;
 use App\Http\Controllers\AccountPanel\WithdrawalContoller;
 use App\Http\Controllers\Ajax\NotificationsController;
 use App\Http\Controllers\Ajax\UserThemeSettingController;
