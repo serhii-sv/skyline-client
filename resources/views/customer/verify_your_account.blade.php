@@ -10,7 +10,7 @@
                         E-Mail verification
                     </h1>
                     <p style="text-align: center !important;">To access your account. Please, verify your account.</p>
-                    <a class="btn intro__btn" href="{{ route('customer.main') }}/resend">Re-send mail</a>
+                    <a class="btn intro__btn" href="{{ route('accountPanel.customer.main') }}/resend">Re-send mail</a>
 
                     @if(isset($message) && !empty($message))
                         <p style="font-weight: bold; margin-top:30px; color:rgb(0,100,100);">{{ $message }}</p>

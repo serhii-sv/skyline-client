@@ -16,7 +16,7 @@
     </form>
     <div class="header-logo-wrapper col-auto p-0">
       <div class="logo-wrapper">
-        <a href="/">
+        <a href="{{ route('accountPanel.customer.main') }}">
           <img class="img-fluid" src="{{ asset('accountPanel/images/logo/sprint_bank.png') }}" alt="">
         </a>
       </div>

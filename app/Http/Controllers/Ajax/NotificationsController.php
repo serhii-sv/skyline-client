@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class NotificationsController extends Controller
 {
-    
+
     public function setReadStatus(Request $request)
     {
         $id = $request->get('id');
@@ -24,10 +24,13 @@ class NotificationsController extends Controller
             return json_encode([
                 'status' => 'good',
                 'msg' => 'Статус уведомления изменён!',
-                'notification_count' => NotificationUser::where('user_id', Auth::user()->id)->where('is_read', false)->count(),
+                'notification_count' => NotificationUser::where('user_id', Auth::user()->id)
+                    ->where('is_read', false)
+                    ->where('created_at', '>', now()->subDays(7))
+                    ->count(),
             ]);
         }
-        
+
         return json_encode([
             'status' => 'bad',
             'msg' => 'Неведомая ошибка',
