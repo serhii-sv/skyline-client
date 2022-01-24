@@ -15,8 +15,8 @@ class SupportTaskController extends Controller
      */
     public function index()
     {
-        $tasks = auth()->user()->supportTasks()->paginate(15);
-        return view('accountPanel.support-tasks.index', compact('tasks'));
+        $tasks = auth()->user()->supportTasks()->orderBy('created_at', 'desc')->paginate(15);
+        return view('adminos.pages.support-tasks.index', compact('tasks'));
     }
 
     /**
@@ -24,7 +24,7 @@ class SupportTaskController extends Controller
      */
     public function create()
     {
-        return view('accountPanel.support-tasks.create');
+        return view('adminos.pages.support-tasks.create');
     }
 
     /**
@@ -67,6 +67,6 @@ class SupportTaskController extends Controller
     public function show($id)
     {
         $supportTask = SupportTask::findOrFail($id);
-        return view('accountPanel.support-tasks.show', compact('supportTask'));
+        return view('adminos.pages.support-tasks.show', compact('supportTask'));
     }
 }
