@@ -93,7 +93,7 @@ Route::group(['middleware' => ['checkSiteEnabled', 'activity-log', 'http-log']],
 
             Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index'])->name('log')->middleware('permission.check');
 
-            Route::get('/', [DashboardController::class, 'index'])->name('customer.main');
+            # Route::get('/', [DashboardController::class, 'index'])->name('customer.main');
             Route::post('/theme-settings', [UserThemeSettingController::class, 'store'])->name('theme-settings');
             Route::post('/dashboard/send-money', [DashboardController::class, 'sendMoney'])->name('dashboard.send.money');
             Route::post('/dashboard/store-user-video', [DashboardController::class, 'storeUserVideo'])->name('dashboard.store.user.video');
