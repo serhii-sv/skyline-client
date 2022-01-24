@@ -28,8 +28,7 @@
             <div class="logo">
                 <h1 class="logo-caption"><span class="tweak">Давайте начнем</span></h1>
             </div><!-- /.logo -->
-            <div class="row">
-                <div class="col-lg-2"></div>
+            <div class="row d-flex justify-content-center mb-5">
                 <div class="col-lg-8">
                     <div class="controls">
                     <form method="POST" action="{{ route('register') }}" class="account-form">
@@ -103,14 +102,14 @@
                     </form>
                 </div>
                 </div>
-                <div class="col-lg-12 d-flex justify-content-center">
-                    <div class="social-controls">
-                        <a href="{{ $google_auth_url }}" class="social-btns btn btn-google">
-                            <i class="fa fa-google-plus pull-left mt-1" aria-hidden="true"></i>
-                            Авторизоваться через Google
-                        </a>
-                    </div>
-                </div>
+{{--                <div class="col-lg-12 d-flex justify-content-center">--}}
+{{--                    <div class="social-controls">--}}
+{{--                        <a href="{{ $google_auth_url }}" class="social-btns btn btn-google">--}}
+{{--                            <i class="fa fa-google-plus pull-left mt-1" aria-hidden="true"></i>--}}
+{{--                            Авторизоваться через Google--}}
+{{--                        </a>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
             </div>
         </div><!-- /#login-box -->
     </div><!-- /.container -->
