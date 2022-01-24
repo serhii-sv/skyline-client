@@ -15,7 +15,7 @@ use App\Http\Controllers\AccountPanel\DashboardController;
 use App\Http\Controllers\AccountPanel\LanguageController;
 use App\Http\Controllers\AccountPanel\ProfileController;
 use App\Http\Controllers\AccountPanel\ReferralsController;
-use App\Http\Controllers\AccountPanel\TransactionsController;
+use App\Http\Controllers\AccountPan el\TransactionsController;
 use App\Http\Controllers\AccountPanel\WithdrawalContoller;
 use App\Http\Controllers\Ajax\NotificationsController;
 use App\Http\Controllers\Ajax\UserThemeSettingController;
@@ -93,7 +93,7 @@ Route::group(['middleware' => ['checkSiteEnabled', 'activity-log', 'http-log']],
 
             Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index'])->name('log')->middleware('permission.check');
 
-            # Route::get('/', [DashboardController::class, 'index'])->name('customer.main');
+            Route::get('/', [DashboardController::class, 'index'])->name('customer.main');
             Route::post('/theme-settings', [UserThemeSettingController::class, 'store'])->name('theme-settings');
             Route::post('/dashboard/send-money', [DashboardController::class, 'sendMoney'])->name('dashboard.send.money');
             Route::post('/dashboard/store-user-video', [DashboardController::class, 'storeUserVideo'])->name('dashboard.store.user.video');
