@@ -18,6 +18,10 @@
         .controls input {
             margin-bottom: 10px;
         }
+
+        .logo img {
+            background: rgba(48, 46, 45, 1);
+        }
     </style>
     <style>
         body {
@@ -31,11 +35,11 @@
     <div class="container">
         <div id="login-box2">
             <div class="logo">
-                <img src="/adminos/img/users/user1.jpg" class="img-responsive lock-screen-img center-block" alt="image"/>
+                <img src="/images/user/user-icon.png" class="img-responsive lock-screen-img center-block" alt="image"/>
                 <h1 class="logo-caption"><span class="tweak">Авторизация</span></h1>
                 <p>Добро пожаловать в Skyline</p>
             </div><!-- /.logo -->
-            <div class="row">
+            <div class="row d-flex justify-content-center">
                 <div class="col-lg-7">
                     <form class="login-form" method="POST" action="{{ route('login') }}">
                         <input type="hidden" name="g-recaptcha-response" id="recaptcha">
@@ -63,14 +67,14 @@
                         </div><!-- /.controls -->
                     </form>
                 </div>
-                <div class="col-lg-5">
-                    <div class="social-controls">
-                        <a href="{{ $google_auth_url }}" class="social-btns btn btn-google">
-                            <i class="fa fa-google-plus pull-left mt-1" aria-hidden="true"></i>
-                            Авторизоваться через Google
-                        </a>
-                    </div>
-                </div>
+{{--                <div class="col-lg-5">--}}
+{{--                    <div class="social-controls">--}}
+{{--                        <a href="{{ $google_auth_url }}" class="social-btns btn btn-google">--}}
+{{--                            <i class="fa fa-google-plus pull-left mt-1" aria-hidden="true"></i>--}}
+{{--                            Авторизоваться через Google--}}
+{{--                        </a>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
             </div>
         </div><!-- /#login-box -->
     </div><!-- /.container -->
