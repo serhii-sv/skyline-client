@@ -34,7 +34,7 @@ class TransactionsController extends Controller
         $transactions_count = Transaction::where('user_id', $user->id)->when($type, function ($query) use ($type){
             return $query->where('type_id', $type);
         })->count();
-        return view('accountPanel.transactions.index',[
+        return view('adminos.pages.transactions.index',[
             'transactions' => $transactions,
             'type' => $type,
             'transactions_count' => $transactions_count,

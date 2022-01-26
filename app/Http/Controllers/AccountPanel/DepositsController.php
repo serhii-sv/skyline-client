@@ -34,7 +34,7 @@ class DepositsController extends Controller
         $deposits = Deposit::where('user_id', $user->id)->where('active', true)->orderByDesc('created_at')->with('rate', 'currency', 'wallet')->paginate(12);
         $rates = Rate::where('active', true)->orderBy('min', 'asc')->get();
 
-        return view('accountPanel.deposits.create', [
+        return view('adminos.pages.deposits.create', [
             'deposit_groups' => $deposit_groups,
             'deposits' => $deposits,
             'rates' => $rates,

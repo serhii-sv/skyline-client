@@ -13,7 +13,7 @@ class ReplenishmentController extends Controller
     public function index() {
         $payment_systems = PaymentSystem::where('code', '!=', 'bonus')->get();
         //  $currencies = Currency::all();
-        return view('accountPanel.replenishment.index', [
+        return view('adminos.pages.replenishment.index', [
             'payment_systems' => $payment_systems,
         ]);
     }
@@ -91,7 +91,7 @@ class ReplenishmentController extends Controller
     }
 
     public function manual($id = null) {
-        return view('accountPanel.replenishment.manual', [
+        return view('adminos.pages.replenishment.manual', [
             'paymentSystem' => PaymentSystem::whereId($id)->first(),
         ]);
     }

@@ -63,14 +63,14 @@ class ReferralsController extends Controller
 
     public function banners() {
         $banners = Banner::orderBy('created_at', 'desc')->get();
-        return view('accountPanel.referrals.banners', [
+        return view('adminos.pages.referrals.banners', [
             'banners' => $banners,
         ]);
     }
 
     public function treePage() {
         $user = Auth::user();
-        return view('accountPanel.referrals.reftree', [
+        return view('adminos.pages.referrals.reftree', [
             'user' => $user,
         ]);
     }

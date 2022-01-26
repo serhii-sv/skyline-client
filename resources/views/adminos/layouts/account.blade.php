@@ -38,6 +38,7 @@
     <!-- Custom CSS Style-->
     <link href="{{ asset('adminos/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('adminos/icon/themify-icons/themify-icons.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ asset('accountPanel/css/vendors/sweetalert2.css') }}">
 
     <style>
         .sidebar-collapse .nav-item.active {
@@ -90,6 +91,8 @@
 <script src="{{ asset('adminos/js/AdminosJS.js') }}"></script>
 
 <script src="{{ asset('accountPanel/js/jquery.mask.min.js') }}"></script>
+
+<script src="{{ asset('accountPanel/js/sweet-alert/sweetalert.min.js') }}"></script>
 
 @stack('scripts')
 
