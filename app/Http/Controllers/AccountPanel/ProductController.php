@@ -15,18 +15,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = new Product();
-        if (\request()->sort) {
-            $products = $products->orderBy('price', \request()->sort == 'price_highest_first' ? 'desc' : 'asc' );
-        }
+        $products = Product::where('active', 1)->paginate(12);
 
-        if (\request()->title) {
-            $products = $products->where('title', 'like', '%'  . \request()->title . '%');
-        }
-
-        $products = $products->where('active', 1)->paginate(12);
-
-        return view('accountPanel.products.index', [
+        return view('adminos.pages.products.index', [
             'products' => $products
         ]);
     }
@@ -37,7 +28,7 @@ class ProductController extends Controller
      */
     public function show($slug)
     {
-        return view('accountPanel.products.show', [
+        return view('adminos.pages.products.show', [
             'product' => Product::findBySlug($slug)
         ]);
     }
@@ -48,7 +39,7 @@ class ProductController extends Controller
      */
     public function buy($slug)
     {
-        return view('accountPanel.products.buy', [
+        return view('adminos.pages.products.buy', [
             'product' => Product::findBySlug($slug)
         ]);
     }

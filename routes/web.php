@@ -43,7 +43,7 @@ Route::post('/translations/create-translations', [\App\Http\Controllers\Ajax\Tra
 
 Route::group(['middleware' => ['checkSiteEnabled', 'activity-log', 'http-log']], function () {
 
-//    Route::get('/banner/{id}', [ReferralsController::class, 'getBanner'])->name('get.banner');
+    Route::get('/banner/{id}', [ReferralsController::class, 'getBanner'])->name('get.banner');
 
     Route::post('/ajax/change-lang', [\App\Http\Controllers\Ajax\TranslationController::class, 'changeLang'])->name('ajax.change.lang');
     Route::post('/ajax/get-paysystem-currencies', [ReplenishmentController::class, 'getPaySystemCurrencies'])->name('ajax.paysystem.currencies');

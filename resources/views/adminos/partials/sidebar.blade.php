@@ -100,7 +100,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('accountPanel.referrals.banners') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link">
-                        <i class="fa ffa-bullhorn"></i>
+                        <i class="fa fa-bullhorn"></i>
                         @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Banners' contenteditable="true">{{ __('Banners') }}</editor_block> @else {{ __('Banners') }} @endif
                     </a>
                 </li>

@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Cache;
 
 class CalendarController extends Controller
 {
-    
+
     public function index() {
         $period = $this->getMonthPeriod();
         //
@@ -28,7 +28,7 @@ class CalendarController extends Controller
             Carbon::now()->startOfMonth(),
             Carbon::now(),
         ])->get();
-       
+
         $withdraws = [];
         $partners = [];
         $bonuses = [];
@@ -51,7 +51,7 @@ class CalendarController extends Controller
                 $transfers[$day['start']->format('Y-m-d H:i:s')] = $transactions->where('type_id', $type_transfer_in->id)->where('created_at', '>', $day['start'])->where('created_at', '<', $day['end']);
             }
         }
-        return view('accountPanel.calendar.index', [
+        return view('adminos.pages.calendar.index', [
             'partners' => $partners,
             'bonuses' => $bonuses,
             'dividends' => $dividends,
@@ -59,7 +59,7 @@ class CalendarController extends Controller
             'withdraws' => $withdraws,
         ]);
     }
-    
+
     public function getMonthPeriod() {
         $period = [];
         $current_week_count = now()->daysInMonth;
