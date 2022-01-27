@@ -12,7 +12,7 @@ class UserProductController extends Controller
      */
     public function index()
     {
-        return view('accountPanel.user-products.index', [
+        return view('adminos.pages.user-products.index', [
             'products' => auth()->user()->userProducts()->paginate(12)
         ]);
     }

@@ -28,7 +28,7 @@ class CurrencyController extends Controller
             $exchange_rate_log = false;
         }
 
-        return view('accountPanel.currency.exchange', [
+        return view('adminos.pages.currency-exchange.index', [
             'exchange_rate_log' => $exchange_rate_log,
             'wallets' => Wallet::where('user_id', Auth::user()->id)->get(),
         ]);

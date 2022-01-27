@@ -13,6 +13,17 @@
                     <div class="wrapper wrapper-content">
                         @include('adminos.partials.breadcrumbs')
                         <div class="row">
+                            <div class="d-flex justify-content-end w-100 mr-3 mb-3">
+                                <a href="{{ route('accountPanel.user-products.index') }}" class="btn btn-primary">
+                                    @if(canEditLang() && checkRequestOnEdit())
+                                        <editor_block data-name='Мои покупки' contenteditable="true">{{ __('Мои покупки') }}</editor_block>
+                                    @else
+                                        {{ __('Мои покупки') }}
+                                    @endif
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row">
                             @forelse($products as $product)
                                 <div class="col-md-4 col-sm-6 mb-4">
                                     <div class="product-grid">
