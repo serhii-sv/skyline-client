@@ -191,9 +191,9 @@
                   </a>
                   <h6 class="subtitle">
                     <a @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>@if(canEditLang() && checkRequestOnEdit())
-                        <editor_block data-name='Sprint Token' contenteditable="true">{{ __('Sprint Token') }}</editor_block>
+                        <editor_block data-name='Sky Token' contenteditable="true">{{ __('Sky Token') }}</editor_block>
                       @else
-                        {{ __('Sprint Token') }}
+                        {{ __('Sky Token') }}
                       @endif
                     </a>
                   </h6>

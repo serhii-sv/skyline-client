@@ -120,7 +120,7 @@ class UserDepositBonus extends Model
     public static function addBonusToUserWallet($user, $amount)
     {
         $wallet = $user->wallets()
-            ->where('currency_id', Currency::whereCode('SPRINT')->first()->id ?? null)
+            ->where('currency_id', Currency::whereCode('SKY')->first()->id ?? null)
             ->first();
 
         if (!is_null($wallet)) {

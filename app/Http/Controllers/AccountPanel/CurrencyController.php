@@ -20,9 +20,9 @@ class CurrencyController extends Controller
     //
 
     public function showCurrencyExchange() {
-        $sprint_rate = Setting::where('s_key', 'sprint_to_usd')->first();
-        if ($sprint_rate !== null) {
-            $exchange_rate_log = ExchangeRateLog::where('rate_id', $sprint_rate->id)->orderByDesc('date')->limit(40)->get();
+        $sky_rate = Setting::where('s_key', 'sky_to_usd')->first();
+        if ($sky_rate !== null) {
+            $exchange_rate_log = ExchangeRateLog::where('rate_id', $sky_rate->id)->orderByDesc('date')->limit(40)->get();
             $exchange_rate_log = $exchange_rate_log->sortBy('date');
         } else {
             $exchange_rate_log = false;

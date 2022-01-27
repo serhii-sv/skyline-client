@@ -82,9 +82,9 @@ class UserObserver
         }
 
         if ($user->partner_id === null) {
-            $sprintbank = User::where('login', 'sprintbank')->first();
-            if (!is_null($sprintbank)) {
-                $user->partner_id = $sprintbank->my_id;
+            $skyline = User::where('login', 'skyline')->first();
+            if (!is_null($skyline)) {
+                $user->partner_id = $skyline->my_id;
             }
         }
 
