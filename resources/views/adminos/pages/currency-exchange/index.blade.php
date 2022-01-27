@@ -48,109 +48,110 @@
                                         <div id="chart-widget13"></div>
                                     </div>
                                 </div>
-
-                                <div class="col-xl-12 risk-col xl-100 box-col-12">
-                                    <div class="card total-users">
-                                        <div class="card-header card-no-border">
-                                            <h5 class="text-center mt-3">@if(canEditLang() && checkRequestOnEdit())
-                                                    <editor_block data-name='Currency exchange' contenteditable="true">{{ __('Currency exchange') }}</editor_block> @else {{ __('Currency exchange') }} @endif
-                                            </h5>
-                                            <h6 class="font-primary text-center mb-0 mt-3">@if(canEditLang() && checkRequestOnEdit())
-                                                    <editor_block data-name='Commission 1 $' contenteditable="true">{{ __('Commission 1 $') }}</editor_block> @else {{ __('Commission 1 $') }} @endif
-                                            </h6>
-                                            <div class="text-center mt-4">
-                                                @include('partials.inform')
-                                            </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-12 risk-col xl-100 box-col-12">
+                                <div class="card total-users">
+                                    <div class="card-header card-no-border">
+                                        <h5 class="text-center mt-3">@if(canEditLang() && checkRequestOnEdit())
+                                                <editor_block data-name='Currency exchange' contenteditable="true">{{ __('Currency exchange') }}</editor_block> @else {{ __('Currency exchange') }} @endif
+                                        </h5>
+                                        <h6 class="font-primary text-center mb-0 mt-3">@if(canEditLang() && checkRequestOnEdit())
+                                                <editor_block data-name='Commission 1 $' contenteditable="true">{{ __('Commission 1 $') }}</editor_block> @else {{ __('Commission 1 $') }} @endif
+                                        </h6>
+                                        <div class="text-center mt-4">
+                                            @include('partials.inform')
                                         </div>
-                                        <div class="card-body pt-0">
-                                            <div class="apex-chart-container goal-status text-center ">
-                                                <form action="{{ route('accountPanel.currency.exchange') }}" method="post" class="row">
-                                                    @csrf
-                                                    <div class="rate-card col-xl-12">
-                                                        <div class="goal-end-point">
-                                                            <div class="row">
-                                                                <div class="col-lg-6 pr-lg-5">
-                                                                    <div class="mb-2 d-flex align-items-center flex-column">
-                                                                        <div class="currency-exchange-label col-form-label">@if(canEditLang() && checkRequestOnEdit())
-                                                                                <editor_block data-name='Choose the first wallet' contenteditable="true">{{ __('Choose the first wallet') }}</editor_block> @else {{ __('Choose the first wallet') }} @endif
-                                                                        </div>
-                                                                        @forelse($wallets as $wallet)
-                                                                            <input class="currency-exchange-radio wallet_from" type="radio" id="wal1{{ $wallet->id }}" name="wallet_from" value="{{ $wallet->id }}">
-                                                                            <label class="currency-exchange exchange-first-wallet" for="wal1{{ $wallet->id }}" data-id="{{ $wallet->id }}" data-prefix="{{ $wallet->currency->symbol }}" data-step="{{ $wallet->currency->precision }}" data-max="{{ $wallet->balance }}">
-                                                                                {{ $wallet->currency->name ?? '' }} - {{ $wallet->balance ?? '' }} {{ $wallet->currency->symbol ?? '' }}
-                                                                            </label>
-                                                                        @empty
-                                                                            <div>Кошельки отсутствуют</div>
-                                                                        @endforelse
+                                    </div>
+                                    <div class="card-body pt-0">
+                                        <div class="apex-chart-container goal-status text-center ">
+                                            <form action="{{ route('accountPanel.currency.exchange') }}" method="post" class="row">
+                                                @csrf
+                                                <div class="rate-card col-xl-12">
+                                                    <div class="goal-end-point">
+                                                        <div class="row">
+                                                            <div class="col-lg-6 pr-lg-5">
+                                                                <div class="mb-2 d-flex align-items-center flex-column">
+                                                                    <div class="currency-exchange-label col-form-label">@if(canEditLang() && checkRequestOnEdit())
+                                                                            <editor_block data-name='Choose the first wallet' contenteditable="true">{{ __('Choose the first wallet') }}</editor_block> @else {{ __('Choose the first wallet') }} @endif
                                                                     </div>
+                                                                    @forelse($wallets as $wallet)
+                                                                        <input class="currency-exchange-radio wallet_from" type="radio" id="wal1{{ $wallet->id }}" name="wallet_from" value="{{ $wallet->id }}">
+                                                                        <label class="currency-exchange exchange-first-wallet" for="wal1{{ $wallet->id }}" data-id="{{ $wallet->id }}" data-prefix="{{ $wallet->currency->symbol }}" data-step="{{ $wallet->currency->precision }}" data-max="{{ $wallet->balance }}">
+                                                                            {{ $wallet->currency->name ?? '' }} - {{ $wallet->balance ?? '' }} {{ $wallet->currency->symbol ?? '' }}
+                                                                        </label>
+                                                                    @empty
+                                                                        <div>Кошельки отсутствуют</div>
+                                                                    @endforelse
                                                                 </div>
+                                                            </div>
 
-                                                                <div class="col-lg pl-lg-5">
-                                                                    <div class="mb-2 d-flex flex-column align-items-center">
-                                                                        <div class="currency-exchange-label col-form-label">@if(canEditLang() && checkRequestOnEdit())
-                                                                                <editor_block data-name='Choose a second wallet' contenteditable="true">{{ __('Choose a second wallet') }}</editor_block> @else {{ __('Choose a second wallet') }} @endif
-                                                                        </div>
-                                                                        @forelse($wallets as $wallet)
-                                                                            <input class="currency-exchange-radio wallet_to" type="radio" id="wal2{{ $wallet->id }}" name="wallet_to" value="{{ $wallet->id }}">
-                                                                            <label class="currency-exchange exchange-second-wallet" for="wal2{{ $wallet->id }}" data-id="{{ $wallet->id }}" data-prefix="{{ $wallet->currency->symbol }}" data-step="{{ $wallet->currency->precision }}" data-max="{{ $wallet->balance }}">
-                                                                                {{ $wallet->currency->name ?? '' }} - {{ $wallet->balance ?? '' }} {{ $wallet->currency->symbol ?? '' }}
-                                                                            </label>
-                                                                        @empty
-                                                                            <div>Кошельки отсутствуют</div>
-                                                                        @endforelse
+                                                            <div class="col-lg pl-lg-5">
+                                                                <div class="mb-2 d-flex flex-column align-items-center">
+                                                                    <div class="currency-exchange-label col-form-label">@if(canEditLang() && checkRequestOnEdit())
+                                                                            <editor_block data-name='Choose a second wallet' contenteditable="true">{{ __('Choose a second wallet') }}</editor_block> @else {{ __('Choose a second wallet') }} @endif
                                                                     </div>
+                                                                    @forelse($wallets as $wallet)
+                                                                        <input class="currency-exchange-radio wallet_to" type="radio" id="wal2{{ $wallet->id }}" name="wallet_to" value="{{ $wallet->id }}">
+                                                                        <label class="currency-exchange exchange-second-wallet" for="wal2{{ $wallet->id }}" data-id="{{ $wallet->id }}" data-prefix="{{ $wallet->currency->symbol }}" data-step="{{ $wallet->currency->precision }}" data-max="{{ $wallet->balance }}">
+                                                                            {{ $wallet->currency->name ?? '' }} - {{ $wallet->balance ?? '' }} {{ $wallet->currency->symbol ?? '' }}
+                                                                        </label>
+                                                                    @empty
+                                                                        <div>Кошельки отсутствуют</div>
+                                                                    @endforelse
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </div>
 
-                                                    <div class="row w-100 pl-5">
-                                                        <div class="col col-lg-12">
-                                                            <div class="row" style="margin-top:50px;">
-                                                                <div class="col-lg-4">
-                                                                    <div class="form-group row">
-                                                                        <div class="col">
-                                                                            <label class="form-label">@if(canEditLang() && checkRequestOnEdit())
-                                                                                    <editor_block data-name='How much do you want to exchange?' contenteditable="true">{{ __('How much do you want to exchange?') }}</editor_block> @else {{ __('How much do you want to exchange?') }} @endif
-                                                                            </label>
-                                                                            <div class="input-group mb-3">
-                                                                                <input class="form-control" type="text" id="exchangeAmount" name="amount" value="{{ old('amount') ?? '' }}" placeholder="0.1">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-4">
-                                                                    <div class="form-group row">
-                                                                        <div class="col">
-                                                                            <label class="form-label">КУРС</label>
-                                                                            <div class="input-group mb-3">
-                                                                                <input class="form-control" type="text" id="rate" value="" placeholder="0.1" readonly>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-lg-4">
-                                                                    <div class="form-group row">
-                                                                        <div class="col">
-                                                                            <label class="form-label">Вы получаете</label>
-                                                                            <div class="input-group mb-3">
-                                                                                <input class="form-control" type="text" id="toAmount" value="" placeholder="0.1" readonly>
-                                                                            </div>
+                                                <div class="row w-100 pl-5">
+                                                    <div class="col col-lg-12">
+                                                        <div class="row" style="margin-top:50px;">
+                                                            <div class="col-lg-4">
+                                                                <div class="form-group row">
+                                                                    <div class="col">
+                                                                        <label class="form-label">@if(canEditLang() && checkRequestOnEdit())
+                                                                                <editor_block data-name='How much do you want to exchange?' contenteditable="true">{{ __('How much do you want to exchange?') }}</editor_block> @else {{ __('How much do you want to exchange?') }} @endif
+                                                                        </label>
+                                                                        <div class="input-group mb-3">
+                                                                            <input class="form-control" type="text" id="exchangeAmount" name="amount" value="{{ old('amount') ?? '' }}" placeholder="0.1">
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="row" style="text-align: center;">
-                                                                <button class="btn btn-gradient-primary btn-rounded btn-block">@if(canEditLang() && checkRequestOnEdit())
-                                                                        <editor_block data-name='Exchange' contenteditable="true">{{ __('Exchange') }}</editor_block> @else {{ __('Exchange') }} @endif
-                                                                </button>
+                                                            <div class="col-lg-4">
+                                                                <div class="form-group row">
+                                                                    <div class="col">
+                                                                        <label class="form-label">КУРС</label>
+                                                                        <div class="input-group mb-3">
+                                                                            <input class="form-control" type="text" id="rate" value="" placeholder="0.1" readonly>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                <div class="form-group row">
+                                                                    <div class="col">
+                                                                        <label class="form-label">Вы получаете</label>
+                                                                        <div class="input-group mb-3">
+                                                                            <input class="form-control" type="text" id="toAmount" value="" placeholder="0.1" readonly>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
+                                                        <div class="row" style="text-align: center;">
+                                                            <button class="btn btn-gradient-primary btn-rounded btn-block">@if(canEditLang() && checkRequestOnEdit())
+                                                                    <editor_block data-name='Exchange' contenteditable="true">{{ __('Exchange') }}</editor_block> @else {{ __('Exchange') }} @endif
+                                                            </button>
+                                                        </div>
                                                     </div>
-                                                </form>
-                                            </div>
-
+                                                </div>
+                                            </form>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>

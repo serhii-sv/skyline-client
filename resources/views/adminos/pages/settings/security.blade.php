@@ -73,7 +73,7 @@
                             </div>
                         </div>
                         <div class="row" style="margin-top:50px;">
-                            <div class="col-xl-4">
+                            <div class="col-xl-5">
                                 <div class="card">
                                     <div class="card-header">
                                         <h4 class="card-title mb-0">Общие</h4>
@@ -98,7 +98,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-4">
+                            <div class="col-xl-5">
                                 <div class="card">
                                     <div class="card-header pb-2">
                                         <h4 class="card-title mb-0">Пароль</h4>

@@ -34,7 +34,7 @@
                                         @else
                                             <li class="message right appeared">
                                                 <div class="avatar male-pic"><img
-                                                        src="{{ route('accountPanel.profile.get.avatar', $message->user_id) }}"
+                                                        src="{{ asset('accountPanel/images/user/user.png') }}"
                                                         alt="">
                                                 </div>
                                                 <div class="text_wrapper">

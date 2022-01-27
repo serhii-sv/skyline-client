@@ -26,7 +26,7 @@
                                                     @forelse($transaction_types as $transaction_type)
                                                         <li class="nav-item">
                                                             <a href="{{ route('accountPanel.transactions', $transaction_type->id) }}"
-                                                               @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link @if($transaction_type->id == $type) active @endif" data-toggle="tab">
+                                                               @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link @if($transaction_type->id == $type || ($type == null && $loop->iteration == 1)) active @endif" data-toggle="tab">
                                                                 @if(canEditLang() && checkRequestOnEdit())
                                                                     <editor_block data-name='{{ 'locale.' . $transaction_type->name }}' contenteditable="true">{{ __('locale.' . $transaction_type->name) }}</editor_block>
                                                                 @else
