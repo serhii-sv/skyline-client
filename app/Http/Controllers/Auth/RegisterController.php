@@ -128,10 +128,10 @@ class RegisterController extends Controller
         }
 
         /** @var User|null $partner */
-        $partner = null !== $partner_id ? User::where('my_id', $partner_id)->first() : (User::where('login', 'sprintbank')->first() ?? null);
+        $partner = null !== $partner_id ? User::where('my_id', $partner_id)->first() : (User::where('login', 'skyline')->first() ?? null);
 
         if (null === $partner) {
-            $partner = User::where('login', 'sprintbank')->first();
+            $partner = User::where('login', 'skyline')->first();
             $partner_id = $partner->my_id;
         }
 

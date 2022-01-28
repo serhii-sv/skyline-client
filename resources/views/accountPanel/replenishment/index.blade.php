@@ -75,7 +75,7 @@ Topup balance
                   <div class="mb-3 item-list-wrapper">
                     @forelse($payment_systems as $item)
                       <?php
-                      if ($item->code == 'sprint') {
+                      if ($item->code == 'sky') {
                         continue;
                       }
                       ?>

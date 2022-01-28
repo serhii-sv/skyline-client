@@ -20,7 +20,7 @@ class WithdrawalContoller extends Controller
     public function index() {
 //        $currencies = Currency::all();
         return view('adminos.pages.withdrawals.index', [
-            'wallets' => Wallet::where('user_id', auth()->user()->id)->with('currency')->where('currency_id', '!=', Currency::where('code', 'SPRINT')->first()->id)->get(),
+            'wallets' => Wallet::where('user_id', auth()->user()->id)->with('currency')->where('currency_id', '!=', Currency::where('code', 'SKY')->first()->id ?? 'undefined')->get(),
         ]);
     }
     /*public function addWithdrawal(Request $request) {

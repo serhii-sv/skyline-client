@@ -49,7 +49,7 @@ class ReferralsController extends Controller
 
         $personal_turnover = $user->personal_turnover;
 
-        return view('accountPanel.referrals.index', [
+        return view('adminos.pages.referrals.index', [
             'all_referrals' => $all_referrals,
             'activeReferrals' => $activeReferrals,
             'total_referral_invested' => $total_referral_invested,

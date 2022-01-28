@@ -76,7 +76,7 @@
                     <div class="wrapper wrapper-content">
                         @include('adminos.partials.breadcrumbs')
                         <div class="row">
-                            <div class="card w-75">
+                            <div class="card w-75 p-5">
                                 <div class="card-header mt-3">
                                     <h5>
                                         @if(canEditLang() && checkRequestOnEdit())

@@ -350,7 +350,7 @@ trait HasReferral
     public function firstPartner($user) {
         $partner = $user->partner()->first();
 
-        if ($user->hasPartner() && $partner->login != 'sprintbank') {
+        if ($user->hasPartner() && $partner->login != 'skyline') {
             return $user->firstPartner($partner);
         } else {
             return $user;

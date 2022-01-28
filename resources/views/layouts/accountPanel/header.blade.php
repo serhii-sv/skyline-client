@@ -87,9 +87,9 @@
            </div>--}}
       <strong style="font-size: 18px;">
           @if(canEditLang() && checkRequestOnEdit())
-              <editor_block data-name='1 Sprint Token (SRT) =' contenteditable="true">{{ __('1 Sprint Token (SRT) =') }}</editor_block>
+              <editor_block data-name='1 Sky Token (SKY) =' contenteditable="true">{{ __('1 Sky Token (SKY) =') }}</editor_block>
           @else
-              {{ __('1 Sprint Token (SRT) =') }} {{ number_format(\App\Models\ExchangeRateLog::where('rate_id', 15)->orderBy('created_at', 'desc')->first()->new_rate ?? 1, 2, '.', '') }}$
+              {{ __('1 Sky Token (SKY) =') }} {{ number_format(\App\Models\ExchangeRateLog::where('rate_id', 15)->orderBy('created_at', 'desc')->first()->new_rate ?? 1, 2, '.', '') }}$
           @endif
       </strong>
     </div>

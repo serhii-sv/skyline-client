@@ -2,6 +2,223 @@
 @section('title')
     Account
 @endsection
+@push('styles')
+    <link rel="stylesheet" type="text/css" href="{{ asset('accountPanel/css/vendors/icofont.css') }}">
+    <style>
+        .earning-card.card .card-body .inner-top-left ul li, .earning-card.card .card-body .inner-top-right ul li {
+            margin-right: 20px;
+        }
+
+        .dashboard-video-list {
+            max-height: 350px;
+            overflow: hidden auto;
+        }
+
+        .dashboard-video-list iframe {
+            max-width: 100%;
+        }
+
+        .earning-card.card .card-body {
+            overflow: hidden
+        }
+
+        .earning-card.card .card-body .chart-left {
+            padding: 40px 0 40px 40px
+        }
+
+        .earning-card.card .card-body .chart-right {
+            padding: 0 40px
+        }
+
+        .earning-card.card .card-body .chart-right .weekly-data {
+            padding-bottom: 40px
+        }
+
+        .earning-card.card .card-body .chart-right .p-tb {
+            padding: 40px 0
+        }
+
+        .earning-card.card .card-body .left_side_earning {
+            margin-bottom: 30px
+        }
+
+        .earning-card.card .card-body .left_side_earning:last-child {
+            margin-bottom: 0
+        }
+
+        .earning-card.card .card-body .left_side_earning h5 {
+            line-height: 36px;
+            font-weight: 500;
+            margin: 0;
+            font-size: 1rem
+        }
+
+        .earning-card.card .card-body .left_side_earning p {
+            font-size: 14px;
+            color: rgba(43, 43, 43, 0.7)
+        }
+
+        .earning-card.card .card-body .left-btn a.btn {
+            padding: 10px 16px
+        }
+
+        .earning-card.card .card-body .inner-top-left ul li, .earning-card.card .card-body .inner-top-right ul li {
+            line-height: 22px;
+            color: rgba(43, 43, 43, 0.7);
+            font-weight: 500;
+            margin-left: 35px;
+            letter-spacing: 1px
+        }
+
+        .earning-card.card .card-body .inner-top-left ul li.active, .earning-card.card .card-body .inner-top-right ul li.active {
+            color: #7366FFFF
+        }
+
+        .earning-card.card .card-body .inner-top-left ul li:first-child {
+            margin-left: 0
+        }
+
+        .earning-card.card .card-body .inner-top-right ul li {
+            position: relative
+        }
+
+        .earning-card.card .card-body .inner-top-right ul li:before {
+            content: "";
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #7366FFFF;
+            left: -40%;
+            top: 27%
+        }
+
+        .earning-card.card .card-body .inner-top-right ul li:last-child:before {
+            background-color: #dc3545
+        }
+
+        .earning-card.card .card-body .border-top {
+            border-top: 1px solid #ecf3fa !important;
+            padding: 38px 40px 37px
+        }
+
+        .earning-card.card .card-body .earning-content {
+            border-right: 1px solid #ecf3fa
+        }
+
+        .earning-card.card .card-body .media .media-left {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background-color: #7366FFFF;
+            margin-right: 15px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            color: #fff;
+            cursor: pointer
+        }
+
+        .earning-card.card .card-body .media .media-left:nth-child(1) {
+            color: #fff !important
+        }
+
+        .earning-card.card .card-body .media .media-left.secondary {
+            background-color: #dc3545 !important
+        }
+
+        .earning-card.card .card-body .media .media-left i {
+            font-size: 18px;
+            -webkit-transition: 0.3s all linear;
+            transition: 0.3s all linear
+        }
+
+        .earning-card.card .card-body .media .media-left:hover {
+            -webkit-animation: tada 1.5s ease infinite;
+            animation: tada 1.5s ease infinite
+        }
+
+        .earning-card.card .card-body .media .media-body h6 {
+            margin-bottom: 2px;
+            line-height: 24px
+        }
+
+        .earning-card.card .card-body .media .media-body p {
+            font-size: 14px;
+            color: rgba(43, 43, 43, 0.7)
+        }
+
+        .dashboard-video-list {
+            padding-left: 0;
+            list-style: none;
+        }
+
+        #pills-darkhome-tab .panel-body, #pills-darkprofile-tab .panel-body {
+            padding: 20px 0 0 0;
+        }
+
+        .best-seller-table table tbody tr td {
+            vertical-align: middle;
+            -webkit-transition: 0.5s;
+            transition: 0.5s;
+            position: relative;
+            font-weight: 500
+        }
+
+        .best-seller-table table tbody tr td .flag-icon {
+            font-size: 18px;
+            position: relative;
+            display: inline-block;
+            width: 1.33333em;
+            line-height: 1em
+        }
+
+        .best-seller-table table tbody tr td p {
+            font-size: 11px;
+            color: rgba(43, 43, 43, 0.8);
+            -webkit-transition: 0.5s;
+            transition: 0.5s
+        }
+
+        .best-seller-table table tbody tr td .label {
+            padding: 0px;
+            color: #2b2b2b !important;
+            border-radius: 10px;
+            -webkit-transition: 0.5s;
+            transition: 0.5s;
+            font-size: 13px
+        }
+
+        .best-seller-table table tbody tr td .align-middle {
+            position: relative
+        }
+
+        .best-seller-table table tbody tr td .align-middle .status-circle {
+            width: 10px;
+            height: 10px;
+            top: 2px;
+            left: 32px;
+            opacity: 0;
+            -webkit-transition: 0.5s;
+            transition: 0.5s
+        }
+
+        .best-seller-table table tbody tr:last-child td {
+            padding-bottom: 0
+        }
+
+        .img-40 {
+            width: 40px !important;
+            height: auto;
+        }
+    </style>
+@endpush
 @section('content')
         <div class="main-content">
             <div class="row">
@@ -9,149 +226,90 @@
                     <!--Page Content-->
                     <div class="wrapper wrapper-content">
                         @include('adminos.partials.breadcrumbs')
-                        <!-- Start FROM HERE  -->
-                            <div class="row">
-                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
-                                    <div class="panel-box statistic-bg-purple radius">
-                                        <div class="panel-box-content">
-                                            <div class="row">
-                                                <div class="col-6 statistic-box">
-                                                    <h4 class="text-white">$1200</h4>
-                                                    <h6 class="m-b-0 text-white">Total Revenue</h6>
-                                                </div>
-                                                <div class="col-6 pl-1 pl-2 statistic-charts pt-3">
-                                                    <div id="sparkline1"></div>
-                                                </div>
-                                                <div class="col-12 statistic-footer">
-                                                    <p class="text-white"><i class="feather icon-clock f-14"></i> update : 2:15 am</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
-                                    <div class="panel-box statistic-bg-info radius">
-                                        <div class="panel-box-content">
-                                            <div class="row">
-                                                <div class="col-6 statistic-box">
-                                                    <h4 class="text-white">700</h4>
-                                                    <h6 class="m-b-0 text-white">Affiliate Revenue</h6>
-                                                </div>
-                                                <div class="col-6 pl-1 pl-2 statistic-charts pt-3">
-                                                    <div id="sparkline2"></div>
-                                                </div>
-                                                <div class="col-12 statistic-footer">
-                                                    <p class="text-white m-b-0"><i class="feather icon-clock f-14"></i> update : 2:15 am</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
-                                    <div class="panel-box statistic-bg-red radius">
-                                        <div class="panel-box-content">
-                                            <div class="row">
-                                                <div class="col-6 statistic-box">
-                                                    <h4 class="text-white">3600</h4>
-                                                    <h6 class="m-b-0 text-white">+ Refunds</h6>
-                                                </div>
-                                                <div class="col-6 pl-1 pl-2 statistic-charts pt-3">
-                                                    <div id="sparkline3"></div>
-                                                </div>
-                                                <div class="col-12 statistic-footer">
-                                                    <p class="text-white m-b-0"><i class="feather icon-clock f-14"></i> update : 2:15 am</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
-                                    <div class="panel-box statistic-bg-yellow radius">
-                                        <div class="panel-box-content">
-                                            <div class="row">
-                                                <div class="col-6 statistic-box">
-                                                    <h4 class="text-white">$10,207</h4>
-                                                    <h6 class="m-b-0 text-white">Visual Figure</h6>
-                                                </div>
-                                                <div class="col-6 pl-1 pl-2 statistic-charts pt-3">
-                                                    <div id="sparkline4"></div>
-                                                </div>
-                                                <div class="col-12 statistic-footer">
-                                                    <p class="text-white m-b-0"><i class="feather icon-clock f-14"></i> update : 2:15 am</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-9">
-                                    <div class="panel-box">
-                                        <div class="panel-box-title">
-                                            <h5>Monthly View</h5>
-                                            <div class="panel-box-tools">
-                                                <a class="collapse-link">
-                                                    <i class="fa fa-chevron-up"></i>
-                                                </a>
-                                                <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                                                    <i class="fa fa-wrench"></i>
-                                                </a>
-                                                <ul class="dropdown-menu dropdown-user dropdown-menu-right">
-                                                    <li><a href="#">Config option 1</a></li>
-                                                    <li><a href="#">Config option 2</a></li>
-                                                </ul>
-                                                <a class="close-link">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                            </div>
-                                            <p class="float-right">For more details about usage, please refer
-                                                <a href="https://www.amcharts.com/online-store/" class="text-navy">amCharts licence</a>
-                                            </p>
-                                        </div>
-                                        <div class="panel-box-content">
-                                            <div id="visitor" style="height:317px;"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-3">
-                                    <div class="panel-box">
-                                        <div class="col-12 text-center panel-box-title">
-                                            <h6>Project Completed</h6>
-                                        </div>
-                                        <div class="panel-box-content" style="height:390px;">
-                                            <div class="row">
-                                                <div class="col-12 text-center">
-                                                    <div class="col-12">
-                                                        <div data-label="85%" class="radial-bar radial-bar-75 radial-bar-lg radial-bar-warning" data-toggle="tooltip" title="Project Completed 85%"></div>
-                                                        <p>Version 1.0.0.5</p>
-                                                        <h6><a href="#" class="yellow-link-color">View Project Report</a></h6>
-                                                    </div>
-                                                    <div class="pt-1 pl-3 pr-3">
-                                                        <span class="pull-left">Current Task</span>
-                                                        <span class="pull-right">30%</span>
-                                                        <div class="progress" style="height: 4px; clear: both;">
-                                                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width:30%;"></div>
+
+                        <div class="row">
+                            <div class="col-xl-12 xl-100 dashboard-sec box-col-12">
+                                <div class="card earning-card">
+                                    <div class="card-body p-3">
+                                        <div class="row">
+                                            <div class="col-xl-12">
+                                                <div class="chart-right">
+                                                    <div class="row">
+                                                        <div class="col-xl-8 col-md-8 col-sm-8 col-12">
+                                                            <div class="inner-top-left">
+                                                                <ul class="d-flex list-unstyled">
+                                                                    <li class="active">
+                                                                        @if(canEditLang() && checkRequestOnEdit())
+                                                                            <editor_block data-name='by last 7 days' contenteditable="true">{{ __('by last 7 days') }}</editor_block>
+                                                                        @else {{ __('by last 7 days') }}@endif
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-4 col-md-4 col-sm-4 col-12 p-0 justify-content-end">
+                                                            <div class="inner-top-right">
+                                                                <ul class="d-flex list-unstyled justify-content-end">
+                                                                    <li>@if(canEditLang() && checkRequestOnEdit())
+                                                                            <editor_block data-name='Assessed' contenteditable="true">{{ __('Assessed') }}</editor_block>
+                                                                        @else {{ __('Assessed') }}@endif</li>
+                                                                    <li>@if(canEditLang() && checkRequestOnEdit())
+                                                                            <editor_block data-name='Withdrawn' contenteditable="true">{{ __('Withdrawn') }}</editor_block>
+                                                                        @else {{ __('Withdrawn') }}@endif</li>
+                                                                </ul>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="pt-2 pl-3 pr-3">
-                                                        <span class="pull-left">Fixed Bugs</span>
-                                                        <span class="pull-right">60%</span>
-                                                        <div class="progress" style="height: 4px; clear: both;">
-                                                            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:60%"></div>
+                                                    <div class="row">
+                                                        <div class="col-xl-12">
+                                                            <div class="card-body p-0">
+                                                                <div class="current-sale-container">
+                                                                    <div id="chart-currently"></div>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="pt-2 pl-3 pr-3">
-                                                        <span class="pull-left">Remaining Tasks</span>
-                                                        <span class="pull-right">37%</span>
-                                                        <div class="progress" style="height: 4px;  clear: both;">
-                                                            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="37" aria-valuemin="0" aria-valuemax="100" style="width:37%"></div>
+                                                </div>
+                                                <div class="row border-top m-0">
+                                                    <div class="col-xl-4 ps-0 col-md-6 col-sm-6">
+                                                        <div class="media p-0">
+                                                            <div class="media-left">
+                                                                <i class="icofont icofont-cur-dollar"></i></div>
+                                                            <div class="media-body">
+                                                                <h6>@if(canEditLang() && checkRequestOnEdit())
+                                                                        <editor_block data-name='Earnings per second' contenteditable="true">{{ __('Earnings per second') }}</editor_block>
+                                                                    @else {{ __('Earnings per second') }}@endif</h6>
+                                                                <p>$ {{ number_format($total_revenue / 24 / 60 / 60, 5, '.',',') ?? 0 }}@if(canEditLang() && checkRequestOnEdit())
+                                                                        <editor_block data-name='/sec' contenteditable="true">{{ __('/sec') }}</editor_block>
+                                                                    @else {{ __('/sec') }}@endif</p>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="pt-2 pl-3 pr-3">
-                                                        <span class="pull-left">Overall Progress</span>
-                                                        <span class="pull-right">60%</span>
-                                                        <div class="progress" style="height: 4px; clear: both;">
-                                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:60%"></div>
+                                                    <div class="col-xl-4 col-md-6 col-sm-6">
+                                                        <div class="media p-0">
+                                                            <div class="media-left secondary">
+                                                                <i class="icofont icofont-cur-dollar"></i></div>
+                                                            <div class="media-body">
+                                                                <h6>@if(canEditLang() && checkRequestOnEdit())
+                                                                        <editor_block data-name='Earnings per hour' contenteditable="true">{{ __('Earnings per hour') }}</editor_block>
+                                                                    @else {{ __('Earnings per hour') }}@endif</h6>
+                                                                <p>$ {{ number_format(($total_revenue / 24), 4, '.',',') ?? 0 }}@if(canEditLang() && checkRequestOnEdit())
+                                                                        <editor_block data-name='/hour' contenteditable="true">{{ __('/hour') }}</editor_block>
+                                                                    @else {{ __('/hour') }}@endif</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-4 col-md-12 pe-0">
+                                                        <div class="media p-0">
+                                                            <div class="media-left bg-success">
+                                                                <i class="icofont icofont-cur-dollar"></i></div>
+                                                            <div class="media-body">
+                                                                <h6>@if(canEditLang() && checkRequestOnEdit())
+                                                                        <editor_block data-name='Daily earnings' contenteditable="true">{{ __('Daily earnings') }}</editor_block>
+                                                                    @else {{ __('Daily earnings') }}@endif</h6>
+                                                                <p>$ {{ number_format(($total_revenue), 2, '.',',') ?? 0 }}@if(canEditLang() && checkRequestOnEdit())
+                                                                        <editor_block data-name='/day' contenteditable="true">{{ __('/day') }}</editor_block>
+                                                                    @else {{ __('/day') }}@endif</p>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -160,664 +318,422 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--Sales Per Day, Visitor & Orders-->
-                            <div class="row">
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-4">
-                                    <div class="panel-box">
-                                        <div class="panel-box-content">
-                                            <div class="small-box bg-aqua mb-0 h-250">
-                                                <canvas id="sales-per-day" class="p-3"></canvas>
-                                                <div class="inner custom-inner">
-                                                    <h4>$ 2,150</h4>
-                                                    <p>Sales Per Day</p>
-                                                </div>
-                                                <a class="small-box-footer" href="#">More info <i class="fa fa-arrow-circle-right"></i></a>
-                                            </div>
-                                            <div class="custom-card-footer text-center">
-                                                <div class="monthly-static border-right">
-                                                    <h5>$2035</h5>
-                                                    <p>Total Revenue</p>
-                                                </div>
-                                                <div class="vertical-divider"></div>
-                                                <div class="monthly-static border-right">
-                                                    <h5>$540</h5>
-                                                    <p>Today Sales</p>
-                                                </div>
-                                                <div class="vertical-divider"></div>
-                                                <div class="monthly-static">
-                                                    <h5>47</h5>
-                                                    <p>Products</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-4">
-                                    <div class="panel-box">
-                                        <div class="panel-box-content">
-                                            <div class="small-box bg-warning mb-0 h-250">
-                                                <canvas id="visitors-per-day" class="p-3"></canvas>
-                                                <div class="inner custom-inner">
-                                                    <h4><i class="fa fa-user-plus"></i> 122,150</h4>
-                                                    <p>Visitors Per Year</p>
-                                                </div>
-                                                <a class="small-box-footer" href="#">More info <i class="fa fa-arrow-circle-right"></i></a>
-                                            </div>
-                                            <div class="custom-card-footer text-center">
-                                                <div class="monthly-static border-right">
-                                                    <h5>3735</h5>
-                                                    <p>This Month</p>
-                                                </div>
-                                                <div class="vertical-divider"></div>
-                                                <div class="monthly-static border-right">
-                                                    <h5>440</h5>
-                                                    <p>This Week</p>
-                                                </div>
-                                                <div class="vertical-divider"></div>
-                                                <div class="monthly-static">
-                                                    <h5>67</h5>
-                                                    <p>Today</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-4">
-                                    <div class="panel-box">
-                                        <div class="panel-box-content">
-                                            <div class="small-box bg-red mb-0 h-250">
-                                                <canvas id="orders-per-day" class="p-3"></canvas>
-                                                <div class="inner custom-inner">
-                                                    <h4><i class="fa fa-shopping-basket"></i> 15823</h4>
-                                                    <p>Orders Per Year</p>
-                                                </div>
-                                                <a class="small-box-footer" href="#">More info <i class="fa fa-arrow-circle-right"></i></a>
-                                            </div>
-                                            <div class="custom-card-footer text-center">
-                                                <div class="monthly-static border-right">
-                                                    <h5>4735</h5>
-                                                    <p>This Month</p>
-                                                </div>
-                                                <div class="vertical-divider"></div>
-                                                <div class="monthly-static border-right">
-                                                    <h5>940</h5>
-                                                    <p>This Week</p>
-                                                </div>
-                                                <div class="vertical-divider"></div>
-                                                <div class="monthly-static">
-                                                    <h5>127</h5>
-                                                    <p>Today</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--Application Sales-->
-                            <div class="row">
-                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-8">
-                                    <div class="panel-box">
-                                        <div class="panel-box-title">
-                                            <h5>Application Sales</h5>
-                                            <div class="panel-box-tools">
-                                                <a class="collapse-link">
-                                                    <i class="fa fa-chevron-up"></i>
-                                                </a>
-                                                <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                                                    <i class="fa fa-wrench"></i>
-                                                </a>
-                                                <ul class="dropdown-menu dropdown-user dropdown-menu-right">
-                                                    <li><a href="#">Config option 1</a></li>
-                                                    <li><a href="#">Config option 2</a></li>
-                                                </ul>
-                                                <a class="close-link">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="panel-box-content">
-                                            <div class="table-responsive">
-                                                <table class="table table-hover table-borderless">
-                                                    <thead>
-                                                    <tr>
-                                                        <th><input type="checkbox" checked class="i-checks" name="input[]"></th>
-                                                        <th>Application</th>
-                                                        <th>Sales</th>
-                                                        <th>Change</th>
-                                                        <th>Avg Price</th>
-                                                        <th>Total</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="checkbox" checked class="i-checks" name="input[]">
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-inline-block align-middle">
-                                                                <h6 class="ml-0 pl-0">Adminos</h6>
-                                                                <p class="text-muted m-b-0">Powerful Admin Theme</p>
-                                                            </div>
-                                                        </td>
-                                                        <td>16,300</td>
-                                                        <td><canvas id="app-sale1"></canvas></td>
-                                                        <td>$53</td>
-                                                        <td class="text-c-blue">$15,652</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="checkbox" checked class="i-checks" name="input[]">
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-inline-block align-middle">
-                                                                <h6 class="ml-0 pl-0">Photoshop</h6>
-                                                                <p class="text-muted m-b-0">Design Software</p>
-                                                            </div>
-                                                        </td>
-                                                        <td>26,421</td>
-                                                        <td><canvas id="app-sale2"></canvas></td>
-                                                        <td>$35</td>
-                                                        <td class="text-c-blue">$18,785</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="checkbox" checked class="i-checks" name="input[]">
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-inline-block align-middle">
-                                                                <h6 class="ml-0 pl-0">RefineThemes</h6>
-                                                                <p class="text-muted m-b-0">Best Admin Templates</p>
-                                                            </div>
-                                                        </td>
-                                                        <td>8,265</td>
-                                                        <td><canvas id="app-sale3"></canvas></td>
-                                                        <td>$98</td>
-                                                        <td class="text-c-blue">$9,652</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="checkbox" checked class="i-checks" name="input[]">
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-inline-block align-middle">
-                                                                <h6 class="ml-0 pl-0">RFETech</h6>
-                                                                <p class="text-muted m-b-0">Admin App</p>
-                                                            </div>
-                                                        </td>
-                                                        <td>10,652</td>
-                                                        <td><canvas id="app-sale4"></canvas></td>
-                                                        <td>$20</td>
-                                                        <td class="text-c-blue">$7,856</td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                                <div class="text-center">
-                                                    <a href="#!" class=" b-b-primary text-primary">View all Projects</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-4">
-                                    <div class="panel-box table-panel-box">
-                                        <div class="panel-box-title ui-sortable-handle">
-                                            <h5>Customer Reviews </h5>
-                                            <div class="panel-box-tools">
-                                                <a class="collapse-link ui-sortable">
-                                                    <i class="fa fa-chevron-up"></i>
-                                                </a>
-                                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                                    <i class="fa fa-wrench"></i>
-                                                </a>
-                                                <ul class="dropdown-menu dropdown-user">
-                                                    <li><a href="#">Action option 1</a></li>
-                                                    <li><a href="#">Action option 2</a></li>
-                                                </ul>
-                                                <a class="close-link">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="panel-box-content">
-                                            <div class="row reviews">
-                                                <div class="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center ui-sortable">
-                                                    <img src="/adminos/img/users/user4.jpg" class="review-cirlce-img" alt="">
-                                                </div>
-                                                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 review-by ui-sortable">
-                                                    <h6 class="ml-2">Sarah Deo</h6>
-                                                    <p class="ml-2">Highly recommend</p>
-                                                </div>
-                                                <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 review-rating ui-sortable">
-                                                    <i class="fa fa-star text-warning"></i>
-                                                    <i class="fa fa-star text-warning"></i>
-                                                    <i class="fa fa-star text-warning"></i>
-                                                    <i class="fa fa-star text-warning"></i>
-                                                    <i class="fa fa-star text-warning"></i>
-                                                </div>
-                                            </div>
-                                            <div class="row col-lg-12 reviews ui-sortable">
-                                                <div class="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center ui-sortable">
-                                                    <img src="/adminos/img/users/user1.jpg" class="review-cirlce-img" alt="">
-                                                </div>
-                                                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 review-by ui-sortable">
-                                                    <h6 class="ml-2">Jack Andrew</h6>
-                                                    <p class="ml-2">Awesome</p>
-                                                </div>
-                                                <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 review-rating ui-sortable">
-                                                    <i class="fa fa-star text-warning"></i>
-                                                    <i class="fa fa-star text-warning"></i>
-                                                    <i class="fa fa-star text-warning"></i>
-                                                    <i class="fa fa-star text-warning"></i>
-                                                    <i class="fa fa-star text-warning"></i>
-                                                </div>
-                                            </div>
-                                            <div class="row col-lg-12 reviews ui-sortable">
-                                                <div class="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center ui-sortable">
-                                                    <img src="/adminos/img/users/user2.jpg" class="review-cirlce-img" alt="">
-                                                </div>
-                                                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 review-by ui-sortable">
-                                                    <h6 class="ml-2">John Simth</h6>
-                                                    <p class="ml-2">Extremely Good</p>
-                                                </div>
-                                                <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 review-rating ui-sortable">
-                                                    <i class="fa fa-star text-warning"></i>
-                                                    <i class="fa fa-star text-warning"></i>
-                                                    <i class="fa fa-star text-warning"></i>
-                                                    <i class="fa fa-star text-warning"></i>
-                                                    <i class="fa fa-star text-muted"></i>
-                                                </div>
-                                            </div>
-                                            <div class="row col-lg-12 reviews ui-sortable">
-                                                <div class="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center ui-sortable">
-                                                    <img src="/adminos/img/users/user5.jpg" class="review-cirlce-img" alt="">
-                                                </div>
-                                                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 review-by ui-sortable">
-                                                    <h6 class="ml-2">Jasmine Carlos</h6>
-                                                    <p class="ml-2">Highly recommend</p>
-                                                </div>
-                                                <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 review-rating ui-sortable">
-                                                    <i class="fa fa-star text-warning"></i>
-                                                    <i class="fa fa-star text-warning"></i>
-                                                    <i class="fa fa-star text-warning"></i>
-                                                    <i class="fa fa-star text-warning"></i>
-                                                    <i class="fa fa-star text-muted"></i>
-                                                </div>
-                                            </div>
-                                            <div class="row col-lg-12 reviews ui-sortable">
-                                                <div class="col-sm-12 col-md-2 col-lg-2 col-xl-2 text-center ui-sortable">
-                                                    <img src="/adminos/img/users/user6.jpg" class="review-cirlce-img" alt="">
-                                                </div>
-                                                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 review-by ui-sortable">
-                                                    <h6 class="ml-2">Alexa Deora</h6>
-                                                    <p class="ml-2">Highly recommend</p>
-                                                </div>
-                                                <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 review-rating ui-sortable">
-                                                    <i class="fa fa-star text-warning"></i>
-                                                    <i class="fa fa-star text-warning"></i>
-                                                    <i class="fa fa-star text-warning"></i>
-                                                    <i class="fa fa-star text-warning"></i>
-                                                    <i class="fa fa-star text-muted"></i>
-                                                </div>
-                                            </div>
-                                            <div class="text-center">
-                                                <a class=" b-b-primary text-primary" href="#">View all Reviews</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--Smart Chat And Top Visitors-->
-                            <div class="row">
-                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6">
-                                    <div class="chat_window panel-box">
-                                        <div class="top_menu panel-box-title">
-                                            <h5 class="text-center">Chat</h5>
-                                            <div class="panel-box-tools">
-                                                <a class="collapse-link">
-                                                    <i class="fa fa-chevron-up"></i>
-                                                </a>
-                                                <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                                                    <i class="fa fa-wrench"></i>
-                                                </a>
-                                                <ul class="dropdown-menu dropdown-user dropdown-menu-right">
-                                                    <li><a href="#">Config option 1</a></li>
-                                                    <li><a href="#">Config option 2</a></li>
-                                                </ul>
-                                                <a class="close-link">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="panel-box-content msg-menu">
-                                            <ul class="messages">
-                                                <li class="message left appeared">
-                                                    <div class="avatar female-pic"><img src="/adminos/img/users/user4.jpg" alt=""></div>
-                                                    <div class="text_wrapper">
-                                                        <div class="text">Hello John! :)</div>
+                        </div>
+
+                        <div class="row second-chart-list third-news-update">
+                            <div class="col-12">
+                                @if(!empty($wallets))
+                                    <div class="row">
+                                        @forelse($wallets as $item)
+                                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-3">
+                                                <div class="card widget">
+                                                    <div class="card-block-small">
+                                                        <i class="fa fa-credit-card usage-icon bg-info text-white"></i>
+                                                        <span class="text-c-blue f-w-600">
+                                                            @if(canEditLang() && checkRequestOnEdit())
+                                                                <editor_block data-name='Balance in' contenteditable="true">{{ __('Balance in') }}</editor_block>
+                                                            @else {{ __('Balance in') }}@endif {{ $item->currency->name }}
+                                                        </span>
+                                                        <h3 class="mt-4">{{ $item->balance ?? 0 }} {{ $item->currency->symbol }}</h3>
+                                                        <div class="mt-3 text-muted">
+                                                            @if(canEditLang() && checkRequestOnEdit())
+                                                                <editor_block data-name='Total user enter' contenteditable="true">{{ __('Total user enter') }}</editor_block>
+                                                            @else {{ __('Total user enter') }}@endif {{ $item->totalEnter() ?? 0 }} {{ $item->currency->symbol }}
+                                                        </div>
+                                                        <div class="mt-3 text-muted">
+                                                            @if(canEditLang() && checkRequestOnEdit())
+                                                                <editor_block data-name='Total user withdraw' contenteditable="true">{{ __('Total user withdraw') }}</editor_block>
+                                                            @else {{ __('Total user withdraw') }}@endif {{ $item->totalWithdraw() ?? 0 }} {{ $item->currency->symbol }}
+                                                        </div>
+                                                        <div class="mt-3 wallet-button-wrapper ">
+                                                            <a href="{{ route('accountPanel.replenishment') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="btn btn-success w-100">@if(canEditLang() && checkRequestOnEdit())
+                                                                    <editor_block data-name='Replenish1' contenteditable="true">{{ __('Replenish1') }}</editor_block>
+                                                                @else {{ __('Replenish1') }}@endif</a>
+                                                            <a href="{{ route('accountPanel.withdrawal') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="btn btn-danger w-100">@if(canEditLang() && checkRequestOnEdit())
+                                                                    <editor_block data-name='To withdraw2' contenteditable="true">{{ __('To withdraw2') }}</editor_block>
+                                                                @else {{ __('To withdraw2') }}@endif</a>
+                                                        </div>
                                                     </div>
+                                                </div>
+                                            </div>
+                                        @empty
+                                        @endforelse
+                                    </div>
+                                @endif
+                            </div>
+
+                            <div class="col-xl-12 xl-100 box-col-12">
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="card">
+                                            <div class="card-header pt-4 pb-4">
+                                                <h4 class="mb-0">@if(canEditLang() && checkRequestOnEdit())
+                                                        <editor_block data-name='Last 5 transactions' contenteditable="true">{{ __('Last 5 transactions') }}</editor_block>
+                                                    @else {{ __('Last 5 transactions') }}@endif</h4>
+                                            </div>
+                                            <div class="card-body pt-3 pb-3">
+                                                <div class="table-responsive">
+                                                    <div class="item">
+                                                        <div class="table-responsive product-list">
+                                                            <table class="table table-bordernone">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>@if(canEditLang() && checkRequestOnEdit())
+                                                                            <editor_block data-name='Type of transaction' contenteditable="true">{{ __('Type of transaction') }}</editor_block>
+                                                                        @else {{ __('Type of transaction') }}@endif</th>
+                                                                    <th>@if(canEditLang() && checkRequestOnEdit())
+                                                                            <editor_block data-name='Amount' contenteditable="true">{{ __('Amount') }}</editor_block>
+                                                                        @else {{ __('Amount') }}@endif</th>
+                                                                    <th>@if(canEditLang() && checkRequestOnEdit())
+                                                                            <editor_block data-name='Payment system' contenteditable="true">{{ __('Payment system') }}</editor_block>
+                                                                        @else {{ __('Payment system') }}@endif</th>
+                                                                    <th>@if(canEditLang() && checkRequestOnEdit())
+                                                                            <editor_block data-name='Status operation' contenteditable="true">{{ __('Status operation') }}</editor_block>
+                                                                        @else {{ __('Status operation') }}@endif</th>
+                                                                    <th class="">@if(canEditLang() && checkRequestOnEdit())
+                                                                            <editor_block data-name='Date of operation' contenteditable="true">{{ __('Date of operation') }}</editor_block>
+                                                                        @else {{ __('Date of operation') }}@endif</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                @if(isset($transactions) && !empty($transactions))
+                                                                    @foreach($transactions as $transaction)
+                                                                        <tr style="vertical-align: middle;">
+                                                                            <td>
+                                                                                @if(canEditLang() && checkRequestOnEdit())
+                                                                                    <editor_block data-name='{{ 'locale.' . $transaction->type->name }}' contenteditable="true">{{ __('locale.' . $transaction->type->name) }}</editor_block> @else {{ __('locale.' . $transaction->type->name) }}@endif
+                                                                                {{-- {{ __('locale.' . $transaction->type->name) ?? 'Не указано' }}--}}</td>
+                                                                            <td>
+                                                                                <span class="">{{$transaction->currency->symbol}} {{ number_format($transaction->amount, $transaction->currency->precision, '.', ',') ?? 0 }}</span>
+                                                                                @if(!preg_match('/USD/', $transaction->currency->code))
+                                                                                    <br>
+                                                                                    <span class="badge rounded-pill pill-badge-info">$ {{ number_format($transaction->main_currency_amount, 2, '.', ',') ?? 0 }}</span>
+                                                                                @endif
+                                                                            </td>
+                                                                            <td>
+                                                                                {{ $transaction->paymentSystem->name ?? $transaction->currency->code }}
+                                                                            </td>
+                                                                            <td>@switch($transaction->approved)
+                                                                                    @case(1)
+                                                                                    <span class="btn-success p-2 ps-4 pe-4" style="display: inline-block; min-width: 200px;text-align: center">@if(canEditLang() && checkRequestOnEdit())
+                                                                                            <editor_block data-name='Confirmed' contenteditable="true">{{ __('Confirmed') }}</editor_block>
+                                                                                        @else {{ __('Confirmed') }}@endif</span>
+                                                                                    @break
+                                                                                    @case(2)
+                                                                                    <span class="btn-danger p-2 ps-4 pe-4" style="display: inline-block; min-width: 200px;text-align: center">@if(canEditLang() && checkRequestOnEdit())
+                                                                                            <editor_block data-name='Rejected' contenteditable="true">{{ __('Rejected') }}</editor_block>
+                                                                                        @else {{ __('Rejected') }}@endif</span>
+                                                                                    @break
+                                                                                    @default
+                                                                                    <span class="btn-light p-2 ps-4 pe-4" style="display: inline-block; min-width: 200px;text-align: center">@if(canEditLang() && checkRequestOnEdit())
+                                                                                            <editor_block data-name='Not confirmed' contenteditable="true">{{ __('Not confirmed') }}</editor_block>
+                                                                                        @else {{ __('Not confirmed') }}@endif</span>
+                                                                                    @break
+                                                                                @endswitch</td>
+                                                                            <td>{{ $transaction->created_at->format('d-m-Y H:i') }}</td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                @endif
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 appointment">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="header-top">
+                                            <h5 class="m-0">@if(canEditLang() && checkRequestOnEdit())
+                                                    <editor_block data-name='Popularity by country' contenteditable="true">{{ __('Popularity by country') }}</editor_block>
+                                                @else {{ __('Popularity by country') }}@endif</h5>
+                                        </div>
+                                    </div>
+                                    <div class="card-Body">
+                                        <div class="radar-chart">
+                                            <div id="marketchart"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-header pb-3">
+                                        <h5>@if(canEditLang() && checkRequestOnEdit())
+                                                <editor_block data-name='Videos' contenteditable="true">{{ __('Videos') }}</editor_block>
+                                            @else {{ __('Videos') }}@endif</h5>
+                                    </div>
+                                    <div class="card-body pt-3 pb-3">
+                                        <div class="tabs-container">
+                                            <ul class="nav nav-tabs mertial-tab">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif data-toggle="tab" href="#pills-darkhome-tab">
+                                                        <i class="icofont icofont-ui-note"></i>
+                                                        @if(canEditLang() && checkRequestOnEdit())
+                                                            <editor_block data-name='Feed' contenteditable="true">{{ __('Feed') }}</editor_block>
+                                                        @else {{ __('Feed') }}@endif
+                                                    </a>
                                                 </li>
-                                                <li class="message right appeared">
-                                                    <div class="avatar male-pic"><img src="/adminos/img/users/user2.jpg" alt="">
-                                                    </div>
-                                                    <div class="text_wrapper">
-                                                        <div class="text">Hi Ninna! How are you?</div>
-                                                    </div>
-                                                </li>
-                                                <li class="message left appeared">
-                                                    <div class="avatar female-pic"><img src="/adminos/img/users/user4.jpg" alt=""></div>
-                                                    <div class="text_wrapper">
-                                                        <div class="text">I'm fine, thank you!</div>
-                                                    </div>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif data-toggle="tab" href="#pills-darkprofile-tab">
+                                                        <i class="icofont icofont-upload-alt"></i>
+                                                        @if(canEditLang() && checkRequestOnEdit())
+                                                            <editor_block data-name='Upload' contenteditable="true">{{ __('Upload') }}</editor_block>
+                                                        @else {{ __('Upload') }}@endif
+                                                    </a>
                                                 </li>
                                             </ul>
-                                            <div class="bottom_wrapper clearfix">
-                                                <div class="d-flex">
-                                                    <a class="nav-link" href="#"><i class="feather icon-mic"></i></a>
-                                                    <a class="nav-link" href="#"><i class="feather icon-camera"></i></a>
-                                                    <a class="nav-link" href="#"><i class="feather icon-paperclip"></i></a>
-                                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="true" href="#">
-                                                        <i class="feather icon-more-horizontal"></i>
-                                                    </a>
-                                                    <ul class="dropdown-menu dropdown-user dropdown-menu-right">
-                                                        <li><a href="#">Config option 1</a></li>
-                                                        <li><a href="#">Config option 2</a></li>
-                                                    </ul>
+                                            <div class="tab-content">
+                                                <div id="pills-darkhome-tab" class="tab-pane active">
+                                                    <div class="panel-body">
+                                                        <div class="tab-pane fade active show" id="pills-darkhome" role="tabpanel" aria-labelledby="pills-darkhome-tab">
+                                                            <ul class="dashboard-video-list">
+                                                                @if($users_videos !== null)
+                                                                    @forelse($users_videos as $users_video)
+                                                                        <li class="mb-3" style="background: #fafafa; padding: 15px">
+                                                                            <div class="mb-3">
+                                                                                <img src="{{  $users_video->user->avatar ? route('accountPanel.profile.get.avatar',$users_video->user->id) : asset('accountPanel/images/user/user.png')  }}" alt="" width="40" height="40" style="-webkit-border-radius: 50%;-moz-border-radius: 50%;border-radius: 50%;">
+                                                                                {{ $users_video->user->login ?? '' }}</div>
+                                                                            {!! htmlspecialchars_decode($users_video->link) !!}
+                                                                        </li>
+                                                                    @empty
+                                                                        <li class="mb-3" style="background: #fafafa; padding: 15px">
+                                                                            @if(canEditLang() && checkRequestOnEdit())
+                                                                                <editor_block data-name='Nothing added' contenteditable="true">{{ __('Nothing added') }}</editor_block>
+                                                                            @else {{ __('Nothing added ') }}@endif
+                                                                        </li>
+                                                                    @endforelse
+                                                                @endif
+                                                            </ul>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="message_input_wrapper">
-                                                    <input class="message_input" id="send-text" placeholder="Type your message here..." />
-                                                </div>
-                                                <div class="send_message">
-                                                    <div class="icon"></div>
-                                                    <div class="text">Send</div>
+                                                <div id="pills-darkprofile-tab" class="tab-pane">
+                                                    <div class="panel-body">
+                                                        <form method="post" action="{{ route('accountPanel.dashboard.store.user.video') }}">
+                                                            @csrf
+                                                            <div class="input-group mb-4">
+
+                                                                <span class="input-group-text"><i class="icofont icofont-link"></i></span>
+                                                                <input class="form-control" name="video" value="{{ old('video') ?? '' }}" type="text" placeholder="Ссылка на видео" aria-label="">
+                                                            </div>
+                                                            <button class="btn btn-primary m-r-15" type="submit" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>@if(canEditLang() && checkRequestOnEdit())
+                                                                    <editor_block data-name='Send' contenteditable="true">{{ __('Send') }}</editor_block>
+                                                                @else {{ __('Send') }}@endif</button>
+                                                        </form>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6">
-                                    <div class="panel-box">
-                                        <div class="top_menu panel-box-title">
-                                            <h5>Sales</h5>
-                                            <div class="panel-box-tools">
-                                                <a class="collapse-link">
-                                                    <i class="fa fa-chevron-up"></i>
-                                                </a>
-                                                <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                                                    <i class="fa fa-wrench"></i>
-                                                </a>
-                                                <ul class="dropdown-menu dropdown-user dropdown-menu-right">
-                                                    <li><a href="#">Config option 1</a></li>
-                                                    <li><a href="#">Config option 2</a></li>
-                                                </ul>
-                                                <a class="close-link">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="panel-box-content p-3 bg-sky-line-blue">
-                                            <div id="vmap" style="width:100%; height:356px;"></div>
-                                        </div>
-                                        <div class="panel-box-footer bg-inverse">
-                                            <div class="panel-content jqvmap-bg-ocean">
-                                                <div class="d-flex align-items-center">
-                                                    <img class="d-inline-block jqvmap-country-flag mr-3" alt="flag" src="/adminos/img/flag-icon-css/flags/4x3/us.svg" style="width:55px; height: auto;">
-                                                    <h6 class="d-inline-block fw-100 m-0 text-white">Sales in:
-                                                        <small class="jqvmap-country">United States of America : $4,353</small>
+                            </div>
+
+                            <div class="col-lg-6 risk-col ">
+                                <div class="card total-users">
+                                    <div class="card-header card-no-border pb-3 pt-3">
+                                        <h5>@if(canEditLang() && checkRequestOnEdit())
+                                                <editor_block data-name='Transfer' contenteditable="true">{{ __('Transfer') }}</editor_block> @else {{ __('Transfer') }} @endif
+                                        </h5>
+                                    </div>
+                                    <div class="card-body pt-0">
+                                        <form action="{{ route('accountPanel.dashboard.send.money') }}" method="post" class="send-money-to-user-form">
+                                            @csrf
+                                            <div class="apex-chart-container goal-status text-center">
+                                                <div class="rate-card">
+                                                    <h6 class="mb-2 mt-2 f-w-400">@if(canEditLang() && checkRequestOnEdit())
+                                                            <editor_block data-name='User' contenteditable="true">{{ __('User') }}</editor_block> @else {{ __('User') }} @endif
                                                     </h6>
+                                                    <div class="input-group mb-3">
+                                                        <input class="form-control" type="text" name="user" value="{{ old('user') ?? '' }}">
+                                                    </div>
+                                                    <h6 class="mb-2 mt-2 f-w-400">@if(canEditLang() && checkRequestOnEdit())
+                                                            <editor_block data-name='Enter the amount' contenteditable="true">{{ __('Enter the amount') }}</editor_block> @else {{ __('Enter the amount') }} @endif
+                                                    </h6>
+                                                    <div class="input-group mb-3">
+                                                        <input class="form-control" type="text" name="amount" value="{{ old('amount') ?? '' }}">
+                                                    </div>
+                                                    <div class="input-group mb-3">
+                                                        <select class="form-select form-control" name="wallet_id">
+                                                            <option value="" disabled selected hidden>
+                                                                Выберите баланс аккаунта
+                                                            </option>
+                                                            @forelse($wallets as $wallet)
+                                                                <option value="{{ $wallet->id }}" @if(old('wallet_id') == $wallet->id) selected="selected" @endif>{{ $wallet->currency->name }} - {{ $wallet->balance }}{{ $wallet->currency->symbol }}</option>
+                                                            @empty
+                                                            @endforelse
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-check checkbox mb-3">
+                                                        <input class="form-check-input" id="checkbox3" type="checkbox">
+                                                        <label class="form-check-label" for="checkbox3">
+                                                            @if(canEditLang() && checkRequestOnEdit())
+                                                                <editor_block data-name='Do insurance 1' contenteditable="true">{{ __('Do insurance 1') }}</editor_block>
+                                                            @else
+                                                                {{ __('Do insurance 1') }}
+                                                            @endif
+                                                        </label>
+                                                    </div>
+                                                    <button class="btn btn-lg btn-primary btn-block send-money-to-user-btn" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>@if(canEditLang() && checkRequestOnEdit())
+                                                            <editor_block data-name='Do transfer' contenteditable="true">{{ __('Do transfer') }}</editor_block> @else {{ __('Do transfer') }} @endif
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 risk-col ">
+                                <div class="card height-equal">
+                                    <div class="card-header">
+                                        <h5>@if(canEditLang() && checkRequestOnEdit())
+                                                <editor_block data-name='Your referral link' contenteditable="true">{{ __('Your referral link') }}</editor_block> @else {{ __('Your referral link') }} @endif
+                                        </h5>
+                                    </div>
+                                    <div class="card-body mb-2">
+                                        <h4><i class="fa fa-link"></i> {{ route('ref_link', auth()->user()->my_id) }}</h4>
+                                    </div>
+                                    <div class="card-footer">
+                                        <button class="btn btn-primary btn-lg" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @else onclick="copyToClipboard()" @endif>@if(canEditLang() && checkRequestOnEdit())
+                                                <editor_block data-name='Copy' contenteditable="true">{{ __('Copy') }}</editor_block> @else {{ __('Copy') }} @endif
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="best-seller-table responsive-tbl">
+                                            <div class="item">
+                                                <div class="table-responsive product-list">
+                                                    <table class="table table-bordernone">
+                                                        <thead>
+                                                        <tr>
+                                                            <th class="f-22">
+                                                                @if(canEditLang() && checkRequestOnEdit())
+                                                                    <editor_block data-name='Best seller' contenteditable="true">{{ __('Best seller') }}</editor_block> @else {{ __('Best seller') }} @endif
+                                                            </th>
+                                                            <th>@if(canEditLang() && checkRequestOnEdit())
+                                                                    <editor_block data-name='Date' contenteditable="true">{{ __('Date') }}</editor_block> @else {{ __('Date') }} @endif
+                                                            </th>
+                                                            <th>@if(canEditLang() && checkRequestOnEdit())
+                                                                    <editor_block data-name='Product' contenteditable="true">{{ __('Product') }}</editor_block> @else {{ __('Product') }} @endif
+                                                            </th>
+                                                            <th>@if(canEditLang() && checkRequestOnEdit())
+                                                                    <editor_block data-name='Country' contenteditable="true">{{ __('Country') }}</editor_block> @else {{ __('Country') }} @endif
+                                                            </th>
+                                                            <th>@if(canEditLang() && checkRequestOnEdit())
+                                                                    <editor_block data-name='Total' contenteditable="true">{{ __('Total') }}</editor_block> @else {{ __('Total') }} @endif
+                                                            </th>
+                                                            <th class="text-end">@if(canEditLang() && checkRequestOnEdit())
+                                                                    <editor_block data-name='Status' contenteditable="true">{{ __('Status') }}</editor_block> @else {{ __('Status') }} @endif
+                                                            </th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        @for($i=1; $i<=4; $i++)
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <?php
+                                                                        $avatarCodes = [
+                                                                            '1.jpg',
+                                                                            '2.png',
+                                                                            '2021-11-06 14.25.51.jpg',
+                                                                            '5.jpg',
+                                                                        ];
+                                                                        ?>
+                                                                        <div>
+                                                                            <img class="img-40 ml-15 rounded-circle align-top" src="{{ asset('accountPanel/images/user/'.($avatarCodes[$i-1])) }}" alt="">
+                                                                        </div>
+                                                                        <div class="d-inline-block mt-3 ml-4">
+                                                                          <span>
+                                                                              @if(canEditLang() && checkRequestOnEdit())
+                                                                                  <editor_block data-name='Username {{ $i }}' contenteditable="true">
+                                                                                      {{ __('Username '.$i) }}
+                                                                                  </editor_block>
+                                                                              @else
+                                                                                  {{ __('Username '.$i) }}
+                                                                              @endif
+                                                                          </span>
+                                                                            <p class="font-roboto">
+                                                                                @if(canEditLang() && checkRequestOnEdit())
+                                                                                    <editor_block data-name='Year {{ $i }}' contenteditable="true">
+                                                                                        {{ __('Year '.$i) }}
+                                                                                    </editor_block>
+                                                                                @else
+                                                                                    {{ __('Year '.$i) }}
+                                                                                @endif
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    @if(canEditLang() && checkRequestOnEdit())
+                                                                        <editor_block data-name='Date {{ $i }}' contenteditable="true">
+                                                                            {{ __('Date '.$i) }}
+                                                                        </editor_block>
+                                                                    @else
+                                                                        {{ __('Date '.$i) }}
+                                                                    @endif
+                                                                </td>
+                                                                <td>
+                                                                    @if(canEditLang() && checkRequestOnEdit())
+                                                                        <editor_block data-name='Cap {{ $i }}' contenteditable="true">
+                                                                            {{ __('Cap '.$i) }}
+                                                                        </editor_block>
+                                                                    @else
+                                                                        {{ __('Cap '.$i) }}
+                                                                    @endif
+                                                                </td>
+                                                                <?php
+                                                                $countryCodes = [
+                                                                    'gb',
+                                                                    'us',
+                                                                    'za',
+                                                                    'at',
+                                                                    'br',
+                                                                ];
+                                                                ?>
+                                                                <td><i class="flag-icon flag-icon-{{ $countryCodes[$i-1] }}"></i></td>
+                                                                <td>
+                          <span class="label">
+                                  @if(canEditLang() && checkRequestOnEdit())
+                                  <editor_block data-name='Amount {{ $i }}' contenteditable="true">
+                                          {{ __('Amount '.$i) }}
+                                      </editor_block>
+                              @else
+                                  {{ __('Amount '.$i) }}
+                              @endif
+                          </span>
+                                                                </td>
+                                                                <td class="text-end"><i class="fa fa-check-circle"></i>
+                                                                    @if(canEditLang() && checkRequestOnEdit())
+                                                                        <editor_block data-name='Status {{ $i }}' contenteditable="true">
+                                                                            {{ __('Status '.$i) }}
+                                                                        </editor_block>
+                                                                    @else
+                                                                        {{ __('Status '.$i) }}
+                                                                    @endif
+                                                                </td>
+                                                            </tr>
+                                                        @endfor
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <!-- Social widgets -->
-                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 ui-sortable">
-                                    <div class="panel-box">
-                                        <div class="panel-box-title ui-sortable-handle">
-                                            <h5>Facebook Status</h5>
-                                        </div>
-                                        <div class="panel-box-content">
-                                            <div class="facebook-bg custom-bg-height">
-                                                <i class="fa fa-facebook-f"></i>
-                                            </div>
-                                        </div>
-                                        <div class="panel-box-content border-top">
-                                            <div class="row pt-3 pb-3">
-                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ui-sortable mb-2">
-                                                    <div class="sell-ratio">
-                                                        <h6 class="text-muted pl-2">Followers </h6>
-                                                        <div class="progress-w-percent pl-2 pr-2">
-                                                            <span class="progress-value">72k </span>
-                                                            <div class="progress" style="height: 4px;">
-                                                                <div class="progress-bar progress-bar-success" role="progressbar" style="width: 72%;" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ui-sortable mb-2">
-                                                    <div class="sell-ratio">
-                                                        <h6 class="text-muted pl-2">Page Likes</h6>
-                                                        <div class="progress-w-percent pl-2 pr-2">
-                                                            <span class="progress-value">39k</span>
-                                                            <div class="progress" style="height: 4px;">
-                                                                <div class="progress-bar progress-bar-info" role="progressbar" style="width: 39%;" aria-valuenow="39" aria-valuemin="0" aria-valuemax="100"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="space"></div>
-                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ui-sortable mb-2">
-                                                    <div class="sell-ratio">
-                                                        <h6 class="text-muted pl-2">Shared</h6>
-                                                        <div class="progress-w-percent pl-2 pr-2">
-                                                            <span class="progress-value">25k </span>
-                                                            <div class="progress" style="height: 4px;">
-                                                                <div class="progress-bar progress-bar-warning" role="progressbar" style="width: 39%;" aria-valuenow="39" aria-valuemin="0" aria-valuemax="100"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ui-sortable mb-2">
-                                                    <div class="sell-ratio">
-                                                        <h6 class="text-muted pl-2">Comments </h6>
-                                                        <div class="progress-w-percent pl-2 pr-2">
-                                                            <span class="progress-value">61k </span>
-                                                            <div class="progress" style="height: 4px;">
-                                                                <div class="progress-bar progress-bar-danger" role="progressbar" style="width: 61%;" aria-valuenow="61" aria-valuemin="0" aria-valuemax="100"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 ui-sortable">
-                                    <div class="panel-box">
-                                        <div class="panel-box-title ui-sortable-handle">
-                                            <h5>Twitter Status</h5>
-                                        </div>
-                                        <div class="panel-box-content">
-                                            <div class="twitter-bg custom-bg-height">
-                                                <i class="fa fa-twitter"></i>
-                                            </div>
-                                        </div>
-                                        <div class="panel-box-content border-top">
-                                            <div class="row  pt-3 pb-3">
-                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ui-sortable mb-2">
-                                                    <div class="sell-ratio">
-                                                        <h6 class="text-muted pl-2">Followers </h6>
-                                                        <div class="progress-w-percent pl-2 pr-2">
-                                                            <span class="progress-value">56k </span>
-                                                            <div class="progress" style="height: 4px;">
-                                                                <div class="progress-bar progress-bar-success" role="progressbar" style="width: 56%;" aria-valuenow="56" aria-valuemin="0" aria-valuemax="100"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ui-sortable mb-2">
-                                                    <div class="sell-ratio">
-                                                        <h6 class="text-muted pl-2">Page Likes</h6>
-                                                        <div class="progress-w-percent pl-2 pr-2">
-                                                            <span class="progress-value">89k</span>
-                                                            <div class="progress" style="height: 4px;">
-                                                                <div class="progress-bar progress-bar-info" role="progressbar" style="width: 89%;" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="space"></div>
-                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ui-sortable mb-2">
-                                                    <div class="sell-ratio">
-                                                        <h6 class="text-muted pl-2">Shared</h6>
-                                                        <div class="progress-w-percent pl-2 pr-2">
-                                                            <span class="progress-value">55k </span>
-                                                            <div class="progress" style="height: 4px;">
-                                                                <div class="progress-bar progress-bar-warning" role="progressbar" style="width: 55%;" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ui-sortable mb-2">
-                                                    <div class="sell-ratio">
-                                                        <h6 class="text-muted pl-2"> Comments </h6>
-                                                        <div class="progress-w-percent pl-2 pr-2">
-                                                            <span class="progress-value">61k </span>
-                                                            <div class="progress" style="height: 4px;">
-                                                                <div class="progress-bar progress-bar-danger" role="progressbar" style="width: 61%;" aria-valuenow="61" aria-valuemin="0" aria-valuemax="100"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 ui-sortable">
-                                    <div class="panel-box">
-                                        <div class="panel-box-title ui-sortable-handle">
-                                            <h5>Instagram Status</h5>
-                                        </div>
-                                        <div class="panel-box-content">
-                                            <div class="instagram-bg custom-bg-height">
-                                                <i class="fa fa-instagram"></i>
-                                            </div>
-                                        </div>
-                                        <div class="panel-box-content border-top">
-                                            <div class="row pt-3 pb-3">
-                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ui-sortable mb-2">
-                                                    <div class="sell-ratio">
-                                                        <h6 class="text-muted pl-2">Followers </h6>
-                                                        <div class="progress-w-percent pl-2 pr-2">
-                                                            <span class="progress-value">72k </span>
-                                                            <div class="progress" style="height: 4px;">
-                                                                <div class="progress-bar progress-bar-success" role="progressbar" style="width: 72%;" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ui-sortable mb-2">
-                                                    <div class="sell-ratio">
-                                                        <h6 class="text-muted pl-2">Page Likes</h6>
-                                                        <div class="progress-w-percent pl-2 pr-2">
-                                                            <span class="progress-value">39k</span>
-                                                            <div class="progress" style="height: 4px;">
-                                                                <div class="progress-bar progress-bar-info" role="progressbar" style="width: 39%;" aria-valuenow="39" aria-valuemin="0" aria-valuemax="100"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="space"></div>
-                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ui-sortable mb-2">
-                                                    <div class="sell-ratio">
-                                                        <h6 class="text-muted pl-2">Shared</h6>
-                                                        <div class="progress-w-percent pl-2 pr-2">
-                                                            <span class="progress-value">25k </span>
-                                                            <div class="progress" style="height: 4px;">
-                                                                <div class="progress-bar progress-bar-warning" role="progressbar" style="width: 39%;" aria-valuenow="39" aria-valuemin="0" aria-valuemax="100"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ui-sortable mb-2">
-                                                    <div class="sell-ratio">
-                                                        <h6 class="text-muted pl-2"> Comments </h6>
-                                                        <div class="progress-w-percent pl-2 pr-2">
-                                                            <span class="progress-value">61k </span>
-                                                            <div class="progress" style="height: 4px;">
-                                                                <div class="progress-bar progress-bar-danger" role="progressbar" style="width: 61%;" aria-valuenow="61" aria-valuemin="0" aria-valuemax="100"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 ui-sortable">
-                                    <div class="panel-box">
-                                        <div class="panel-box-title ui-sortable-handle">
-                                            <h5>YouTube Status</h5>
-                                        </div>
-                                        <div class="panel-box-content">
-                                            <div class="youtube-bg custom-bg-height">
-                                                <i class="fa fa-youtube"></i>
-                                            </div>
-                                        </div>
-                                        <div class="panel-box-content border-top">
-                                            <div class="row pt-3 pb-3">
-                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ui-sortable mb-2">
-                                                    <div class="sell-ratio">
-                                                        <h6 class="text-muted pl-2">Subscribers </h6>
-                                                        <div class="progress-w-percent pl-2 pr-2">
-                                                            <span class="progress-value">57k </span>
-                                                            <div class="progress" style="height: 4px;">
-                                                                <div class="progress-bar progress-bar-success" role="progressbar" style="width: 57%;" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ui-sortable mb-2">
-                                                    <div class="sell-ratio">
-                                                        <h6 class="text-muted pl-2">Video Likes</h6>
-                                                        <div class="progress-w-percent pl-2 pr-2">
-                                                            <span class="progress-value">69k</span>
-                                                            <div class="progress" style="height: 4px;">
-                                                                <div class="progress-bar progress-bar-info" role="progressbar" style="width: 69%;" aria-valuenow="69" aria-valuemin="0" aria-valuemax="100"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="space"></div>
-                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ui-sortable mb-2">
-                                                    <div class="sell-ratio">
-                                                        <h6 class="text-muted pl-2">Shared</h6>
-                                                        <div class="progress-w-percent pl-2 pr-2">
-                                                            <span class="progress-value">45k </span>
-                                                            <div class="progress" style="height: 4px;">
-                                                                <div class="progress-bar progress-bar-warning" role="progressbar" style="width: 45%;" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ui-sortable mb-2">
-                                                    <div class="sell-ratio">
-                                                        <h6 class="text-muted pl-2"> Comments </h6>
-                                                        <div class="progress-w-percent pl-2 pr-2">
-                                                            <span class="progress-value">31k </span>
-                                                            <div class="progress" style="height: 4px;">
-                                                                <div class="progress-bar progress-bar-danger" role="progressbar" style="width: 31%;" aria-valuenow="31" aria-valuemin="0" aria-valuemax="100"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Social widgets -->
-                            </div>
+                        </div>
                     </div>
                     @include('adminos.partials.footer')
                 </div>
@@ -827,515 +743,262 @@
 @endsection
 
 @push('scripts')
-    <!--Add VectorMap JS Library before <body> tag -->
-    <script src="{{ asset('adminos/plugins/jqvmap/js/jquery.vmap.js') }}"></script>
-    <script src="{{ asset('adminos/plugins/jqvmap/js/jquery.vmap.world.js') }}"></script>
-    <script src="{{ asset('adminos/plugins/jqvmap/js/jquery.vmap.sampledata.js') }}"></script>
 
     <script>
-        $(document).ready(function() {
-            jQuery('#vmap').vectorMap({
-                map: 'world_en',
-                backgroundColor: null,
-                color: '#00b3b3',
-                hoverOpacity: 0.7,
-                selectedColor: '#FFC107',
-                enableZoom: true,
-                showTooltip: true,
-                values: data_array,
-                scaleColors: ['#F8AC59', '#28A745'],
-                normalizeFunction: 'polynomial',
-                onRegionClick: function(element, country_code, country)
-                {
-                    /* When you will click on country, the region has the code, you can find the data_array in jquery.vmap.sampledata.js
-                    + and other thing we have to set the code to LowerCase because in jquery.vmap.sampledata.js the country code is in lowercase
-                    */
-                    //Generate random sales numbers
-                    var sales = Math.floor(Math.random() * 100);
-                    $('.jqvmap-country-flag').attr('src', 'img/flag-icon-css/flags/4x3/' + country_code.toLowerCase() + '.svg');
-                    $('.jqvmap-country').html(country + ' - ' + '$' + sales.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-                }
-            });
-        });
+        var primary = localStorage.getItem("primary") || '#7366ff';
+        var secondary = localStorage.getItem("secondary") || '#f73164';
+
+        window.CubaAdminConfig = {
+            // Theme Primary Color
+            primary: primary,
+            // theme secondary color
+            secondary: secondary,
+        };
     </script>
 
-    <script src="{{ asset('adminos/plugins/iCheck/icheck.min.js') }}"></script>
-    <script>
-        $(document).ready(function () {
-            $('.i-checks').iCheck({
-                checkboxClass: 'icheckbox_square-green',
-                radioClass: 'iradio_square-green',
-            });
-        });
-    </script>
-    <script src="{{ asset('adminos/plugins/chartJS/js/Chart.js') }}"></script>
+    <script src="{{ asset('accountPanel/js/chart/apex-chart/apex-chart.js') }}"></script>
+    <script src="{{ asset('accountPanel/js/chart/apex-chart/stock-prices.js') }}"></script>
+    <script src="{{ asset('accountPanel/js/chart/apex-chart/chart-custom.js') }}"></script>
+
+    <script src="{{ asset('accountPanel/js/dashboard/default.js') }}"></script>
 
     <script>
         $(document).ready(function () {
-            var ctx1 = document.getElementById('app-sale1').getContext("2d");
-            var myChart = new Chart(ctx1, {
-                type: 'line',
-                data: amuntchart('#11c15b', [1, 15, 30, 15, 25, 35, 45, 20, 25, 30], 'transparent'),
-                options: buildchartoption(),
-            });
-            var ctx2 = document.getElementById('app-sale2').getContext("2d");
-            var myChart = new Chart(ctx2, {
-                type: 'line',
-                data: amuntchart('#448aff', [45, 30, 25, 35, 20, 35, 45, 20, 25, 1], 'transparent'),
-                options: buildchartoption(),
-            });
-            var ctx3 = document.getElementById('app-sale3').getContext("2d");
-            var myChart = new Chart(ctx3, {
-                type: 'line',
-                data: amuntchart('#ff5252', [1, 45, 24, 40, 20, 35, 10, 20, 45, 30], 'transparent'),
-                options: buildchartoption(),
-            });
-            var ctx4 = document.getElementById('app-sale4').getContext("2d");
-            var myChart = new Chart(ctx4, {
-                type: 'line',
-                data: amuntchart('#536dfe', [1, 15, 45, 15, 25, 35, 45, 20, 25, 30], 'transparent'),
-                options: buildchartoption(),
-            });
+            $(".form-control-inverse-fill").select2();
+        });
 
-            function amuntchart(a, b, f) {
-                if (f == null) {
-                    f = "rgba(0,0,0,0)";
-                }
-                return {
-                    labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October"],
-                    datasets: [{
-                        label: "",
-                        borderColor: a,
-                        borderWidth: 2,
-                        hitRadius: 30,
-                        pointHoverRadius: 4,
-                        pointBorderWidth: 50,
-                        pointHoverBorderWidth: 12,
-                        pointBackgroundColor: Chart.helpers.color("#000000").alpha(0).rgbString(),
-                        pointBorderColor: Chart.helpers.color("#000000").alpha(0).rgbString(),
-                        pointHoverBackgroundColor: a,
-                        pointHoverBorderColor: Chart.helpers.color("#000000").alpha(.1).rgbString(),
-                        fill: true,
-                        backgroundColor: f,
-                        data: b,
-                    }]
-                };
-            }
 
-            function buildchartoption() {
-                return {
-                    maintainAspectRatio: false,
-                    title: {
-                        display: !1
+        $(".send-money-to-user-btn").on('click', function (e) {
+            e.preventDefault();
+            swal({
+                title: "Вы подтверждаете?",
+                text: "С вашего баланса будут списаны денежные средства!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        //create-deposit-form
+                        $(".send-money-to-user-form").submit();
+                        swal("Подождите немного!", {
+                            icon: "success",
+                        });
+                    }
+                });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            var options = {
+                series: [{
+                    name: 'Начислено, $',
+                    data: [@foreach($accruals_week as $item) {{ number_format($item, 2, '.', '') }}@if(!$loop->last), @endif @endforeach]
+                }, {
+                    name: 'Выведено, $',
+                    data: [@foreach($withdraws_week as $item) {{ number_format($item, 2, '.', '') }}@if(!$loop->last), @endif @endforeach]
+                }],
+                chart: {
+                    height: 240,
+                    type: 'area',
+                    toolbar: {
+                        show: true
                     },
-                    tooltips: {
-                        enabled: false,
+                },
+                dataLabels: {
+                    enabled: true
+                },
+                stroke: {
+                    curve: 'smooth'
+                },
+                xaxis: {
+                    type: 'period',
+                    low: 0,
+                    offsetX: 0,
+                    offsetY: 0,
+                    show: true,
+                    categories: [@foreach($period_graph as $period) "{{ $period['start']->format('d.m.Y') }}", @endforeach],
+                    labels: {
+                        low: 0,
+                        offsetX: 0,
+                        show: false,
                     },
-                    legend: {
-                        display: !1,
-                        labels: {
-                            usePointStyle: !1
-                        }
+                    axisBorder: {
+                        low: 0,
+                        offsetX: 0,
+                        show: true,
                     },
-                    responsive: !0,
-                    maintainAspectRatio: !0,
+                },
+                markers: {
+                    strokeWidth: 3,
+                    colors: "#ffffff",
+                    strokeColors: [CubaAdminConfig.primary, CubaAdminConfig.secondary],
                     hover: {
-                        mode: "index"
-                    },
-                    scales: {
-                        xAxes: [{
-                            display: !1,
-                            gridLines: !1,
-                            scaleLabel: {
-                                display: !0,
-                                labelString: "Month"
-                            }
-                        }],
-                        yAxes: [{
-                            display: !1,
-                            gridLines: !1,
-                            scaleLabel: {
-                                display: !0,
-                                labelString: "Value"
-                            },
-                            ticks: {
-                                beginAtZero: !0
-                            }
-                        }]
-                    },
-                    elements: {
-                        point: {
-                            radius: 4,
-                            borderWidth: 12
-                        }
-                    },
-                    layout: {
-                        padding: {
-                            left: 0,
-                            right: 0,
-                            top: 5,
-                            bottom: 0
-                        }
+                        size: 6,
                     }
-                };
-            }
+                },
+                yaxis: {
+                    low: 0,
+                    offsetX: 0,
+                    offsetY: 0,
+                    show: false,
+                    labels: {
+                        low: 0,
+                        offsetX: 0,
+                        show: true,
+                    },
+                    axisBorder: {
+                        low: 0,
+                        offsetX: 0,
+                        show: true,
+                    },
+                },
+                grid: {
+                    show: true,
+                    padding: {
+                        left: 0,
+                        right: 0,
+                        bottom: -15,
+                        top: -40
+                    }
+                },
+                colors: ['#51bb25', CubaAdminConfig.secondary], // CubaAdminConfig.primary
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shadeIntensity: 1,
+                        opacityFrom: 0.7,
+                        opacityTo: 0.5,
+                        stops: [0, 80, 100]
+                    }
+                },
+                legend: {
+                    show: false,
+                },
+                tooltip: {
+                    x: {
+                        format: 'MM'
+                    },
+                },
+            };
+
+            var chart = new ApexCharts(document.querySelector("#chart-currently"), options);
+            chart.render();
         });
     </script>
-
-    <!-- Add ChartJS Library before </body> -->
-    <script src="{{ asset('adminos/plugins/chartJS/js/Chart.js') }}"></script>
-
     <script>
-        var ctx = document.getElementById("sales-per-day").getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Oct", "Sep", "Nov", "Dec"],
-                datasets: [{
-                    label: 'Sales',
-                    data: [90, 60, 50, 20, 40, 30, 20, 34, 45, 34, 12, 34],
-                    backgroundColor: "#17a2b8",
-                    borderColor: "#17a2b8",
-                    borderWidth: 1
-                }, {
-                    label: 'Products',
-                    data: [30, 29, 15, 35, 20, 23, 10, 60, 50, 20, 40, 30],
-                    backgroundColor: "#F3F3F3",
-                    borderColor: "#F3F3F3",
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{}]
+        function copyToClipboard() {
+            var inputc = document.body.appendChild(document.createElement("input"));
+            inputc.value = '{{ route('ref_link', auth()->user()->my_id) }}';
+            inputc.focus();
+            inputc.select();
+            document.execCommand('copy');
+            inputc.parentNode.removeChild(inputc);
+            $.notify({
+                    message: 'Ссылка скопирована!'
                 },
-                legend: {
-                    display: true,
-                    position: 'top',
-                    labels: {
-                        fontColor: '#F3F3F3',
-                        fontFamily: 'Circular Std Book',
-                        fontSize: 14,
+                {
+                    type: 'success',
+                    allow_dismiss: false,
+                    newest_on_top: false,
+                    mouse_over: false,
+                    showProgressbar: false,
+                    spacing: 10,
+                    timer: 2000,
+                    placement: {
+                        from: 'top',
+                        align: 'center'
+                    },
+                    offset: {
+                        x: 30,
+                        y: 30
+                    },
+                    delay: 1000,
+                    z_index: 10000,
+                    animate: {
+                        enter: 'animated bounce',
+                        exit: 'animated bounce'
                     }
-                },
-                scales: {
-                    xAxes: [{
-                        ticks: {
-                            fontSize: 14,
-                            fontFamily: 'Circular Std Book',
-                            fontColor: '#F3F3F3',
-                        }
-                    }],
-                    yAxes: [{
-                        ticks: {
-                            fontSize: 14,
-                            fontFamily: 'Circular Std Book',
-                            fontColor: '#F3F3F3',
-                        }
-                    }]
-                }
-            }
-        });
-        //Unique Visitors Per Day
-        var ctx = document.getElementById("visitors-per-day").getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Oct", "Sep", "Nov", "Dec"],
-                datasets: [{
-                    label: 'Unique Visitors',
-                    data: [30, 29, 15, 35, 20, 23, 10, 60, 50, 20, 40, 30],
-                    backgroundColor: "#fd7e14",
-                    borderColor: "#fd7e14",
-                    borderWidth: 2
-                }, {
-                    label: 'Regular Visitors',
-                    data: [90, 60, 50, 20, 40, 30, 20, 34, 45, 34, 12, 34],
-                    backgroundColor: "#F3F3F3",
-                    borderColor: "#F3F3F3",
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{}]
-                },
-                legend: {
-                    display: true,
-                    position: 'top',
-                    labels: {
-                        fontColor: '#F3F3F3',
-                        fontFamily: 'Circular Std Book',
-                        fontSize: 14,
-                    }
-                },
-                scales: {
-                    xAxes: [{
-                        ticks: {
-                            fontSize: 14,
-                            fontFamily: 'Circular Std Book',
-                            fontColor: '#F3F3F3',
-                        }
-                    }],
-                    yAxes: [{
-                        ticks: {
-                            fontSize: 14,
-                            fontFamily: 'Circular Std Book',
-                            fontColor: '#F3F3F3',
-                        }
-                    }]
-                }
-            }
-        });
-        //Orders Per Day
-        var ctx = document.getElementById("orders-per-day").getContext('2d');
-        ctx.height = 500;
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Oct", "Sep", "Nov", "Dec"],
-                datasets: [{
-                    label: 'Unique Orders',
-                    data: [90, 60, 50, 20, 40, 30, 20, 34, 45, 34, 12, 34],
-                    backgroundColor: "#FF6384",
-                    borderColor: "#FF6384",
-                    borderWidth: 2
-                }, {
-                    label: 'Regular Orders',
-                    data: [30, 29, 15, 35, 20, 23, 10, 60, 50, 20, 40, 30],
-                    backgroundColor: "#F3F3F3",
-                    borderColor: "#F3F3F3",
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{}]
-                },
-                legend: {
-                    display: true,
-                    position: 'top',
-                    labels: {
-                        fontColor: '#F3F3F3',
-                        fontFamily: 'Circular Std Book',
-                        fontSize: 14,
-                    }
-                },
-                scales: {
-                    xAxes: [{
-                        ticks: {
-                            fontSize: 14,
-                            fontFamily: 'Circular Std Book',
-                            fontColor: '#F3F3F3',
-                        }
-                    }],
-                    yAxes: [{
-                        ticks: {
-                            fontSize: 14,
-                            fontFamily: 'Circular Std Book',
-                            fontColor: '#F3F3F3',
-                        }
-                    }]
-                }
-            }
-        });
+                });
+        }
     </script>
+    @if($countries_stat !== null)
+        <script>
+            $(document).ready(function () {
+                var options1 = {
+                    chart: {
+                        height: 380,
+                        type: 'radar',
+                        toolbar: {
+                            show: false
+                        },
+                    },
+                    series: [{
+                        name: 'Users',
+                        /*data: [@foreach($countries_stat as $item){{ intval($item->count) }} @if(!$loop->last), @endif @endforeach],*/
+                        data: [800, 454, 900, 500, 734, 623, 600],
+                    }],
+                    stroke: {
+                        width: 3,
+                        curve: 'smooth',
+                    },
+                    /*labels: [@foreach($countries_stat as $item)"{{ $item->name }}" @if(!$loop->last), @endif @endforeach],*/
+                    labels: ['Сша', 'Китай', 'Россия', 'Сингапур', 'Германия', 'Австралия', 'Казахстан'],
+                    plotOptions: {
+                        radar: {
+                            size: 140,
+                            polygons: {
+                                fill: {
+                                    colors: ['#fcf8ff', '#f7eeff']
+                                },
 
-    <script src="{{ asset('adminos/plugins/amcharts/amcharts.js') }}"></script>
-    <script src="{{ asset('adminos/plugins/amcharts/serial.js') }}"></script>
-    <script src="{{ asset('adminos/plugins/amcharts/animated.js') }}"></script>
-   <script>
-       AmCharts.makeChart("visitor", {
-           type: "serial",
-           hideCredits: !0,
-           theme: "light",
-           dataDateFormat: "YYYY-MM-DD",
-           precision: 2,
-           valueAxes: [{
-               id: "v1",
-               title: "Visitors",
-               position: "left",
-               autoGridCount: !1,
-               labelFunction: function (e) {
-                   return "$" + Math.round(e) + "M"
-               }
-           }, {
-               id: "v2",
-               title: "New Visitors",
-               gridAlpha: 0,
-               position: "right",
-               autoGridCount: !1
-           }],
-           graphs: [{
-               id: "g3",
-               valueAxis: "v1",
-               lineColor: "#feb798",
-               fillColors: "#feb798",
-               fillAlphas: 1,
-               type: "column",
-               title: "Returning Visitor",
-               valueField: "sales2",
-               clustered: !1,
-               columnWidth: .5,
-               legendValueText: "$[[value]]M",
-               balloonText: "[[title]]<br /><b style='font-size: 130%'>$[[value]]M</b>"
-           }, {
-               id: "g4",
-               valueAxis: "v1",
-               lineColor: "#fe9365",
-               fillColors: "#fe9365",
-               fillAlphas: 1,
-               type: "column",
-               title: "New visitor",
-               valueField: "sales1",
-               clustered: !1,
-               columnWidth: .3,
-               legendValueText: "$[[value]]M",
-               balloonText: "[[title]]<br /><b> style='font-size: 130%'>$[[value]]M</b>"
-           }, {
-               id: "g1",
-               valueAxis: "v2",
-               bullet: "round",
-               bulletBorderAlpha: 1,
-               bulletColor: "#FFFFFF",
-               bulletSize: 5,
-               hideBulletsCount: 50,
-               lineThickness: 2,
-               lineColor: "#0df3a3",
-               type: "smoothedLine",
-               title: "Last Month Visitor",
-               useLineColorForBulletBorder: !0,
-               valueField: "market1",
-               balloonText: "[[title]]<br /><b> style='font-size: 130%'>[[value]]</b>"
-           }, {
-               id: "g2",
-               valueAxis: "v2",
-               bullet: "round",
-               bulletBorderAlpha: 1,
-               bulletColor: "#FFFFFF",
-               bulletSize: 5,
-               hideBulletsCount: 50,
-               lineThickness: 2,
-               lineColor: "#fe5d70",
-               dashLength: 5,
-               title: "Average Visitor",
-               useLineColorForBulletBorder: !0,
-               valueField: "market2",
-               balloonText: "[[title]]<br /><b> style='font-size: 130%'>[[value]]</b>"
-           }],
-           chartCursor: {
-               pan: !0,
-               valueLineEnabled: !0,
-               valueLineBalloonEnabled: !0,
-               cursorAlpha: 0,
-               valueLineAlpha: .2
-           },
-           categoryField: "date",
-           categoryAxis: {
-               parseDates: !0,
-               dashLength: 1,
-               minorGridEnabled: !0
-           },
-           legend: {
-               useGraphSettings: !0,
-               position: "top"
-           },
-           balloon: {
-               borderThickness: 1,
-               cornerRadius: 5,
-               shadowAlpha: 0
-           },
-           dataProvider: [{
-               date: "2013-01-16",
-               market1: 71,
-               market2: 75,
-               sales1: 5,
-               sales2: 8
-           }, {
-               date: "2013-01-17",
-               market1: 74,
-               market2: 78,
-               sales1: 4,
-               sales2: 6
-           }, {
-               date: "2013-01-18",
-               market1: 78,
-               market2: 88,
-               sales1: 5,
-               sales2: 2
-           }, {
-               date: "2013-01-19",
-               market1: 85,
-               market2: 89,
-               sales1: 8,
-               sales2: 9
-           }, {
-               date: "2013-01-20",
-               market1: 82,
-               market2: 89,
-               sales1: 9,
-               sales2: 6
-           }, {
-               date: "2013-01-21",
-               market1: 83,
-               market2: 85,
-               sales1: 3,
-               sales2: 5
-           }, {
-               date: "2013-01-22",
-               market1: 88,
-               market2: 92,
-               sales1: 5,
-               sales2: 7
-           }, {
-               date: "2013-01-23",
-               market1: 85,
-               market2: 90,
-               sales1: 7,
-               sales2: 6
-           }, {
-               date: "2013-01-24",
-               market1: 85,
-               market2: 91,
-               sales1: 9,
-               sales2: 5
-           }, {
-               date: "2013-01-25",
-               market1: 80,
-               market2: 84,
-               sales1: 5,
-               sales2: 8
-           }, {
-               date: "2013-01-26",
-               market1: 87,
-               market2: 92,
-               sales1: 4,
-               sales2: 8
-           }, {
-               date: "2013-01-27",
-               market1: 84,
-               market2: 87,
-               sales1: 3,
-               sales2: 4
-           }, {
-               date: "2013-01-28",
-               market1: 83,
-               market2: 88,
-               sales1: 5,
-               sales2: 7
-           }, {
-               date: "2013-01-29",
-               market1: 84,
-               market2: 87,
-               sales1: 5,
-               sales2: 8
-           }, {
-               date: "2013-01-30",
-               market1: 81,
-               market2: 85,
-               sales1: 4,
-               sales2: 7
-           }]
-       });
-   </script>
+                            }
+                        },
+
+                    },
+                    colors: [CubaAdminConfig.primary],
+
+                    markers: {
+                        size: 6,
+                        colors: ['#fff'],
+                        strokeColor: CubaAdminConfig.primary,
+                        strokeWidth: 3,
+                    },
+                    tooltip: {
+                        enabled: false,
+                        marker: {
+                            show: false,
+                        },
+                        y: {
+                            formatter: function (val) {
+                                return ''
+                            }
+                        }
+                    },
+                    yaxis: {
+                        show: false,
+                        tickAmount: 7,
+                        labels: {
+                            show: false,
+                            formatter: function (val, i) {
+                                if (i % 2 === 0) {
+                                    return val
+                                } else {
+                                    return ''
+                                }
+                            }
+                        }
+                    }
+                }
+
+                var chart1 = new ApexCharts(
+                    document.querySelector("#marketchart"),
+                    options1
+                );
+
+                chart1.render();
+
+            });
+        </script>
+    @endif
 @endpush
