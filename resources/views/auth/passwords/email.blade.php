@@ -1,36 +1,18 @@
 @extends('adminos.layouts.login')
 
-@section('page-style')
-    <style>
-        .form-group label {
-            color: white !important;
-        }
-    </style>
-@endsection
-
 @section('content')
-    <div class="container">
-        <div id="login-box">
-            <div class="logo">
-                <h1 class="logo-caption">
-                    <span class="tweak">
-                         @if(canEditLang() && checkRequestOnEdit())
-                            <editor_block data-name='Сброс пароля'
-                                          contenteditable="true">{{ __('Сброс пароля') }}</editor_block>
-                        @else
-                            {{ __('Сброс пароля') }}
-                        @endif
-                    </span>
-                </h1>
-                <p>
-                    @if(canEditLang() && checkRequestOnEdit())
-                        <editor_block data-name='Добро пожаловать в Skyline'
-                                      contenteditable="true">{{ __('Добро пожаловать в Skyline') }}</editor_block>
-                    @else
-                        {{ __('Добро пожаловать в Skyline') }}
-                    @endif
-                </p>
-            </div><!-- /.logo -->
+    <div class="wrap-login100">
+        <form class="login100-form validate-form" method="POST" action="{{ route('password.email') }}">
+            @csrf
+            <span class="login100-form-title p-b-34 p-t-27">
+                 @if(canEditLang() && checkRequestOnEdit())
+                    <editor_block data-name='Сброс пароля'
+                                  contenteditable="true">{{ __('Сброс пароля') }}</editor_block>
+                @else
+                    {{ __('Сброс пароля') }}
+                @endif
+            </span>
+
             @if (session('status'))
                 <div class="alert alert-success background-success">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -39,34 +21,22 @@
                     <strong>{{ session('status') }}</strong>
                 </div>
             @endif
-            <div class="controls">
-                <form method="POST" action="{{ route('password.email') }}" class="account-form">
-                    @csrf
-                    <div class="form-group">
-                        <label for="sign-up">
-                            @if(canEditLang() && checkRequestOnEdit())
-                                <editor_block data-name='Your Email' contenteditable="true">{{ __('Your Email') }}</editor_block>
-                            @else
-                                {{ __('Your Email') }}
-                            @endif
-                        </label>
-                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                               name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
-                        @error('email')
-                        <div class="col-form-label text-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <button class="btn btn-default btn-block btn-custom">
-                        @if(canEditLang() && checkRequestOnEdit())
-                            <editor_block data-name='Send Password Reset Link'
-                                          contenteditable="true">{{ __('Send Password Reset Link') }}</editor_block>
-                        @else
-                            {{ __('Send Password Reset Link') }}
-                        @endif
-                    </button>
-                </form>
+            <div class="wrap-input100 validate-input @error('email') alert-validate @enderror" data-validate="@error('email') {{ $message }} @enderror">
+                <input class="input100" type="text" name="email" placeholder="Email" value="{{ old('email') }}">
+                <span class="focus-input100" data-placeholder="&#xf207;"></span>
             </div>
-        </div><!-- /#login-box -->
-    </div><!-- /.container -->
+
+            <div class="container-login100-form-btn">
+                <button class="login100-form-btn">
+                    @if(canEditLang() && checkRequestOnEdit())
+                        <editor_block data-name='Send Password Reset Link'
+                                      contenteditable="true">{{ __('Send Password Reset Link') }}</editor_block>
+                    @else
+                        {{ __('Send Password Reset Link') }}
+                    @endif
+                </button>
+            </div>
+        </form>
+    </div>
 @endsection
