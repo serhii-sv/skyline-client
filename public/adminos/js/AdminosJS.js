@@ -26,18 +26,38 @@ $(document).ready(function () {
     });
     //Fixed Top Navbar
     $('#fixed-top-navbar').click(function () {
+        setFixedHeader();
+    });
+
+    if (localStorage.getItem('fixed-header') === 'false') {
+        setFixedHeader();
+        $('#fixed-top-navbar').attr('checked', false)
+    }
+
+    function setFixedHeader() {
         $('#topNavbar').toggleClass('navbar-fixed-top');
         $('#page-wrapper').toggleClass('topMargin');
         $('body').toggleClass('navbar-fixed');
-    });
+        localStorage.setItem('fixed-header', localStorage.getItem('fixed-header') !== 'false')
+    }
     //Fixed Sidebar Button
     $('#fixed-sidebar').click(function () {
         $('body').toggleClass('canvas-menu');
     });
     //Fixed Footer
     $('#fixed-footer').click(function () {
-        $('.footer').toggleClass('fixed');
+        setFixedFooter();
     });
+
+    if (localStorage.getItem('fixed-header') === 'false') {
+        setFixedHeader();
+        $('#fixed-footer').attr('checked', false)
+    }
+
+    function setFixedFooter() {
+        $('.footer').toggleClass('fixed');
+        localStorage.setItem('fixed-footer', localStorage.getItem('fixed-footer') !== 'false')
+    }
     //RTL Layout Button
     $('#RTL-layout').click(function (e) {
         var item=$(this);
@@ -313,7 +333,13 @@ $(document).ready(function () {
         event.preventDefault();
         $("body").toggleClass("mini-navbar");
         $(".navbar-mini i").toggleClass("icon-toggle-left icon-toggle-right");
+        localStorage.setItem('sidebar-collapsed', localStorage.getItem('sidebar-collapsed') !== 'true')
     });
+
+    if (localStorage.getItem('sidebar-collapsed') === 'true') {
+        $("body").toggleClass("mini-navbar");
+        $(".navbar-mini i").toggleClass("icon-toggle-left icon-toggle-right");
+    }
     // Tooltips demo
     $('.tooltip-demo').tooltip({
         selector: "[data-toggle=tooltip]",
@@ -543,6 +569,13 @@ $(document).ready(function () {
     // Top Navbar Themes JS //
     $('.btn-header-theme').click(function () {
         var color = $(this).attr('data-myattr');
+        setHeaderTheme(color);
+    });
+
+    setHeaderTheme(localStorage.getItem('header-theme'))
+
+    function setHeaderTheme(color)
+    {
         var result = [
             {"theme":"topNav-blue-theme"},{"theme":"topNav-brown-theme"},
             {"theme":"topNav-dark-gray-theme"},{"theme":"topNav-dark-pink-theme"},
@@ -556,10 +589,12 @@ $(document).ready(function () {
         result.forEach(function(e) {
             $('#topNavbar').removeClass(e.theme);
             if (color == e.theme){
-            $('#topNavbar').addClass(color);
+                $('#topNavbar').addClass(color);
+                localStorage.setItem('header-theme', color)
             }
         });
-    });
+    }
+
     //White Theme
     $('.btn-white-topNav-theme').click(function () {
         $('#topNavbar').removeAttr('class');
@@ -569,6 +604,14 @@ $(document).ready(function () {
     // Sidebar Menu Themes JS //
     $('.btn-sidebar-theme').click(function () {
         var color = $(this).attr('data-myattr');
+        setSidebarTheme(color);
+
+    });
+
+    setSidebarTheme(localStorage.getItem('sidebar-theme'));
+
+    function setSidebarTheme(color)
+    {
         var result = [
             {"theme":"blue-theme"},{"theme":"brown-theme"},
             {"theme":"dark-gray-theme"},{"theme":"dark-pink-theme"},
@@ -582,10 +625,11 @@ $(document).ready(function () {
         result.forEach(function(e) {
             $('body').removeClass(e.theme);
             if (color == e.theme){
-            $('body').addClass(color);
+                $('body').addClass(color);
+                localStorage.setItem('sidebar-theme', color)
             }
         });
-    });
+    }
     //#endregion
     // Sidebar Search
     $(".toggle-btn").on('click', function () {
@@ -656,12 +700,9 @@ $(document).ready(function () {
     $(document).ready(function () {
         var months2 = ['Января', 'Февраля', 'Марта', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря'];
 
-        var weekDay = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
-
         function currentDate(div) {
             var date = new Date();
-            var currentDate = weekDay[date.getDay() - 1] + ', ' +
-                date.getDate() + ' ' +
+            var currentDate = date.getDate() + ' ' +
                 months2[date.getMonth()] + ' ' +
                 (date.getFullYear()<10?'0':'') + date.getFullYear() + ', ' +
                 (date.getHours()<10?'0':'') + date.getHours() + ':' +

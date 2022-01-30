@@ -77,7 +77,12 @@
         .ttl-info span, .social-media h5, .follow .ttl-info h2, .follow .ttl-info h4 {
             font-weight: bold !important;
         }
+
+        .card.hovercard .cardheader {
+            height: 400px !important;
+        }
     </style>
+    <link rel="stylesheet" href="{{ asset('adminos/css/profile/profile.css') }}">
 @endpush
 @section('content')
     <div class="main-content">
@@ -91,7 +96,7 @@
                             <!-- user profile first-style start-->
                             <div class="col-sm-12">
                                 <div class="card hovercard text-center">
-                                    <div class="cardheader" style="background: url('{{ asset('accountPanel/images/other-images/sprint bank banner_-01.jpg') }}') no-repeat; background-size: cover;max-height: 300px;"></div>
+                                    <div class="cardheader" style="background: url('{{ asset('images/crypto.png') }}') no-repeat; background-size: cover;max-height: 600px;"></div>
                                     <div class="user-image">
                                         <div class="avatar">
                                             @if(!$upliner)
