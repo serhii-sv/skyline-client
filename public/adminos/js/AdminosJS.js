@@ -40,11 +40,11 @@ $(document).ready(function () {
     });
     //RTL Layout Button
     $('#RTL-layout').click(function (e) {
-        var item=$(this);    
+        var item=$(this);
         if(item.is(":checked"))
         {
-            window.open("././rtl_layout.html", "_self");  
-        }    
+            window.open("././rtl_layout.html", "_self");
+        }
     });
     //Show Notifications Button
     $('#show-notifications').click(function () {
@@ -66,7 +66,7 @@ $(document).ready(function () {
             panel_box.resize();
             panel_box.find('[id^=map-]').resize();
         }, 50);
-        //card collapse 
+        //card collapse
         var card = $('.card-body');
         card.slideToggle(200);
     });
@@ -114,7 +114,7 @@ $(document).ready(function () {
         $("body").toggleClass("mini-navbar");
         SmoothlyMenu();
     });
-    // Close Top Centered Menu 
+    // Close Top Centered Menu
     $("#toggle-top-menu").on("click", function() {
       $("body").toggleClass("close-top-menu open-top-menu");
       SmoothlyMenu();
@@ -126,11 +126,11 @@ $(document).ready(function () {
     });
     //Off Canvas Sidebar Button
     $('#mini-sidebar-menu').click(function () {
-        var item = $(this);    
+        var item = $(this);
         if(item.is(":checked"))
         {
-            window.open("././mini-sidebar.html", "_self");  
-        }   
+            window.open("././mini-sidebar.html", "_self");
+        }
     });
     // Open Chat List
     $('.show-chat-list').on('click', function () {
@@ -174,7 +174,7 @@ $(document).ready(function () {
             }
         }
     });
-    // Close Notification Menu 
+    // Close Notification Menu
     $("#close-notification").on('click', function(){
         if ($('body').hasClass('rtls')) {
             $('#notification-menu').removeAttr('class');
@@ -261,7 +261,7 @@ $(document).ready(function () {
             }
         }
     });
-    //Setting Btn 
+    //Setting Btn
     $('.setting-btn').on('click', function () {
         var right_sidebar_class = $('#right-sidebar').attr('class');
         if ($('body').hasClass('rtls')) {
@@ -442,13 +442,13 @@ $(document).ready(function () {
             $('body').removeClass('body-small')
         }
     });
-    //Add Scroll to sidebar Function 
+    //Add Scroll to sidebar Function
     sidebarScroll();
     function sidebarScroll(){
         $(".canvas-menu .navbar-static-side").css('overflow-y', 'scroll');
         $(".top-navbar-static-side").css('overflow-y', 'scroll');
     }
-    //Remove Sidebar scroll 
+    //Remove Sidebar scroll
     function removeSidebarScroll(){
         $(".top-navbar-static-side").css('overflow', 'hidden');
         var sidebar_height = $('.sidebar-collapse').css('height', '100%');
@@ -557,7 +557,7 @@ $(document).ready(function () {
             $('#topNavbar').removeClass(e.theme);
             if (color == e.theme){
             $('#topNavbar').addClass(color);
-            } 
+            }
         });
     });
     //White Theme
@@ -583,11 +583,11 @@ $(document).ready(function () {
             $('body').removeClass(e.theme);
             if (color == e.theme){
             $('body').addClass(color);
-            } 
+            }
         });
     });
     //#endregion
-    // Sidebar Search 
+    // Sidebar Search
     $(".toggle-btn").on('click', function () {
         if ($(".sidebar-header .user-profile-info").css("display") == 'none') {
             $(".sidebar-header .user-profile-info").css('display', 'block');
@@ -599,7 +599,8 @@ $(document).ready(function () {
         } else {
             $(".sidebar-header .user-profile-info").css('display', 'none');
             $(".sidebar-header .profile-bg").css('display', 'none');
-            $(".sidebar-header").css("height", "150px");
+            $(".sidebar-header").css("height", "150px").css('display', 'none');
+            $(".nav.metismenu").css('margin-top', '60px');
             $(".sidebar-nav-search").css('display', 'block');
             $(".search-toggle").css("top", "-84px");
             $(".search-toggle i").toggleClass("feather icon-chevron-down feather icon-chevron-up");
@@ -620,7 +621,7 @@ $(document).ready(function () {
             $(".main-search").removeClass('open');
         }, 300);
     });
-    //Search In Menu 
+    //Search In Menu
     $(document).ready(function () {
         $("#search-menu").on("keyup", function () {
             if (this.value.length > 0) {
@@ -632,7 +633,7 @@ $(document).ready(function () {
             }
         });
     });
-    //Search In Menu 
+    //Search In Menu
     $(document).ready(function () {
         $("#search-users").on("keyup", function () {
             if (this.value.length > 0) {
@@ -651,39 +652,30 @@ $(document).ready(function () {
         });
     });
     //#endregion
-    //Complete Date JS 
+    //Complete Date JS
     $(document).ready(function () {
-        // Create two variables with names of months and days of the week in the array
-        var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        var dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+        var months2 = ['Января', 'Февраля', 'Марта', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря'];
 
-        // Create an object newDate()
-        var newDate = new Date();
-        // Retrieve the current date from the Date object
-        newDate.setDate(newDate.getDate());
-        // At the output of the day, date, month and year    
-        $('#Date').html(dayNames[newDate.getDay()] + ', ' + monthNames[newDate.getMonth()] + ' ' + newDate.getDate() + ', ' + newDate.getFullYear());
+        var weekDay = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
 
-        setInterval(function () {
-            // Create an object newDate () and extract the second of the current time
-            var seconds = new Date().getSeconds();
-            // Add a leading zero to the value of seconds
-            $("#sec").html((seconds < 10 ? "0" : "") + seconds);
+        function currentDate(div) {
+            var date = new Date();
+            var currentDate = weekDay[date.getDay() - 1] + ', ' +
+                date.getDate() + ' ' +
+                months2[date.getMonth()] + ' ' +
+                (date.getFullYear()<10?'0':'') + date.getFullYear() + ', ' +
+                (date.getHours()<10?'0':'') + date.getHours() + ':' +
+                (date.getMinutes()<10?'0':'') + date.getMinutes() + ':' +
+                (date.getSeconds()<10?'0':'') + date.getSeconds();
+
+            $(div).html(currentDate);
+        }
+
+        setInterval(() => {
+            currentDate('#today')
         }, 1000);
 
-        setInterval(function () {
-            // Create an object newDate () and extract the minutes of the current time
-            var minutes = new Date().getMinutes();
-            // Add a leading zero to the minutes
-            $("#min").html((minutes < 10 ? "0" : "") + minutes);
-        }, 1000);
-
-        setInterval(function () {
-            // Create an object newDate () and extract the clock from the current time
-            var hours = new Date().getHours();
-            // Add a leading zero to the value of hours
-            $("#hours").html((hours < 10 ? "0" : "") + hours);
-        }, 1000);
+        currentDate('#today');
     });
     // Sidebar Menu Toggle JS //
     $('.components').metisMenu();
@@ -708,7 +700,7 @@ $(document).ready(function () {
         });
     }
     //#endregion
-    // Active Tab 
+    // Active Tab
     $('ul.nav.nav-tabs > li').click(function (e) {
         e.preventDefault();
     });

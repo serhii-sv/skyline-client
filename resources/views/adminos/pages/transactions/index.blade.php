@@ -15,7 +15,7 @@
                 <div class="col-lg-12">
                     <!--Page Content-->
                     <div class="wrapper wrapper-content">
-                        @include('adminos.partials.breadcrumbs')
+                        {{ Breadcrumbs::render('transactions.index') }}
                         <div class="row">
                             <div class="col col-xl-4 box-col-6">
                                 <div class="card">

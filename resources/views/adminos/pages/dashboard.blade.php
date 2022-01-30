@@ -215,7 +215,7 @@
 
         .img-40 {
             width: 40px !important;
-            height: auto;
+            height: auto !important;
         }
     </style>
 @endpush
@@ -225,8 +225,7 @@
                 <div class="col-lg-12">
                     <!--Page Content-->
                     <div class="wrapper wrapper-content">
-                        @include('adminos.partials.breadcrumbs')
-
+                        {{ Breadcrumbs::render('dashboard') }}
                         <div class="row">
                             <div class="col-xl-12 xl-100 dashboard-sec box-col-12">
                                 <div class="card earning-card">

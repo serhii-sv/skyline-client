@@ -8,7 +8,7 @@
                 <div class="col-lg-12">
                     <!--Page Content-->
                     <div class="wrapper wrapper-content">
-                        @include('adminos.partials.breadcrumbs')
+                        {{ Breadcrumbs::render('referrals.banners') }}
                         <div class="row second-chart-list third-news-update">
                             <div class="col-xl-12">
                                 <div class="card">

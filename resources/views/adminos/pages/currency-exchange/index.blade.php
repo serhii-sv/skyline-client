@@ -36,7 +36,7 @@
                 <div class="col-lg-12">
                     <!--Page Content-->
                     <div class="wrapper wrapper-content">
-                        @include('adminos.partials.breadcrumbs')
+                        {{ Breadcrumbs::render('currency-exchange') }}
                         <div class="row second-chart-list third-news-update justify-content-center">
                             <div class="col-lg-12">
                                 <div class="card">
@@ -87,7 +87,7 @@
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-lg pl-lg-5">
+                                                            <div class="col-lg-6 pl-lg-5">
                                                                 <div class="mb-2 d-flex flex-column align-items-center">
                                                                     <div class="currency-exchange-label col-form-label">@if(canEditLang() && checkRequestOnEdit())
                                                                             <editor_block data-name='Choose a second wallet' contenteditable="true">{{ __('Choose a second wallet') }}</editor_block> @else {{ __('Choose a second wallet') }} @endif

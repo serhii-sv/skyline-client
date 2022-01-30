@@ -58,7 +58,7 @@
 
         .img-40 {
             width: 40px !important;
-            height: auto;
+            height: auto !important;
         }
 
         .social-media {
@@ -85,7 +85,7 @@
             <div class="col-lg-12">
                 <!--Page Content-->
                 <div class="wrapper wrapper-content">
-                    @include('adminos.partials.breadcrumbs')
+                    {{ Breadcrumbs::render('referrals.progress') }}
                     <div class="user-profile">
                         <div class="row">
                             <!-- user profile first-style start-->
@@ -231,7 +231,7 @@
                                                 @endif
                                                 </tbody>
                                             </table>
-                                            <div class="f1-buttons" style="text-align: center; margin-top:50px;">
+                                            <div class="f1-buttons mb-4" style="text-align: center; margin-top:50px;">
                                                 <button class="btn btn-primary btn-next" type="button" style="padding:15px 50px 15px 50px; font-size:21px;" onClick="location.assign('/referrals/progress?page={{ request()->has('page') && request('page') >= 2 ? request('page') - 1 : 1 }}')"> Предыдущая страница</button>
                                                 <button class="btn btn-primary btn-next" type="button" style="padding:15px 50px 15px 50px; font-size:21px;" onClick="location.assign('/referrals/progress?page={{ request()->has('page') ? request('page') + 1 : 2 }}')"> Следующая страница</button>
                                             </div>

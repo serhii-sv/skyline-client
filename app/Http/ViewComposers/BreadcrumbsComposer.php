@@ -37,7 +37,7 @@ class BreadcrumbsComposer
         $route_data = [
             'default' => '',
             'accountPanel.settings.security' => 'Настройки безопасности',
-            'accountPanel.dashboard' => 'Главная',
+            'accountPanel.customer.main' => 'Главная',
             'accountPanel.profile' => 'Редактирование профиля',
         ];
         if (array_key_exists(Route::getCurrentRoute()->getName(), $route_data))

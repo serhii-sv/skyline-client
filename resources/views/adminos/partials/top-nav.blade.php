@@ -2,13 +2,7 @@
     <nav class="navbar navbar-static-top navbar-fixed-top topNav-white-theme" id="topNavbar">
         <div class="navbar-header left">
             <a class="nav-link navbar-mini mini-style" href="#"><i class="feather icon-menu icon-toggle-left"></i></a>
-            <div class="searchbar">
-                <input class="search_input" type="text" placeholder="Search...">
-                <a href="#" class="search_icon"><i class="fa fa-search"></i></a>
-            </div>
-        </div>
-        <ul class="nav navbar-top-links navbar-right ml-auto">
-            <li class="nav-item d-flex align-items-center">
+            <div class="searchbar d-flex align-items-center ml-4">
                 <strong style="font-size: 18px">
                     @if(canEditLang() && checkRequestOnEdit())
                         <editor_block data-name='1 Sky Token (SKY) =' contenteditable="true">{{ __('1 Sky Token (SKY) =') }}</editor_block>
@@ -16,7 +10,9 @@
                         {{ __('1 Sky Token (SKY) =') }} {{ number_format(\App\Models\ExchangeRateLog::where('rate_id', 15)->orderBy('created_at', 'desc')->first()->new_rate ?? 1, 2, '.', '') }}$
                     @endif
                 </strong>
-            </li>
+            </div>
+        </div>
+        <ul class="nav navbar-top-links navbar-right ml-auto">
             <li class="nav-item">
                 <a class="nav-link btn-full-screen toggle-full-screen" onclick="toggleFullScreen();" data-toggle="tooltip" data-placement="top" title="Go FullScreen" data-original-title="FullScreen">
                     <span id="top-full-screen" class="feather icon-maximize full-screen" aria-hidden="true"></span>

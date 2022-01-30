@@ -46,6 +46,10 @@
             border-radius: 10px;
             margin: 2px 2px 2px 0;
         }
+
+        .alert ul {
+            list-style-type: none;
+        }
     </style>
 
     @stack('styles')
