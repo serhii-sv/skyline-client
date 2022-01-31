@@ -40,6 +40,8 @@
     <link href="{{ asset('adminos/icon/themify-icons/themify-icons.css') }}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ asset('accountPanel/css/vendors/sweetalert2.css') }}">
 
+    <link rel="stylesheet" type="text/css" href="{{ asset('accountPanel/css/spinner.css') }}">
+
     <style>
         .sidebar-collapse .nav-item.active {
             box-shadow: inset 0px 0px 2px rgb(116 90 155 / 90%);
@@ -55,6 +57,18 @@
     @stack('styles')
 </head>
 <body class="default-theme canvas-menu mini-navbar">
+
+<div class="spinner-wrapper">
+    <div class="gooey">
+        <span class="dot"></span>
+        <div class="dots">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</div>
+
 <div id="wrapper">
     <nav class="navbar-default navbar-static-side">
         <div class="sidebar-brand fixed-brand">
@@ -101,6 +115,14 @@
 @stack('scripts')
 
 <script>
+    window.addEventListener("load", function(event) {
+        $('.spinner-wrapper').remove()
+    });
+    $(function () {
+        setTimeout(function () {
+            $('.spinner-wrapper').remove()
+        }, 4000)
+    })
     $(document).ready(function () {
         $('.notifications').on('click', function () {
             return false;
