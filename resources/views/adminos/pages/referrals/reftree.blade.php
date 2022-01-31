@@ -8,7 +8,7 @@
             <div class="col-lg-12">
                 <!--Page Content-->
                 <div class="wrapper wrapper-content">
-                    @include('adminos.partials.breadcrumbs')
+                    {{ Breadcrumbs::render('referrals.reftree') }}
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card">

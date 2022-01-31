@@ -26,25 +26,45 @@ $(document).ready(function () {
     });
     //Fixed Top Navbar
     $('#fixed-top-navbar').click(function () {
+        setFixedHeader();
+    });
+
+    if (localStorage.getItem('fixed-header') === 'false') {
+        setFixedHeader();
+        $('#fixed-top-navbar').attr('checked', false)
+    }
+
+    function setFixedHeader() {
         $('#topNavbar').toggleClass('navbar-fixed-top');
         $('#page-wrapper').toggleClass('topMargin');
         $('body').toggleClass('navbar-fixed');
-    });
+        localStorage.setItem('fixed-header', localStorage.getItem('fixed-header') !== 'false')
+    }
     //Fixed Sidebar Button
     $('#fixed-sidebar').click(function () {
         $('body').toggleClass('canvas-menu');
     });
     //Fixed Footer
     $('#fixed-footer').click(function () {
-        $('.footer').toggleClass('fixed');
+        setFixedFooter();
     });
+
+    if (localStorage.getItem('fixed-header') === 'false') {
+        setFixedHeader();
+        $('#fixed-footer').attr('checked', false)
+    }
+
+    function setFixedFooter() {
+        $('.footer').toggleClass('fixed');
+        localStorage.setItem('fixed-footer', localStorage.getItem('fixed-footer') !== 'false')
+    }
     //RTL Layout Button
     $('#RTL-layout').click(function (e) {
-        var item=$(this);    
+        var item=$(this);
         if(item.is(":checked"))
         {
-            window.open("././rtl_layout.html", "_self");  
-        }    
+            window.open("././rtl_layout.html", "_self");
+        }
     });
     //Show Notifications Button
     $('#show-notifications').click(function () {
@@ -66,7 +86,7 @@ $(document).ready(function () {
             panel_box.resize();
             panel_box.find('[id^=map-]').resize();
         }, 50);
-        //card collapse 
+        //card collapse
         var card = $('.card-body');
         card.slideToggle(200);
     });
@@ -114,7 +134,7 @@ $(document).ready(function () {
         $("body").toggleClass("mini-navbar");
         SmoothlyMenu();
     });
-    // Close Top Centered Menu 
+    // Close Top Centered Menu
     $("#toggle-top-menu").on("click", function() {
       $("body").toggleClass("close-top-menu open-top-menu");
       SmoothlyMenu();
@@ -126,11 +146,11 @@ $(document).ready(function () {
     });
     //Off Canvas Sidebar Button
     $('#mini-sidebar-menu').click(function () {
-        var item = $(this);    
+        var item = $(this);
         if(item.is(":checked"))
         {
-            window.open("././mini-sidebar.html", "_self");  
-        }   
+            window.open("././mini-sidebar.html", "_self");
+        }
     });
     // Open Chat List
     $('.show-chat-list').on('click', function () {
@@ -174,7 +194,7 @@ $(document).ready(function () {
             }
         }
     });
-    // Close Notification Menu 
+    // Close Notification Menu
     $("#close-notification").on('click', function(){
         if ($('body').hasClass('rtls')) {
             $('#notification-menu').removeAttr('class');
@@ -261,7 +281,7 @@ $(document).ready(function () {
             }
         }
     });
-    //Setting Btn 
+    //Setting Btn
     $('.setting-btn').on('click', function () {
         var right_sidebar_class = $('#right-sidebar').attr('class');
         if ($('body').hasClass('rtls')) {
@@ -313,7 +333,13 @@ $(document).ready(function () {
         event.preventDefault();
         $("body").toggleClass("mini-navbar");
         $(".navbar-mini i").toggleClass("icon-toggle-left icon-toggle-right");
+        localStorage.setItem('sidebar-collapsed', localStorage.getItem('sidebar-collapsed') !== 'true')
     });
+
+    if (localStorage.getItem('sidebar-collapsed') === 'true') {
+        $("body").toggleClass("mini-navbar");
+        $(".navbar-mini i").toggleClass("icon-toggle-left icon-toggle-right");
+    }
     // Tooltips demo
     $('.tooltip-demo').tooltip({
         selector: "[data-toggle=tooltip]",
@@ -442,13 +468,13 @@ $(document).ready(function () {
             $('body').removeClass('body-small')
         }
     });
-    //Add Scroll to sidebar Function 
+    //Add Scroll to sidebar Function
     sidebarScroll();
     function sidebarScroll(){
         $(".canvas-menu .navbar-static-side").css('overflow-y', 'scroll');
         $(".top-navbar-static-side").css('overflow-y', 'scroll');
     }
-    //Remove Sidebar scroll 
+    //Remove Sidebar scroll
     function removeSidebarScroll(){
         $(".top-navbar-static-side").css('overflow', 'hidden');
         var sidebar_height = $('.sidebar-collapse').css('height', '100%');
@@ -543,6 +569,13 @@ $(document).ready(function () {
     // Top Navbar Themes JS //
     $('.btn-header-theme').click(function () {
         var color = $(this).attr('data-myattr');
+        setHeaderTheme(color);
+    });
+
+    setHeaderTheme(localStorage.getItem('header-theme'))
+
+    function setHeaderTheme(color)
+    {
         var result = [
             {"theme":"topNav-blue-theme"},{"theme":"topNav-brown-theme"},
             {"theme":"topNav-dark-gray-theme"},{"theme":"topNav-dark-pink-theme"},
@@ -556,10 +589,12 @@ $(document).ready(function () {
         result.forEach(function(e) {
             $('#topNavbar').removeClass(e.theme);
             if (color == e.theme){
-            $('#topNavbar').addClass(color);
-            } 
+                $('#topNavbar').addClass(color);
+                localStorage.setItem('header-theme', color)
+            }
         });
-    });
+    }
+
     //White Theme
     $('.btn-white-topNav-theme').click(function () {
         $('#topNavbar').removeAttr('class');
@@ -569,6 +604,14 @@ $(document).ready(function () {
     // Sidebar Menu Themes JS //
     $('.btn-sidebar-theme').click(function () {
         var color = $(this).attr('data-myattr');
+        setSidebarTheme(color);
+
+    });
+
+    setSidebarTheme(localStorage.getItem('sidebar-theme'));
+
+    function setSidebarTheme(color)
+    {
         var result = [
             {"theme":"blue-theme"},{"theme":"brown-theme"},
             {"theme":"dark-gray-theme"},{"theme":"dark-pink-theme"},
@@ -582,12 +625,13 @@ $(document).ready(function () {
         result.forEach(function(e) {
             $('body').removeClass(e.theme);
             if (color == e.theme){
-            $('body').addClass(color);
-            } 
+                $('body').addClass(color);
+                localStorage.setItem('sidebar-theme', color)
+            }
         });
-    });
+    }
     //#endregion
-    // Sidebar Search 
+    // Sidebar Search
     $(".toggle-btn").on('click', function () {
         if ($(".sidebar-header .user-profile-info").css("display") == 'none') {
             $(".sidebar-header .user-profile-info").css('display', 'block');
@@ -599,7 +643,8 @@ $(document).ready(function () {
         } else {
             $(".sidebar-header .user-profile-info").css('display', 'none');
             $(".sidebar-header .profile-bg").css('display', 'none');
-            $(".sidebar-header").css("height", "150px");
+            $(".sidebar-header").css("height", "150px").css('display', 'none');
+            $(".nav.metismenu").css('margin-top', '60px');
             $(".sidebar-nav-search").css('display', 'block');
             $(".search-toggle").css("top", "-84px");
             $(".search-toggle i").toggleClass("feather icon-chevron-down feather icon-chevron-up");
@@ -620,7 +665,7 @@ $(document).ready(function () {
             $(".main-search").removeClass('open');
         }, 300);
     });
-    //Search In Menu 
+    //Search In Menu
     $(document).ready(function () {
         $("#search-menu").on("keyup", function () {
             if (this.value.length > 0) {
@@ -632,7 +677,7 @@ $(document).ready(function () {
             }
         });
     });
-    //Search In Menu 
+    //Search In Menu
     $(document).ready(function () {
         $("#search-users").on("keyup", function () {
             if (this.value.length > 0) {
@@ -651,39 +696,27 @@ $(document).ready(function () {
         });
     });
     //#endregion
-    //Complete Date JS 
+    //Complete Date JS
     $(document).ready(function () {
-        // Create two variables with names of months and days of the week in the array
-        var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        var dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+        var months2 = ['Января', 'Февраля', 'Марта', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря'];
 
-        // Create an object newDate()
-        var newDate = new Date();
-        // Retrieve the current date from the Date object
-        newDate.setDate(newDate.getDate());
-        // At the output of the day, date, month and year    
-        $('#Date').html(dayNames[newDate.getDay()] + ', ' + monthNames[newDate.getMonth()] + ' ' + newDate.getDate() + ', ' + newDate.getFullYear());
+        function currentDate(div) {
+            var date = new Date();
+            var currentDate = date.getDate() + ' ' +
+                months2[date.getMonth()] + ' ' +
+                (date.getFullYear()<10?'0':'') + date.getFullYear() + ', ' +
+                (date.getHours()<10?'0':'') + date.getHours() + ':' +
+                (date.getMinutes()<10?'0':'') + date.getMinutes() + ':' +
+                (date.getSeconds()<10?'0':'') + date.getSeconds();
 
-        setInterval(function () {
-            // Create an object newDate () and extract the second of the current time
-            var seconds = new Date().getSeconds();
-            // Add a leading zero to the value of seconds
-            $("#sec").html((seconds < 10 ? "0" : "") + seconds);
+            $(div).html(currentDate);
+        }
+
+        setInterval(() => {
+            currentDate('#today')
         }, 1000);
 
-        setInterval(function () {
-            // Create an object newDate () and extract the minutes of the current time
-            var minutes = new Date().getMinutes();
-            // Add a leading zero to the minutes
-            $("#min").html((minutes < 10 ? "0" : "") + minutes);
-        }, 1000);
-
-        setInterval(function () {
-            // Create an object newDate () and extract the clock from the current time
-            var hours = new Date().getHours();
-            // Add a leading zero to the value of hours
-            $("#hours").html((hours < 10 ? "0" : "") + hours);
-        }, 1000);
+        currentDate('#today');
     });
     // Sidebar Menu Toggle JS //
     $('.components').metisMenu();
@@ -708,7 +741,7 @@ $(document).ready(function () {
         });
     }
     //#endregion
-    // Active Tab 
+    // Active Tab
     $('ul.nav.nav-tabs > li').click(function (e) {
         e.preventDefault();
     });

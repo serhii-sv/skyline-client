@@ -84,7 +84,7 @@
                 <div class="col-lg-12">
                     <!--Page Content-->
                     <div class="wrapper wrapper-content">
-                        @include('adminos.partials.breadcrumbs')
+                        {{ Breadcrumbs::render('replenishment') }}
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="card">
@@ -130,7 +130,7 @@
                                                                 ?>
                                                                 @if($item->code == 'coinpayments')
                                                                     @foreach($item->currencies()->get() as $currency)
-                                                                        <label class="d-flex flex-column align-items-center justify-content-center replenishment-method-item" href="next">
+                                                                        <label class="d-flex flex-column align-items-center justify-content-center replenishment-method-item ml-4" href="next">
                                                                             <input class="payment-system-radio" type="radio" name="payment_system" value="{{ $item->id }}" data-manual="false" data-name="{{ $currency->name }}">
                                                                             <div class=" payment-system-item d-flex flex-column align-items-center justify-content-center">
                                                                                 <img src="{{ asset('accountPanel/images/logos/' .  $currency->image ) }}" alt="{{ $currency->image_alt }}" title="{{ $currency->image_title }}">
@@ -140,7 +140,7 @@
                                                                         </label>
                                                                     @endforeach
                                                                 @else
-                                                                    <label class="d-flex flex-column align-items-center justify-content-center replenishment-method-item" href="next">
+                                                                    <label class="d-flex flex-column align-items-center justify-content-center replenishment-method-item ml-4" href="next">
                                                                         <input class="payment-system-radio" type="radio" name="payment_system" value="{{ $item->id }}" data-name="{{ $item->code }}" data-manual="true">
                                                                         <div class=" payment-system-item d-flex flex-column align-items-center justify-content-center">
                                                                             <img src="{{ asset('accountPanel/images/logos/' .  $item->image ) }}" alt="{{ $item->image_alt }}" title="{{ $item->image_title }}">

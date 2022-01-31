@@ -13,7 +13,7 @@
                 <div class="col-lg-12">
                     <!--Page Content-->
                     <div class="wrapper wrapper-content">
-                        @include('adminos.partials.breadcrumbs')
+                        {{ Breadcrumbs::render('settings.security') }}
                         <div class="row">
                             <div class="col-xl-12">
                                 <div class="card">

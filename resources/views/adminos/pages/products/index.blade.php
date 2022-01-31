@@ -11,7 +11,7 @@
                 <div class="col-lg-12">
                     <!--Page Content-->
                     <div class="wrapper wrapper-content">
-                        @include('adminos.partials.breadcrumbs')
+                        {{ Breadcrumbs::render('shop') }}
                         <div class="row">
                             <div class="d-flex justify-content-end w-100 mr-3 mb-3">
                                 <a href="{{ route('accountPanel.user-products.index') }}" class="btn btn-primary">

@@ -1,119 +1,65 @@
 @extends('adminos.layouts.login')
 
-@section('page-style')
-    <style>
-        .col-form-label {
-            padding-top: calc(-0.325rem + 1px);
-            text-align: left;
-            padding-bottom: calc(0.875rem + 1px);
-        }
-        .form-control-danger {
-            border-color: #FF0000 !important;
-            color: #FF0000 !important;
-        }
-        .controls input {
-            margin-bottom: 10px;
-        }
-
-        .form-group label {
-            color: white !important;
-        }
-
-    </style>
-@endsection
-
 @section('content')
-    <div class="container">
-        <div id="register-box" class="register-2">
-            <div class="logo">
-                <h1 class="logo-caption"><span class="tweak">Давайте начнем</span></h1>
-            </div><!-- /.logo -->
-            <div class="row d-flex justify-content-center mb-5">
-                <div class="col-lg-8">
-                    <div class="controls">
-                    <form method="POST" action="{{ route('register') }}" class="account-form">
-                        @csrf
-                        <div class="form-group">
-                            <label for="sign-up">Ваш Email</label>
-                            <input type="text" placeholder="Ваш email" id="sign-up" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}">
+    <div class="wrap-login100">
+        <form class="login100-form validate-form" method="POST" action="{{ route('register') }}">
+            @csrf
+            <span class="login100-form-title p-b-34 p-t-27">
+                Регистрация
+            </span>
 
-                            @error('email')
-                            <div class="col-form-label text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label for="sign-up">Ваше имя</label>
-                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" placeholder="Ваше имя"
-                                   name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                            @error('name')
-                            <div class="col-form-label text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label for="login">Ваш логин</label>
-                            <input id="login" type="text" class="form-control @error('login') is-invalid @enderror" placeholder="Логин"
-                                   name="login" value="{{ old('login') }}" required autocomplete="name" autofocus>
-
-                            @error('login')
-                            <div class="col-form-label text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="login">Ваш телефон<br>обязательно вводите номер с кодом страны например +7 или +3</label>
-                            <input id="phone" type="text" name="phone" class="form-control @error('phone') is-invalid @enderror" placeholder="Телефон" value="{{ old('phone') }}"/>
-
-                            @error('phone')
-                            <div class="col-form-label text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password">Пароль </label>
-                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" placeholder="********"
-                                   name="password" required autocomplete="new-password">
-
-                            @error('password')
-                            <div class="col-form-label text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label for="password-confirm">Подтвердите пароль</label>
-                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="********"
-                                   required autocomplete="new-password">
-
-                        </div>
-
-                        <div class="form-group">
-                            <label for="partner_id">ID партнёра (не обязательно)</label>
-                            <input id="partner_id" type="text" class="form-control @error('partner_id') is-invalid @enderror" name="partner_id"
-                                   value="{{ $_COOKIE["partner_id"] ??  old('partner_id')  }}" autofocus>
-
-                            @error('partner_id')
-                            <div class="col-form-label text-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <button type="submit" class="btn btn-default btn-block btn-custom">Зарегистрироваться</button>
-                        <a href="{{ route('login') }}" title="Уже есть аккаунт?" class="btn btn-default btn-block">Авторизоваться</a>
-                    </form>
-                </div>
-                </div>
-{{--                <div class="col-lg-12 d-flex justify-content-center">--}}
-{{--                    <div class="social-controls">--}}
-{{--                        <a href="{{ $google_auth_url }}" class="social-btns btn btn-google">--}}
-{{--                            <i class="fa fa-google-plus pull-left mt-1" aria-hidden="true"></i>--}}
-{{--                            Авторизоваться через Google--}}
-{{--                        </a>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
+            <div class="wrap-input100 validate-input @error('email') alert-validate @enderror" data-validate="@error('email') {{ $message }} @enderror">
+                <input class="input100" type="text" name="email" placeholder="Ваш Email" value="{{ old('email') }}">
+                <span class="focus-input100" data-placeholder="&#xf132;"></span>
             </div>
-        </div><!-- /#login-box -->
-    </div><!-- /.container -->
-  <!--============= Sign In Section Starts Here =============-->
+
+            <div class="wrap-input100 validate-input @error('name') alert-validate @enderror" data-validate="@error('name') {{ $message }} @enderror">
+                <input class="input100" type="text" name="name" placeholder="Ваше имя" value="{{ old('name') }}">
+                <span class="focus-input100" data-placeholder="&#xf207;"></span>
+            </div>
+
+            <div class="wrap-input100 validate-input @error('login') alert-validate @enderror" data-validate="@error('login') {{ $message }} @enderror">
+                <input class="input100" type="text" name="login" placeholder="Ваш логин" value="{{ old('login') }}">
+                <span class="focus-input100" data-placeholder="&#xf207;"></span>
+            </div>
+
+            <div class="wrap-input100 validate-input @error('phone') alert-validate @enderror" data-validate="@error('phone') {{ $message }} @enderror">
+                <input id="phone" class="input100" type="text" name="phone" placeholder="Ваш телефон" value="{{ old('phone') }}">
+                <span class="focus-input100" data-placeholder="&#xf2b9;"></span>
+            </div>
+
+            <div style="margin-top: -20px; margin-bottom: 20px;">
+                <span style="color: red">*</span><span style="font-size: 12px; color: #fff">Обязательно вводите номер с кодом страны например +7 или +3</span>
+            </div>
+
+            <div class="wrap-input100 validate-input @error('password') alert-validate @enderror" data-validate="@error('password') {{ $message }} @enderror">
+                <input class="input100" type="password" name="password" placeholder="Пароль" autocomplete="new-password">
+                <span class="focus-input100" data-placeholder="&#xf191;"></span>
+            </div>
+
+            <div class="wrap-input100 validate-input @error('password_confirmation') alert-validate @enderror" data-validate="@error('password_confirmation') {{ $message }} @enderror">
+                <input class="input100" type="password" name="password_confirmation" placeholder="Подтвердите пароль" autocomplete="new-password">
+                <span class="focus-input100" data-placeholder="&#xf191;"></span>
+            </div>
+
+            <div class="wrap-input100 validate-input @error('partner_id') alert-validate @enderror" data-validate="@error('partner_id') {{ $message }} @enderror">
+                <input class="input100" type="text" name="partner_id" placeholder="ID партнёра (не обязательно)" value="{{ $_COOKIE["partner_id"] ??  old('partner_id')  }}">
+                <span class="focus-input100" data-placeholder="&#xf207;"></span>
+            </div>
+
+            <div class="container-login100-form-btn">
+                <button class="login100-form-btn">
+                    Войти
+                </button>
+            </div>
+
+            <div class="text-center p-t-90">
+                <a class="txt1" href="{{ route('login') }}">
+                    Авторизоваться
+                </a>
+            </div>
+        </form>
+    </div>
 @endsection
 
 @push('js')

@@ -74,7 +74,7 @@
                 <div class="col-lg-12">
                     <!--Page Content-->
                     <div class="wrapper wrapper-content">
-                        @include('adminos.partials.breadcrumbs')
+                        {{ Breadcrumbs::render('shop.buy', $product) }}
                         <div class="row">
                             <div class="card w-75 p-5">
                                 <div class="card-header mt-3">

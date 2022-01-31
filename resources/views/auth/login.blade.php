@@ -4,80 +4,59 @@
 {{-- page title --}}
 @section('title', 'User Login')
 
-@section('page-style')
-    <style>
-        .col-form-label {
-            padding-top: calc(-0.325rem + 1px);
-            text-align: left;
-            padding-bottom: calc(0.875rem + 1px);
-        }
-        .form-control-danger {
-            border-color: #FF0000 !important;
-            color: #FF0000 !important;
-        }
-        .controls input {
-            margin-bottom: 10px;
-        }
-
-        .logo img {
-            background: rgba(48, 46, 45, 1);
-        }
-    </style>
-    <style>
-        body {
-            height: 100%;
-        }
-    </style>
-
-@endsection
 {{-- page content --}}
 @section('content')
-    <div class="container">
-        <div id="login-box2">
-            <div class="logo">
-                <img src="/images/user/user-icon.png" class="img-responsive lock-screen-img center-block" alt="image"/>
-                <h1 class="logo-caption"><span class="tweak">Авторизация</span></h1>
-                <p>Добро пожаловать в Skyline</p>
-            </div><!-- /.logo -->
-            <div class="row d-flex justify-content-center">
-                <div class="col-lg-7">
-                    <form class="login-form" method="POST" action="{{ route('login') }}">
-                        <input type="hidden" name="g-recaptcha-response" id="recaptcha">
-                        @error('g-recaptcha-response')
-                        <div class="col-form-label text-danger">{{ $message }}</div>
-                        @enderror
-                        @csrf
-                        <div class="controls">
-                            <input id="email" type="text" class=" @error('email') form-control-danger @enderror form-control" name="email" value="{{ old('email') }}"  autocomplete="email" autofocus placeholder="Email">
-                            @error('email')
-                            <div class="col-form-label text-danger">{{ $message }}</div>
-                            @enderror
-                            <input id="password" type="password" class="@error('password') form-control-danger @enderror form-control" name="password" autocomplete="current-password" placeholder="Пароль">
-                            @error('password')
-                            <div class="col-form-label text-danger">{{ $message }}</div>
-                            @enderror
-{{--                            <div class="checkbox checkbox-pad text-white pull-left">--}}
-{{--                                <input type="checkbox" name="remember" id="remember" checked> <span class=" remember-color">Remember login</span>--}}
-{{--                            </div>--}}
-                            <button type="submit" class="btn btn-default btn-block btn-custom">Войти</button>
-                            <div class="login-footer">
-                                <a href="{{ route('register') }}" title="Нет аккаунта?" class="pull-left">Зарегистрируйтесь</a>
-                                <a href="{{ route('password.request') }}" title="Забыли пароль?" class="pull-right">Забыли пароль?</a>
-                            </div>
-                        </div><!-- /.controls -->
-                    </form>
-                </div>
-{{--                <div class="col-lg-5">--}}
-{{--                    <div class="social-controls">--}}
-{{--                        <a href="{{ $google_auth_url }}" class="social-btns btn btn-google">--}}
-{{--                            <i class="fa fa-google-plus pull-left mt-1" aria-hidden="true"></i>--}}
-{{--                            Авторизоваться через Google--}}
-{{--                        </a>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-            </div>
-        </div><!-- /#login-box -->
-    </div><!-- /.container -->
+<div class="wrap-login100">
+    <form class="login100-form validate-form" method="POST" action="{{ route('login') }}">
+        <input type="hidden" name="g-recaptcha-response" id="recaptcha">
+        @csrf
+        <span class="login100-form-logo">
+            <img width="70" src="/images/user/user-icon.png" class="img-responsive lock-screen-img center-block" alt="image"/>
+        </span>
+        <span class="login100-form-title p-b-34 p-t-27">
+            Авторизация
+        </span>
+
+        @error('g-recaptcha-response')
+            <div class="col-form-label text-danger">{{ $message }}</div>
+        @enderror
+
+        <div class="wrap-input100 validate-input @error('email') alert-validate @enderror" data-validate="@error('email') {{ $message }} @enderror">
+            <input class="input100" type="text" name="email" placeholder="Email" value="{{ old('email') }}">
+            <span class="focus-input100" data-placeholder="&#xf207;"></span>
+        </div>
+
+        <div class="wrap-input100 validate-input @error('password') alert-validate @enderror" data-validate="@error('password') {{ $message }} @enderror">
+            <input class="input100" type="password" name="password" placeholder="Пароль" value="{{ old('password') }}">
+            <span class="focus-input100" data-placeholder="&#xf191;"></span>
+        </div>
+
+        <div class="contact100-form-checkbox">
+            <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember">
+            <label class="label-checkbox100" for="ckb1">
+                Запомнит меня
+            </label>
+        </div>
+
+        <div class="container-login100-form-btn">
+            <button class="login100-form-btn">
+                Войти
+            </button>
+        </div>
+
+        <div class="text-center p-t-90">
+            <a class="txt1" href="{{ route('register') }}">
+                Зарегистрироваться
+            </a>
+        </div>
+
+        <div class="text-center">
+            <a class="txt1" href="{{ route('password.request') }}">
+                Забыли пароль?
+            </a>
+        </div>
+    </form>
+</div>
 @endsection
 @push('js')
     <script src="https://www.google.com/recaptcha/api.js?render={{ config('recaptchav3.sitekey') }}"></script>

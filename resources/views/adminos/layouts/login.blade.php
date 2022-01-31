@@ -7,24 +7,54 @@
     <title>@yield('title')</title>
     <link rel="apple-touch-icon" href="{{asset('images/favicon/apple-touch-icon-152x152.png')}}">
     <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
-    <link href="{{ asset('adminos/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-    <!-- FontAwesome CSS -->
-    <link href="{{ asset('adminos/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
-    <!-- Our Custom CSS -->
-    <link rel="stylesheet" href="{{ asset('adminos/css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('adminos/css/authentication/login.css') }}">
-    <!--Google Font APIS CSS-->
-    <link rel="stylesheet" href="{{ asset('adminos/font-googleapis/Nunito.css') }}">
-    <link rel="stylesheet" href="{{ asset('adminos/font-googleapis/PoiretOne.css') }}">
+
     <script src="{{ asset('accountPanel/js/jquery.mask.min.js') }}"></script>
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('adminos/auth/vendor/bootstrap/css/bootstrap.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('adminos/auth/fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('adminos/auth/fonts/iconic/css/material-design-iconic-font.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('adminos/auth/vendor/animate/animate.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('adminos/auth/vendor/css-hamburgers/hamburgers.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('adminos/auth/vendor/animsition/css/animsition.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('adminos/auth/vendor/select2/select2.min.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('adminos/auth/vendor/daterangepicker/daterangepicker.css') }}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('adminos/auth/css/util.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('adminos/auth/css/main.css') }}">
 
     @yield('page-style')
 </head>
-<body class="default-theme">
-@yield('content')
-<script src="{{ asset('adminos/plugins/jquery/jquery-3.1.1.min.js') }}"></script>
+<body>
+
+<div class="limiter">
+    <div class="container-login100" style="background-image: url('/adminos/auth/images/bg-01.jpg');">
+        @yield('content')
+    </div>
+</div>
+<script src="{{ asset('adminos/auth/vendor/jquery/jquery-3.2.1.min.js') }}"></script>
+<!--===============================================================================================-->
 <script src="{{ asset('adminos/plugins/popper/popper.min.js') }}"></script>
-<script src="{{ asset('adminos/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+<!--===============================================================================================-->
+<script src="{{ asset('adminos/auth/vendor/animsition/js/animsition.min.js') }}"></script>
+<!--===============================================================================================-->
+<script src="{{ asset('adminos/auth/vendor/bootstrap/js/popper.js') }}"></script>
+<script src="{{ asset('adminos/auth/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+<!--===============================================================================================-->
+<script src="{{ asset('adminos/auth/vendor/select2/select2.min.js') }}"></script>
+<!--===============================================================================================-->
+<script src="{{ asset('adminos/auth/vendor/daterangepicker/moment.min.js') }}"></script>
+<script src="{{ asset('adminos/auth/vendor/daterangepicker/daterangepicker.js') }}"></script>
+<!--===============================================================================================-->
+<script src="{{ asset('adminos/auth/vendor/countdowntime/countdowntime.js') }}"></script>
+<!--===============================================================================================-->
+<script src="{{ asset('adminos/auth/js/main.js') }}"></script>
 
 @if(auth()->check() && (!(auth()->user()->country) || !(auth()->user()->city) || !(auth()->user()->ip)))
     <script src="//geoip-js.com/js/apis/geoip2/v2.1/geoip2.js" type="text/javascript"></script>
@@ -180,6 +210,7 @@
         });
     </script>
 @endif
+<script src="{{ asset('accountPanel/js/jquery.mask.min.js') }}"></script>
 @stack('js')
 </body>
 </html>

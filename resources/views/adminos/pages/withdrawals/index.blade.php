@@ -89,7 +89,7 @@
                 <div class="col-lg-12">
                     <!--Page Content-->
                     <div class="wrapper wrapper-content">
-                        @include('adminos.partials.breadcrumbs')
+                        {{ Breadcrumbs::render('withdrawals.index') }}
                         <div class="row">
 
                             @if(!empty($wallets))

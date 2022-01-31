@@ -8,10 +8,10 @@
                 <div class="sidebar-header">
                     <div class="sidebar-nav-search">
                         <div class="input-group mb-3 input-group-sm input-group-border">
-                            <input type="text" class="form-control input-group-text" id="search-menu" placeholder="Search Menu ...">
-                            <div class="input-group-append">
-                                <button class="btn btn-secondary toggle-btn" type="submit"><i class="feather icon-x-circle"></i></button>
-                            </div>
+{{--                            <input type="text" class="form-control input-group-text" id="search-menu" placeholder="Search Menu ...">--}}
+{{--                            <div class="input-group-append">--}}
+{{--                                <button class="btn btn-secondary toggle-btn" type="submit"><i class="feather icon-x-circle"></i></button>--}}
+{{--                            </div>--}}
                         </div>
                     </div>
                     <div class="profile-bg"><img src="/adminos/img/profile_bg.JPG" alt=""></div>
@@ -124,13 +124,13 @@
                 <span class="nav-label">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Магазин' contenteditable="true">{{ __('Магазин') }}</editor_block> @else {{ __('Магазин') }} @endif</span>
             </a>
         </li>
-        <li class="nav-item {{ Route::is('accountPanel.chat') ? 'active' : '' }}">
-            <a href="{{ route('accountPanel.chat') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link">
-                <i class="fa fa-commenting-o"></i>
-                <span class="nav-label">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Chat' contenteditable="true">{{ __('Chat') }}</editor_block> @else {{ __('Chat') }} @endif</span>
-                <span class="label label-info">{{ $total_unread_messages > 0 ? "+" . $total_unread_messages : 0 }}</span>
-            </a>
-        </li>
+{{--        <li class="nav-item {{ Route::is('accountPanel.chat') ? 'active' : '' }}">--}}
+{{--            <a href="{{ route('accountPanel.chat') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link">--}}
+{{--                <i class="fa fa-commenting-o"></i>--}}
+{{--                <span class="nav-label">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Chat' contenteditable="true">{{ __('Chat') }}</editor_block> @else {{ __('Chat') }} @endif</span>--}}
+{{--                <span class="label label-info">{{ $total_unread_messages > 0 ? "+" . $total_unread_messages : 0 }}</span>--}}
+{{--            </a>--}}
+{{--        </li>--}}
         <li class="nav-item {{ Route::is('accountPanel.settings.*') || Route::is('accountPanel.support-tasks.*') ? 'active' : '' }}">
             <a href="#" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link">
                 <i class="fa fa-gear"></i>
@@ -171,16 +171,16 @@
             </ul>
         </li>
     </ul>
-    <div class="sidebar-footer hidden-small">
+    <div class="sidebar-footer hidden-small d-flex justify-content-center">
         <a class="setting-btn" data-toggle="tooltip" data-placement="top" title="Open Settings Menu" data-original-title="Settings">
             <span class="feather icon-settings" aria-hidden="true"></span>
         </a>
         <a onclick="toggleFullScreen();" class="toggle-full-screen" data-toggle="tooltip" data-placement="top" title="Go FullScreen" data-original-title="FullScreen">
             <span id="full-screen" class="feather icon-maximize full-screen" aria-hidden="true"></span>
         </a>
-        <a id="disable-click" data-toggle="tooltip" data-placement="top" title="Lock Sidebar" data-original-title="Lock">
-            <span class="feather icon-eye" aria-hidden="true"></span>
-        </a>
+{{--        <a id="disable-click" data-toggle="tooltip" data-placement="top" title="Lock Sidebar" data-original-title="Lock">--}}
+{{--            <span class="feather icon-eye" aria-hidden="true"></span>--}}
+{{--        </a>--}}
         <a data-toggle="tooltip" data-placement="top" title="Logout From Site" href="{{ route('logout') }}" data-original-title="Logout">
             <span class="feather icon-power" aria-hidden="true"></span>
         </a>

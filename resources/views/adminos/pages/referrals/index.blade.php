@@ -58,7 +58,7 @@
 
         .img-40 {
             width: 40px !important;
-            height: auto;
+            height: auto !important;
         }
 
         .social-media {
@@ -77,7 +77,12 @@
         .ttl-info span, .social-media h5, .follow .ttl-info h2, .follow .ttl-info h4 {
             font-weight: bold !important;
         }
+
+        .card.hovercard .cardheader {
+            height: 400px !important;
+        }
     </style>
+    <link rel="stylesheet" href="{{ asset('adminos/css/profile/profile.css') }}">
 @endpush
 @section('content')
     <div class="main-content">
@@ -85,13 +90,13 @@
             <div class="col-lg-12">
                 <!--Page Content-->
                 <div class="wrapper wrapper-content">
-                    @include('adminos.partials.breadcrumbs')
+                    {{ Breadcrumbs::render('referrals.progress') }}
                     <div class="user-profile">
                         <div class="row">
                             <!-- user profile first-style start-->
                             <div class="col-sm-12">
                                 <div class="card hovercard text-center">
-                                    <div class="cardheader" style="background: url('{{ asset('accountPanel/images/other-images/sprint bank banner_-01.jpg') }}') no-repeat; background-size: cover;max-height: 300px;"></div>
+                                    <div class="cardheader" style="background: url('{{ asset('images/crypto.png') }}') no-repeat; background-size: cover;max-height: 600px;"></div>
                                     <div class="user-image">
                                         <div class="avatar">
                                             @if(!$upliner)
@@ -231,7 +236,7 @@
                                                 @endif
                                                 </tbody>
                                             </table>
-                                            <div class="f1-buttons" style="text-align: center; margin-top:50px;">
+                                            <div class="f1-buttons mb-4" style="text-align: center; margin-top:50px;">
                                                 <button class="btn btn-primary btn-next" type="button" style="padding:15px 50px 15px 50px; font-size:21px;" onClick="location.assign('/referrals/progress?page={{ request()->has('page') && request('page') >= 2 ? request('page') - 1 : 1 }}')"> Предыдущая страница</button>
                                                 <button class="btn btn-primary btn-next" type="button" style="padding:15px 50px 15px 50px; font-size:21px;" onClick="location.assign('/referrals/progress?page={{ request()->has('page') ? request('page') + 1 : 2 }}')"> Следующая страница</button>
                                             </div>

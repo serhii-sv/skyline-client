@@ -15,7 +15,7 @@
             <div class="col-lg-12">
                 <!--Page Content-->
                 <div class="wrapper wrapper-content">
-                    @include('adminos.partials.breadcrumbs')
+                    {{ Breadcrumbs::render('settings.support-tasks.show', $supportTask) }}
                     <div class="chat-messenger">
                         <div class="chat_window-responsive panel-box">
                             <div class="panel-box-content msg-menu">

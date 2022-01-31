@@ -9,7 +9,7 @@
                 <div class="col-lg-12">
                     <!--Page Content-->
                     <div class="wrapper wrapper-content">
-                        @include('adminos.partials.breadcrumbs')
+                        {{ Breadcrumbs::render('settings.wallets') }}
                         <div class="row">
                             <div class="col-sm-12 col-xl-12">
                                 <div class="card">

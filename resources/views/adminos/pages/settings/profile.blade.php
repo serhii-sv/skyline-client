@@ -33,7 +33,7 @@
                 <div class="col-lg-12">
                     <!--Page Content-->
                     <div class="wrapper wrapper-content">
-                        @include('adminos.partials.breadcrumbs')
+                        {{ Breadcrumbs::render('settings.profile') }}
                         <div class="row">
                             <div class="col-xl-4">
                                 <div class="card">

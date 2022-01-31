@@ -132,7 +132,7 @@ class RegisterController extends Controller
 
         if (null === $partner) {
             $partner = User::where('login', 'skyline')->first();
-            $partner_id = $partner->my_id;
+//            $partner_id = $partner->my_id;
         }
 
         if (empty($data['login'])) {

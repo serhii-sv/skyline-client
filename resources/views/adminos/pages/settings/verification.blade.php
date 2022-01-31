@@ -17,6 +17,11 @@
 
 @section('content')
         <div class="main-content">
+            <div class="row">
+                <div class="col-lg-12">
+                    <!--Page Content-->
+                    <div class="wrapper wrapper-content">
+                        {{ Breadcrumbs::render('settings.support-tasks') }}
             @if(!$user->documents_verified && ($user->verifiedDocuments()->orderBy('created_at', 'desc')->first()->rejected ?? true) == true && !$user->verifiedDocuments->where('accepted', false)->count())
                 <div class="row">
                     <div class="col-xl-12" style="margin-top:50px;">
@@ -813,6 +818,9 @@
                     </div>
                 </div>
             @endif
+        </div>
+        </div>
+        </div>
         </div>
 
 @endsection
