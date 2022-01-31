@@ -572,7 +572,9 @@ $(document).ready(function () {
         setHeaderTheme(color);
     });
 
-    setHeaderTheme(localStorage.getItem('header-theme'))
+    if (localStorage.getItem('header-theme')) {
+        setHeaderTheme(localStorage.getItem('header-theme'))
+    }
 
     function setHeaderTheme(color)
     {
@@ -608,7 +610,9 @@ $(document).ready(function () {
 
     });
 
-    setSidebarTheme(localStorage.getItem('sidebar-theme'));
+    if (localStorage.getItem('sidebar-theme')) {
+        setSidebarTheme(localStorage.getItem('sidebar-theme'));
+    }
 
     function setSidebarTheme(color)
     {
