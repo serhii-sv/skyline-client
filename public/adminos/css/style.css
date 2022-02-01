@@ -832,7 +832,7 @@ body.rtls.canvas-menu.blue-theme.mini-navbar .sidebar-footer {
 body.canvas-menu.blue-theme.mini-navbar .sidebar-footer a {
     padding: 7px 0 3px;
     text-align: center;
-    width: 25%;
+    width: 33.33§%;
     font-size: 17px;
     display: block;
     float: left;
@@ -874,7 +874,7 @@ body.rtls.blue-theme .sidebar-footer {
 .blue-theme .sidebar-footer a {
     padding: 7px 0 3px;
     text-align: center;
-    width: 25%;
+    width: 33.33%;
     font-size: 17px;
     display: block;
     float: left;
@@ -9025,7 +9025,7 @@ ul.pin-board li div a {
     margin: 0px 5px;
 }
 ul.pin-board li div a i {
-    color: #fff !important;
+    /*color: #fff !important;*/
 }
 ul.pin-board li div.bg-light a i {
     color: #333 !important;

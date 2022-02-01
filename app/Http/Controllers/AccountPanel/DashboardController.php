@@ -83,6 +83,7 @@ class DashboardController extends Controller
         });
         $countries_stat = $countries_stat->sortByDesc('count')->take(7);
 
+        $countries_stat = $countries_stat->keyBy('name');
 
         return view('adminos.pages.dashboard', [
             'transactions' => Transaction::with('type', 'currency', 'paymentSystem')->where('user_id', $user->id)->orderByDesc('created_at')->limit(5)->get(),

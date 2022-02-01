@@ -18,7 +18,7 @@
     width: 142px;
     height: 40px;
     margin: -20px 0 0 -71px;
-    background: #fff;
+    background: rgba(255,255,255,0.5);
     filter: contrast(20);
 }
 .gooey .dot {

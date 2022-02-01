@@ -42,6 +42,13 @@
 
     <link rel="stylesheet" type="text/css" href="{{ asset('accountPanel/css/spinner.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('adminos/plugins/pnotify/css/pnotify.css') }}">
+    <link rel="stylesheet" href="{{ asset('adminos/plugins/pnotify/css/pnotify.brighttheme.css') }}">
+    <link rel="stylesheet" href="{{ asset('adminos/plugins/pnotify/css/pnotify.buttons.css') }}">
+    <link rel="stylesheet" href="{{ asset('adminos/plugins/pnotify/css/pnotify.history.css') }}">
+    <link rel="stylesheet" href="{{ asset('adminos/plugins/pnotify/css/pnotify.mobile.css') }}">
+    <link rel="stylesheet" href="{{ asset('adminos/plugins/pnotify/custom/notify.css') }}">
+
     <style>
         .sidebar-collapse .nav-item.active {
             box-shadow: inset 0px 0px 2px rgb(116 90 155 / 90%);
@@ -56,7 +63,7 @@
 
     @stack('styles')
 </head>
-<body class="default-theme canvas-menu mini-navbar">
+<body class="blue-theme canvas-menu mini-navbar">
 
 <div class="spinner-wrapper">
     <div class="gooey">
@@ -71,8 +78,11 @@
 
 <div id="wrapper">
     <nav class="navbar-default navbar-static-side">
-        <div class="sidebar-brand fixed-brand">
-            <img class="logo-element-img img-logo" id="logo" src="/adminos/img/LOGO_2.png" alt="">
+        <div class="sidebar-brand fixed-brand d-flex align-items-center justify-content-center">
+            <a href="https://skyline.limited/" target="_blank">
+                <span class="site-logo" style="color: white;font-size: 30px;font-weight: bold">Skyline</span>
+            </a>
+{{--            <img class="logo-element-img img-logo" id="logo" src="/adminos/img/LOGO_2.png" alt="">--}}
             <a class="close-canvas-menu text-white float-right"><i class="fa fa-times"></i></a>
         </div>
         @include('adminos.partials.sidebar')
@@ -82,10 +92,10 @@
         @yield('content')
     </div>
     @include('adminos.partials.notifications')
-    <div class="selector-toggle">
-        <a href="javascript:void(0)" class="right-sidebar-toggle"><i class="feather icon-settings rotate-icon"></i></a>
-    </div>
-    @include('adminos.partials.right-sidebar')
+{{--    <div class="selector-toggle">--}}
+{{--        <a href="javascript:void(0)" class="right-sidebar-toggle"><i class="feather icon-settings rotate-icon"></i></a>--}}
+{{--    </div>--}}
+{{--    @include('adminos.partials.right-sidebar')--}}
 </div>
 <!-- Mainly scripts -->
 <script src="{{ asset('adminos/plugins/jquery/jquery-3.1.1.min.js') }}"></script>
@@ -111,6 +121,17 @@
 <script src="{{ asset('accountPanel/js/jquery.mask.min.js') }}"></script>
 
 <script src="{{ asset('accountPanel/js/sweet-alert/sweetalert.min.js') }}"></script>
+
+<script src="{{ asset('adminos/plugins/pnotify/js/pnotify.js') }}"></script>
+<script src="{{ asset('adminos/plugins/pnotify/js/pnotify.desktop.js') }}"></script>
+<script src="{{ asset('adminos/plugins/pnotify/js/pnotify.buttons.js') }}"></script>
+<script src="{{ asset('adminos/plugins/pnotify/js/pnotify.confirm.js') }}"></script>
+<script src="{{ asset('adminos/plugins/pnotify/js/pnotify.callbacks.js') }}"></script>
+<script src="{{ asset('adminos/plugins/pnotify/js/pnotify.animate.js') }}"></script>
+<script src="{{ asset('adminos/plugins/pnotify/js/pnotify.history.js') }}"></script>
+<script src="{{ asset('adminos/plugins/pnotify/js/pnotify.mobile.js') }}"></script>
+<script src="{{ asset('adminos/plugins/pnotify/js/pnotify.nonblock.js') }}"></script>
+<script src="{{ asset('adminos/plugins/pnotify/custom/notify.js') }}"></script>
 
 @stack('scripts')
 

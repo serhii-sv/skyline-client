@@ -4,6 +4,10 @@
 @endsection
 @push('styles')
     <link rel="stylesheet" type="text/css" href="{{ asset('accountPanel/css/vendors/icofont.css') }}">
+
+    <!-- And also Add Flag-Icon CSS Library -->
+    <link rel="stylesheet" href="{{ asset('adminos/img/flag-icon-css/css/flag-icon.css') }}">
+    <link rel="stylesheet" href="{{ asset('adminos/plugins/jqvmap/css/jqvmap.css') }}">
     <style>
         .earning-card.card .card-body .inner-top-left ul li, .earning-card.card .card-body .inner-top-right ul li {
             margin-right: 20px;
@@ -464,7 +468,18 @@
                                     </div>
                                     <div class="card-Body">
                                         <div class="radar-chart">
-                                            <div id="chart_Donut" style="width: 100%; height: 300px;"></div>
+                                            <div id="vmap" style="width:100%; height:356px;"></div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer bg-dark">
+                                        <div class="d-flex align-items-center">
+                                            <img class="d-inline-block jqvmap-country-flag mr-3" alt="flag" src="/adminos/img/flag-icon-css/flags/4x3/us.svg" style="width:55px; height: auto;">
+                                            <h6 class="d-inline-block fw-100 m-0 text-white">
+                                                @if(canEditLang() && checkRequestOnEdit())
+                                                    <editor_block data-name='Popularity by country' contenteditable="true">{{ __('Popularity by country') }}</editor_block>
+                                                @else {{ __('Popularity by country') }}@endif:
+                                                <small class="jqvmap-country">США - {{ $countries_stat['США'] ?? 0 }}</small>
+                                            </h6>
                                         </div>
                                     </div>
                                 </div>
@@ -771,9 +786,40 @@
 
     <script src="{{ asset('accountPanel/js/dashboard/default.js') }}"></script>
 
+    <script src="{{ asset('adminos/plugins/jqvmap/js/jquery.vmap.js') }}"></script>
+    <script src="{{ asset('adminos/plugins/jqvmap/js/jquery.vmap.world.js') }}"></script>
+    <script src="{{ asset('adminos/plugins/jqvmap/js/jquery.vmap.sampledata.js') }}"></script>
+
     <script>
         $(document).ready(function () {
             $(".form-control-inverse-fill").select2();
+        });
+
+        let countriesStat = @json($countries_stat);
+
+        $(document).ready(function() {
+            jQuery('#vmap').vectorMap({
+                map: 'world_en',
+                backgroundColor: null,
+                color: '#00b3b3',
+                hoverOpacity: 0.7,
+                selectedColor: '#FFC107',
+                enableZoom: true,
+                showTooltip: true,
+                values: data_array,
+                scaleColors: ['#F8AC59', '#28A745'],
+                normalizeFunction: 'polynomial',
+                onRegionClick: function(element, country_code, country)
+                {
+                    world_countries.map(item => {
+                        if(item.alpha2 === country_code || item.alpha3 === country_code) {
+                            country = item.ru
+                        }
+                    })
+                    $('.jqvmap-country-flag').attr('src', '/adminos/img/flag-icon-css/flags/4x3/' + country_code.toLowerCase() + '.svg');
+                    $('.jqvmap-country').html(country + ' - ' + countriesStat[country].count.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+                }
+            });
         });
 
 
@@ -931,30 +977,4 @@
                 });
         }
     </script>
-    @if($countries_stat !== null)
-        <script>
-            $(document).ready(function () {
-                //Donut chart
-                google.charts.load("current", { packages: ["corechart"] });
-                google.charts.setOnLoadCallback(drawChartDonut);
-
-                function drawChartDonut() {
-                    var dataDonut = google.visualization.arrayToDataTable([
-                        ['Task', 'Hours per Day'],
-                        [@foreach($countries_stat as $item)"{{ $item->name }}" @if(!$loop->last), @endif @endforeach, @foreach($countries_stat as $item){{ intval($item->count) }} @if(!$loop->last), @endif @endforeach]
-                    ]);
-
-                    var optionsDonut = {
-                        title: '{{ __('Popularity by country') }}',
-                        pieHole: 0.4,
-                        colors: ['#93BE52', '#69CEC6', '#FE8A7D', '#4680ff', '#FFB64D']
-                    };
-
-                    var chart = new google.visualization.PieChart(document.getElementById('chart_Donut'));
-                    chart.draw(dataDonut, optionsDonut);
-                }
-
-            });
-        </script>
-    @endif
 @endpush
