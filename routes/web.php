@@ -174,6 +174,14 @@ Route::group(['middleware' => ['checkSiteEnabled', 'activity-log', 'http-log']],
                 });
             });
 
+            Route::prefix('stickers')->as('stickers.')->group(function () {
+                Route::get('/', [\App\Http\Controllers\AccountPanel\StickerController::class, 'index'])->name('index');
+                Route::post('/store', [\App\Http\Controllers\AccountPanel\StickerController::class, 'store'])->name('store');
+                Route::post('/update/{id}', [\App\Http\Controllers\AccountPanel\StickerController::class, 'update'])->name('update');
+                Route::post('/update/{id}/color', [\App\Http\Controllers\AccountPanel\StickerController::class, 'updateColor'])->name('color');
+                Route::get('/delete/{id}', [\App\Http\Controllers\AccountPanel\StickerController::class, 'delete'])->name('delete');
+            });
+
             Route::prefix('user-products')->as('user-products.')->group(function () {
                 Route::get('/', [\App\Http\Controllers\AccountPanel\UserProductController::class, 'index'])->name('index');
             });

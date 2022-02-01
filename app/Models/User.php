@@ -613,4 +613,12 @@ class User extends Authenticatable
             ->where('processed', true)
             ->orderBy('created_at', 'desc');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function stickers()
+    {
+        return $this->hasMany(UserSticker::class);
+    }
 }
