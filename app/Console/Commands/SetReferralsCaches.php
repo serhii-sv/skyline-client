@@ -2,7 +2,9 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Transaction;
 use App\Models\User;
+use App\Models\Wallet;
 use Illuminate\Console\Command;
 
 class SetReferralsCaches extends Command
@@ -49,6 +51,37 @@ class SetReferralsCaches extends Command
             cache()->remember('reftree.'.$user->id, now()->addHours(3), function() use ($user) {
                 return $this->getChildrens($user, 7);
             });
+
+            $walletArray = Wallet::where('user_id', $user->id)->get();
+
+            foreach ($walletArray as $wallet) {
+                $walletsStats[$wallet->id] = cache()->remember('wallets_stats_'.$user->id . '_' . $wallet->id, now()->addMinutes(60), function () use ($wallet, $dividend_type, $partner_type) {
+                    $startDate = now()->subDays(10);
+                    $dividends = [];
+
+                    while (true) {
+                        $nextDay = $startDate->addDay();
+
+                        $dividends[] = Transaction::where(function ($q) use ($dividend_type, $partner_type) {
+                            $q->where('type_id', $dividend_type->id)
+                                ->orWhere('type_id', $partner_type->id);
+                        })
+                            ->where('wallet_id', $wallet->id)
+                            ->where('created_at', '>=', $startDate)
+                            ->where('created_at', '<=', $nextDay)
+                            ->where('approved', 1)
+                            ->sum('main_currency_amount');
+
+                        if ($nextDay > now()) {
+                            break;
+                        }
+
+                        $startDate = $nextDay;
+                    }
+
+                    return $dividends;
+                });
+            }
 
             cache()->remember('partner_name.'.$user->id, now()->addHours(3), function() use ($user) {
                 return $user->partner->name ?? 'undefined';

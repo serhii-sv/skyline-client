@@ -131,4 +131,18 @@ class UserDepositBonus extends Model
         }
         return false;
     }
+
+    /**
+     * @param $first
+     * @param $second
+     * @return float|int
+     */
+    public static function getStatsPercentage($first, $second)
+    {
+        if (!$second) {
+            return 0;
+        }
+
+        return round((($first / $second) * 100), 2);
+    }
 }

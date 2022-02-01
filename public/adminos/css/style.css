@@ -15736,8 +15736,14 @@ body.mini-navbar.fixed-sidebar .logo-element {
     font-size: 28px;
     color: #999;
 }
+
+.statistic-box h5 {
+    padding: 0px 10px;
+    font-size: 20.28px;
+    color: #999;
+}
 .statistic-box h6 {
-    font-size: 28px;
+    font-size: 25px;
     padding: 0px 10px;
     color: #999;
 }
