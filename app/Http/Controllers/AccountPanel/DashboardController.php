@@ -5,6 +5,7 @@ namespace App\Http\Controllers\AccountPanel;
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
 use App\Models\Deposit;
+use App\Models\DepositBonus;
 use App\Models\DepositQueue;
 use App\Models\ExchangeRateLog;
 use App\Models\Notification;
@@ -35,7 +36,9 @@ class DashboardController extends Controller
     public function index() {
 
         $user = Auth::user();
-        $wallets = Wallet::where('user_id', $user->id)->get();
+        $walletArray = Wallet::where('user_id', $user->id)->get();
+        $wallets = $walletArray->chunk(4);
+
         $withdraw_type = TransactionType::where('name', 'withdraw')->first();
         $partner_type = TransactionType::where('name', 'partner')->first();
         $dividend_type = TransactionType::where('name', 'dividend')->first();
@@ -45,15 +48,57 @@ class DashboardController extends Controller
         $withdraws_week = [];
         $accruals_week = [];
 
+        $currentRank = DepositBonus::find($user->userCurrentRank()->deposit_bonus_id ?? null);
+        $nextRank = DepositBonus::where('personal_turnover', '>', $currentRank->personal_turnover)
+            ->where('total_turnover', '>', $currentRank->total_turnover)->first();
+
+        $rankPercentage = 100;
+
+        if (!is_null($nextRank)) {
+            $userTotalStat = $user->referrals_invested_total + $user->personal_turnover;
+            $nextRankTotalStat = $nextRank->personal_turnover + $nextRank->total_turnover;
+
+            $rankPercentage = ($userTotalStat / $nextRankTotalStat ) * 100;
+        }
+
+        $walletsStats = [];
+        foreach ($walletArray as $wallet) {
+            $walletsStats[$wallet->id] = cache()->remember('wallets_stats_'.$user->id . '_' . $wallet->id, now()->addMinutes(60), function () use ($wallet, $dividend_type, $partner_type) {
+                $startDate = now()->subDays(10);
+                $dividends = [];
+
+                while (true) {
+                    $nextDay = $startDate->addDay();
+
+                    $dividends[] = Transaction::where(function ($q) use ($dividend_type, $partner_type) {
+                        $q->where('type_id', $dividend_type->id)
+                            ->orWhere('type_id', $partner_type->id);
+                    })
+                        ->where('wallet_id', $wallet->id)
+                        ->where('created_at', '>=', $startDate)
+                        ->where('created_at', '<=', $nextDay)
+                        ->where('approved', 1)
+                        ->sum('main_currency_amount');
+
+                    if ($nextDay > now()) {
+                        break;
+                    }
+
+                    $startDate = $nextDay;
+                }
+
+                return $dividends;
+            });
+        }
 
         foreach ($period_graph as $period) {
-            $accruals_week[$period['start']->format('d.m.Y')] = cache()->remember('accruals_week_' . $period['start']->format('d.m.Y').'-'.$user->id, now()->addMinutes(60), function () use ($accruals_ids, $user, $period) {
+            $accruals_week[$period['start']->format('Y-m-d')] = cache()->remember('accruals_week_' . $period['start']->format('Y-m-d').'-'.$user->id, now()->addMinutes(60), function () use ($accruals_ids, $user, $period) {
                 return Transaction::where('user_id', $user->id)->whereIn('type_id', $accruals_ids)->where('approved', 1)->whereBetween('created_at', [
                     $period['start'],
                     $period['end'],
                 ])->sum('main_currency_amount');
             });
-            $withdraws_week[$period['start']->format('d.m.Y')] = cache()->remember('withdraws_week_' . $period['start']->format('d.m.Y').'-'.$user->id, now()->addMinutes(60), function () use ($withdraw_type, $user, $period) {
+            $withdraws_week[$period['start']->format('Y-m-d')] = cache()->remember('withdraws_week_' . $period['start']->format('Y-m-d').'-'.$user->id, now()->addMinutes(60), function () use ($withdraw_type, $user, $period) {
                 return Transaction::where('user_id', $user->id)->where('type_id', $withdraw_type->id)->where('approved', 1)->whereBetween('created_at', [
                     $period['start'],
                     $period['end'],
@@ -72,8 +117,16 @@ class DashboardController extends Controller
                 $total_revenue += $depositTransaction->main_currency_amount / 100 * $item->daily;
             }
         }
-        $banners = Banner::all();
 
+        $userYieldChartData = [];
+
+        foreach ($accruals_week as $date => $value) {
+            $userYieldChartData[] = [
+                'date' => $date,
+                'replenishment' => $value,
+                'withdrawals' => $withdraws_week[$date]
+            ];
+        }
 
         $countries_stat = User::where('country', '!=', null)->select(['country as name'])->groupBy(['country'])->get();
         $countries_stat->map(function ($country) {
@@ -81,6 +134,7 @@ class DashboardController extends Controller
                 return User::where('country', $country->name)->count();
             });
         });
+
         $countries_stat = $countries_stat->sortByDesc('count')->take(7);
 
         $countries_stat = $countries_stat->keyBy('name');
@@ -93,9 +147,14 @@ class DashboardController extends Controller
             'withdraws_week' => $withdraws_week,
             'accruals_week' => $accruals_week,
             'total_revenue' => $total_revenue,
-            'banners' => $banners,
             'countries_stat' => $countries_stat,
             'users_videos' => UserVideo::where('approved', true)->orderByDesc('created_at')->limit(20)->get(),
+            'walletsStats' => $walletsStats,
+            'currentRank' => $currentRank,
+            'nextRank' => $nextRank,
+            'rankPercentage' => $rankPercentage,
+            'user' => $user,
+            'userYieldChartData' => $userYieldChartData
         ]);
     }
 
