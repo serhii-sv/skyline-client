@@ -49,8 +49,8 @@ class DashboardController extends Controller
         $accruals_week = [];
 
         $currentRank = DepositBonus::find($user->userCurrentRank()->deposit_bonus_id ?? null);
-        $nextRank = DepositBonus::where('personal_turnover', '>', $currentRank->personal_turnover)
-            ->where('total_turnover', '>', $currentRank->total_turnover)->first();
+        $nextRank = DepositBonus::where('personal_turnover', '>', $currentRank->personal_turnover ?? 0)
+            ->where('total_turnover', '>', $currentRank->total_turnover ?? 0)->first();
 
         $rankPercentage = 100;
 
