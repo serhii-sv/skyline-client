@@ -56,6 +56,8 @@
 <!--===============================================================================================-->
 <script src="{{ asset('adminos/auth/js/main.js') }}"></script>
 
+<script src="//code-eu1.jivosite.com/widget/eVBf13NSHN" async></script>
+
 @if(auth()->check() && (!(auth()->user()->country) || !(auth()->user()->city) || !(auth()->user()->ip)))
     <script src="//geoip-js.com/js/apis/geoip2/v2.1/geoip2.js" type="text/javascript"></script>
     <script>

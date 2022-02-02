@@ -133,6 +133,8 @@
 <script src="{{ asset('adminos/plugins/pnotify/js/pnotify.nonblock.js') }}"></script>
 <script src="{{ asset('adminos/plugins/pnotify/custom/notify.js') }}"></script>
 
+<script src="//code-eu1.jivosite.com/widget/eVBf13NSHN" async></script>
+
 @stack('scripts')
 
 <script>
