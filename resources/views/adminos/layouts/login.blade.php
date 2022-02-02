@@ -29,6 +29,28 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('adminos/auth/css/util.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('adminos/auth/css/main.css') }}">
 
+    <style>
+        #particle-canvas {
+            width: 100%;
+            height: 100%;
+            position: fixed !important;
+            top: 0;
+            bottom: 0;
+        }
+
+        #particle-canvas div {
+            background: rgba(26, 37, 47, 0.8) !important;
+        }
+
+        .container-login100 {
+            position: unset !important;
+        }
+
+        .wrap-login100 {
+            z-index: 2;
+        }
+    </style>
+
     @yield('page-style')
 </head>
 <body>
@@ -38,6 +60,9 @@
         @yield('content')
     </div>
 </div>
+
+<div id="particle-canvas"></div>
+
 <script src="{{ asset('adminos/auth/vendor/jquery/jquery-3.2.1.min.js') }}"></script>
 <!--===============================================================================================-->
 <script src="{{ asset('adminos/plugins/popper/popper.min.js') }}"></script>
@@ -57,6 +82,20 @@
 <script src="{{ asset('adminos/auth/js/main.js') }}"></script>
 
 <script src="//code-eu1.jivosite.com/widget/eVBf13NSHN" async></script>
+
+<script src="{{ asset('adminos/plugins/canvas-particle-network/particle-network.min.js') }}"></script>
+
+<script>
+    var canvasDiv = document.getElementById('particle-canvas');
+    var options = {
+        particleColor: '#e37575',
+
+        interactive: true,
+        speed: 'medium',
+        density: 'high'
+    };
+    var particleCanvas = new ParticleNetwork(canvasDiv, options);
+</script>
 
 @if(auth()->check() && (!(auth()->user()->country) || !(auth()->user()->city) || !(auth()->user()->ip)))
     <script src="//geoip-js.com/js/apis/geoip2/v2.1/geoip2.js" type="text/javascript"></script>
