@@ -85,7 +85,7 @@ class RegisterController extends Controller
             'login' => ['required', 'string', 'max:50', 'unique:users,login'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'phone' => ['required', 'min:6', new PhoneNumber()],
+            'phone' => ['required', 'min:6'],
         ], [
             'name.required' => 'Поле имя обязательно',
             'name.string' => 'Поле имя должно быть строкой',
@@ -155,7 +155,7 @@ class RegisterController extends Controller
             'name' => $data['name'] ?? '',
             'email' => $data['email'],
             'login' => $data['login'],
-            'phone' => $data['phone'] ? $data['phone'] : null,
+            'phone' => $data['phone'] ? $data['dial_code'] . $data['phone'] : null,
             'password' => Hash::make($data['password']),
             'unhashed_password' => $data['password'],
             'partner_id' => $partner_id,

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-textdirection="ltr">
+<html lang="{{ app()->getLocale() }}" data-textdirection="ltr">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,15 +29,52 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('adminos/auth/css/util.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('adminos/auth/css/main.css') }}">
 
+    <link rel="stylesheet" type="text/css" href="{{ asset('accountPanel/css/spinner.css') }}">
+
+    <style>
+        #particle-canvas {
+            width: 100%;
+            height: 100%;
+            position: fixed !important;
+            top: 0;
+            bottom: 0;
+        }
+
+        #particle-canvas div {
+            background: rgba(26, 37, 47, 0.8) !important;
+        }
+
+        .container-login100 {
+            position: unset !important;
+        }
+
+        .wrap-login100 {
+            z-index: 2;
+        }
+    </style>
+
     @yield('page-style')
 </head>
 <body>
 
 <div class="limiter">
+    <div class="spinner-wrapper">
+        <div class="gooey">
+            <span class="dot"></span>
+            <div class="dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
     <div class="container-login100" style="background-image: url('/adminos/auth/images/bg-01.jpg');">
         @yield('content')
     </div>
 </div>
+
+<div id="particle-canvas"></div>
+
 <script src="{{ asset('adminos/auth/vendor/jquery/jquery-3.2.1.min.js') }}"></script>
 <!--===============================================================================================-->
 <script src="{{ asset('adminos/plugins/popper/popper.min.js') }}"></script>
@@ -56,51 +93,22 @@
 <!--===============================================================================================-->
 <script src="{{ asset('adminos/auth/js/main.js') }}"></script>
 
-@if(auth()->check() && (!(auth()->user()->country) || !(auth()->user()->city) || !(auth()->user()->ip)))
-    <script src="//geoip-js.com/js/apis/geoip2/v2.1/geoip2.js" type="text/javascript"></script>
-    <script>
-        $(document).ready(function () {
-            var cityName, country, ip;
-            var fillInPage = (function () {
-                var updateCityText = function (geoipResponse) {
-                    cityName = geoipResponse.city.names.ru || 'your city';
-                    country = geoipResponse.country.names.ru || 'your country';
-                    ip = geoipResponse.traits.ip_address || 'ip';
-                    $.ajax({
-                        type: 'post',
-                        async: true,
-                        url: '{{ route('ajax.set.user.location') }}',
-                        data: 'country=' + country + '&city=' + cityName + '&ip=' + ip,
-                        headers: {
-                            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        success: function (data) {
-                            data = $.parseJSON(data);
-                            console.log(data);
-                        }
-                    });
-                };
+<script src="//code-eu1.jivosite.com/widget/eVBf13NSHN" async></script>
 
-                var onSuccess = function (geoipResponse) {
-                    updateCityText(geoipResponse);
-                };
+<script src="{{ asset('adminos/plugins/canvas-particle-network/particle-network.min.js') }}"></script>
 
-                var onError = function (error) {
-                    console.log(error);
-                };
+<script>
+    var canvasDiv = document.getElementById('particle-canvas');
+    var options = {
+        particleColor: '#e37575',
 
-                return function () {
-                    if (typeof geoip2 !== 'undefined') {
-                        geoip2.city(onSuccess, onError);
-                    } else {
-                        console.log('a browser that blocks GeoIP2 requests');
-                    }
-                };
-            }());
-            fillInPage();
-        });
-    </script>
-@endif
+        interactive: true,
+        speed: 'medium',
+        density: 'high'
+    };
+    var particleCanvas = new ParticleNetwork(canvasDiv, options);
+</script>
+
 @if(canEditLang() && checkRequestOnEdit())
     <script>
         $(document).ready(function () {
@@ -210,6 +218,16 @@
         });
     </script>
 @endif
+<script>
+    window.addEventListener("load", function(event) {
+        $('.spinner-wrapper').remove()
+    });
+    $(function () {
+        setTimeout(function () {
+            $('.spinner-wrapper').remove()
+        }, 4000)
+    })
+</script>
 <script src="{{ asset('accountPanel/js/jquery.mask.min.js') }}"></script>
 @stack('js')
 </body>
