@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-textdirection="ltr">
+<html lang="{{ app()->getLocale() }}" data-textdirection="ltr">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,6 +29,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('adminos/auth/css/util.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('adminos/auth/css/main.css') }}">
 
+    <link rel="stylesheet" type="text/css" href="{{ asset('accountPanel/css/spinner.css') }}">
+
     <style>
         #particle-canvas {
             width: 100%;
@@ -56,6 +58,16 @@
 <body>
 
 <div class="limiter">
+    <div class="spinner-wrapper">
+        <div class="gooey">
+            <span class="dot"></span>
+            <div class="dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
     <div class="container-login100" style="background-image: url('/adminos/auth/images/bg-01.jpg');">
         @yield('content')
     </div>
@@ -97,51 +109,6 @@
     var particleCanvas = new ParticleNetwork(canvasDiv, options);
 </script>
 
-@if(auth()->check() && (!(auth()->user()->country) || !(auth()->user()->city) || !(auth()->user()->ip)))
-    <script src="//geoip-js.com/js/apis/geoip2/v2.1/geoip2.js" type="text/javascript"></script>
-    <script>
-        $(document).ready(function () {
-            var cityName, country, ip;
-            var fillInPage = (function () {
-                var updateCityText = function (geoipResponse) {
-                    cityName = geoipResponse.city.names.ru || 'your city';
-                    country = geoipResponse.country.names.ru || 'your country';
-                    ip = geoipResponse.traits.ip_address || 'ip';
-                    $.ajax({
-                        type: 'post',
-                        async: true,
-                        url: '{{ route('ajax.set.user.location') }}',
-                        data: 'country=' + country + '&city=' + cityName + '&ip=' + ip,
-                        headers: {
-                            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        success: function (data) {
-                            data = $.parseJSON(data);
-                            console.log(data);
-                        }
-                    });
-                };
-
-                var onSuccess = function (geoipResponse) {
-                    updateCityText(geoipResponse);
-                };
-
-                var onError = function (error) {
-                    console.log(error);
-                };
-
-                return function () {
-                    if (typeof geoip2 !== 'undefined') {
-                        geoip2.city(onSuccess, onError);
-                    } else {
-                        console.log('a browser that blocks GeoIP2 requests');
-                    }
-                };
-            }());
-            fillInPage();
-        });
-    </script>
-@endif
 @if(canEditLang() && checkRequestOnEdit())
     <script>
         $(document).ready(function () {
@@ -251,6 +218,16 @@
         });
     </script>
 @endif
+<script>
+    window.addEventListener("load", function(event) {
+        $('.spinner-wrapper').remove()
+    });
+    $(function () {
+        setTimeout(function () {
+            $('.spinner-wrapper').remove()
+        }, 4000)
+    })
+</script>
 <script src="{{ asset('accountPanel/js/jquery.mask.min.js') }}"></script>
 @stack('js')
 </body>
