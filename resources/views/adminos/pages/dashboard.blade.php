@@ -663,7 +663,7 @@
                                 <div class="card height-equal">
                                     <div class="card-header">
                                         <h5>@if(canEditLang() && checkRequestOnEdit())
-                                                <editor_block data-name='Your referral link' contenteditable="true">{{ __('Your referral link') }}</editor_block> @else {{ __('Your referral link') }} @endif
+                                                <editor_block data-name='Моя мотивация' contenteditable="true">{{ __('Моя мотивация') }}</editor_block> @else {{ __('Моя мотивация') }} @endif
                                         </h5>
                                     </div>
                                     <div class="card-body mb-2">
