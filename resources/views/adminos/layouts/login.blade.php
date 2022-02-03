@@ -68,7 +68,7 @@
             </div>
         </div>
     </div>
-    <div class="container-login100" style="background-image: url('/adminos/auth/images/bg-01.jpg');">
+    <div class="container-login100" style="background-image: url('/images/bg.jpeg');">
         @yield('content')
     </div>
 </div>
@@ -100,7 +100,7 @@
 <script>
     var canvasDiv = document.getElementById('particle-canvas');
     var options = {
-        particleColor: '#e37575',
+        particleColor: '#fff',
 
         interactive: true,
         speed: 'medium',
