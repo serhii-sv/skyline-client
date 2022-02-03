@@ -308,18 +308,18 @@ class ProfileController extends Controller
         if ($verification_enable !== null){
             if (!($verification_enable->s_value == 'on'))
             {
-                return redirect()->route('accountPanel.dashboard');
+                return redirect()->route('accountPanel.customer.main');
             }
         }else{
-            return redirect()->route('accountPanel.dashboard');
+            return redirect()->route('accountPanel.customer.main');
         }
 
         if (!Auth::user()) {
-            return redirect()->route('accountPanel.dashboard');
+            return redirect()->route('accountPanel.customer.main');
         }
 
         if (!Auth::user()->phone){
-            return redirect()->route('accountPanel.dashboard');
+            return redirect()->route('accountPanel.customer.main');
         }
 
 //        if (!Auth::user()->phone_verified) {
@@ -338,7 +338,7 @@ class ProfileController extends Controller
 
         if ($user_device !== null){
             if ($user_device->sms_verified){
-                return redirect()->route('accountPanel.dashboard');
+                return redirect()->route('accountPanel.customer.main');
             }
         }
 
@@ -427,7 +427,7 @@ class ProfileController extends Controller
         $user = auth()->user();
 
         if (null === $user) {
-            return redirect()->route('accountPanel.dashboard');
+            return redirect()->route('accountPanel.customer.main');
         }
 
         /** @var UserPhoneMessages $last_sms */
@@ -494,20 +494,20 @@ class ProfileController extends Controller
             $user_device->save();
           }
 
-          return redirect()->route('accountPanel.dashboard');
+          return redirect()->route('accountPanel.customer.main');
         }
 
         $verification_enable = Setting::where('s_key', 'verification_enable')->first();
         if ($verification_enable !== null){
             if (!($verification_enable->s_value == 'on'))
             {
-                return redirect()->route('accountPanel.dashboard');
+                return redirect()->route('accountPanel.customer.main');
             }
         }else{
-            return redirect()->route('accountPanel.dashboard');
+            return redirect()->route('accountPanel.customer.main');
         }
         if (!(Auth::user()->phone)){
-            return redirect()->route('accountPanel.dashboard');
+            return redirect()->route('accountPanel.customer.main');
         }
 //        if (!(Auth::user()->phone_verified)) {
 //            return redirect()->route('accountPanel.dashboard');
@@ -515,7 +515,7 @@ class ProfileController extends Controller
 
         if ($user_device !== null){
             if ($user_device->sms_verified){
-                return redirect()->route('accountPanel.dashboard');
+                return redirect()->route('accountPanel.customer.main');
             }
         }
 
@@ -532,7 +532,7 @@ class ProfileController extends Controller
                 $user->phone_verified = true;
                 $user->save();
 
-                return redirect()->route('accountPanel.dashboard');
+                return redirect()->route('accountPanel.customer.main');
             }
         }
         return redirect()->route('login.enter.verify.code')->with('error', 'Код не верный!');

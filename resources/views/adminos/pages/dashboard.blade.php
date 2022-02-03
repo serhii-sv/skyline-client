@@ -8,6 +8,8 @@
     <!-- And also Add Flag-Icon CSS Library -->
     <link rel="stylesheet" href="{{ asset('adminos/img/flag-icon-css/css/flag-icon.css') }}">
     <link rel="stylesheet" href="{{ asset('adminos/plugins/jqvmap/css/jqvmap.css') }}">
+    <link rel="stylesheet" href="{{ asset('adminos/plugins/bootstrap4-editable/css/bootstrap-editable.css') }}">
+
     <style>
         .earning-card.card .card-body .inner-top-left ul li, .earning-card.card .card-body .inner-top-right ul li {
             margin-right: 20px;
@@ -366,6 +368,34 @@
                                                         </div>
                                                     @endif
                                                 </div>
+
+                                                <div class="pt-2 pl-3 pr-3 mt-4">
+                                                    <span class="pull-left">
+                                                         @if(canEditLang() && checkRequestOnEdit())
+                                                            <editor_block data-name='Ваша реферальная ссылка:' contenteditable="true">{{ __('Ваша реферальная ссылка:') }}</editor_block>
+                                                        @else
+                                                            {{ __('Ваша реферальная ссылка:') }}
+                                                        @endif
+                                                    </span>
+                                                </div>
+
+                                                <div class="pt-2 pl-3 pr-3 mt-1">
+                                                    <span class="pull-left" style="font-weight: bold">
+                                                         {{ route('ref_link', $user->my_id) }}
+                                                    </span>
+                                                </div>
+
+                                                <div class="pt-2 pl-3 pr-3 mt-5">
+                                                    <span class="pull-left" style="font-weight: bold">
+                                                         <button type="button" class="btn btn-primary btn-xs" onclick="copyToClipboard()">
+                                                             @if(canEditLang() && checkRequestOnEdit())
+                                                                 <editor_block data-name='Скопировать ссылку' contenteditable="true">{{ __('Скопировать ссылку') }}</editor_block>
+                                                             @else
+                                                                 {{ __('Скопировать ссылку') }}
+                                                             @endif
+                                                         </button>
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -633,16 +663,23 @@
                                 <div class="card height-equal">
                                     <div class="card-header">
                                         <h5>@if(canEditLang() && checkRequestOnEdit())
-                                                <editor_block data-name='Your referral link' contenteditable="true">{{ __('Your referral link') }}</editor_block> @else {{ __('Your referral link') }} @endif
+                                                <editor_block data-name='Моя мотивация' contenteditable="true">{{ __('Моя мотивация') }}</editor_block> @else {{ __('Моя мотивация') }} @endif
                                         </h5>
                                     </div>
                                     <div class="card-body mb-2">
-                                        <h4><i class="fa fa-link"></i> {{ route('ref_link', auth()->user()->my_id) }}</h4>
-                                    </div>
-                                    <div class="card-footer">
-                                        <button class="btn btn-primary btn-lg" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @else onclick="copyToClipboard()" @endif>@if(canEditLang() && checkRequestOnEdit())
-                                                <editor_block data-name='Copy' contenteditable="true">{{ __('Copy') }}</editor_block> @else {{ __('Copy') }} @endif
-                                        </button>
+                                        <div class="d-flex justify-content-center">
+                                            <ul class="pin-board" id="draggablePanelList">
+                                                    <li class="pin-board-info" id="sticker_{{ $userSticker->id }}">
+                                                        <div class="change-color sticker-wrap bg-info">
+                                                            <small class="pull-right editable editable-click date" data-type="text" data-placement="right" style="padding-top: 2px;">
+                                                                <i class="far fa-clock"></i> {{ $userSticker->updated_at->format('Y-m-d H:i') }}
+                                                            </small>
+                                                            <h4 class="editable editable-click pin-board-title  mt-5" data-type="text" data-field="title" data-placement="right" data-title="Введите заголовок">{{ $userSticker->title }}</h4>
+                                                            <p data-type="textarea" data-pk="1" data-field="description" data-placeholder="Ваше сообщение здесь" data-title="Введите сообщение" class="editable editable-pre-wrapped editable-click pin-board-text pin-board-message change-color">{{ $userSticker->description }}</p>
+                                                        </div>
+                                                    </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1052,36 +1089,82 @@
         function copyToClipboard() {
             var inputc = document.body.appendChild(document.createElement("input"));
             inputc.value = '{{ route('ref_link', auth()->user()->my_id) }}';
-            inputc.focus();
+            // inputc.focus();
             inputc.select();
             document.execCommand('copy');
             inputc.parentNode.removeChild(inputc);
-            $.notify({
-                    message: 'Ссылка скопирована!'
-                },
-                {
-                    type: 'success',
-                    allow_dismiss: false,
-                    newest_on_top: false,
-                    mouse_over: false,
-                    showProgressbar: false,
-                    spacing: 10,
-                    timer: 2000,
-                    placement: {
-                        from: 'top',
-                        align: 'center'
-                    },
-                    offset: {
-                        x: 30,
-                        y: 30
-                    },
-                    delay: 1000,
-                    z_index: 10000,
-                    animate: {
-                        enter: 'animated bounce',
-                        exit: 'animated bounce'
-                    }
-                });
+            (new PNotify({
+                type: 'success',
+                text: 'Ссылка скопирована!'
+            })).get();
+
+            return false;
         }
+    </script>
+    <script src="{{ asset('adminos/plugins/bootstrap4-editable/js/bootstrap-editable.js') }}"></script>
+    <script>
+        $(function () {
+            let stickerID = 0;
+            let text_color = null;
+            let sticker_color = null;
+
+            let $sticker = null;
+
+            $('.settings').on('click', function(){
+                let modal = $('#settingsModal');
+
+                stickerID = $(this).data('sticker_id');
+
+                text_color = $(this).data('text_color');
+                sticker_color = $(this).data('sticker_color');
+
+                modal.find('#textColor').val(text_color);
+                modal.find('#stickerColor').val(sticker_color);
+
+                $sticker = $('#sticker_' + stickerID)
+            });
+
+            let field = null;
+
+            $('.editable').click(function () {
+                stickerID = $(this).closest('.pin-board-info').attr('id').replace('sticker_', '')
+                field = $(this).data('field');
+            });
+
+            $(document).on('click', '.editable-submit', function () {
+                let data = {};
+
+                data['field'] = field;
+                data[field] = field !== 'description' ? $('.editable-input input').val() : $('.editable-input .input-large').val();
+                data['_token'] = $('meta[name="csrf-token"]').attr('content')
+
+                console.log(data, field)
+
+                $.ajax({
+                    method: 'post',
+                    url: '/stickers/update/' + stickerID,
+                    data: data,
+                    dataType: 'json',
+                    success: (response) => {
+                        (new PNotify({
+                            type: response.success ? 'success' : 'error',
+                            text: response.message,
+                        })).get();
+                    },
+                    error: (xhr) => {
+                        (new PNotify({
+                            type: 'error',
+                            text: 'Неизвестная ошибка',
+                        })).get();
+
+                        return false;
+                    }
+                })
+            })
+
+
+            $('.pin-board-title').editable({});
+            $('.pin-board-message').editable({});
+        })
     </script>
 @endpush

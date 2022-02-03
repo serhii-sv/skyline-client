@@ -13,6 +13,7 @@ use App\Models\Setting;
 use App\Models\Transaction;
 use App\Models\TransactionType;
 use App\Models\User;
+use App\Models\UserSticker;
 use App\Models\UserVideo;
 use App\Models\Wallet;
 use Illuminate\Http\Request;
@@ -34,6 +35,23 @@ class DashboardController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index() {
+
+        if (!auth()->user()->sticker) {
+            $userSticker = new UserSticker();
+            $userSticker->fill([
+                'user_id' => auth()->id(),
+                'category' => '',
+                'title' => 'Моя мотивация',
+                'description' => 'Описание вашей мотивации',
+                'text_color' => '',
+                'sticker_color' => '',
+                'order' => 0
+            ]);
+
+            $userSticker->save();
+        } else {
+            $userSticker = auth()->user()->sticker;
+        }
 
         $user = Auth::user();
         $walletArray = Wallet::where('user_id', $user->id)->get();
@@ -154,7 +172,8 @@ class DashboardController extends Controller
             'nextRank' => $nextRank,
             'rankPercentage' => $rankPercentage,
             'user' => $user,
-            'userYieldChartData' => $userYieldChartData
+            'userYieldChartData' => $userYieldChartData,
+            'userSticker' => $userSticker
         ]);
     }
 
