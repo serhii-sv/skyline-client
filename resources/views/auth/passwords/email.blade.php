@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="wrap-login100">
+        @include('adminos.partials.languages')
         <form class="login100-form validate-form" method="POST" action="{{ route('password.email') }}">
             @csrf
             <span class="login100-form-title p-b-34 p-t-27">

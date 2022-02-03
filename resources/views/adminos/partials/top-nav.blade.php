@@ -13,6 +13,9 @@
             </div>
         </div>
         <ul class="nav navbar-top-links navbar-right ml-auto">
+            <li class="nav-item dropdown d-flex align-items-center">
+                @include('adminos.partials.languages')
+            </li>
             <li class="nav-item">
                 <a class="nav-link btn-full-screen toggle-full-screen" onclick="toggleFullScreen();" data-toggle="tooltip" data-placement="top" title="Go FullScreen" data-original-title="FullScreen">
                     <span id="top-full-screen" class="feather icon-maximize full-screen" aria-hidden="true"></span>
@@ -60,12 +63,6 @@
                     </li>
                 </ul>
             </li>
-            {{--            <li class="nav-item dropdown">--}}
-            {{--                <a class="nav-link dropdown-toggle count-msg show-chat-list" data-toggle="dropdown" href="#">--}}
-            {{--                    <i class="fa fa-bell-o"></i>--}}
-            {{--                    <span class="label label-danger">12</span>--}}
-            {{--                </a>--}}
-            {{--            </li>--}}
             <li class="nav-item user-profile header-notification">
                 <div class="nav-link dropdown-primary dropdown config">
                     <div class="dropdown-toggle" aria-expanded="true" data-toggle="dropdown" role="menu">
