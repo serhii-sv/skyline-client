@@ -615,10 +615,10 @@ class User extends Authenticatable
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function sticker()
+    public function stickers()
     {
-        return $this->hasOne(UserSticker::class);
+        return $this->hasMany(UserSticker::class);
     }
 }

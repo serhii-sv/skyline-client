@@ -113,7 +113,7 @@
             </span>
 
             <div class="wrap-input100 validate-input @error('email') alert-validate @enderror" data-validate="@error('email') {{ $message }} @enderror">
-                <input class="input100" type="text" name="email" placeholder="Ваш Email" value="{{ old('email') }}">
+                <input class="input100" type="text" name="email" placeholder="Ваш Email" value="{{ request()->email ?? old('email') }}">
                 <span class="focus-input100" data-placeholder="&#xf132;"></span>
             </div>
 

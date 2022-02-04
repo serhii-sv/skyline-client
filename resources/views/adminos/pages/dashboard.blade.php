@@ -603,6 +603,22 @@
                             </div>
 
                             <div class="col-lg-6 risk-col ">
+                                        <ul class="pin-board mt-5" id="draggablePanelList">
+                                            @foreach($userStickers as $userSticker)
+                                                <li class="pin-board-info" id="sticker_{{ $userSticker->id }}">
+                                                    <div class="change-color sticker-wrap {{ $loop->index == 0 ? 'bg-info' : 'bg-danger' }}">
+                                                        <small class="pull-right editable editable-click date" data-type="text" data-placement="right" style="padding-top: 2px;">
+                                                            <i class="far fa-clock"></i> {{ $userSticker->updated_at->format('Y-m-d H:i') }}
+                                                        </small>
+                                                        <h4 class="editable editable-click pin-board-title  mt-5" data-type="text" data-field="title" data-placement="right" data-title="Введите заголовок">{{ $userSticker->title }}</h4>
+                                                        <p data-type="textarea" data-pk="1" data-field="description" data-placeholder="Ваше сообщение здесь" data-title="Введите сообщение" class="editable editable-pre-wrapped editable-click pin-board-text pin-board-message change-color">{{ $userSticker->description }}</p>
+                                                    </div>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                            </div>
+
+                            <div class="col-lg-6 risk-col ">
                                 <div class="card total-users">
                                     <div class="card-header card-no-border pb-3 pt-3">
                                         <h5>@if(canEditLang() && checkRequestOnEdit())
@@ -655,31 +671,6 @@
                                                 </div>
                                             </div>
                                         </form>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6 risk-col ">
-                                <div class="card height-equal">
-                                    <div class="card-header">
-                                        <h5>@if(canEditLang() && checkRequestOnEdit())
-                                                <editor_block data-name='Моя мотивация' contenteditable="true">{{ __('Моя мотивация') }}</editor_block> @else {{ __('Моя мотивация') }} @endif
-                                        </h5>
-                                    </div>
-                                    <div class="card-body mb-2">
-                                        <div class="d-flex justify-content-center">
-                                            <ul class="pin-board" id="draggablePanelList">
-                                                    <li class="pin-board-info" id="sticker_{{ $userSticker->id }}">
-                                                        <div class="change-color sticker-wrap bg-info">
-                                                            <small class="pull-right editable editable-click date" data-type="text" data-placement="right" style="padding-top: 2px;">
-                                                                <i class="far fa-clock"></i> {{ $userSticker->updated_at->format('Y-m-d H:i') }}
-                                                            </small>
-                                                            <h4 class="editable editable-click pin-board-title  mt-5" data-type="text" data-field="title" data-placement="right" data-title="Введите заголовок">{{ $userSticker->title }}</h4>
-                                                            <p data-type="textarea" data-pk="1" data-field="description" data-placeholder="Ваше сообщение здесь" data-title="Введите сообщение" class="editable editable-pre-wrapped editable-click pin-board-text pin-board-message change-color">{{ $userSticker->description }}</p>
-                                                        </div>
-                                                    </li>
-                                            </ul>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
