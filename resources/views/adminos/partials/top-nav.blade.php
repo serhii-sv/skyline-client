@@ -4,11 +4,12 @@
             <a class="nav-link navbar-mini mini-style" href="#"><i class="feather icon-menu icon-toggle-left"></i></a>
             <div class="searchbar d-flex align-items-center ml-4">
                 <strong style="font-size: 18px">
-                    @if(canEditLang() && checkRequestOnEdit())
-                        <editor_block data-name='1 Sky Token (SKY) =' contenteditable="true">{{ __('1 Sky Token (SKY) =') }}</editor_block>
-                    @else
-                        {{ __('1 Sky Token (SKY) =') }} {{ number_format(\App\Models\ExchangeRateLog::where('rate_id', 15)->orderBy('created_at', 'desc')->first()->new_rate ?? 1, 2, '.', '') }}$
-                    @endif
+                    <div id="coinmarketcap-widget-marquee" coins="1,1027,825,1839,2010,5426" currency="USD" theme="light" transparent="true" show-symbol-logo="true"></div>
+{{--                    @if(canEditLang() && checkRequestOnEdit())--}}
+{{--                        <editor_block data-name='1 Sky Token (SKY) =' contenteditable="true">{{ __('1 Sky Token (SKY) =') }}</editor_block>--}}
+{{--                    @else--}}
+{{--                        {{ __('1 Sky Token (SKY) =') }} {{ number_format(\App\Models\ExchangeRateLog::where('rate_id', 15)->orderBy('created_at', 'desc')->first()->new_rate ?? 1, 2, '.', '') }}$--}}
+{{--                    @endif--}}
                 </strong>
             </div>
         </div>
