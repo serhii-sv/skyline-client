@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\AccountPanel;
 
+use App\Helpers\SMS;
 use App\Http\Controllers\Controller;
 use App\Models\CloudFile;
 use App\Models\CloudFileFolder;
@@ -20,6 +21,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use stdClass;
 use Twilio\Rest\Client;
 
 class ProfileController extends Controller
@@ -343,32 +345,32 @@ class ProfileController extends Controller
         }
 
         $dispatch_method = Setting::where('s_key', 'verification_type')->first();
-        $account_sid = env("TWILIO_ACCOUNT_SID");
-        $auth_token = env("TWILIO_AUTH_TOKEN");
-        $twilio_number = env("TWILIO_PHONE_NUMBER");
+//        $account_sid = env("TWILIO_ACCOUNT_SID");
+//        $auth_token = env("TWILIO_AUTH_TOKEN");
+//        $twilio_number = env("TWILIO_PHONE_NUMBER");
         $code = $this->generatePIN(4);
-        $client = new Client($account_sid, $auth_token);
+//        $client = new Client($account_sid, $auth_token);
 
-        if ($dispatch_method->s_value == 'voice') {
-            try {
-                $client->calls->create(Auth::user()->phone, // to
-                    $twilio_number, // from
-                    // ["url" => route('accountPanel.verify.voice.text.xml', $code)]
-                    ["url" => 'https://demo.twilio.com/docs/voice.xml']);
-            } catch (\Exception $e) {
-                return back()->with('error', 'Ошибка звонка на номер '.Auth::user()->phone);
-            }
-
-            $statusCode = $client->getHttpClient()->lastResponse->getStatusCode(); // ->lastResponse->getHeaders()
-            if ($statusCode == '201') {
-                $sms = new UserPhoneMessages();
-                $sms->user_id = Auth::user()->id;
-                $sms->code = $code;
-                $sms->type = 'auth';
-                $sms->dispatch_method = $dispatch_method->s_value;
-                $sms->save();
-            }
-        } else {
+//        if ($dispatch_method->s_value == 'voice') {
+//            try {
+//                $client->calls->create(Auth::user()->phone, // to
+//                    $twilio_number, // from
+//                    // ["url" => route('accountPanel.verify.voice.text.xml', $code)]
+//                    ["url" => 'https://demo.twilio.com/docs/voice.xml']);
+//            } catch (\Exception $e) {
+//                return back()->with('error', 'Ошибка звонка на номер '.Auth::user()->phone);
+//            }
+//
+//            $statusCode = $client->getHttpClient()->lastResponse->getStatusCode(); // ->lastResponse->getHeaders()
+//            if ($statusCode == '201') {
+//                $sms = new UserPhoneMessages();
+//                $sms->user_id = Auth::user()->id;
+//                $sms->code = $code;
+//                $sms->type = 'auth';
+//                $sms->dispatch_method = $dispatch_method->s_value;
+//                $sms->save();
+//            }
+//        } else {
             $last_sms = UserPhoneMessages::where('user_id', Auth::user()->id)
                 ->where('type', 'verification')
                 ->where('created_at', '>', Carbon::now()->subMinutes(5))
@@ -380,27 +382,39 @@ class ProfileController extends Controller
                 $text = Setting::where('s_key', 'verification_text')->first();
 
                 try {
-                    $client->messages->create(// Where to send a text message (your cell phone?)
-                        Auth::user()->phone, [
-                        'from' => $twilio_number,
-                        'body' => $text->s_value . ' ' . $code,
-                    ]);
+                    $sms = new SMS(env("SMS_RU_API_KEY"));
+
+                    $data = new stdClass();
+                    $data->to = Auth::user()->phone;
+                    $data->text = $text->s_value . ' ' . $code;
+
+                    $sms = $sms->send_one($data);
+
+                    if ($sms->status == "OK") {
+                        $sms = new UserPhoneMessages();
+                        $sms->user_id = Auth::user()->id;
+                        $sms->code = $code;
+                        $sms->type = 'auth';
+                        $sms->dispatch_method = $dispatch_method->s_value;
+                        $sms->save();
+                    }
+
                 } catch (\Exception $e) {
                     return redirect()->route('login.enter.verify.code');
                 }
 
-                $statusCode = $client->getHttpClient()->lastResponse->getStatusCode(); // ->lastResponse->getHeaders()
+//                $statusCode = $client->getHttpClient()->lastResponse->getStatusCode(); // ->lastResponse->getHeaders()
 
-                if ($statusCode == '201') {
-                    $sms = new UserPhoneMessages();
-                    $sms->user_id = Auth::user()->id;
-                    $sms->code = $code;
-                    $sms->type = 'auth';
-                    $sms->dispatch_method = $dispatch_method->s_value;
-                    $sms->save();
-                }
+//                if ($statusCode == '201') {
+//                    $sms = new UserPhoneMessages();
+//                    $sms->user_id = Auth::user()->id;
+//                    $sms->code = $code;
+//                    $sms->type = 'auth';
+//                    $sms->dispatch_method = $dispatch_method->s_value;
+//                    $sms->save();
+//                }
             }
-        }
+//        }
 
         return redirect()->route('login.enter.verify.code');
     }
@@ -423,6 +437,11 @@ class ProfileController extends Controller
     }
 
     public function verifyCode(Request $request) {
+
+        $request->validate([
+            'code' => 'required|integer|min:4'
+        ]);
+
         /** @var User $user */
         $user = auth()->user();
 

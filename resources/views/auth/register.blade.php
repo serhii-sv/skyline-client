@@ -16,7 +16,7 @@
 
         #a{
             padding-left: 0px;
-            background-color: #9152f8;
+            background-color: #007aff;
         }
 
         #a img, .btn-select img{
@@ -34,7 +34,7 @@
         }
 
         #a li:hover{
-            background-color: #a778f6;
+            background-color: #007aff;
         }
 
         #a li img{
@@ -70,7 +70,7 @@
             height: 34px;
             border-radius: 5px;
             border: 1px solid #ccc;
-            background-color: #9152f8;
+            background-color: #007aff;
             color: white;
         }
         .btn-select li{

@@ -53,6 +53,14 @@
             z-index: 2;
         }
 
+        .skip:before {
+            background-color: #096ac9;
+        }
+
+        .skip {
+            color: white;
+        }
+
     </style>
 
     @yield('page-style')
