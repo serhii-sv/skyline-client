@@ -77,12 +77,12 @@
                         @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='All transactions' contenteditable="true">{{ __('All transactions') }}</editor_block> @else {{ __('All transactions') }} @endif
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ route('accountPanel.calendar') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link">
-                        <i class="fa fa-calendar-check-o"></i>
-                        @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Calendar' contenteditable="true">{{ __('Calendar') }}</editor_block> @else {{ __('Calendar') }} @endif
-                    </a>
-                </li>
+{{--                <li class="nav-item">--}}
+{{--                    <a href="{{ route('accountPanel.calendar') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link">--}}
+{{--                        <i class="fa fa-calendar-check-o"></i>--}}
+{{--                        @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Calendar' contenteditable="true">{{ __('Calendar') }}</editor_block> @else {{ __('Calendar') }} @endif--}}
+{{--                    </a>--}}
+{{--                </li>--}}
             </ul>
         </li>
         <li class="nav-item {{ Route::is('accountPanel.referrals.*') ? 'active' : '' }}">
