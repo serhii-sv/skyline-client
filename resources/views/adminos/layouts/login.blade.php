@@ -28,6 +28,7 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="{{ asset('adminos/auth/css/util.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('adminos/auth/css/main.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('adminos/css/language.css') }}">
 
     <link rel="stylesheet" type="text/css" href="{{ asset('accountPanel/css/spinner.css') }}">
 
@@ -51,6 +52,15 @@
         .wrap-login100 {
             z-index: 2;
         }
+
+        .skip:before {
+            background-color: #096ac9;
+        }
+
+        .skip {
+            color: white;
+        }
+
     </style>
 
     @yield('page-style')

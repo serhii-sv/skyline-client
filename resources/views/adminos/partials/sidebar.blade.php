@@ -77,12 +77,12 @@
                         @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='All transactions' contenteditable="true">{{ __('All transactions') }}</editor_block> @else {{ __('All transactions') }} @endif
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ route('accountPanel.calendar') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link">
-                        <i class="fa fa-calendar-check-o"></i>
-                        @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Calendar' contenteditable="true">{{ __('Calendar') }}</editor_block> @else {{ __('Calendar') }} @endif
-                    </a>
-                </li>
+{{--                <li class="nav-item">--}}
+{{--                    <a href="{{ route('accountPanel.calendar') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link">--}}
+{{--                        <i class="fa fa-calendar-check-o"></i>--}}
+{{--                        @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Calendar' contenteditable="true">{{ __('Calendar') }}</editor_block> @else {{ __('Calendar') }} @endif--}}
+{{--                    </a>--}}
+{{--                </li>--}}
             </ul>
         </li>
         <li class="nav-item {{ Route::is('accountPanel.referrals.*') ? 'active' : '' }}">
@@ -124,12 +124,12 @@
                 <span class="nav-label">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Магазин' contenteditable="true">{{ __('Магазин') }}</editor_block> @else {{ __('Магазин') }} @endif</span>
             </a>
         </li>
-        <li class="nav-item {{ Route::is('accountPanel.stickers.index') ? 'active' : '' }}">
-            <a href="{{ route('accountPanel.stickers.index') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link">
-                <i class="fa fa-sticky-note"></i>
-                <span class="nav-label">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Stickers' contenteditable="true">{{ __('Stickers') }}</editor_block> @else {{ __('Stickers') }} @endif</span>
-            </a>
-        </li>
+{{--        <li class="nav-item {{ Route::is('accountPanel.stickers.index') ? 'active' : '' }}">--}}
+{{--            <a href="{{ route('accountPanel.stickers.index') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link">--}}
+{{--                <i class="fa fa-sticky-note"></i>--}}
+{{--                <span class="nav-label">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Stickers' contenteditable="true">{{ __('Stickers') }}</editor_block> @else {{ __('Stickers') }} @endif</span>--}}
+{{--            </a>--}}
+{{--        </li>--}}
 {{--        <li class="nav-item {{ Route::is('accountPanel.chat') ? 'active' : '' }}">--}}
 {{--            <a href="{{ route('accountPanel.chat') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link">--}}
 {{--                <i class="fa fa-commenting-o"></i>--}}

@@ -7,6 +7,7 @@
 {{-- page content --}}
 @section('content')
 <div class="wrap-login100">
+    @include('adminos.partials.languages')
     <form class="login100-form validate-form" method="POST" action="{{ route('login') }}">
         <input type="hidden" name="g-recaptcha-response" id="recaptcha">
         @csrf
@@ -14,7 +15,11 @@
             <img width="70" src="/images/user/user-icon.png" class="img-responsive lock-screen-img center-block" alt="image"/>
         </span>
         <span class="login100-form-title p-b-34 p-t-27">
-            Авторизация
+             @if(canEditLang() && checkRequestOnEdit())
+                <editor_block data-name='Авторизация' contenteditable="true">{{ __('Авторизация') }}</editor_block>
+            @else
+                {{ __('Авторизация') }}
+            @endif
         </span>
 
         @error('g-recaptcha-response')
@@ -34,25 +39,41 @@
         <div class="contact100-form-checkbox">
             <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember">
             <label class="label-checkbox100" for="ckb1">
-                Запомнит меня
+                @if(canEditLang() && checkRequestOnEdit())
+                    <editor_block data-name='Запомнит меня' contenteditable="true">{{ __('Запомнит меня') }}</editor_block>
+                @else
+                    {{ __('Запомнит меня') }}
+                @endif
             </label>
         </div>
 
         <div class="container-login100-form-btn">
             <button class="login100-form-btn">
-                Войти
+                @if(canEditLang() && checkRequestOnEdit())
+                    <editor_block data-name='Войти' contenteditable="true">{{ __('Войти') }}</editor_block>
+                @else
+                    {{ __('Войти') }}
+                @endif
             </button>
         </div>
 
         <div class="text-center p-t-90">
             <a class="txt1" href="{{ route('register') }}">
-                Зарегистрироваться
+                @if(canEditLang() && checkRequestOnEdit())
+                    <editor_block data-name='Зарегистрироваться' contenteditable="true">{{ __('Зарегистрироваться') }}</editor_block>
+                @else
+                    {{ __('Зарегистрироваться') }}
+                @endif
             </a>
         </div>
 
         <div class="text-center">
             <a class="txt1" href="{{ route('password.request') }}">
-                Забыли пароль?
+                @if(canEditLang() && checkRequestOnEdit())
+                    <editor_block data-name='Забыли пароль?' contenteditable="true">{{ __('Забыли пароль?') }}</editor_block>
+                @else
+                    {{ __('Забыли пароль?') }}
+                @endif
             </a>
         </div>
     </form>

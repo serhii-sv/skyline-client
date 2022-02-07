@@ -16,7 +16,7 @@
 
         #a{
             padding-left: 0px;
-            background-color: #9152f8;
+            background-color: #007aff;
         }
 
         #a img, .btn-select img{
@@ -34,7 +34,7 @@
         }
 
         #a li:hover{
-            background-color: #a778f6;
+            background-color: #007aff;
         }
 
         #a li img{
@@ -70,7 +70,7 @@
             height: 34px;
             border-radius: 5px;
             border: 1px solid #ccc;
-            background-color: #9152f8;
+            background-color: #007aff;
             color: white;
         }
         .btn-select li{
@@ -101,14 +101,19 @@
 
 @section('content')
     <div class="wrap-login100">
+        @include('adminos.partials.languages')
         <form class="login100-form validate-form" method="POST" action="{{ route('register') }}">
             @csrf
             <span class="login100-form-title p-b-34 p-t-27">
-                Регистрация
+                 @if(canEditLang() && checkRequestOnEdit())
+                    <editor_block data-name='Регистрация' contenteditable="true">{{ __('Регистрация') }}</editor_block>
+                @else
+                    {{ __('Регистрация') }}
+                @endif
             </span>
 
             <div class="wrap-input100 validate-input @error('email') alert-validate @enderror" data-validate="@error('email') {{ $message }} @enderror">
-                <input class="input100" type="text" name="email" placeholder="Ваш Email" value="{{ old('email') }}">
+                <input class="input100" type="text" name="email" placeholder="Ваш Email" value="{{ request()->email ?? old('email') }}">
                 <span class="focus-input100" data-placeholder="&#xf132;"></span>
             </div>
 
@@ -124,16 +129,7 @@
 
             <div class="wrap-input100 phone-input-wrap validate-input @error('phone') alert-validate @enderror" data-validate="@error('phone') {{ $message }} @enderror">
                 <div class="code-wrap">
-                    <select id="country-code-select">
-                        <option value="en" class="test" data-thumbnail="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/LetterA.svg/2000px-LetterA.svg.png">English</option>
-                        <option value="au" data-thumbnail="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/NYCS-bull-trans-B.svg/480px-NYCS-bull-trans-B.svg.png">Engllish (AU)</option>
-                        <option value="uk" data-thumbnail="https://glot.io/static/img/c.svg?etag=ZaoLBh_p">Chinese (Simplified)</option>
-                        <option value="cn" data-thumbnail="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/NYCS-bull-trans-D.svg/2000px-NYCS-bull-trans-D.svg.png">German</option>
-                        <option value="de" data-thumbnail="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/MO-supp-E.svg/600px-MO-supp-E.svg.png">Danish</option>
-                        <option value="dk" data-thumbnail="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/F_icon.svg/267px-F_icon.svg.png">French</option>
-                        <option value="fr" data-thumbnail="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/2000px-Google_%22G%22_Logo.svg.png">Greek</option>
-                        <option value="gr" data-thumbnail="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/4H_Emblem.svg/1000px-4H_Emblem.svg.png">Italian</option>
-                    </select>
+                    <select id="country-code-select"></select>
 
                     <input type="hidden" id="dial_code" name="dial_code" value="">
 
@@ -147,10 +143,6 @@
 
                 <input id="phone" class="input100" type="text" name="phone" placeholder="Ваш телефон" value="{{ old('phone') }}">
                 <span class="focus-input100" data-placeholder="&#xf2b9;"></span>
-            </div>
-
-            <div style="margin-top: -20px; margin-bottom: 20px;">
-                <span style="color: red">*</span><span style="font-size: 12px; color: #fff">Обязательно вводите номер с кодом страны например +7 или +3</span>
             </div>
 
             <div class="wrap-input100 validate-input @error('password') alert-validate @enderror" data-validate="@error('password') {{ $message }} @enderror">
@@ -170,13 +162,21 @@
 
             <div class="container-login100-form-btn">
                 <button class="login100-form-btn">
-                    Войти
+                    @if(canEditLang() && checkRequestOnEdit())
+                        <editor_block data-name='Войти' contenteditable="true">{{ __('Войти') }}</editor_block>
+                    @else
+                        {{ __('Войти') }}
+                    @endif
                 </button>
             </div>
 
             <div class="text-center p-t-90">
                 <a class="txt1" href="{{ route('login') }}">
-                    Авторизоваться
+                    @if(canEditLang() && checkRequestOnEdit())
+                        <editor_block data-name='Авторизоваться' contenteditable="true">{{ __('Авторизоваться') }}</editor_block>
+                    @else
+                        {{ __('Авторизоваться') }}
+                    @endif
                 </a>
             </div>
         </form>

@@ -74,7 +74,6 @@
     <script src="{{ asset('accountPanel/js/calendar/schedules.js') }}"></script>
     <script src="{{ asset('accountPanel/js/calendar/app.js') }}"></script>
     <script>
-        console.log(window.cal);
         var title = "Test";
         var isAllDay = true;
         var start = new Date();

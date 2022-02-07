@@ -36,9 +36,9 @@ class DashboardController extends Controller
      */
     public function index() {
 
-        if (!auth()->user()->sticker) {
-            $userSticker = new UserSticker();
-            $userSticker->fill([
+        $userStickers = collect();
+        if (auth()->user()->stickers->count() < 2) {
+            $stickerData = [
                 'user_id' => auth()->id(),
                 'category' => '',
                 'title' => 'Моя мотивация',
@@ -46,11 +46,17 @@ class DashboardController extends Controller
                 'text_color' => '',
                 'sticker_color' => '',
                 'order' => 0
-            ]);
+            ];
+            for ($i = auth()->user()->stickers->count(); $i <= 1; $i++) {
+                $userSticker = new UserSticker();
+                $userSticker->fill($stickerData);
 
-            $userSticker->save();
+                $userSticker->save();
+
+                $userStickers->push($userSticker);
+            }
         } else {
-            $userSticker = auth()->user()->sticker;
+            $userStickers = auth()->user()->stickers()->get();
         }
 
         $user = Auth::user();
@@ -173,7 +179,7 @@ class DashboardController extends Controller
             'rankPercentage' => $rankPercentage,
             'user' => $user,
             'userYieldChartData' => $userYieldChartData,
-            'userSticker' => $userSticker
+            'userStickers' => $userStickers
         ]);
     }
 

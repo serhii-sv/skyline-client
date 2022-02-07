@@ -49,6 +49,8 @@
     <link rel="stylesheet" href="{{ asset('adminos/plugins/pnotify/css/pnotify.mobile.css') }}">
     <link rel="stylesheet" href="{{ asset('adminos/plugins/pnotify/custom/notify.css') }}">
 
+    <link rel="stylesheet" type="text/css" href="{{ asset('adminos/css/language.css') }}">
+
     <style>
         .sidebar-collapse .nav-item.active {
             box-shadow: inset 0px 0px 2px rgb(116 90 155 / 90%);
@@ -58,6 +60,49 @@
 
         .alert ul {
             list-style-type: none;
+        }
+
+        .language__name {
+            color: #007aff;
+            border: solid 2px #007aff;
+        }
+
+        .language__list {
+            border: solid 2px #007aff;
+            padding: 0;
+        }
+
+        .language__button:hover {
+            color: #007aff;
+        }
+
+        .language__item, .language__item a {
+            margin-left: -5px;
+        }
+
+        .language__name:after {
+            border-left: solid 1px #007aff;
+            border-bottom: solid 1px #007aff;
+        }
+
+        .coin-marquee-header {
+            display: none;
+        }
+
+        .navbar-top-links .nav-item, .navbar-top-links .nav-link {
+            background-color: #fff;
+        }
+
+        .navbar-top-links .nav-item:first-child {
+            padding-left: 10px;
+        }
+
+        .navbar-top-links .nav-link {
+            position: sticky;
+        }
+
+        .navbar-right {
+            margin-right: unset !important;
         }
     </style>
 
@@ -134,6 +179,8 @@
 <script src="{{ asset('adminos/plugins/pnotify/custom/notify.js') }}"></script>
 
 <script src="//code-eu1.jivosite.com/widget/eVBf13NSHN" async></script>
+
+<script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/coinMarquee.js"></script>
 
 @stack('scripts')
 
