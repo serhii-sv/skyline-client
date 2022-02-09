@@ -41,7 +41,7 @@
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h5 class="mt-3">@if(canEditLang() && checkRequestOnEdit())<editor_block data-name='Sprint Token rate' contenteditable="true">{{ __('Sprint Token rate') }}</editor_block> @else {{ __('Sprint Token rate') }} @endif
+                                        <h5 class="mt-3">@if(canEditLang() && checkRequestOnEdit())<editor_block data-name='Sky Token rate' contenteditable="true">{{ __('Sky Token rate') }}</editor_block> @else {{ __('Sky Token rate') }} @endif
                                         </h5>
                                     </div>
                                     <div class="card-body">
@@ -58,7 +58,7 @@
                                                 <editor_block data-name='Currency exchange' contenteditable="true">{{ __('Currency exchange') }}</editor_block> @else {{ __('Currency exchange') }} @endif
                                         </h5>
                                         <h6 class="font-primary text-center mb-0 mt-3">@if(canEditLang() && checkRequestOnEdit())
-                                                <editor_block data-name='Commission 1 $' contenteditable="true">{{ __('Commission 1 $') }}</editor_block> @else {{ __('Commission 1 $') }} @endif
+                                                <editor_block data-name='Комиссия 1$' contenteditable="true">{{ __('Комиссия 1$') }}</editor_block> @else {{ __('Комиссия 1$') }} @endif
                                         </h6>
                                         <div class="text-center mt-4">
                                             @include('partials.inform')
@@ -68,7 +68,7 @@
                                         <div class="apex-chart-container goal-status text-center ">
                                             <form action="{{ route('accountPanel.currency.exchange') }}" method="post" class="row">
                                                 @csrf
-                                                <div class="rate-card col-xl-12">
+                                                <div class="rate-card col-xl-12 p-5">
                                                     <div class="goal-end-point">
                                                         <div class="row">
                                                             <div class="col-lg-6 pr-lg-5">
@@ -76,14 +76,20 @@
                                                                     <div class="currency-exchange-label col-form-label">@if(canEditLang() && checkRequestOnEdit())
                                                                             <editor_block data-name='Choose the first wallet' contenteditable="true">{{ __('Choose the first wallet') }}</editor_block> @else {{ __('Choose the first wallet') }} @endif
                                                                     </div>
-                                                                    @forelse($wallets as $wallet)
-                                                                        <input class="currency-exchange-radio wallet_from" type="radio" id="wal1{{ $wallet->id }}" name="wallet_from" value="{{ $wallet->id }}">
-                                                                        <label class="currency-exchange exchange-first-wallet" for="wal1{{ $wallet->id }}" data-id="{{ $wallet->id }}" data-prefix="{{ $wallet->currency->symbol }}" data-step="{{ $wallet->currency->precision }}" data-max="{{ $wallet->balance }}">
-                                                                            {{ $wallet->currency->name ?? '' }} - {{ $wallet->balance ?? '' }} {{ $wallet->currency->symbol ?? '' }}
-                                                                        </label>
-                                                                    @empty
-                                                                        <div>Кошельки отсутствуют</div>
-                                                                    @endforelse
+                                                                    <div class="col-lg-8">
+
+                                                                    </div>
+                                                                    <select id="fromWallet" class="form-control">
+                                                                        @forelse($wallets as $wallet)
+                                                                            <option value="{{ $wallet->id }}" data-id="{{ $wallet->id }}" data-prefix="{{ $wallet->currency->symbol }}" data-step="{{ $wallet->currency->precision }}" data-max="{{ $wallet->balance }}">{{ $wallet->currency->name ?? '' }} - {{ $wallet->balance ?? '' }} {{ $wallet->currency->symbol ?? '' }}</option>
+{{--                                                                            <input class="currency-exchange-radio wallet_from" type="radio" id="wal1{{ $wallet->id }}" name="wallet_from" value="{{ $wallet->id }}">--}}
+{{--                                                                            <label class="currency-exchange exchange-first-wallet" for="wal1{{ $wallet->id }}" data-id="{{ $wallet->id }}" data-prefix="{{ $wallet->currency->symbol }}" data-step="{{ $wallet->currency->precision }}" data-max="{{ $wallet->balance }}">--}}
+{{--                                                                                {{ $wallet->currency->name ?? '' }} - {{ $wallet->balance ?? '' }} {{ $wallet->currency->symbol ?? '' }}--}}
+{{--                                                                            </label>--}}
+                                                                        @empty
+                                                                            <option value="">Кошельки отсутствуют</option>
+                                                                        @endforelse
+                                                                    </select>
                                                                 </div>
                                                             </div>
 
@@ -92,14 +98,17 @@
                                                                     <div class="currency-exchange-label col-form-label">@if(canEditLang() && checkRequestOnEdit())
                                                                             <editor_block data-name='Choose a second wallet' contenteditable="true">{{ __('Choose a second wallet') }}</editor_block> @else {{ __('Choose a second wallet') }} @endif
                                                                     </div>
-                                                                    @forelse($wallets as $wallet)
-                                                                        <input class="currency-exchange-radio wallet_to" type="radio" id="wal2{{ $wallet->id }}" name="wallet_to" value="{{ $wallet->id }}">
-                                                                        <label class="currency-exchange exchange-second-wallet" for="wal2{{ $wallet->id }}" data-id="{{ $wallet->id }}" data-prefix="{{ $wallet->currency->symbol }}" data-step="{{ $wallet->currency->precision }}" data-max="{{ $wallet->balance }}">
-                                                                            {{ $wallet->currency->name ?? '' }} - {{ $wallet->balance ?? '' }} {{ $wallet->currency->symbol ?? '' }}
-                                                                        </label>
-                                                                    @empty
-                                                                        <div>Кошельки отсутствуют</div>
-                                                                    @endforelse
+                                                                    <select id="walletTo" class="form-control">
+                                                                        @forelse($wallets as $wallet)
+                                                                            <option value="{{ $wallet->id }}" data-id="{{ $wallet->id }}" data-prefix="{{ $wallet->currency->symbol }}" data-step="{{ $wallet->currency->precision }}" data-max="{{ $wallet->balance }}">{{ $wallet->currency->name ?? '' }} - {{ $wallet->balance ?? '' }} {{ $wallet->currency->symbol ?? '' }}</option>
+{{--                                                                            <input class="currency-exchange-radio wallet_to" type="radio" id="wal2{{ $wallet->id }}" name="wallet_to" value="{{ $wallet->id }}">--}}
+{{--                                                                            <label class="currency-exchange exchange-second-wallet" for="wal2{{ $wallet->id }}" data-id="{{ $wallet->id }}" data-prefix="{{ $wallet->currency->symbol }}" data-step="{{ $wallet->currency->precision }}" data-max="{{ $wallet->balance }}">--}}
+{{--                                                                                {{ $wallet->currency->name ?? '' }} - {{ $wallet->balance ?? '' }} {{ $wallet->currency->symbol ?? '' }}--}}
+{{--                                                                            </label>--}}
+                                                                        @empty
+                                                                            <option>Кошельки отсутствуют</option>
+                                                                        @endforelse
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -184,8 +193,8 @@
             $(document).ready(function () {
                 $('#exchangeAmount').keyup(function(){
                     var val = $(this).val();
-                    var from = $('.wallet_from:checked').val();
-                    var to = $('.wallet_to:checked').val();
+                    var from = $('#fromWallet').val();
+                    var to = $('#walletTo').val();
 
                     $.ajax({
                         type:'GET',
@@ -198,11 +207,11 @@
                     });
                 });
 
-                $('.wallet_from').click(function(){
+                $('#walletTo').change(function(){
                     $('#exchangeAmount').keyup();
                 });
 
-                $('.wallet_to').click(function(){
+                $('#fromWallet').change(function(){
                     $('#exchangeAmount').keyup();
                 });
 

@@ -60,7 +60,7 @@ class CurrencyController extends Controller
         $amount = (float) abs($request->get('amount'));
 
         /** @var float $commission */
-        $commission = 1; // %
+        $commission = 1; // $
 
         /** @var Wallet $wallet_from */
         $wallet_from = Wallet::where('user_id', Auth::user()->id)->where('id', $request->get('wallet_from'))->first();
@@ -122,7 +122,7 @@ class CurrencyController extends Controller
         $amount = (float) abs($request->get('amount'));
 
         /** @var float $commission */
-        $commission = 1; // %
+        $commission = 1; // $
 
         /** @var Wallet $wallet_from */
         $wallet_from = Wallet::where('user_id', Auth::user()->id)->where('id', $request->get('wallet_from'))->firstOrFail();
@@ -130,10 +130,7 @@ class CurrencyController extends Controller
         /** @var Wallet $wallet_to */
         $wallet_to = Wallet::where('user_id', Auth::user()->id)->where('id', $request->get('wallet_to'))->firstOrFail();
 
-
-
-
-        $converted = $wallet_from->convertToCurrency($wallet_from->currency, $wallet_to->currency, (abs($amount) - (abs($amount) / 100 * $commission)));
+        $converted = $wallet_from->convertToCurrency($wallet_from->currency, $wallet_to->currency, (abs($amount) - (abs($amount) / 100)  - $commission));
         $rate = $wallet_from->convertToCurrency($wallet_from->currency, $wallet_to->currency, 1);
 
         return [

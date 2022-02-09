@@ -1,5 +1,7 @@
 <div class="footer fixed">
     <div>
-        <strong>&copy; {{ now()->format('Y') }}</strong> {{ config('app.name') }} Copyright
+        <strong>
+            <span id="today" class="float-left"></span>
+        </strong>
     </div>
 </div>

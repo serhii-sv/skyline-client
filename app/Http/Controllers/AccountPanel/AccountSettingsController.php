@@ -113,8 +113,18 @@ class AccountSettingsController extends Controller
 
     public function editProfile()
     {
+        $wallets = Wallet::with('currency')->where('user_id', auth()->user()->id)->with('currency')->get();
+
+        $verification_enable = Setting::where('s_key', 'verification_enable')->first();
+        $verification_enable = $verification_enable !== null ? $verification_enable->s_value : 'off';
+        $auth_log = UserAuthLog::orderByDesc('created_at')->limit(5)->get();
+
         return view('adminos.pages.settings.profile', [
+            'fa_field' => auth()->user()->loginSecurity()->first()->google2fa_enable ?? false,
             'user' => Auth::user(),
+            'verification_enable' => $verification_enable,
+            'auth_log' => $auth_log,
+            'wallets' => $wallets,
         ]);
     }
 

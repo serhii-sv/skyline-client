@@ -239,6 +239,13 @@
         h6.text-white {
             white-space: unset;
         }
+        .d-grid .btn-success:hover {
+            color: #165b26 !important;
+        }
+
+        .d-grid .btn-danger:hover {
+            color: #7e2f38 !important;
+        }
     </style>
 @endpush
 @section('content')
@@ -270,10 +277,29 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-12 statistic-footer">
-                                                                <p class="text-white"><i class="feather icon-clock f-14"></i>
+                                                                <p class="text-white">
                                                                     @if(canEditLang() && checkRequestOnEdit())
-                                                                        <editor_block data-name='update' contenteditable="true">{{ __('update') }}</editor_block>
-                                                                    @else {{ __('update') }}@endif: {{ $item->updated_at->format('H:i Y-m-d') }}</p>
+                                                                        <editor_block data-name='Total user enter' contenteditable="true">{{ __('Total user enter') }}</editor_block>
+                                                                    @else {{ __('Total user enter') }}@endif: <b>{{ $item->totalEnter() ?? 0 }} {{ $item->currency->symbol }}</b>
+                                                                </p>
+                                                                <p class="text-white">
+                                                                    @if(canEditLang() && checkRequestOnEdit())
+                                                                        <editor_block data-name='Total user withdraw' contenteditable="true">{{ __('Total user withdraw') }}</editor_block>
+                                                                    @else {{ __('Total user withdraw') }}@endif: <b>{{ $item->totalWithdraw() ?? 0 }} {{ $item->currency->symbol }}</b>
+                                                                </p>
+                                                            </div>
+
+                                                            <div class="col-12 statistic-footer mt-2">
+                                                                <div class="mt-3 wallet-button-wrapper d-flex justify-content-center">
+                                                                    <div class="d-grid">
+                                                                        <a href="{{ route('accountPanel.replenishment') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="btn btn-outline btn-success" style="background-color: rgba(255,255,255,0.8)">@if(canEditLang() && checkRequestOnEdit())
+                                                                                <editor_block data-name='Replenish1' contenteditable="true">{{ __('Replenish1') }}</editor_block>
+                                                                            @else {{ __('Replenish1') }}@endif</a>
+                                                                        <a href="{{ route('accountPanel.withdrawal') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="btn btn-outline btn-danger" style="background-color: rgba(255,255,255,0.8)">@if(canEditLang() && checkRequestOnEdit())
+                                                                                <editor_block data-name='To withdraw2' contenteditable="true">{{ __('To withdraw2') }}</editor_block>
+                                                                            @else {{ __('To withdraw2') }}@endif</a>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -315,7 +341,8 @@
                                             <div class="col-12 text-center">
                                                 <div class="col-12">
                                                     <div class="mt-2">
-                                                        <input type="text" class="dial" value="{{ round($rankPercentage, 1) }}" data-width="100" data-height="100" data-linecap="round" data-displayprevious="true" data-displayinput="true" data-readonly="true" data-fgcolor="#fe9365">
+                                                        <div data-label="{{ round($rankPercentage, 1) }}%" class="radial-bar radial-bar-{{ round($rankPercentage, -1) }} radial-bar-lg radial-bar-warning"></div>
+{{--                                                        <input type="text" class="dial" value="{{ round($rankPercentage, 1) }}" data-width="100" data-height="100" data-linecap="round" data-displayprevious="true" data-displayinput="true" data-readonly="true" data-fgcolor="#fe9365">--}}
                                                     </div>
                                                     @if(!is_null($nextRank))
                                                         <p>
@@ -369,7 +396,7 @@
                                                     @endif
                                                 </div>
 
-                                                <div class="pt-2 pl-3 pr-3 mt-4">
+                                                <div class="pt-2 pl-3 pr-3 mt-4 d-flex justify-content-center">
                                                     <span class="pull-left">
                                                          @if(canEditLang() && checkRequestOnEdit())
                                                             <editor_block data-name='Ваша реферальная ссылка:' contenteditable="true">{{ __('Ваша реферальная ссылка:') }}</editor_block>
@@ -379,15 +406,15 @@
                                                     </span>
                                                 </div>
 
-                                                <div class="pt-2 pl-3 pr-3 mt-1">
+                                                <div class="pt-2 pl-3 pr-3 mt-1  d-flex justify-content-center">
                                                     <span class="pull-left" style="font-weight: bold">
                                                          {{ route('ref_link', $user->my_id) }}
                                                     </span>
                                                 </div>
 
-                                                <div class="pt-2 pl-3 pr-3 mt-5">
+                                                <div class="pt-2 pl-3 pr-3 mt-3  d-flex justify-content-center">
                                                     <span class="pull-left" style="font-weight: bold">
-                                                         <button type="button" class="btn btn-primary btn-xs" onclick="copyToClipboard()">
+                                                         <button type="button" class="btn btn-primary btn-outline btn-xs" onclick="copyToClipboard()">
                                                              @if(canEditLang() && checkRequestOnEdit())
                                                                  <editor_block data-name='Скопировать ссылку' contenteditable="true">{{ __('Скопировать ссылку') }}</editor_block>
                                                              @else
@@ -515,17 +542,17 @@
                                             <div id="vmap" style="width:100%; height:356px;"></div>
                                         </div>
                                     </div>
-                                    <div class="card-footer bg-dark">
-                                        <div class="d-flex align-items-center">
-                                            <img class="d-inline-block jqvmap-country-flag mr-3" alt="flag" src="/adminos/img/flag-icon-css/flags/4x3/us.svg" style="width:55px; height: auto;">
-                                            <h6 class="d-inline-block fw-100 m-0 text-white">
-                                                @if(canEditLang() && checkRequestOnEdit())
-                                                    <editor_block data-name='Popularity by country' contenteditable="true">{{ __('Popularity by country') }}</editor_block>
-                                                @else {{ __('Popularity by country') }}@endif:
-                                                <small class="jqvmap-country">США - {{ $countries_stat['США'] ?? 0 }}</small>
-                                            </h6>
-                                        </div>
-                                    </div>
+{{--                                    <div class="card-footer bg-dark">--}}
+{{--                                        <div class="d-flex align-items-center">--}}
+{{--                                            <img class="d-inline-block jqvmap-country-flag mr-3" alt="flag" src="/adminos/img/flag-icon-css/flags/4x3/us.svg" style="width:55px; height: auto;">--}}
+{{--                                            <h6 class="d-inline-block fw-100 m-0 text-white">--}}
+{{--                                                @if(canEditLang() && checkRequestOnEdit())--}}
+{{--                                                    <editor_block data-name='Popularity by country' contenteditable="true">{{ __('Popularity by country') }}</editor_block>--}}
+{{--                                                @else {{ __('Popularity by country') }}@endif:--}}
+{{--                                                <small class="jqvmap-country">США - {{ $countries_stat['США'] ?? 0 }}</small>--}}
+{{--                                            </h6>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
                                 </div>
                             </div>
 
@@ -655,19 +682,21 @@
                                                             @endforelse
                                                         </select>
                                                     </div>
-                                                    <div class="form-check checkbox mb-3">
-                                                        <input class="form-check-input" id="checkbox3" type="checkbox">
-                                                        <label class="form-check-label" for="checkbox3">
-                                                            @if(canEditLang() && checkRequestOnEdit())
-                                                                <editor_block data-name='Do insurance 1' contenteditable="true">{{ __('Do insurance 1') }}</editor_block>
-                                                            @else
-                                                                {{ __('Do insurance 1') }}
-                                                            @endif
-                                                        </label>
+{{--                                                    <div class="form-check checkbox mb-3">--}}
+{{--                                                        <input class="form-check-input" id="checkbox3" type="checkbox">--}}
+{{--                                                        <label class="form-check-label" for="checkbox3">--}}
+{{--                                                            @if(canEditLang() && checkRequestOnEdit())--}}
+{{--                                                                <editor_block data-name='Do insurance 1' contenteditable="true">{{ __('Do insurance 1') }}</editor_block>--}}
+{{--                                                            @else--}}
+{{--                                                                {{ __('Do insurance 1') }}--}}
+{{--                                                            @endif--}}
+{{--                                                        </label>--}}
+{{--                                                    </div>--}}
+                                                    <div class="d-flex justify-content-center">
+                                                        <button class="btn btn-lg btn-primary btn-sm btn-outline btn w-50 btn-block send-money-to-user-btn" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>@if(canEditLang() && checkRequestOnEdit())
+                                                                <editor_block data-name='Do transfer' contenteditable="true">{{ __('Do transfer') }}</editor_block> @else {{ __('Do transfer') }} @endif
+                                                        </button>
                                                     </div>
-                                                    <button class="btn btn-lg btn-primary btn-block send-money-to-user-btn" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>@if(canEditLang() && checkRequestOnEdit())
-                                                            <editor_block data-name='Do transfer' contenteditable="true">{{ __('Do transfer') }}</editor_block> @else {{ __('Do transfer') }} @endif
-                                                    </button>
                                                 </div>
                                             </div>
                                         </form>
@@ -944,16 +973,16 @@
                 values: data_array,
                 scaleColors: ['#F8AC59', '#28A745'],
                 normalizeFunction: 'polynomial',
-                onRegionClick: function(element, country_code, country)
-                {
-                    world_countries.map(item => {
-                        if(item.alpha2 === country_code || item.alpha3 === country_code) {
-                            country = item.ru
-                        }
-                    })
-                    $('.jqvmap-country-flag').attr('src', '/adminos/img/flag-icon-css/flags/4x3/' + country_code.toLowerCase() + '.svg');
-                    $('.jqvmap-country').html(country + ' - ' + countriesStat[country].count.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-                }
+                // onRegionClick: function(element, country_code, country)
+                // {
+                //     world_countries.map(item => {
+                //         if(item.alpha2 === country_code || item.alpha3 === country_code) {
+                //             country = item.ru
+                //         }
+                //     })
+                //     $('.jqvmap-country-flag').attr('src', '/adminos/img/flag-icon-css/flags/4x3/' + country_code.toLowerCase() + '.svg');
+                //     $('.jqvmap-country').html(country + ' - ' + countriesStat[country].count.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+                // }
             });
         });
 
