@@ -267,7 +267,7 @@ body.mini-navbar .sidebar-collapse {
     left: auto;
 }
 .menu-log {
-    margin-top: 11px !important;
+    margin-top: 35px !important;
 }
 .notifications {
     margin-top: 0px !important;
@@ -6811,7 +6811,7 @@ body.top-navigation.canvas-menu.default-theme.mini-navbar nav.navbar-static-side
 .btn-info.btn-outline:hover,
 .btn-warning.btn-outline:hover,
 .btn-danger.btn-outline:hover {
-    color: #fff !important;
+    color: #fff;
 }
 .btn-primary {
     background-color: #0069d9;

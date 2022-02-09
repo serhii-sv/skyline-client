@@ -72,42 +72,42 @@
                         <i class="feather icon-chevron-down"></i>
                     </div>
                     <ul class="dropdown-menu dropdown-menu-right mb-3 menu-log flipInX animated  ml-auto" data-dropdown-out="fadeOut" data-dropdown-in="fadeIn">
-                        <li class="nav-item">
-                            <a href="{{ route('accountPanel.settings.profile') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link">
-                                <i class="fa fa-user"></i>
-                                @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Account' contenteditable="true">{{ __('Account') }}</editor_block> @else {{ __('Account') }} @endif
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('accountPanel.settings.security') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link">
-                                <i class="fa fa-gear"></i>
-                                @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Settings' contenteditable="true">{{ __('Settings') }}</editor_block> @else {{ __('Settings') }} @endif
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('accountPanel.user-products.index') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link">
-                                <i class="fa fa-shopping-basket"></i>
-                                @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Покупки' contenteditable="true">{{ __('Покупки') }}</editor_block> @else {{ __('Покупки') }} @endif
-                            </a>
-                        </li>
+{{--                        <li class="nav-item">--}}
+{{--                            <a href="{{ route('accountPanel.settings.profile') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link">--}}
+{{--                                <i class="fa fa-user"></i>--}}
+{{--                                @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Account' contenteditable="true">{{ __('Account') }}</editor_block> @else {{ __('Account') }} @endif--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
+{{--                        <li class="nav-item">--}}
+{{--                            <a href="{{ route('accountPanel.settings.security') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link">--}}
+{{--                                <i class="fa fa-gear"></i>--}}
+{{--                                @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Settings' contenteditable="true">{{ __('Settings') }}</editor_block> @else {{ __('Settings') }} @endif--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
+{{--                        <li class="nav-item">--}}
+{{--                            <a href="{{ route('accountPanel.user-products.index') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link">--}}
+{{--                                <i class="fa fa-shopping-basket"></i>--}}
+{{--                                @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Покупки' contenteditable="true">{{ __('Покупки') }}</editor_block> @else {{ __('Покупки') }} @endif--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
                         @if(canEditLang() && checkRequestOnEdit())
                             <li>
                                 <a href="{{ url()->current() }}" class="nav-link">
-                                    <i class="fa fa-edit"></i>
+                                    <i class="fa fa-edit mr-2"></i>
                                     <span>{{ __('Default mode') }}</span>
                                 </a>
                             </li>
                         @elseif(canEditLang())
                             <li>
                                 <a href="{{ url()->current() . '?edit=true' }}" class="nav-link">
-                                    <i class="fa fa-edit"></i>
+                                    <i class="fa fa-edit mr-2"></i>
                                     <span>{{ __('Edit text') }}</span>
                                 </a>
                             </li>
                         @endif
                         <li class="nav-item">
                             <a href="{{ route('logout') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link">
-                                <i class="fa fa-shopping-basket"></i>
+                                <i class="fa fa-shopping-basket mr-2"></i>
                                 @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Log out' contenteditable="true">{{ __('Log out') }}</editor_block> @else {{ __('Log out') }} @endif
                             </a>
                         </li>

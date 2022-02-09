@@ -63,7 +63,7 @@
             height: 220px;
             margin: 15px;
             cursor: pointer;
-            border: 3px solid #e4e4e4;
+            /*border: 3px solid #e4e4e4;*/
             -webkit-border-radius: 5px;
             -moz-border-radius: 5px;
             border-radius: 5px;
@@ -213,7 +213,7 @@
 
                 $([document.documentElement, document.body]).animate({
                     scrollTop: $(".f1-buttons").offset().top
-                },0);
+                }, 1000);
             });
             $(".btn-previous").on('click', function (e) {
                 var paySystem = $("input[name='payment_system']:checked").attr('data-name');

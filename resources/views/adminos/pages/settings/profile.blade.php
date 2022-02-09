@@ -10,7 +10,7 @@
         }
 
         .user-image {
-            position: relative;
+            margin-left: 20px;
         }
 
         .hidden {
@@ -20,6 +20,9 @@
         .preview {
             width: 100%;
             height: auto;
+        }
+        #profileUpdateForm {
+            padding: 20px;
         }
         .avatar {
             margin-left: 10px;
@@ -34,93 +37,8 @@
                     <!--Page Content-->
                     <div class="wrapper wrapper-content">
                         {{ Breadcrumbs::render('settings.profile') }}
-                        <div class="row">
-                            <div class="col-xl-4">
-                                <div class="card">
-                                    <div class="card-header pb-3 pt-3">
-                                        <h4 class="card-title mb-0">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='My Profile' contenteditable="true">{{ __('My Profile') }}</editor_block> @else {{ __('My Profile') }} @endif</h4>
-                                        <div class="card-options">
-                                            <a class="card-options-collapse" href="#" data-bs-toggle="card-collapse">
-                                                <i class="fe fe-chevron-up"></i>
-                                            </a>
-                                            <a class="card-options-remove" href="#" data-bs-toggle="card-remove"><i
-                                                    class="fe fe-x"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="card-body pt-3">
-                                        <div class="row mb-4">
-                                            <div class="profile-title">
-                                                <div class="media">
-                                                    <div class="user-image">
-                                                        <form action="{{ route('accountPanel.profile.update.photo') }}" enctype="multipart/form-data" method="post" class="text-center d-flex justify-content-center">
-                                                            @csrf
-                                                            <div class="avatar ">
-                                                                <label class="position-relative" style="cursor: pointer;">
-                                                                    <input type="file" name="avatar"
-                                                                           class="profile-avatar-input d-none">
-                                                                    @if(auth()->user()->avatar)
-                                                                        <img class="avatar-image img-100 rounded-circle" alt=""
-                                                                             src="{{ route('accountPanel.profile.get.avatar', auth()->user()->id) }}"
-                                                                             data-old="{{ route('accountPanel.profile.get.avatar', auth()->user()->id) }}">
-                                                                    @else
-                                                                        <img class="avatar-image img-100 rounded-circle" alt=""
-                                                                             src="{{ asset('accountPanel/images/user/user.png') }}"
-                                                                             data-old="{{ asset('accountPanel/images/user/user.png') }}">
-                                                                    @endif
-                                                                    <button type="submit" class="btn btn-pill btn-success btn-air-success btn-xs ml-2" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
-                                                                        @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Save photo' contenteditable="true">{{ __('Save photo') }}</editor_block> @else {{ __('Save photo') }} @endif
-                                                                    </button>
-                                                                </label>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Investor' contenteditable="true">{{ __('Investor') }}</editor_block> @else {{ __('Investor') }} @endif</label>
-                                            <p><strong>{{ $user->name ?? '' }}</strong></p>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Email' contenteditable="true">{{ __('Email') }}</editor_block> @else {{ __('Email') }} @endif</label>
-                                            <p><strong>{{ $user->email ?? 'Не указан' }}</strong></p>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Telephone' contenteditable="true">{{ __('Telephone') }}</editor_block> @else {{ __('Telephone') }} @endif</label>
-                                            <p><strong>{{ $user->phone ?? 'Не указан' }}</strong></p>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Skype' contenteditable="true">{{ __('Skype') }}</editor_block> @else {{ __('Skype') }} @endif</label>
-                                            <p><strong>{{ $user->skype ?? 'Не указан' }}</strong></p>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Telegram' contenteditable="true">{{ __('Telegram') }}</editor_block> @else {{ __('Telegram') }} @endif</label>
-                                            <p><strong>{{ $user->telegram ?? 'Не указан' }}</strong></p>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Gender' contenteditable="true">{{ __('Gender') }}</editor_block> @else {{ __('Gender') }} @endif</label>
-                                            <p><strong>{{ $user->sex ?? 'Не указан' }}</strong></p>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Country' contenteditable="true">{{ __('Country') }}</editor_block> @else {{ __('Country') }} @endif</label>
-                                            <p><strong>{{ $user->country_manual ?? 'Не указана' }}</strong></p>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='City' contenteditable="true">{{ __('City') }}</editor_block> @else {{ __('City') }} @endif</label>
-                                            <p><strong>{{ $user->city_manual ?? 'Не указан' }}</strong></p>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Referral link' contenteditable="true">{{ __('Referral link') }}</editor_block> @else {{ __('Referral link') }} @endif</label>
-                                            <p><strong>{{ route('ref_link', $user->my_id) }}</strong></p>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-8">
-                                <form class="card" method="post" action="{{ route('accountPanel.profile.update') }}">
-                                    @csrf
-                                    {{ method_field('PUT') }}
+                        <div class="row card">
+                            <div class="col-xl-12">
                                     <div class="card-header">
                                         <h4 class="card-title mb-0">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Editing a profile' contenteditable="true">{{ __('Editing a profile') }}</editor_block> @else {{ __('Editing a profile') }} @endif</h4>
                                         <div class="card-options">
@@ -131,6 +49,30 @@
                                         </div>
                                     </div>
                                     <div class="card-body">
+                                        <form action="{{ route('accountPanel.profile.update.photo') }}" id="avatarForm" enctype="multipart/form-data" method="post" class="text-center d-flex justify-content-center card p-3">
+                                            @csrf
+                                            <div class="avatar ">
+                                                <label class="position-relative" style="cursor: pointer;">
+                                                    <input type="file" name="avatar"
+                                                           class="profile-avatar-input d-none">
+                                                    @if(auth()->user()->avatar)
+                                                        <img class="avatar-image img-100 rounded-circle" alt=""
+                                                             src="{{ route('accountPanel.profile.get.avatar', auth()->user()->id) }}"
+                                                             data-old="{{ route('accountPanel.profile.get.avatar', auth()->user()->id) }}">
+                                                    @else
+                                                        <img class="avatar-image img-100 rounded-circle" alt=""
+                                                             src="{{ asset('accountPanel/images/user/user.png') }}"
+                                                             data-old="{{ asset('accountPanel/images/user/user.png') }}">
+                                                    @endif
+                                                    <button type="button" id="saveAvatar" class="btn btn-pill btn-success btn-air-success btn-xs ml-2" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
+                                                        @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Save photo' contenteditable="true">{{ __('Save photo') }}</editor_block> @else {{ __('Save photo') }} @endif
+                                                    </button>
+                                                </label>
+                                            </div>
+                                        </form>
+                                        <form class="card" id="profileUpdateForm" method="post" action="{{ route('accountPanel.profile.update') }}">
+                                            @csrf
+                                            {{ method_field('PUT') }}
                                         <div class="row">
                                             <div class="col-12 mb-3">
                                                 @include('partials.inform')
@@ -213,11 +155,164 @@
                                                 </div>
                                             </div>
                                         </div>
+                                            <div class="w-20">
+                                                <button class="btn btn-primary btn-outline" id="saveProfileData" type="button">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Save' contenteditable="true">{{ __('Save') }}</editor_block> @else {{ __('Save') }} @endif</button>
+                                            </div>
+                                        </form>
                                     </div>
-                                    <div class="card-footer text-end">
-                                        <button class="btn btn-primary" type="submit">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Save' contenteditable="true">{{ __('Save') }}</editor_block> @else {{ __('Save') }} @endif</button>
+                                <div class="row p-3">
+                                    <div class="col-sm-12 col-xl-12">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h5>@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Payment system details' contenteditable="true">{{ __('Payment system details') }}</editor_block> @else {{ __('Payment system details') }} @endif</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                @include('partials.inform')
+                                                <div class="row">
+                                                    <div class="col-sm-3 tabs-responsive-side">
+                                                        <div class="nav flex-column nav-pills border-tab nav-left" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                                            @forelse($wallets as $wallet)
+                                                                <?php
+                                                                /** @var \App\Models\Currency $currency */
+                                                                $currency = $wallet->currency;
+                                                                $walletName = $currency->name;
+                                                                if ($currency->code == 'USD') {
+                                                                    $walletName = 'PerfectMoney / Payeer';
+                                                                } elseif ($currency->code == 'UAH') {
+                                                                    $walletName = 'UAH VISA/MASTERCARD';
+                                                                } elseif ($currency->code == 'RUB') {
+                                                                    $walletName = 'RUB VISA/MC / QIWI';
+                                                                } elseif ($currency->code == 'KZT') {
+                                                                    $walletName = 'KZT VISA/MASTERCARD';
+                                                                } elseif ($currency->code == 'EUR') {
+                                                                    $walletName = 'EUR VISA/MASTERCARD';
+                                                                }
+                                                                ?>
+                                                                <a class="nav-link @if($loop->first) active @endif" id="v-pills-{{ $wallet->id }}-tab" data-bs-toggle="pill" href="#v-pills-{{ $wallet->id }}" role="tab" aria-controls="v-pills-{{ $wallet->id }}">{{ $walletName }}</a>
+                                                            @empty
+                                                            @endforelse
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-9">
+                                                        <div class="tab-content" id="v-pills-tabContent">
+                                                            @forelse($wallets as $wallet)
+                                                                <div class="tab-pane fade @if($loop->first) active show @endif" id="v-pills-{{ $wallet->id }}" role="tabpanel" aria-labelledby="v-pills-{{ $wallet->id }}-tab">
+
+                                                                    <form action="{{ route('accountPanel.profile.wallet.details.update') }}" method="post" class="mb-3">
+                                                                        @csrf
+                                                                        <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                                                        <input type="hidden" name="wallet_id" value="{{ $wallet->id }}">
+                                                                        <input type="hidden" name="currency_id" value="{{ $wallet->currency->id }}">
+
+                                                                        <div class="row">
+                                                                            <div class="col">
+                                                                                <div class="">
+                                                                                    <label>@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Wallet external {{ $wallet->currency_id }}' contenteditable="true">{{ __('Wallet external '.$wallet->currency_id) }}</editor_block> @else {{ __('Wallet external '.$wallet->currency_id) }} @endif</label>
+                                                                                    <input class="form-control input-air-primary" type="text" name="external" value="{{ $wallet->external ?? '' }}" placeholder="" data-bs-original-title="" title="">
+                                                                                </div>
+
+                                                                                @if($wallet->currency->code == 'USD')
+                                                                                    <div style="margin-top:30px;">
+                                                                                        <label>@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Wallet external Payeer' contenteditable="true">{{ __('Wallet Payeer') }}</editor_block> @else {{ __('Wallet external Payeer') }} @endif</label>
+                                                                                        <input class="form-control input-air-primary" type="text" name="external_payeer" value="{{ $wallet->external_payeer ?? '' }}" placeholder="" data-bs-original-title="" title="">
+                                                                                    </div>
+                                                                                @endif
+
+                                                                                @if($wallet->currency->code == 'RUB')
+                                                                                    <div style="margin-top:30px;">
+                                                                                        <label>@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Wallet external Qiwi' contenteditable="true">{{ __('Wallet Qiwi') }}</editor_block> @else {{ __('Wallet external Qiwi') }} @endif</label>
+                                                                                        <input class="form-control input-air-primary" type="text" name="external_qiwi" value="{{ $wallet->external_qiwi ?? '' }}" placeholder="" data-bs-original-title="" title="">
+                                                                                    </div>
+                                                                                @endif
+                                                                            </div>
+                                                                            @if($wallet->currency->code == 'USD' || $wallet->currency->code == 'RUB')
+                                                                                <div style="clear:both; margin:20px 0 20px 0;"></div>
+                                                                            @endif
+                                                                            <div class="col align-self-end">
+                                                                                <button class="btn btn-success btn-outline">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Save' contenteditable="true">{{ __('Save') }}</editor_block> @else {{ __('Save') }} @endif</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+
+                                                            @empty
+                                                            @endforelse
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </form>
+                                </div>
+                                <div class="row p-3">
+                                    <div class="col-xl-4">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h4 class="card-title mb-0">Общие</h4>
+                                                <div class="card-options">
+                                                    <a class="card-options-collapse" href="#"
+                                                       data-bs-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+                                                    <a
+                                                        class="card-options-remove" href="#" data-bs-toggle="card-remove"><i
+                                                            class="fe fe-x"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="form-check checkbox checkbox-success mb-3 ml-3">
+                                                    <input class="form-check-input" type="checkbox" name="ffa_field"
+                                                           data-bs-original-title="" title="" id="ffa_field" @if($fa_field) checked="checked" @endif>
+                                                    <label class="form-check-label" for="ffa_field">исползовать двух-факторную
+                                                        аутентификацию</label>
+                                                </div>
+                                                <div class="form-footer">
+                                                    <button class="btn btn-primary btn-outline btn-block" id="ffa_save">Применить изменения</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4">
+                                        <div class="card">
+                                            <div class="card-header pb-2">
+                                                <h4 class="card-title mb-0">Пароль</h4>
+                                                <div class="card-options">
+                                                    <a class="card-options-collapse" href="#"
+                                                       data-bs-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+                                                    <a
+                                                        class="card-options-remove" href="#" data-bs-toggle="card-remove"><i
+                                                            class="fe fe-x"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="card-body pt-2">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Введите старый пароль</label>
+                                                    <input class="form-control" id="password_old_field" type="password" name="password_old">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Введите новый пароль</label>
+                                                    <input class="form-control" id="password_field" type="password" name="password">
+                                                </div>
+                                                <div class="form-footer">
+                                                    <button class="btn btn-primary btn-outline btn-block" id="password_save">Сменить пароль</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4">
+                                        <div class="panel-box">
+                                            <div class="panel-box-title" style="background-color: #007aff; color: white">
+                                                <h5>@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Login history' contenteditable="true">{{ __('Login history') }}</editor_block> @else {{ __('Login history') }} @endif</h5>
+                                            </div>
+                                            <div class="panel-box-content years-timeline pt-2">
+                                                <ul>
+                                                    @forelse($auth_log as $item)
+                                                        <li><a href="#">ip: {{ $item->ip }} ({{ $item->created_at->format('H:i:s d.F.Y') }})</a></li>
+                                                    @empty
+                                                    @endforelse
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -248,6 +343,14 @@
             $(".profile-avatar-input").change(function () {
                 readURL(this);
             });
+
+            $('#saveProfileData').click(function () {
+                $('#profileUpdateForm').submit();
+            })
+
+            $('#saveAvatar').click(function () {
+                $('#avatarForm').submit();
+            })
         });
     </script>
 @endpush

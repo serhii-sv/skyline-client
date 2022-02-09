@@ -102,7 +102,13 @@
         }
 
         .navbar-right {
-            margin-right: unset !important;
+            position: absolute;
+            right: 0;
+        }
+
+        .menu-log {
+            position: absolute;
+            top: 5px
         }
     </style>
 
