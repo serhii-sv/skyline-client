@@ -633,7 +633,7 @@
                                         <ul class="pin-board mt-5" id="draggablePanelList">
                                             @foreach($userStickers as $userSticker)
                                                 <li class="pin-board-info" id="sticker_{{ $userSticker->id }}">
-                                                    <div class="change-color sticker-wrap {{ $loop->index == 0 ? 'bg-info' : 'bg-danger' }}">
+                                                    <div class="change-color sticker-wrap {{ $loop->index == 0 ? 'bg-info' : 'bg-success' }}">
                                                         <small class="pull-right editable editable-click date" data-type="text" data-placement="right" style="padding-top: 2px;">
                                                             <i class="far fa-clock"></i> {{ $userSticker->updated_at->format('Y-m-d H:i') }}
                                                         </small>

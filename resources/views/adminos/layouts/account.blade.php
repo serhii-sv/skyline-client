@@ -108,7 +108,7 @@
 
         .menu-log {
             position: absolute;
-            top: 5px
+            top: 30px
         }
     </style>
 

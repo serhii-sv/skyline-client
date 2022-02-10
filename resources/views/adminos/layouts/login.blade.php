@@ -61,6 +61,13 @@
             color: white;
         }
 
+        .back {
+            color: white;
+            padding: 3px 15px;
+            border: solid 2px #fbc800;
+            border-radius: 15px;
+        }
+
     </style>
 
     @yield('page-style')
@@ -78,7 +85,7 @@
             </div>
         </div>
     </div>
-    <div class="container-login100" style="background-image: url('/images/bg.jpeg');">
+    <div class="container-login100" style="/*background-image: url('/images/bg.jpeg'); */background-color: black">
         @yield('content')
     </div>
 </div>

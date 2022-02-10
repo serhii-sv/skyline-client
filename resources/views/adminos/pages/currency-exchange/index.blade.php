@@ -57,9 +57,9 @@
                                         <h5 class="text-center mt-3">@if(canEditLang() && checkRequestOnEdit())
                                                 <editor_block data-name='Currency exchange' contenteditable="true">{{ __('Currency exchange') }}</editor_block> @else {{ __('Currency exchange') }} @endif
                                         </h5>
-                                        <h6 class="font-primary text-center mb-0 mt-3">@if(canEditLang() && checkRequestOnEdit())
-                                                <editor_block data-name='Комиссия 1$' contenteditable="true">{{ __('Комиссия 1$') }}</editor_block> @else {{ __('Комиссия 1$') }} @endif
-                                        </h6>
+{{--                                        <h6 class="font-primary text-center mb-0 mt-3">@if(canEditLang() && checkRequestOnEdit())--}}
+{{--                                                <editor_block data-name='Комиссия 1$' contenteditable="true">{{ __('Комиссия 1$') }}</editor_block> @else {{ __('Комиссия 1$') }} @endif--}}
+{{--                                        </h6>--}}
                                         <div class="text-center mt-4">
                                             @include('partials.inform')
                                         </div>
@@ -118,7 +118,7 @@
                                                 <div class="row w-100 pl-5">
                                                     <div class="col col-lg-12">
                                                         <div class="row" style="margin-top:50px;">
-                                                            <div class="col-lg-4">
+                                                            <div class="col-lg-3">
                                                                 <div class="form-group row">
                                                                     <div class="col">
                                                                         <label class="form-label">@if(canEditLang() && checkRequestOnEdit())
@@ -130,7 +130,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-4">
+                                                            <div class="col-lg-3">
                                                                 <div class="form-group row">
                                                                     <div class="col">
                                                                         <label class="form-label">КУРС</label>
@@ -140,7 +140,19 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-4">
+                                                            <div class="col-lg-3">
+                                                                <div class="form-group row">
+                                                                    <div class="col">
+                                                                        <label class="form-label">
+                                                                            <label class="form-label">@if(canEditLang() && checkRequestOnEdit())
+                                                                                    <editor_block data-name='Комиссия' contenteditable="true">{{ __('Комиссия') }}</editor_block> @else {{ __('Комиссия') }} @endif</label>
+                                                                        <div class="input-group mb-3">
+                                                                            <input class="form-control" type="text" value="1" placeholder="1" readonly>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-3">
                                                                 <div class="form-group row">
                                                                     <div class="col">
                                                                         <label class="form-label">Вы получаете</label>
