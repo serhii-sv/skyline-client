@@ -94,9 +94,9 @@
                     <div class="user-profile">
                         <div class="row">
                             <!-- user profile first-style start-->
-                            <div class="col-sm-12">
+                            <div class="col-sm-12 mt-5">
                                 <div class="card hovercard text-center">
-                                    <div class="cardheader" style="background: url('{{ asset('images/crypto.png') }}') no-repeat; background-size: cover;max-height: 600px;"></div>
+{{--                                    <div class="cardheader"--}}{{-- style="background: url('{{ asset('images/crypto.png') }}') no-repeat; background-size: cover;max-height: 600px;"--}}{{--></div>--}}
                                     <div class="user-image">
                                         <div class="avatar">
                                             @if(!$upliner)

@@ -152,11 +152,11 @@
                                                             @empty
                                                             @endforelse
 
-                                                            <label class="d-flex flex-column align-items-center justify-content-center replenishment-method-item">
-                                                                <div class=" payment-system-item d-flex flex-column align-items-center justify-content-center">
-                                                                    <span>Вашей платежной системы нет в списке? Напишите нам в Службу Поддержки и мы постараемся принять перевод.</span>
-                                                                </div>
-                                                            </label>
+{{--                                                            <label class="d-flex flex-column align-items-center justify-content-center replenishment-method-item">--}}
+{{--                                                                <div class=" payment-system-item d-flex flex-column align-items-center justify-content-center">--}}
+{{--                                                                    <span>Вашей платежной системы нет в списке? Напишите нам в Службу Поддержки и мы постараемся принять перевод.</span>--}}
+{{--                                                                </div>--}}
+{{--                                                            </label>--}}
                                                         </div>
                                                         <div class="f1-buttons" style="text-align: center;">
                                                             <button class="btn btn-primary btn-next shake" id="next" type="button" style="padding:15px 50px 15px 50px; font-size:21px;">@if(canEditLang() && checkRequestOnEdit())
@@ -211,9 +211,9 @@
                 });
                 $(this).find("input[name='currency']").prop('checked', true).attr('checked', 'checked');
 
-                $([document.documentElement, document.body]).animate({
-                    scrollTop: $(".f1-buttons").offset().top
-                }, 1000);
+                // $([document.documentElement, document.body]).animate({
+                //     scrollTop: $(".f1-buttons").offset().top
+                // }, 1000);
             });
             $(".btn-previous").on('click', function (e) {
                 var paySystem = $("input[name='payment_system']:checked").attr('data-name');
