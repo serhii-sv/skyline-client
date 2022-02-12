@@ -89,7 +89,7 @@ Route::group(['middleware' => ['checkSiteEnabled', 'activity-log', 'http-log']],
 
         Route::any('/payment_message/{status}', [\App\Http\Controllers\PaymentMessageController::class, 'message'])->name('payment_message');
 
-        Route::group(['middleware' => ['2fa', 'checkAuthCode'],  'as' => 'accountPanel.'], function (){
+        Route::group(['middleware' => ['2fa'/*, 'checkAuthCode'*/],  'as' => 'accountPanel.'], function (){
 
             Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index'])->name('log')->middleware('permission.check');
 
