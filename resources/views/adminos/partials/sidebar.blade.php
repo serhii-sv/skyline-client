@@ -18,7 +18,7 @@
                     <div class="search-toggle toggle-btn"><i class="feather icon-chevron-up"></i></div>
                     <div class="user-profile-info">
                         <div class="user-pic">
-                            <img class="img-responsive img-rounded" alt="User picture" src="{{ $user->avatar ? route('accountPanel.profile.get.avatar', auth()->user()->id) : asset('accountPanel/images/user/user.png') }}">
+                            <img class="img-responsive img-rounded" alt="User picture" src="{{ $user->getAvatar() }}">
                         </div>
                         <div class="user-info">
                                         <span class="user-name">

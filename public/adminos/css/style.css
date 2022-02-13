@@ -2911,12 +2911,12 @@ body.rtls.yellow-theme .sidebar-footer {
 }
 .img-logo {
     width: 100%;
-    height: 30px;
-    margin-top: 15px;
+    /*height: 30px;*/
+    /*margin-top: 15px;*/
 }
 .logo-element-img {
-    width: 56%;
-    height: 30px;
+    width: 100%;
+    /*height: 30px;*/
 }
 .mini-logo {
     width: 30px;

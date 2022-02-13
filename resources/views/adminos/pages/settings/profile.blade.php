@@ -55,19 +55,18 @@
                                                 <label class="position-relative" style="cursor: pointer;">
                                                     <input type="file" name="avatar"
                                                            class="profile-avatar-input d-none">
-                                                    @if(auth()->user()->avatar)
                                                         <img class="avatar-image img-100 rounded-circle" alt=""
-                                                             src="{{ route('accountPanel.profile.get.avatar', auth()->user()->id) }}"
-                                                             data-old="{{ route('accountPanel.profile.get.avatar', auth()->user()->id) }}">
-                                                    @else
-                                                        <img class="avatar-image img-100 rounded-circle" alt=""
-                                                             src="{{ asset('accountPanel/images/user/user.png') }}"
-                                                             data-old="{{ asset('accountPanel/images/user/user.png') }}">
-                                                    @endif
-                                                    <button type="button" id="saveAvatar" class="btn btn-pill btn-success btn-air-success btn-xs ml-2" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
-                                                        @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Save photo' contenteditable="true">{{ __('Save photo') }}</editor_block> @else {{ __('Save photo') }} @endif
-                                                    </button>
+                                                             src="{{ auth()->user()->getAvatar() }}"
+                                                             data-old="{{ auth()->user()->getAvatar() }}">
                                                 </label>
+                                            </div>
+                                            <div>
+                                                <button type="button" id="saveAvatar" class="btn btn-pill btn-outline-success btn-xs ml-2" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
+                                                    @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Save photo' contenteditable="true">{{ __('Save photo') }}</editor_block> @else {{ __('Save photo') }} @endif
+                                                </button>
+                                                <a href="{{ route('accountPanel.profile.delete.photo') }}" class="btn btn-pill btn-outline-danger btn-xs ml-2" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
+                                                    @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Удалить фото' contenteditable="true">{{ __('Удалить фото') }}</editor_block> @else {{ __('Удалить фото') }} @endif
+                                                </a>
                                             </div>
                                         </form>
                                         <form class="card" id="profileUpdateForm" method="post" action="{{ route('accountPanel.profile.update') }}">

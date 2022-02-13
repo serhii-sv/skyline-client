@@ -32,17 +32,10 @@ Edit profile
                           <label class="position-relative" style="cursor: pointer;">
                             <input type="file" name="avatar"
                                 class="profile-avatar-input d-none">
-                            @if(auth()->user()->avatar)
                               <img class="avatar-image img-100 rounded-circle"
                                   style="height: 100px;" alt=""
-                                  src="{{ route('accountPanel.profile.get.avatar', auth()->user()->id) }}"
-                                  data-old="{{ route('accountPanel.profile.get.avatar', auth()->user()->id) }}">
-                            @else
-                              <img class="avatar-image img-100 rounded-circle"
-                                  style="height: 100px;" alt=""
-                                  src="{{ asset('accountPanel/images/user/user.png') }}"
-                                  data-old="{{ asset('accountPanel/images/user/user.png') }}">
-                            @endif
+                                  src="{{ auth()->user()->getAvatar() }}"
+                                  data-old="{{ auth()->user()->getAvatar() }}">
                           </label>
                         </div>
                         <button type="submit" class="btn btn-pill btn-success btn-air-success btn-xs" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>

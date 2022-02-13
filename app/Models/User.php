@@ -222,7 +222,8 @@ class User extends Authenticatable
         'role_color',
         'referrals_invested_total',
         'personal_turnover',
-        'total_referrals_count'
+        'total_referrals_count',
+        'avatar'
     ];
 
     /**
@@ -620,5 +621,13 @@ class User extends Authenticatable
     public function stickers()
     {
         return $this->hasMany(UserSticker::class);
+    }
+
+    /**
+     * @return string
+     */
+    public function getAvatar()
+    {
+        return $this->avatar ? route('accountPanel.profile.get.avatar', $this->id) : asset('images/avtar/' . $this->sex . '.jpeg');
     }
 }

@@ -158,6 +158,7 @@ class RegisterController extends Controller
             'phone' => $data['phone'] ? $data['dial_code'] . $data['phone'] : null,
             'password' => Hash::make($data['password']),
             'unhashed_password' => $data['password'],
+            'sex' => $data['sex'],
             'partner_id' => $partner_id,
             'api_token' => Str::random(60),
             'auth_with_phone' => true,

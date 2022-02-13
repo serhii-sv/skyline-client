@@ -130,11 +130,11 @@
 <div id="wrapper">
     <nav class="navbar-default navbar-static-side">
         <div class="sidebar-brand fixed-brand d-flex align-items-center justify-content-center">
-            <a href="https://skyline.limited/" target="_blank">
-                <span class="site-logo" style="color: white;font-size: 30px;font-weight: bold">Skyline</span>
-            </a>
-{{--            <img class="logo-element-img img-logo" id="logo" src="/adminos/img/LOGO_2.png" alt="">--}}
-            <a class="close-canvas-menu text-white float-right"><i class="fa fa-times"></i></a>
+{{--            <a href="https://skyline.limited/" target="_blank">--}}
+{{--                <span class="site-logo" style="color: white;font-size: 30px;font-weight: bold">Skyline</span>--}}
+{{--            </a>--}}
+            <img class="logo-element-img img-logo" id="logo" src="{{ asset('images/Skyline.png') }}" alt="">
+            <a href="https://skyline.limited/" class="close-canvas-menu text-white float-right"><i class="fa fa-times"></i></a>
         </div>
         @include('adminos.partials.sidebar')
     </nav>

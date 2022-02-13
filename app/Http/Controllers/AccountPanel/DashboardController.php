@@ -271,7 +271,7 @@ class DashboardController extends Controller
     public function storeUserVideo(Request $request) {
         $video = $request->get('video');
         if (!strlen($video) > 0) {
-            return back()->with('short_error', 'Поле "Ссылка на видео" обязательно для заполнения!');
+            return back()->with('error', 'Поле "Ссылка на видео" обязательно для заполнения!');
         }
 
         $user_video = new UserVideo();
@@ -279,8 +279,8 @@ class DashboardController extends Controller
         $user_video->user_id = Auth::user()->id;
 
         if ($user_video->save()) {
-            return back()->with('short_success', 'Ваше видео передано в обработку!');
+            return back()->with('success', 'Ваше видео передано в обработку!');
         }
-        return back()->with('short_error', 'Не удалось загрузить!');
+        return back()->with('error', 'Не удалось загрузить!');
     }
 }

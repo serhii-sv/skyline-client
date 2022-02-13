@@ -255,6 +255,18 @@
                     <!--Page Content-->
                     <div class="wrapper wrapper-content">
                         {{ Breadcrumbs::render('dashboard') }}
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                <div class="panel-box">
+                                    <div class="panel-box-title">
+                                        <h5>Monthly Earnings</h5>
+                                    </div>
+                                    <div class="panel-box-content">
+                                        <canvas id="canvas" style="width:100%; height:400px;"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-12">
                             @if(!empty($wallets))
                                 @php
@@ -430,19 +442,6 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                                <div class="panel-box">
-                                    <div class="panel-box-title">
-                                        <h5>Monthly Earnings</h5>
-                                    </div>
-                                    <div class="panel-box-content">
-                                        <canvas id="canvas" style="width:100%; height:400px;"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="row second-chart-list third-news-update balances">
 
                             <div class="col-xl-12 xl-100 box-col-12">
@@ -556,74 +555,52 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
-                                <div class="card">
-                                    <div class="card-header pb-3">
-                                        <h5>@if(canEditLang() && checkRequestOnEdit())
+                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6">
+                                <div class="chat_window panel-box">
+                                    <div class="top_menu panel-box-title">
+                                        <h5 class="text-center">
+                                            @if(canEditLang() && checkRequestOnEdit())
                                                 <editor_block data-name='Videos' contenteditable="true">{{ __('Videos') }}</editor_block>
-                                            @else {{ __('Videos') }}@endif</h5>
+                                            @else {{ __('Videos') }}@endif
+                                        </h5>
                                     </div>
-                                    <div class="card-body pt-3 pb-3">
-                                        <div class="tabs-container">
-                                            <ul class="nav nav-tabs mertial-tab">
-                                                <li class="nav-item">
-                                                    <a class="nav-link active" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif data-toggle="tab" href="#pills-darkhome-tab">
-                                                        <i class="icofont icofont-ui-note"></i>
-                                                        @if(canEditLang() && checkRequestOnEdit())
-                                                            <editor_block data-name='Feed' contenteditable="true">{{ __('Feed') }}</editor_block>
-                                                        @else {{ __('Feed') }}@endif
-                                                    </a>
+                                    <div class="panel-box-content msg-menu">
+                                        <ul class="messages">
+                                            @forelse($users_videos as $users_video)
+                                                <li class="message left appeared">
+                                                    <div class="avatar female-pic"><img src="{{ $users_video->user->getAvatar()  }}" alt=""></div>
+                                                    <div class="text_wrapper">
+                                                        <div class="text">{!! htmlspecialchars_decode($users_video->link) !!}</div>
+                                                    </div>
                                                 </li>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif data-toggle="tab" href="#pills-darkprofile-tab">
-                                                        <i class="icofont icofont-upload-alt"></i>
-                                                        @if(canEditLang() && checkRequestOnEdit())
-                                                            <editor_block data-name='Upload' contenteditable="true">{{ __('Upload') }}</editor_block>
-                                                        @else {{ __('Upload') }}@endif
-                                                    </a>
+                                            @empty
+                                                <li class="message left appeared" style="background: #fafafa">
+                                                    @if(canEditLang() && checkRequestOnEdit())
+                                                        <editor_block data-name='Nothing added' contenteditable="true">{{ __('Nothing added') }}</editor_block>
+                                                    @else {{ __('Nothing added ') }}@endif
                                                 </li>
-                                            </ul>
-                                            <div class="tab-content">
-                                                <div id="pills-darkhome-tab" class="tab-pane active">
-                                                    <div class="panel-body">
-                                                        <div class="tab-pane fade active show" id="pills-darkhome" role="tabpanel" aria-labelledby="pills-darkhome-tab">
-                                                            <ul class="dashboard-video-list">
-                                                                @if($users_videos !== null)
-                                                                    @forelse($users_videos as $users_video)
-                                                                        <li class="mb-3" style="background: #fafafa; padding: 15px">
-                                                                            <div class="mb-3">
-                                                                                <img src="{{  $users_video->user->avatar ? route('accountPanel.profile.get.avatar',$users_video->user->id) : asset('accountPanel/images/user/user.png')  }}" alt="" width="40" height="40" style="-webkit-border-radius: 50%;-moz-border-radius: 50%;border-radius: 50%;">
-                                                                                {{ $users_video->user->login ?? '' }}</div>
-                                                                            {!! htmlspecialchars_decode($users_video->link) !!}
-                                                                        </li>
-                                                                    @empty
-                                                                        <li class="mb-3" style="background: #fafafa; padding: 15px">
-                                                                            @if(canEditLang() && checkRequestOnEdit())
-                                                                                <editor_block data-name='Nothing added' contenteditable="true">{{ __('Nothing added') }}</editor_block>
-                                                                            @else {{ __('Nothing added ') }}@endif
-                                                                        </li>
-                                                                    @endforelse
-                                                                @endif
-                                                            </ul>
-                                                        </div>
+                                            @endforelse
+                                        </ul>
+                                        <div class="bottom_wrapper clearfix">
+                                            <form method="post" action="{{ route('accountPanel.dashboard.store.user.video') }}">
+                                                @csrf
+                                                <div class="mt-4">
+                                                    @include('partials.inform')
+                                                </div>
+                                                <div class="d-flex justify-content-between mt-4">
+                                                    <div class="input-group mb-4">
+                                                        <span class="input-group-text"><i class="icofont icofont-link"></i></span>
+                                                        <input class="form-control" name="video" value="{{ old('video') ?? '' }}" type="text" placeholder="Ссылка на видео" aria-label="">
+                                                    </div>
+                                                    <div class="">
+                                                        <button type="submit" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="btn btn-outline-success">
+                                                            @if(canEditLang() && checkRequestOnEdit())
+                                                                <editor_block data-name='Send' contenteditable="true">{{ __('Send') }}</editor_block>
+                                                            @else {{ __('Send') }}@endif
+                                                        </button>
                                                     </div>
                                                 </div>
-                                                <div id="pills-darkprofile-tab" class="tab-pane">
-                                                    <div class="panel-body">
-                                                        <form method="post" action="{{ route('accountPanel.dashboard.store.user.video') }}">
-                                                            @csrf
-                                                            <div class="input-group mb-4">
-
-                                                                <span class="input-group-text"><i class="icofont icofont-link"></i></span>
-                                                                <input class="form-control" name="video" value="{{ old('video') ?? '' }}" type="text" placeholder="Ссылка на видео" aria-label="">
-                                                            </div>
-                                                            <button class="btn btn-primary m-r-15" type="submit" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>@if(canEditLang() && checkRequestOnEdit())
-                                                                    <editor_block data-name='Send' contenteditable="true">{{ __('Send') }}</editor_block>
-                                                                @else {{ __('Send') }}@endif</button>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -751,9 +728,9 @@
         var config = {
             type: 'line',
             data: {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                labels: ['Янаварь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
                 datasets: [{
-                    label: 'dataset - big points',
+                    label: 'Limo',
                     data: [
                         randomScalingFactor(),
                         randomScalingFactor(),
@@ -772,10 +749,10 @@
                     borderColor: '#DC3545',
                     fill: false,
                     borderDash: [5, 5],
-                    pointRadius: 15,
+                    pointRadius: 10,
                     pointHoverRadius: 10,
                 }, {
-                    label: 'dataset - individual point sizes',
+                    label: 'Mono',
                     data: [
                         randomScalingFactor(),
                         randomScalingFactor(),
@@ -796,7 +773,7 @@
                     borderDash: [5, 5],
                     pointRadius: [2, 4, 6, 18, 0, 12, 20],
                 }, {
-                    label: 'dataset - large pointHoverRadius',
+                    label: 'Nero',
                     data: [
                         randomScalingFactor(),
                         randomScalingFactor(),
@@ -816,7 +793,7 @@
                     fill: false,
                     pointHoverRadius: 30,
                 }, {
-                    label: 'dataset - large pointHitRadius',
+                    label: 'Oskar',
                     data: [
                         randomScalingFactor(),
                         randomScalingFactor(),
@@ -835,7 +812,49 @@
                     borderColor:  '#FFC107',
                     fill: false,
                     pointHitRadius: 20,
-                }]
+                },
+                    {
+                        label: 'NFT',
+                        data: [
+                            randomScalingFactor(),
+                            randomScalingFactor(),
+                            randomScalingFactor(),
+                            randomScalingFactor(),
+                            randomScalingFactor(),
+                            randomScalingFactor(),
+                            randomScalingFactor(),
+                            randomScalingFactor(),
+                            randomScalingFactor(),
+                            randomScalingFactor(),
+                            randomScalingFactor(),
+                            randomScalingFactor()
+                        ],
+                        backgroundColor: '#0007af',
+                        borderColor:  '#0007af',
+                        fill: false,
+                        pointHitRadius: 20,
+                    },
+                    {
+                        label: 'IDO',
+                        data: [
+                            randomScalingFactor(),
+                            randomScalingFactor(),
+                            randomScalingFactor(),
+                            randomScalingFactor(),
+                            randomScalingFactor(),
+                            randomScalingFactor(),
+                            randomScalingFactor(),
+                            randomScalingFactor(),
+                            randomScalingFactor(),
+                            randomScalingFactor(),
+                            randomScalingFactor(),
+                            randomScalingFactor()
+                        ],
+                        backgroundColor: '#7bdcb5',
+                        borderColor:  '#7bdcb5',
+                        fill: false,
+                        pointHitRadius: 20,
+                    }]
             },
             options: {
                 responsive: true,
@@ -850,14 +869,14 @@
                         display: true,
                         scaleLabel: {
                             display: true,
-                            labelString: 'Month'
+                            labelString: 'Месяц'
                         }
                     }],
                     yAxes: [{
                         display: true,
                         scaleLabel: {
                             display: true,
-                            labelString: 'Value'
+                            labelString: 'Показатели'
                         }
                     }]
                 },
