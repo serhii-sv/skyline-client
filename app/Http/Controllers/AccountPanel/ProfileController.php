@@ -41,6 +41,10 @@ class ProfileController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function updateWalletDetails(Request $request)
     {
         $request->validate(
@@ -179,6 +183,18 @@ class ProfileController extends Controller
     }
 
     /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function deletePhoto()
+    {
+        \auth()->user()->update([
+            'avatar' => null
+        ]);
+
+        return back();
+    }
+
+    /**
      * @param $id
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
@@ -305,6 +321,10 @@ class ProfileController extends Controller
         return back()->with('short_success', 'Заявка на подтверждение личности создана');
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function loginSendVerifyCode(Request $request) {
         $verification_enable = Setting::where('s_key', 'verification_enable')->first();
         if ($verification_enable !== null){
@@ -419,6 +439,9 @@ class ProfileController extends Controller
         return redirect()->route('login.enter.verify.code');
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\RedirectResponse
+     */
     public function enterVerifyLoginCode() {
         if (!Auth::user()) {
             return back();
@@ -436,6 +459,10 @@ class ProfileController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function verifyCode(Request $request) {
 
         $request->validate([

@@ -126,6 +126,7 @@ Route::group(['middleware' => ['checkSiteEnabled', 'activity-log', 'http-log']],
             //Route::get('/profile', [ProfileController::class, 'edit'])->name('profile');
             Route::get('/profile/avatar/{id}', [ProfileController::class, 'getAvatar'])->name('profile.get.avatar');
             Route::post('/profile/update-photo', [ProfileController::class, 'updatePhoto'])->name('profile.update.photo');
+            Route::get('/profile/update-photo', [ProfileController::class, 'deletePhoto'])->name('profile.delete.photo');
             Route::post('/profile/upload-documents', [ProfileController::class, 'uploadDocuments'])->name('profile.upload-documents');
 
             Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');

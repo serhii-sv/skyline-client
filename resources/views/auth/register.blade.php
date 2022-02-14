@@ -96,6 +96,61 @@
             outline:none;
         }
 
+        [type="radio"]:checked,
+        [type="radio"]:not(:checked) {
+            position: absolute;
+            left: -9999px;
+        }
+        [type="radio"]:checked + label,
+        [type="radio"]:not(:checked) + label
+        {
+            font-family: Poppins-Regular;
+            font-size: 16px;
+            color: #fff;
+            line-height: 1.2;
+            position: relative;
+            padding-left: 28px;
+            cursor: pointer;
+            line-height: 20px;
+            display: inline-block;
+            /*color: #666;*/
+        }
+        [type="radio"]:checked + label:before,
+        [type="radio"]:not(:checked) + label:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 18px;
+            height: 18px;
+            border: 1px solid #ddd;
+            border-radius: 100%;
+            background: #fff;
+        }
+        [type="radio"]:checked + label:after,
+        [type="radio"]:not(:checked) + label:after {
+            content: '';
+            width: 12px;
+            height: 12px;
+            background: #007aff;
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            border-radius: 100%;
+            -webkit-transition: all 0.2s ease;
+            transition: all 0.2s ease;
+        }
+        [type="radio"]:not(:checked) + label:after {
+            opacity: 0;
+            -webkit-transform: scale(0);
+            transform: scale(0);
+        }
+        [type="radio"]:checked + label:after {
+            opacity: 1;
+            -webkit-transform: scale(1);
+            transform: scale(1);
+        }
+
     </style>
 @endsection
 
@@ -158,6 +213,21 @@
             <div class="wrap-input100 validate-input @error('partner_id') alert-validate @enderror" data-validate="@error('partner_id') {{ $message }} @enderror">
                 <input class="input100" type="text" name="partner_id" placeholder="ID партнёра (не обязательно)" value="{{ $_COOKIE["partner_id"] ??  old('partner_id')  }}">
                 <span class="focus-input100" data-placeholder="&#xf207;"></span>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; margin-bottom: 30px; color: white !important;">
+                <div>
+                    <label>Ваш гендер:</label>
+                </div>
+                <div>
+                    <input type="radio" name="sex" id="test2" value="мужской" checked>
+                    <label for="test2">Мужской</label>
+                </div>
+
+                <div>
+                    <input type="radio" name="sex" id="test2" value="жеский">
+                    <label for="test2">Жеский</label>
+                </div>
             </div>
 
             <div class="container-login100-form-btn">

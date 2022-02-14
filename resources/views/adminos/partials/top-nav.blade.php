@@ -67,7 +67,7 @@
             <li class="nav-item user-profile header-notification">
                 <div class="nav-link dropdown-primary dropdown config">
                     <div class="dropdown-toggle" aria-expanded="true" data-toggle="dropdown" role="menu">
-                        <img class="img-radius" alt="User-Profile-Image" src="{{ $user->avatar ? route('accountPanel.profile.get.avatar', auth()->user()->id) : asset('accountPanel/images/user/user.png') }}">
+                        <img class="img-radius" alt="User-Profile-Image" src="{{ $user->getAvatar() }}">
                         <span class="text-light"> {{ $user->login }} </span>
                         <i class="feather icon-chevron-down"></i>
                     </div>
