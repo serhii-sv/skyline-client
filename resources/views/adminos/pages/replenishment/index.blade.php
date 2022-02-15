@@ -3,6 +3,9 @@
     Topup balance
 @endsection
 @push('styles')
+    <link rel="stylesheet" href="{{ asset('adminos/plugins/jquery.steps/css/jquery.steps.css') }}">
+    <!-- Custom CSS Style-->
+    <link href="{{ asset('adminos/css/style.css') }}" rel="stylesheet">
     <style>
 
         .shake {
@@ -77,6 +80,14 @@
             width: 100%;
         }
     </style>
+
+    @if(isset($_GET['freekassa']))
+        <style>
+            #basic-forms .actions {
+                display: none !important;
+            }
+        </style>
+    @endif
 @endpush
 @section('content')
         <div class="main-content">
@@ -85,113 +96,102 @@
                     <!--Page Content-->
                     <div class="wrapper wrapper-content">
                         {{ Breadcrumbs::render('replenishment') }}
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h5 class="mt-3">@if(canEditLang() && checkRequestOnEdit())
-                                                    <editor_block data-name='Replenishment page 2' contenteditable="true">{{ __('Replenishment page 2') }}</editor_block> @else {{ __('Replenishment page 2') }} @endif <span id="payName"></span>
-                                            </h5>
-                                            @include('partials.inform')
-                                        </div>
-                                        <div class="card-body">
-                                            <form class="f1" method="post" action="{{ route('accountPanel.replenishment') }}">
-                                                @csrf
-{{--                                                <div class="f1-steps">--}}
-{{--                                                    <div class="f1-progress">--}}
-{{--                                                        <div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="3" style="width: 16.66000000000001%;"></div>--}}
-{{--                                                    </div>--}}
-{{--                                                    <div class="f1-step {{ isset($_GET['freekassa']) ? '' : 'active' }}">--}}
-{{--                                                        <div class="f1-step-icon"><i class="fa fa-user"></i></div>--}}
-{{--                                                        <p>--}}
-{{--                                                            @if(canEditLang() && checkRequestOnEdit())--}}
-{{--                                                                <editor_block data-name='Method of replenishment' contenteditable="true">{{ __('Method of replenishment') }}</editor_block>--}}
-{{--                                                            @else {{ __('Method of replenishment') }} @endif--}}
-{{--                                                        </p>--}}
-{{--                                                    </div>--}}
-{{--                                                    <div class="f1-step {{ isset($_GET['freekassa']) ? 'active' : '' }}">--}}
-{{--                                                        <div class="f1-step-icon"><i class="fa fa-key"></i></div>--}}
-{{--                                                        <p>--}}
-{{--                                                            @if(canEditLang() && checkRequestOnEdit())--}}
-{{--                                                                <editor_block data-name='Amount top' contenteditable="true">{{ __('Amount top') }}</editor_block>--}}
-{{--                                                            @else {{ __('Amount top') }} @endif--}}
-{{--                                                        </p>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-                                                @if(!isset($_GET['freekassa']))
+                        <div class="panel-box">
+                            <div class="panel-box-content p-3">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div id="wizard1">
+                                            <section>
+                                                <form class="wizard-form" id="basic-forms" method="post" action="{{ route('accountPanel.replenishment') }}">
+                                                    <h3>
+                                                        @if(canEditLang() && checkRequestOnEdit())
+                                                            <editor_block data-name='Method of replenishment' contenteditable="true">{{ __('Method of replenishment') }}</editor_block>
+                                                        @else {{ __('Method of replenishment') }} @endif
+                                                    </h3>
+                                                    <fieldset>
+                                                        @csrf
+                                                        @include('partials.inform')
+                                                        @if(!isset($_GET['freekassa']))
+                                                            <fieldset>
+                                                                @forelse($payment_systems_by_groups as $groupName => $payment_systems)
+                                                                    <div class="d-flex justify-content-center">
+                                                                        <h4 style="font-weight: bold">
+                                                                            @if(canEditLang() && checkRequestOnEdit())
+                                                                                <editor_block data-name='{{ $groupName }} group' contenteditable="true">{{ __($groupName . ' group') }}</editor_block> @else {{ __($groupName . ' group') }} @endif
+                                                                        </h4>
+                                                                    </div>
+                                                                    <div class="mb-3 item-list-wrapper">
+                                                                        @foreach($payment_systems as $item)
+                                                                            @if($item->code == 'coinpayments')
+                                                                                @foreach($item->currencies()->get() as $currency)
+                                                                                    <label class="d-flex flex-column align-items-center justify-content-center replenishment-method-item ml-3" href="next">
+                                                                                        <input class="payment-system-radio" type="radio" name="payment_system" value="{{ $item->id }}" data-manual="false" data-name="{{ $currency->name }}">
+                                                                                        <div class=" payment-system-item d-flex flex-column align-items-center justify-content-center">
+                                                                                            <img src="{{ asset('accountPanel/images/logos/' .  $currency->image ) }}" alt="{{ $currency->image_alt }}" title="{{ $currency->image_title }}">
+                                                                                            <span>{{ $currency->name }}</span>
+                                                                                        </div>
+                                                                                        <input class="payment-system-radio" type="radio" name="currency" value="{{ $currency->id }}">
+                                                                                    </label>
+                                                                                @endforeach
+                                                                            @else
+                                                                                <label class="d-flex flex-column align-items-center justify-content-center replenishment-method-item ml-3" href="next">
+                                                                                    <input class="payment-system-radio" type="radio" name="payment_system" value="{{ $item->id }}" data-name="{{ $item->code }}" data-manual="true">
+                                                                                    <div class=" payment-system-item d-flex flex-column align-items-center justify-content-center">
+                                                                                        <img src="{{ asset('accountPanel/images/logos/' .  $item->image ) }}" alt="{{ $item->image_alt }}" title="{{ $item->image_title }}">
+                                                                                        <span>{{ $item->name }}</span>
+                                                                                    </div>
+                                                                                </label>
+                                                                            @endif
+                                                                        @endforeach
+                                                                    </div>
+                                                                @empty
+                                                                @endforelse
+{{--                                                                <div class="f1-buttons" style="text-align: center;">--}}
+{{--                                                                    <button class="btn btn-outline-primary btn-next" id="next" type="button" style="padding:15px 50px 15px 50px; font-size:21px;">@if(canEditLang() && checkRequestOnEdit())--}}
+{{--                                                                            <editor_block data-name='Next' contenteditable="true">{{ __('Next') }}</editor_block> @else {{ __('Next') }} @endif--}}
+{{--                                                                    </button>--}}
+{{--                                                                </div>--}}
+                                                            </fieldset>
+                                                        @else
+                                                            <input class="payment-system-radio form-control" type="radio" name="payment_system" value="{{ \App\Models\PaymentSystem::where('code', 'visa_mastercard')->first()->id ?? '' }}" checked>
+                                                        @endif
+
+                                                        <fieldset style="display: {{ isset($_GET['freekassa']) ? 'block' : 'none' }};">
+                                                            <div class="text-center mb-3" style="margin-top:50px;">
+                                                                <div style="margin-bottom:50px;">
+                                                                    <label class="" style="font-size: 20px;">@if(canEditLang() && checkRequestOnEdit())
+                                                                            <editor_block data-name='Amount bot' contenteditable="true">{{ __('Amount bot') }}</editor_block> @else {{ __('Amount bot') }} @endif</label>
+                                                                </div>
+                                                                <input class="form-control input-air-primary text-center" type="text" name="amount" style="font-size: 20px; padding: 10px;max-width: 320px;margin:auto;">
+                                                            </div>
+
+                                                            <div class="f1-buttons" style="text-align: center;margin-top:50px;">
+                                                                @if(!isset($_GET['freekassa']))
+                                                                    <button class="btn btn-primary btn-previous" type="button" data-bs-original-title="" title=""  style="padding:15px 50px 15px 50px; font-size:21px;">@if(canEditLang() && checkRequestOnEdit())
+                                                                            <editor_block data-name='Previous' contenteditable="true">{{ __('Previous') }}</editor_block> @else {{ __('Previous') }} @endif
+                                                                    </button>
+                                                                @endif
+                                                                <button class="btn btn-outline-primary btn-submit" id="next" type="submit" data-bs-original-title="" title=""  style="padding:15px 50px 15px 50px; font-size:21px;">@if(canEditLang() && checkRequestOnEdit())
+                                                                        <editor_block data-name='vnesti' contenteditable="true">{{ __('vnesti') }}</editor_block> @else {{ __('vnesti') }} @endif
+                                                                </button>
+                                                            </div>
+                                                        </fieldset>
+                                                    </fieldset>
+                                                    @if(!isset($_GET['freekassa']))
+                                                    <h3>
+                                                        @if(canEditLang() && checkRequestOnEdit())
+                                                            <editor_block data-name='Amount top' contenteditable="true">{{ __('Amount top') }}</editor_block>
+                                                        @else {{ __('Amount top') }} @endif
+                                                    </h3>
                                                     <fieldset>
 
-                                                        <div class="mb-3 item-list-wrapper">
-                                                            @forelse($payment_systems as $item)
-                                                                <?php
-                                                                if ($item->code == 'sprint') {
-                                                                    continue;
-                                                                }
-                                                                ?>
-                                                                @if($item->code == 'coinpayments')
-                                                                    @foreach($item->currencies()->get() as $currency)
-                                                                        <label class="d-flex flex-column align-items-center justify-content-center replenishment-method-item ml-4" href="next">
-                                                                            <input class="payment-system-radio" type="radio" name="payment_system" value="{{ $item->id }}" data-manual="false" data-name="{{ $currency->name }}">
-                                                                            <div class=" payment-system-item d-flex flex-column align-items-center justify-content-center">
-                                                                                <img src="{{ asset('accountPanel/images/logos/' .  $currency->image ) }}" alt="{{ $currency->image_alt }}" title="{{ $currency->image_title }}">
-                                                                                <span>{{ $currency->name }}</span>
-                                                                            </div>
-                                                                            <input class="payment-system-radio" type="radio" name="currency" value="{{ $currency->id }}">
-                                                                        </label>
-                                                                    @endforeach
-                                                                @else
-                                                                    <label class="d-flex flex-column align-items-center justify-content-center replenishment-method-item ml-4" href="next">
-                                                                        <input class="payment-system-radio" type="radio" name="payment_system" value="{{ $item->id }}" data-name="{{ $item->code }}" data-manual="true">
-                                                                        <div class=" payment-system-item d-flex flex-column align-items-center justify-content-center">
-                                                                            <img src="{{ asset('accountPanel/images/logos/' .  $item->image ) }}" alt="{{ $item->image_alt }}" title="{{ $item->image_title }}">
-                                                                            <span>{{ $item->name }}</span>
-                                                                        </div>
-                                                                    </label>
-                                                                @endif
-
-                                                            @empty
-                                                            @endforelse
-
-{{--                                                            <label class="d-flex flex-column align-items-center justify-content-center replenishment-method-item">--}}
-{{--                                                                <div class=" payment-system-item d-flex flex-column align-items-center justify-content-center">--}}
-{{--                                                                    <span>Вашей платежной системы нет в списке? Напишите нам в Службу Поддержки и мы постараемся принять перевод.</span>--}}
-{{--                                                                </div>--}}
-{{--                                                            </label>--}}
-                                                        </div>
-                                                        <div class="f1-buttons" style="text-align: center;">
-                                                            <button class="btn btn-primary btn-next shake" id="next" type="button" style="padding:15px 50px 15px 50px; font-size:21px;">@if(canEditLang() && checkRequestOnEdit())
-                                                                    <editor_block data-name='Next' contenteditable="true">{{ __('Next') }}</editor_block> @else {{ __('Next') }} @endif
-                                                            </button>
-                                                        </div>
                                                     </fieldset>
-                                                @else
-                                                    <input class="payment-system-radio form-control" type="radio" name="payment_system" value="{{ \App\Models\PaymentSystem::where('code', 'visa_mastercard')->first()->id ?? '' }}" checked>
-                                                @endif
-
-                                                <fieldset style="display: {{ isset($_GET['freekassa']) ? 'block' : 'none' }};">
-                                                    <div class="text-center mb-3" style="margin-top:50px;">
-                                                        <div style="margin-bottom:50px;">
-                                                            <label class="" style="font-size: 20px;">@if(canEditLang() && checkRequestOnEdit())
-                                                                    <editor_block data-name='Amount bot' contenteditable="true">{{ __('Amount bot') }}</editor_block> @else {{ __('Amount bot') }} @endif</label>
-                                                        </div>
-                                                        <input class="form-control input-air-primary text-center" type="text" name="amount" style="font-size: 20px; padding: 10px;max-width: 320px;margin:auto;">
-                                                    </div>
-
-                                                    <div class="f1-buttons" style="text-align: center;margin-top:50px;">
-                                                        @if(!isset($_GET['freekassa']))
-                                                            <button class="btn btn-primary btn-previous" type="button" data-bs-original-title="" title=""  style="padding:15px 50px 15px 50px; font-size:21px;">@if(canEditLang() && checkRequestOnEdit())
-                                                                    <editor_block data-name='Previous' contenteditable="true">{{ __('Previous') }}</editor_block> @else {{ __('Previous') }} @endif
-                                                            </button>
-                                                        @endif
-                                                        <button class="btn btn-primary btn-submit shake" id="next" type="submit" data-bs-original-title="" title=""  style="margin-left:30px;padding:15px 50px 15px 50px; font-size:21px;">@if(canEditLang() && checkRequestOnEdit())
-                                                                <editor_block data-name='vnesti' contenteditable="true">{{ __('vnesti') }}</editor_block> @else {{ __('vnesti') }} @endif
-                                                        </button>
-                                                    </div>
-                                                </fieldset>
-                                            </form>
+                                                    @endif
+                                                </form>
+                                            </section>
+                                        </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -203,6 +203,8 @@
 @endsection
 
 @push('scripts')
+    <script src="{{ asset('adminos/plugins/jquery.steps/js/jquery.steps.js') }}"></script>
+    <script src="{{ asset('adminos/js/pages-js/forms-wizard-validation/form-wizard.js') }}"></script>
     <script>
         $(document).ready(function () {
             $(".replenishment-method-item").on('click', function () {
@@ -211,15 +213,15 @@
                 });
                 $(this).find("input[name='currency']").prop('checked', true).attr('checked', 'checked');
 
-                // $([document.documentElement, document.body]).animate({
-                //     scrollTop: $(".f1-buttons").offset().top
-                // }, 1000);
+                $([document.documentElement, document.body]).animate({
+                    scrollTop: $(this).offset().top - 150
+                }, 1);
             });
             $(".btn-previous").on('click', function (e) {
                 var paySystem = $("input[name='payment_system']:checked").attr('data-name');
                 $('#payName').html("");
             });
-            $(".btn-next").on('click', function (e) {
+            $('a[href="#next"]').on('click', function (e) {
 
                 var paySystem = $("input[name='payment_system']:checked").attr('data-name');
                 $('#payName').html(paySystem);
@@ -229,12 +231,16 @@
                 var manual = $("input[name='payment_system']:checked").attr('data-manual');
                 if (manual == 'true'){
                     var $id = $("input[name='payment_system']:checked").val();
-                    $(".item-list-wrapper").empty().html('<div class="loader-box" style="height: 24px; margin: 50px auto 30px">' +
-                        '<div class="loader-3"></div>' +
-                        '</div>');
-                    $(".f1-buttons").hide();
-                    var $url = "{{ route('accountPanel.replenishment.manual') }}/" + $id ;
-                    location.href = $url;
+                    // $(".item-list-wrapper").empty().html('<div class="loader-box" style="height: 24px; margin: 50px auto 30px">' +
+                    //     '<div class="loader-3"></div>' +
+                    //     '</div>');
+                    // $(".f1-buttons").hide();
+                        var $url = "{{ route('accountPanel.replenishment.manual') }}/" + $id;
+                        location.href = $url;
+                } else {
+                    setTimeout(function () {
+                        $('a[href="#previous"]').click();
+                    }, 400);
                 }
 
             });

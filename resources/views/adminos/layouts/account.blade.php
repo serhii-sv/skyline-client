@@ -53,7 +53,7 @@
 
     <style>
         .sidebar-collapse .nav-item.active {
-            box-shadow: inset 0px 0px 2px rgb(116 90 155 / 90%);
+            box-shadow: inset 0px 0px 2px rgba(255, 255, 255, 0.6);
             border-radius: 10px;
             margin: 2px 2px 2px 0;
         }

@@ -148,7 +148,7 @@
             <a href="{{ route('accountPanel.settings.profile') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link">
                 <i class="fa fa-gear"></i>
                 <span class="nav-label">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Settings' contenteditable="true">{{ __('Settings') }}</editor_block> @else {{ __('Settings') }} @endif</span>
-                <span class="fa arrow"></span>
+{{--                <span class="fa arrow"></span>--}}
             </a>
         </li>
         <li class="nav-item">
