@@ -12,9 +12,19 @@ class ReplenishmentController extends Controller
     //
     public function index() {
         $payment_systems = PaymentSystem::where('code', '!=', 'bonus')->get();
+
+        $payment_systems_by_groups = [];
+
+        foreach ($payment_systems as $payment_system) {
+            if (isset(PaymentSystem::BY_GROUP[$payment_system->code])) {
+                $payment_systems_by_groups[PaymentSystem::BY_GROUP[$payment_system->code]][] = $payment_system;
+            }
+        }
+
         //  $currencies = Currency::all();
         return view('adminos.pages.replenishment.index', [
             'payment_systems' => $payment_systems,
+            'payment_systems_by_groups' => $payment_systems_by_groups
         ]);
     }
 
@@ -91,8 +101,20 @@ class ReplenishmentController extends Controller
     }
 
     public function manual($id = null) {
+        $payment_systems = PaymentSystem::where('code', '!=', 'bonus')->get();
+
+        $payment_systems_by_groups = [];
+
+        foreach ($payment_systems as $payment_system) {
+            if (isset(PaymentSystem::BY_GROUP[$payment_system->code])) {
+                $payment_systems_by_groups[PaymentSystem::BY_GROUP[$payment_system->code]][] = $payment_system;
+            }
+        }
+
         return view('adminos.pages.replenishment.manual', [
             'paymentSystem' => PaymentSystem::whereId($id)->first(),
+            'payment_systems_by_groups' => $payment_systems_by_groups,
+            'id' => $id
         ]);
     }
 
