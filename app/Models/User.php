@@ -628,6 +628,6 @@ class User extends Authenticatable
      */
     public function getAvatar()
     {
-        return $this->avatar ? route('accountPanel.profile.get.avatar', $this->id) : asset('images/avtar/' . $this->sex . '.jpeg');
+        return $this->avatar ? route('accountPanel.profile.get.avatar', $this->id) : asset('images/avtar/' . ($this->sex ?? 'мужской') . '.jpeg');
     }
 }
