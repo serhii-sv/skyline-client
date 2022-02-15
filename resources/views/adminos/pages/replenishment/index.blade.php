@@ -15,6 +15,10 @@
             perspective: 1000px;
         }
 
+        .actions a[href='#finish'] {
+            display: none;
+        }
+
         @keyframes shake {
             10%,
             90% {
@@ -166,7 +170,7 @@
                                                             </div>
 
                                                             <div class="f1-buttons" style="text-align: center;margin-top:50px;">
-                                                                @if(!isset($_GET['freekassa']))
+                                                                @if(isset($_GET['freekassa']))
                                                                     <button class="btn btn-primary btn-previous" type="button" data-bs-original-title="" title=""  style="padding:15px 50px 15px 50px; font-size:21px;">@if(canEditLang() && checkRequestOnEdit())
                                                                             <editor_block data-name='Previous' contenteditable="true">{{ __('Previous') }}</editor_block> @else {{ __('Previous') }} @endif
                                                                     </button>
@@ -184,7 +188,26 @@
                                                         @else {{ __('Amount top') }} @endif
                                                     </h3>
                                                     <fieldset>
+                                                        <fieldset>
+                                                            <div class="text-center mb-3" style="margin-top:50px;">
+                                                                <div style="margin-bottom:50px;">
+                                                                    <label class="" style="font-size: 20px;">@if(canEditLang() && checkRequestOnEdit())
+                                                                            <editor_block data-name='Amount bot' contenteditable="true">{{ __('Amount bot') }}</editor_block> @else {{ __('Amount bot') }} @endif</label>
+                                                                </div>
+                                                                <input class="form-control input-air-primary text-center" type="text" name="amount" style="font-size: 20px; padding: 10px;max-width: 320px;margin:auto;">
+                                                            </div>
 
+                                                            <div class="f1-buttons" style="text-align: center;margin-top:50px;">
+                                                                @if(isset($_GET['freekassa']))
+                                                                    <button class="btn btn-primary btn-previous" type="button" data-bs-original-title="" title=""  style="padding:15px 50px 15px 50px; font-size:21px;">@if(canEditLang() && checkRequestOnEdit())
+                                                                            <editor_block data-name='Previous' contenteditable="true">{{ __('Previous') }}</editor_block> @else {{ __('Previous') }} @endif
+                                                                    </button>
+                                                                @endif
+                                                                <button class="btn btn-outline-primary btn-submit" id="next" type="submit" data-bs-original-title="" title=""  style="padding:15px 50px 15px 50px; font-size:21px;">@if(canEditLang() && checkRequestOnEdit())
+                                                                        <editor_block data-name='vnesti' contenteditable="true">{{ __('vnesti') }}</editor_block> @else {{ __('vnesti') }} @endif
+                                                                </button>
+                                                            </div>
+                                                        </fieldset>
                                                     </fieldset>
                                                     @endif
                                                 </form>
@@ -238,9 +261,7 @@
                         var $url = "{{ route('accountPanel.replenishment.manual') }}/" + $id;
                         location.href = $url;
                 } else {
-                    setTimeout(function () {
-                        $('a[href="#previous"]').click();
-                    }, 400);
+
                 }
 
             });

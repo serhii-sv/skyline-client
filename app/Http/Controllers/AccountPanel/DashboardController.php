@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AccountPanel;
 
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
+use App\Models\BotStatistic;
 use App\Models\Deposit;
 use App\Models\DepositBonus;
 use App\Models\DepositQueue;
@@ -58,6 +59,37 @@ class DashboardController extends Controller
         } else {
             $userStickers = auth()->user()->stickers()->get();
         }
+
+        $ru_weekdays = [
+            'Mon' => 'Понедельник',
+            'Tue' => 'Вторник',
+            'Wed' => 'Среда',
+            'Thu' => 'Четверг',
+            'Fri' => 'Пятница',
+            'Sat' => 'Суббота',
+            'Sun' => 'Воскресенье'
+        ];
+
+        $statisticData = BotStatistic::where('date', '>=', now()->subDays(10))
+            ->orderBy('date', 'asc')
+            ->get();
+
+        foreach ($statisticData as $data) {
+            $botStatistics['values'][$data->bot_name][] = $data->value;
+        }
+
+        $date = now();
+        $dateToCreate = now()->subDays(9);
+
+        while (true) {
+            $botStatistics['labels'][] = $ru_weekdays[$dateToCreate->format('D')];
+            if ($date < $dateToCreate) {
+                break;
+            }
+            $dateToCreate = $dateToCreate->addDay();
+        }
+
+//        dd($botStatistics);
 
         $user = Auth::user();
         $walletArray = Wallet::where('user_id', $user->id)->get();
@@ -179,7 +211,8 @@ class DashboardController extends Controller
             'rankPercentage' => $rankPercentage,
             'user' => $user,
             'userYieldChartData' => $userYieldChartData,
-            'userStickers' => $userStickers
+            'userStickers' => $userStickers,
+            'botStatistics' => $botStatistics
         ]);
     }
 

@@ -180,11 +180,11 @@
                                                             @else {{ __('ПОДТВЕРЖДЕНИЕ ПЛАТЕЖА ЧЕРЕЗ') }} @endif {{ $paymentSystem !== null ? $paymentSystem->name : '' }}
                                                         </h3>
                                                         <fieldset>
-                                                            @if(session('language') == 'ru')
-                                                                <div style="width:80%; margin-left:10%;margin-top: 30px">
-                                                                    <iframe style="margin:0px 0 20px 0; width:100%;" height="450" src="https://www.youtube.com/embed/7yjpnmEebj4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                                                                </div>
-                                                            @endif
+{{--                                                            @if(session('language') == 'ru')--}}
+{{--                                                                <div style="width:80%; margin-left:10%;margin-top: 30px">--}}
+{{--                                                                    <iframe style="margin:0px 0 20px 0; width:100%;" height="450" src="https://www.youtube.com/embed/7yjpnmEebj4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>--}}
+{{--                                                                </div>--}}
+{{--                                                            @endif--}}
 
                                                             <div class="card-body" style="text-align: left; margin-left:10%;">
                                                                 <p style="font-size:21px !important;">
