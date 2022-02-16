@@ -594,7 +594,7 @@
                                                 <div class="d-flex justify-content-between mt-4">
                                                     <div class="input-group mb-4">
                                                         <span class="input-group-text"><i class="icofont icofont-link"></i></span>
-                                                        <input class="form-control" name="video" value="{{ old('video') ?? '' }}" type="text" placeholder="Ссылка на видео" aria-label="">
+                                                        <input class="form-control" name="video" value="{{ old('video') ?? '' }}" type="text" placeholder="Ссылка на youtube видео" aria-label="">
                                                     </div>
                                                     <div class="">
                                                         <button type="submit" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="btn btn-outline-success">
