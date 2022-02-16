@@ -259,7 +259,11 @@
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                                 <div class="panel-box">
                                     <div class="panel-box-title">
-                                        <h5>Monthly Earnings</h5>
+                                        <h5>
+                                            @if(canEditLang() && checkRequestOnEdit())
+                                                <editor_block data-name='Monthly Earnings' contenteditable="true">{{ __('Monthly Earnings') }}</editor_block>
+                                            @else {{ __('Monthly Earnings') }}@endif
+                                        </h5>
                                     </div>
                                     <div class="panel-box-content">
                                         <canvas id="canvas" style="width:100%; height:400px;"></canvas>
@@ -728,23 +732,10 @@
         var config = {
             type: 'line',
             data: {
-                labels: ['Янаварь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+                labels: @json($botStatistics['labels'] ?? []),
                 datasets: [{
                     label: 'Limo',
-                    data: [
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor()
-                    ],
+                    data: @json($botStatistics['values']['limo'] ?? []),
                     backgroundColor: '#DC3545',
                     borderColor: '#DC3545',
                     fill: false,
@@ -753,61 +744,22 @@
                     pointHoverRadius: 10,
                 }, {
                     label: 'Mono',
-                    data: [
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor()
-                    ],
+                    data: @json($botStatistics['values']['mono'] ?? []),
                     backgroundColor: '#28A745',
                     borderColor: '#28A745',
                     fill: false,
                     borderDash: [5, 5],
-                    pointRadius: [2, 4, 6, 18, 0, 12, 20],
+                    pointRadius: @json($botStatistics['values']['mono'] ?? []),
                 }, {
                     label: 'Nero',
-                    data: [
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor()
-                    ],
+                    data: @json($botStatistics['values']['nero'] ?? []),
                     backgroundColor: '#17A2B8',
                     borderColor: '#17A2B8',
                     fill: false,
                     pointHoverRadius: 30,
                 }, {
                     label: 'Oskar',
-                    data: [
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor(),
-                        randomScalingFactor()
-                    ],
+                    data: @json($botStatistics['values']['oskar'] ?? []),
                     backgroundColor: '#FFC107',
                     borderColor:  '#FFC107',
                     fill: false,
@@ -815,20 +767,7 @@
                 },
                     {
                         label: 'NFT',
-                        data: [
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                            randomScalingFactor()
-                        ],
+                        data: @json($botStatistics['values']['nft'] ?? []),
                         backgroundColor: '#0007af',
                         borderColor:  '#0007af',
                         fill: false,
@@ -836,20 +775,7 @@
                     },
                     {
                         label: 'IDO',
-                        data: [
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                            randomScalingFactor(),
-                            randomScalingFactor()
-                        ],
+                        data: @json($botStatistics['values']['ido'] ?? []),
                         backgroundColor: '#7bdcb5',
                         borderColor:  '#7bdcb5',
                         fill: false,
@@ -869,14 +795,14 @@
                         display: true,
                         scaleLabel: {
                             display: true,
-                            labelString: 'Месяц'
+                            labelString: 'Дни'
                         }
                     }],
                     yAxes: [{
                         display: true,
                         scaleLabel: {
                             display: true,
-                            labelString: 'Показатели'
+                            labelString: 'Показатели %'
                         }
                     }]
                 },

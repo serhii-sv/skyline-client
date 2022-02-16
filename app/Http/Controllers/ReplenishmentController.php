@@ -13,7 +13,11 @@ class ReplenishmentController extends Controller
     public function index() {
         $payment_systems = PaymentSystem::where('code', '!=', 'bonus')->get();
 
-        $payment_systems_by_groups = [];
+        $payment_systems_by_groups = [
+            PaymentSystem::BANK_GROUP => [],
+            PaymentSystem::CRYPTO_GROUP => [],
+            PaymentSystem::ONLINE_PAYMENT_GROUP => []
+        ];
 
         foreach ($payment_systems as $payment_system) {
             if (isset(PaymentSystem::BY_GROUP[$payment_system->code])) {
