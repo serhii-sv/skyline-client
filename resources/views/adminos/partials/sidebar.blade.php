@@ -7,12 +7,7 @@
             <div class="dropdown profile-element">
                 <div class="sidebar-header">
                     <div class="sidebar-nav-search">
-                        <div class="input-group mb-3 input-group-sm input-group-border">
-{{--                            <input type="text" class="form-control input-group-text" id="search-menu" placeholder="Search Menu ...">--}}
-{{--                            <div class="input-group-append">--}}
-{{--                                <button class="btn btn-secondary toggle-btn" type="submit"><i class="feather icon-x-circle"></i></button>--}}
-{{--                            </div>--}}
-                        </div>
+                        <div class="input-group mb-3 input-group-sm input-group-border"></div>
                     </div>
                     <div class="profile-bg"><img src="/adminos/img/profile_bg.JPG" alt=""></div>
                     <div class="search-toggle toggle-btn"><i class="feather icon-chevron-up"></i></div>
@@ -68,28 +63,12 @@
             <a href="{{ route('accountPanel.transactions') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link">
                 <i class="fa fa-list"></i>
                 <span class="nav-label">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Transactions' contenteditable="true">{{ __('Transactions') }}</editor_block> @else {{ __('Transactions') }} @endif</span>
-{{--                <span class="fa arrow"></span>--}}
             </a>
-{{--            <ul class="nav nav-second-level">--}}
-{{--                <li class="nav-item">--}}
-{{--                    <a href="{{ route('accountPanel.transactions') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link">--}}
-{{--                        <i class="fa fa-list"></i>--}}
-{{--                        @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='All transactions' contenteditable="true">{{ __('All transactions') }}</editor_block> @else {{ __('All transactions') }} @endif--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-{{--                <li class="nav-item">--}}
-{{--                    <a href="{{ route('accountPanel.calendar') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link">--}}
-{{--                        <i class="fa fa-calendar-check-o"></i>--}}
-{{--                        @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Calendar' contenteditable="true">{{ __('Calendar') }}</editor_block> @else {{ __('Calendar') }} @endif--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-{{--            </ul>--}}
         </li>
         <li class="nav-item {{ Route::is('accountPanel.referrals.*') ? 'active' : '' }}">
             <a href="{{ route('accountPanel.referrals.progress') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link">
                 <i class="fa fa-users"></i>
                 <span class="nav-label">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Referrals' contenteditable="true">{{ __('Referrals') }}</editor_block> @else {{ __('Referrals') }} @endif</span>
-{{--                <span class="fa arrow"></span>--}}
             </a>
         </li>
         <li class="nav-item">
@@ -104,9 +83,15 @@
                 <span class="nav-label">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Currency exchange' contenteditable="true">{{ __('Currency exchange') }}</editor_block> @else {{ __('Currency exchange') }} @endif</span>
             </a>
         </li>
-        <li class="nav-item">
-            <a href="https://facetopay.com/nft_market" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link" target="_blank">
+        <li class="nav-item {{ Route::is('accountPanel.products.index') ? 'active' : '' }}">
+            <a href="{{ route('accountPanel.products.index') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link">
                 <i class="fa fa-shopping-bag"></i>
+                <span class="nav-label">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Магазин' contenteditable="true">{{ __('Магазин') }}</editor_block> @else {{ __('Магазин') }} @endif</span>
+            </a>
+        </li>
+        <li class="nav-item {{ Route::is('accountPanel.nft-market.index') ? 'active' : '' }}">
+            <a href="{{ route('accountPanel.nft-market.index') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link">
+                <i class="fa fa-space-shuttle"></i>
                 <span class="nav-label">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='NFT-маркет' contenteditable="true">{{ __('NFT-маркет') }}</editor_block> @else {{ __('NFT-маркет') }} @endif</span>
             </a>
         </li>

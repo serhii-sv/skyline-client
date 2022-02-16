@@ -119,6 +119,8 @@ Route::group(['middleware' => ['checkSiteEnabled', 'activity-log', 'http-log']],
             //Route::post('/replenishment/new-request', [ReplenishmentController::class, 'newRequest'])->name('replenishment.new.request');
             Route::get('/replenishment/manual/{id?}', [ReplenishmentController::class, 'manual'])->name('replenishment.manual');
 
+            Route::get('/nft-market', [\App\Http\Controllers\AccountPanel\NftController::class, 'index'])->name('nft-market.index');
+
             Route::get('/topup/perfectmoney', [PerfectMoneyController::class, 'topUp'])->name('topup.perfectmoney');
             Route::get('/topup/coinpayments', [CoinpaymentsController::class, 'topUp'])->name('topup.coinpayments');
             Route::get('/topup/visa_mastercard', [FreeKassaController::class, 'topUp'])->name('topup.visa_mastercard');
