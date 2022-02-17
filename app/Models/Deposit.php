@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Auth;
  * string user_id
  * string rate_id ИД тарифного плана
  * float  daily процент ежедневных начислений
+ * float  daily_max максимальный процент ежедневных начислений
  * float  overall процент на начальную сумму при закрытии
  * int    duration продолжительность действия депозита (в днях) равно кол-ву ежедневных начислений
  * float  payout выплата начальной суммы в процентах
@@ -73,6 +74,7 @@ use Illuminate\Support\Facades\Auth;
  * @property string                                                                   $user_id
  * @property string                                                                   $wallet_id
  * @property float|null                                                               $daily
+ * @property float|null                                                               $daily_max
  * @property float|null                                                               $overall
  * @property int|null                                                                 $duration
  * @property float|null                                                               $payout
@@ -107,6 +109,7 @@ class Deposit extends Model
         'wallet_id',
         'rate_id',
         'daily',
+        'daily_max',
         'overall',
         'duration',
         'payout',
@@ -246,37 +249,6 @@ class Deposit extends Model
             }
         }
 
-
-        /**
-         * LUMINEX SPECIAL
-         */
-        $highPercent = 1.28;
-
-        if ($amount >= 1000 && $currency->code == 'USD') {
-            $rate->daily = $highPercent;
-        } else if ($amount >= 0.02989986 && $currency->code == 'BTC') {
-            $rate->daily = $highPercent;
-        } else if ($amount >= 4033.97380466 && $currency->code == 'DOGE') {
-            $rate->daily = $highPercent;
-        } else if ($amount >= 0.47153994 && $currency->code == 'ETH') {
-            $rate->daily = $highPercent;
-        } else if ($amount >= 1.92302 && $currency->code == 'BCH') {
-            $rate->daily = $highPercent;
-        } else if ($amount >= 6.96692 && $currency->code == 'LTC') {
-            $rate->daily = $highPercent;
-        } else if ($amount >= 842.83 && $currency->code == 'EUR') {
-            $rate->daily = $highPercent;
-        } else if ($amount >= 1000 && $currency->code == 'USDT.ERC20') {
-            $rate->daily = $highPercent;
-        } else if ($amount >= 1000 && $currency->code == 'USDT.TRC20') {
-            $rate->daily = $highPercent;
-        } else if ($amount >= 1445.64775 && $currency->code == 'XRP') {
-            $rate->daily = $highPercent;
-        } else if ($amount >= 73276.90 && $currency->code == 'RUB') {
-            $rate->daily = $highPercent;
-        }
-        // -------------------------------------------
-
         $deposit = new Deposit;
         $deposit->rate_id = $rate->id;
         $deposit->currency_id = $currency->id;
@@ -284,6 +256,7 @@ class Deposit extends Model
         $deposit->user_id = $user->id;
         $deposit->invested = $amount;
         $deposit->daily = $rate->daily;
+        $deposit->daily_max = $rate->daily_max;
         $deposit->overall = $rate->overall;
         $deposit->duration = $rate->duration;
         $deposit->payout = $rate->payout;
@@ -356,14 +329,8 @@ class Deposit extends Model
         }
 
         // проверяем статус депозита и оплату
-        if ($this->condition == 'create' && $this->investTransaction()->approved) {
+        if ($this->condition == 'create') {
             $this->update(['condition' => 'onwork']);
-        }
-
-        $countTransactions = Transaction::where('deposit_id', $this->id)->where('approved', true)->count() - 1; // минус 1 это открытие
-
-        if ($this->duration < $countTransactions || $this->condition != 'onwork') {
-            throw new \Exception("error status deposit!");
         }
 
         /** @var Wallet $wallet */
@@ -374,8 +341,13 @@ class Deposit extends Model
 
 
         $reinvest = $this->reinvest ?? 0;
-        $amountReinvest = $this->balance * $this->daily * 0.01 * $reinvest * 0.01;
-        $amountToWallet = $this->balance * $this->daily * 0.01 - $amountReinvest;
+
+        $faker = Faker\Factory::create();
+        $daily = $this->daily > 0 && $this->daily_max > 0
+            ? $faker->randomFloat(2, $this->daily, $this->daily_max)
+            : $this->daily;
+        $amountReinvest = $this->balance * $daily * 0.01 * $reinvest * 0.01;
+        $amountToWallet = $this->balance * $daily * 0.01 - $amountReinvest;
 
         $dividend = null;
 
@@ -385,30 +357,34 @@ class Deposit extends Model
 
         if ($dividend && $amountToWallet > 0) {
             $amount = abs($dividend->amount);
-            if ($amount > 0) {
-                $notification_data = [
-                    'notification_name' => 'Начисления по депозиту',
-                    'user' => $user,
-                    'deposit' => $this,
-                    'amount' => $amount . $wallet->currency->symbol,
-                    'days' => 'за ' . $dividend->created_at->format('d.m.Y H:i:s'),
-                ];
-                Notification::sendNotification($notification_data, 'new_charge');
-            }
-            if ($amountReinvest > 0) {
-                $notification_data = [
-                    'notification_name' => 'Реинвестирование по депозиту',
-                    'user' => $user,
-                    'deposit' => $this,
-                    'amount' => $amountReinvest . $wallet->currency->symbol,
-                    'days' => 'за ' . $dividend->created_at->format('d.m.Y H:i:s'),
-                ];
-                Notification::sendNotification($notification_data, 'new_reinvest');
-            }
+//            if ($amount > 0) {
+//                $notification_data = [
+//                    'notification_name' => 'Начисления по депозиту',
+//                    'user' => $user,
+//                    'deposit' => $this,
+//                    'amount' => $amount . $wallet->currency->symbol,
+//                    'days' => 'за ' . $dividend->created_at->format('d.m.Y H:i:s'),
+//                ];
+//                Notification::sendNotification($notification_data, 'new_charge');
+//            }
+//            if ($amountReinvest > 0) {
+//                $notification_data = [
+//                    'notification_name' => 'Реинвестирование по депозиту',
+//                    'user' => $user,
+//                    'deposit' => $this,
+//                    'amount' => $amountReinvest . $wallet->currency->symbol,
+//                    'days' => 'за ' . $dividend->created_at->format('d.m.Y H:i:s'),
+//                ];
+//                Notification::sendNotification($notification_data, 'new_reinvest');
+//            }
 
         }
         $wallet->addAmountWithAccrueToPartner($amountToWallet, 'deposit');
         $this->addBalance($amountReinvest);
+
+        if ($amountReinvest > 0) {
+          $wallet->accrueToPartner($amountReinvest, 'deposit');
+        }
 
         if ($dividend) {
             $dividend->update(['approved' => true]);
@@ -427,8 +403,8 @@ class Deposit extends Model
      * @throws \Exception
      */
     public function close($var) {
-        if ($this->condition != 'onwork' || !$this->active) {
-            throw new \Exception("failed close");
+        if (!$this->active) {
+            throw new \Exception("failed close due deposit already closed ".$this->id);
         }
 
         /** @var Wallet $wallet */

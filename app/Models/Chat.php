@@ -31,7 +31,6 @@ class Chat extends Model
 {
     use HasFactory;
     use Uuids;
-
     /**
      * @var string
      */

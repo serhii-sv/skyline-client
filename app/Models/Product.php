@@ -41,9 +41,6 @@ class Product extends Model
     use HasFactory;
     use Uuids;
 
-    /**
-     * @var string
-     */
     public $keyType      = 'string';
 
     /** @var bool $incrementing */
@@ -62,13 +59,4 @@ class Product extends Model
         'active',
         'image'
     ];
-
-    /**
-     * @param $slug
-     * @return mixed
-     */
-    public static function findBySlug($slug)
-    {
-        return self::where('slug', $slug)->first() ?? abort(404);
-    }
 }

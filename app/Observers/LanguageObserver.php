@@ -26,11 +26,11 @@ class LanguageObserver
 //        foreach ($language->tplTranslate()->get() as $translate) {
 //            $translate->delete();
 //        }
-//
+
 //        foreach ($language->news()->get() as $news) {
 //            $news->delete();
 //        }
-//
+
 //        foreach ($language->reviews()->get() as $review) {
 //            $review->delete();
 //        }

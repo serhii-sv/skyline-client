@@ -65,7 +65,44 @@ class PaymentSystem extends Model
         'minimum_withdraw',
         'image',
         'image_alt',
-        'image_title',
+        'image_title'
+    ];
+
+    const BANK_GROUP = 'bank';
+    const CRYPTO_GROUP = 'crypto';
+    const ONLINE_PAYMENT_GROUP = 'inline_payment';
+
+    const BY_GROUP = [
+        'perfectmoney' => self::ONLINE_PAYMENT_GROUP,
+        'coinpayments' => self::CRYPTO_GROUP,
+        'yandex_money' => self::ONLINE_PAYMENT_GROUP,
+        'visa_mastercard' => self::ONLINE_PAYMENT_GROUP,
+        'vtb' => self::BANK_GROUP,
+        'rosbank' => self::BANK_GROUP,
+        'paypal' => self::ONLINE_PAYMENT_GROUP,
+        'sberbank' => self::BANK_GROUP,
+        'tinkoff' => self::BANK_GROUP,
+        'qiwi' => self::ONLINE_PAYMENT_GROUP,
+        'western_union' => self::ONLINE_PAYMENT_GROUP,
+        'yoomoney' => self::ONLINE_PAYMENT_GROUP,
+        'mts_bank' => self::BANK_GROUP,
+        'pochta_bank' => self::BANK_GROUP,
+        'monobank' => self::BANK_GROUP,
+        'moneygram' => self::ONLINE_PAYMENT_GROUP,
+        'optima_bank' => self::BANK_GROUP,
+        'kaspi' => self::ONLINE_PAYMENT_GROUP,
+        'alfabank' => self::BANK_GROUP,
+        'raiffeisen_bank' => self::BANK_GROUP,
+        'advcash' => self::ONLINE_PAYMENT_GROUP,
+        'payeer' => self::ONLINE_PAYMENT_GROUP,
+        'privatbank' => self::BANK_GROUP,
+        'contact' => self::ONLINE_PAYMENT_GROUP,
+        'longjiang_bank' => self::BANK_GROUP,
+        'huishang_bank' => self::BANK_GROUP,
+        'agricultural_bank_of_china' => self::BANK_GROUP,
+        'american_express' => self::BANK_GROUP,
+        'otkritie' => self::BANK_GROUP,
+        'bank_of_america' => self::BANK_GROUP
     ];
 
     const BANK_GROUP = 'bank';

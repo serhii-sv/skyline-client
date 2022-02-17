@@ -8,6 +8,7 @@ namespace App\Models;
 
 use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -80,6 +81,14 @@ class Language extends Model
             $translations = Storage::disk('lang')->exists('ru_manual.json');
 
             Storage::disk('lang')->put($this->code . '_manual.json', $translations);
+        }
+
+        try {
+            $response = Http::post(env('CLIENT_SITE_URL') . 'translations/create-translations?api_token=' . auth()->user()->api_token, [
+                'language_id' => $this->id
+            ])->json();
+        } catch (\Exception $exception) {
+
         }
     }
 }

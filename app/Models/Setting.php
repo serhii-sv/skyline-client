@@ -42,6 +42,7 @@ class Setting extends Model
         'is_fixed'
     ];
 
+
     /**
      * @param string $key
      * @param string $default

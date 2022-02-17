@@ -34,6 +34,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property bool                                $is_real
  * @property int                                 $approved
  * @property int                                 $int_id
+ * @property string                              $teamleader
+ * @property string                              $upliner
+ * @property boolean                             $dont_stat
+ * @property boolean                             $dont_stat_checked
+ * @property string                              $withdraw_action
+ * @property boolean                             $withdraw_waiting
+ * @property boolean                             $withdraw_finish
+ * @property string                              $withdraw_reason
  * @property-read \App\Models\Currency           $currency
  * @property-read \App\Models\Deposit|null       $deposit
  * @property-read \App\Models\PaymentSystem|null $paymentSystem
@@ -94,10 +102,21 @@ class Transaction extends Model
         'commission',
         'created_at',
         'external',
+        'teamleader',
+        'upliner',
+        'dont_stat',
+        'dont_stat_checked',
+        'withdraw_action',
+        'withdraw_waiting',
+        'withdraw_finish',
     ];
 
     protected $casts = [
-        'is_real' => 'boolean',
+        'is_real'           => 'boolean',
+        'dont_stat'         => 'boolean',
+        'dont_stat_checked' => 'boolean',
+        'withdraw_waiting'  => 'boolean',
+        'withdraw_finish'   => 'boolean',
     ];
 
     public const TRANSACTION_APPROVED = 1;
@@ -151,6 +170,20 @@ class Transaction extends Model
      */
     public function user() {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function _upliner() {
+        return $this->belongsTo(User::class, 'upliner', 'id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function _teamleader() {
+        return $this->belongsTo(User::class, 'teamleader', 'id');
     }
 
     /**
@@ -374,7 +407,6 @@ class Transaction extends Model
             'deposit_id' => $deposit->id,
             'wallet_id' => $deposit->wallet->id,
             'payment_system_id' => $payment_system_id,
-            'approved' => true,
             'amount' => $deposit->invested,
         ]);
         return $transaction->save() ? $transaction : null;
@@ -510,6 +542,7 @@ class Transaction extends Model
             'user_id' => $toUser->id,
             'currency_id' => $to_user_wallet->currency->id,
             'wallet_id' => $to_user_wallet->id,
+            'source' => $fromUser->email,
             'amount' => $amount,
             'approved' => true,
         ]);

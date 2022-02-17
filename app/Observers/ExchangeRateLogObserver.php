@@ -13,7 +13,7 @@ class ExchangeRateLogObserver
     public function created(ExchangeRateLog $log)
     {
         if ($log->rate_id == (Setting::where('s_key', 'sky_to_usd')->first()->id ?? null)) {
-            Setting::setValue('usd_to_sky', (100 / $log->new_rate));
+            Setting::setValue('usd_to_sky', (1 / (float) $log->new_rate));
         }
     }
 }

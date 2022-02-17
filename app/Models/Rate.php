@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  * float min - минимальная сумма инвестиций.
  * float max - максимальная сумма инвестиций.
  * float daily - процент ежедневных начислений, может не задаваться.
+ * float daily_max - максимальный процент ежедневных начислений, может не задаваться.
  * integer duration - продолжительность действия депозита (в днях) равно кол-ву ежедневных начислений.
  * integer reinvest - активна ли возможность реинвестировоать в депозит.
  * integer autoclose - автозакрытие депозитов по этому плану.
@@ -58,6 +59,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $min
  * @property string|null $max
  * @property float $daily
+ * @property float $daily_max
  * @property int $duration
  * @property bool $reinvest
  * @property bool $autoclose
@@ -78,6 +80,7 @@ class Rate extends Model
         'min',
         'max',
         'daily',
+        'daily_max',
         'duration',
         'reinvest',
         'autoclose',
