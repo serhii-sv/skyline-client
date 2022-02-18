@@ -545,9 +545,9 @@ class Deposit extends Model
      * @return bool
      */
     public function canUpdate() {
-        if (!$this->rate->upgradable){
-            return false;
-        }
+//        if (!$this->rate->upgradable){
+//            return false;
+//        }
 
         /** @var Currency $to_currency */
         $to_currency = $this->currency;

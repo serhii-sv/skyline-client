@@ -167,17 +167,17 @@
                                         </div>
                                         <hr>
                                         <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="social-media">
-                                                    <h5>@if(canEditLang() && checkRequestOnEdit())
-                                                            <editor_block data-name='Share your referral link on social media' contenteditable="true">{{ __('Share your referral link on social media') }}</editor_block> @else {{ __('Share your referral link on social media') }} @endif
-                                                    </h5>
-                                                    <script src="https://yastatic.net/share2/share.js"></script>
-                                                    <div class="ya-share2" data-url="{{ route('ref_link', auth()->user()->my_id) }}" data-curtain data-size="l" data-color-scheme="whiteblack" data-services="vkontakte,facebook,telegram,twitter,viber,whatsapp,skype,linkedin"></div>
+{{--                                            <div class="col-lg-6">--}}
+{{--                                                <div class="social-media">--}}
+{{--                                                    <h5>@if(canEditLang() && checkRequestOnEdit())--}}
+{{--                                                            <editor_block data-name='Share your referral link on social media' contenteditable="true">{{ __('Share your referral link on social media') }}</editor_block> @else {{ __('Share your referral link on social media') }} @endif--}}
+{{--                                                    </h5>--}}
+{{--                                                    <script src="https://yastatic.net/share2/share.js"></script>--}}
+{{--                                                    <div class="ya-share2" data-url="{{ route('ref_link', auth()->user()->my_id) }}" data-curtain data-size="l" data-color-scheme="whiteblack" data-services="vkontakte,facebook,telegram,twitter,viber,whatsapp,skype,linkedin"></div>--}}
 
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6" style="text-align: center;">
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+                                            <div class="col-lg-12" style="text-align: center;">
                                                 <div class="follow">
                                                     <div class="row">
                                                         <div class="col-lg-12">
@@ -197,48 +197,50 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="best-seller-table responsive-tbl">
-                                    <div class="item">
-                                        <div class="table-responsive product-list">
-                                            <table class="table table-bordernone">
-                                                <thead>
-                                                <tr>
-                                                    <th class="f-22">
-                                                        @if(canEditLang() && checkRequestOnEdit())
-                                                            <editor_block data-name='User acc' contenteditable="true">{{ __('User acc') }}</editor_block> @else {{ __('User acc') }} @endif
-                                                    </th>
-                                                    <th>@if(canEditLang() && checkRequestOnEdit())
-                                                            <editor_block data-name='Telephone acc' contenteditable="true">{{ __('Telephone acc') }}</editor_block> @else {{ __('Telephone acc') }} @endif
-                                                    </th>
-                                                    <th>@if(canEditLang() && checkRequestOnEdit())
-                                                            <editor_block data-name='Date/Time of registration acc' contenteditable="true">{{ __('Date/Time of registration acc') }}</editor_block> @else {{ __('Date/Time of registration acc') }} @endif
-                                                    </th>
-                                                    <th>@if(canEditLang() && checkRequestOnEdit())
-                                                            <editor_block data-name='Upliner login acc' contenteditable="true">{{ __('Upliner login acc') }}</editor_block> @else {{ __('Upliner login acc') }} @endif
-                                                    </th>
-                                                    <th>@if(canEditLang() && checkRequestOnEdit())
-                                                            <editor_block data-name='Invested acc' contenteditable="true">{{ __('Invested acc') }}</editor_block> @else {{ __('Invested acc') }} @endif
-                                                    </th>
-                                                    <th>@if(canEditLang() && checkRequestOnEdit())
-                                                            <editor_block data-name='Reward acc 3' contenteditable="true">{{ __('Reward acc 3') }}</editor_block> @else {{ __('Reward acc 3') }} @endif
-                                                    </th>
-                                                    <th>@if(canEditLang() && checkRequestOnEdit())
-                                                            <editor_block data-name='Accruals acc' contenteditable="true">{{ __('Accruals acc') }}</editor_block> @else {{ __('Accruals acc') }} @endif
-                                                    </th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                @if(cache()->has('referrals.array.' . auth()->user()->id))
-                                                    @include('adminos.pages.referrals.childrens', ['us' => auth()->user(), 'level' => 0])
-                                                @endif
-                                                </tbody>
-                                            </table>
-                                            <div class="f1-buttons mb-4" style="text-align: center; margin-top:50px;">
-                                                <button class="btn btn-primary btn-next" type="button" style="padding:15px 50px 15px 50px; font-size:21px;" onClick="location.assign('/referrals/progress?page={{ request()->has('page') && request('page') >= 2 ? request('page') - 1 : 1 }}')"> Предыдущая страница</button>
-                                                <button class="btn btn-primary btn-next" type="button" style="padding:15px 50px 15px 50px; font-size:21px;" onClick="location.assign('/referrals/progress?page={{ request()->has('page') ? request('page') + 1 : 2 }}')"> Следующая страница</button>
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="best-seller-table responsive-tbl">
+                                        <div class="item">
+                                            <div class="table-responsive product-list">
+                                                <table class="table table-bordernone">
+                                                    <thead>
+                                                    <tr>
+                                                        <th class="f-22">
+                                                            @if(canEditLang() && checkRequestOnEdit())
+                                                                <editor_block data-name='User acc' contenteditable="true">{{ __('User acc') }}</editor_block> @else {{ __('User acc') }} @endif
+                                                        </th>
+                                                        <th>@if(canEditLang() && checkRequestOnEdit())
+                                                                <editor_block data-name='Telephone acc' contenteditable="true">{{ __('Telephone acc') }}</editor_block> @else {{ __('Telephone acc') }} @endif
+                                                        </th>
+                                                        <th>@if(canEditLang() && checkRequestOnEdit())
+                                                                <editor_block data-name='Date/Time of registration acc' contenteditable="true">{{ __('Date/Time of registration acc') }}</editor_block> @else {{ __('Date/Time of registration acc') }} @endif
+                                                        </th>
+                                                        <th>@if(canEditLang() && checkRequestOnEdit())
+                                                                <editor_block data-name='Upliner login acc' contenteditable="true">{{ __('Upliner login acc') }}</editor_block> @else {{ __('Upliner login acc') }} @endif
+                                                        </th>
+                                                        <th>@if(canEditLang() && checkRequestOnEdit())
+                                                                <editor_block data-name='Invested acc' contenteditable="true">{{ __('Invested acc') }}</editor_block> @else {{ __('Invested acc') }} @endif
+                                                        </th>
+                                                        <th>@if(canEditLang() && checkRequestOnEdit())
+                                                                <editor_block data-name='Reward acc 3' contenteditable="true">{{ __('Reward acc 3') }}</editor_block> @else {{ __('Reward acc 3') }} @endif
+                                                        </th>
+                                                        <th>@if(canEditLang() && checkRequestOnEdit())
+                                                                <editor_block data-name='Accruals acc' contenteditable="true">{{ __('Accruals acc') }}</editor_block> @else {{ __('Accruals acc') }} @endif
+                                                        </th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @if(cache()->has('referrals.array.' . auth()->user()->id))
+                                                        @include('adminos.pages.referrals.childrens', ['us' => auth()->user(), 'level' => 0])
+                                                    @endif
+                                                    </tbody>
+                                                </table>
+                                                <div class="f1-buttons mb-4" style="text-align: center; margin-top:50px;">
+                                                    <button class="btn btn-outline-primary btn-next" type="button" style="padding:15px 50px 15px 50px; font-size:21px;" onClick="location.assign('/referrals/progress?page={{ request()->has('page') && request('page') >= 2 ? request('page') - 1 : 1 }}')"> Предыдущая страница</button>
+                                                    <button class="btn btn-outline-primary btn-next" type="button" style="padding:15px 50px 15px 50px; font-size:21px;" onClick="location.assign('/referrals/progress?page={{ request()->has('page') ? request('page') + 1 : 2 }}')"> Следующая страница</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

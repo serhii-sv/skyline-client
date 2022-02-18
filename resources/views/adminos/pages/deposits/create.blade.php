@@ -46,12 +46,12 @@
                                                 <div class="tab-pane fade @if($loop->first) active show @endif" id="pills-{{ $group->id }}" role="tabpanel" aria-labelledby="pills-{{ $group->id }}-tab">
                                                     <div class="row">
                                                         @forelse($rates as $item)
-                                                            @if($item->rate_group_id == $group->id)
+{{--                                                            @if($item->rate_group_id == $group->id)--}}
                                                                 <div class="col-xl-6 col-sm-6 xl-50 box-col-6">
-                                                                    <form action="{{ route('accountPanel.deposits.store') }}" class="create-deposit-form" method="post">
+                                                                    <form action="{{ route('accountPanel.deposits.store') }}" class="create-deposit-form  d-flex justify-content-center" method="post">
                                                                         <input type="hidden" name="rate_id" value="{{ $item->id }}">
                                                                         @csrf
-                                                                        <div class="card text-center pricing-simple">
+                                                                        <div class="card text-center pricing-simple" style="width: 85% !important;">
                                                                             <div class="card-body">
                                                                                 <h3>  @if(canEditLang() && checkRequestOnEdit())
                                                                                         <editor_block data-name='{{ $item->name }}' contenteditable="true">{{ __($item->name) }}</editor_block>
@@ -206,17 +206,19 @@
                                                                                     <input class="form-control" type="text" name="amount" value="{{ old('amount') ?? '' }}">
                                                                                 </div>
                                                                             </div>
-                                                                            <button class="btn btn-lg btn-primary btn-block create-deposit-btn" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif >
-                                                                                @if(canEditLang() && checkRequestOnEdit())
-                                                                                    <editor_block data-name='Invest' contenteditable="true">{{ __('Invest') }}</editor_block>
-                                                                                @else
-                                                                                    {{ __('Invest') }}
-                                                                                @endif
-                                                                            </button>
+                                                                            <div class="d-flex justify-content-center mb-4">
+                                                                                <button class="btn btn-outline-primary create-deposit-btn w-50" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif >
+                                                                                    @if(canEditLang() && checkRequestOnEdit())
+                                                                                        <editor_block data-name='Invest' contenteditable="true">{{ __('Invest') }}</editor_block>
+                                                                                    @else
+                                                                                        {{ __('Invest') }}
+                                                                                    @endif
+                                                                                </button>
+                                                                            </div>
                                                                         </div>
                                                                     </form>
                                                                 </div>
-                                                            @endif
+{{--                                                            @endif--}}
                                                         @empty
                                                         @endforelse
                                                     </div>
@@ -253,15 +255,18 @@
                                                                                 <th scope="col">@if(canEditLang() && checkRequestOnEdit())
                                                                                         <editor_block data-name='Opening date' contenteditable="true">{{ __('Opening date') }}</editor_block> @else {{ __('Opening date') }} @endif
                                                                                 </th>
-                                                                                <th>@if(canEditLang() && checkRequestOnEdit())
-                                                                                        <editor_block data-name='Reinvestment' contenteditable="true">{{ __('Reinvestment') }}</editor_block> @else {{ __('Reinvestment') }} @endif
-                                                                                </th>
-                                                                                <th>@if(canEditLang() && checkRequestOnEdit())
-                                                                                        <editor_block data-name='Replenish' contenteditable="true">{{ __('Replenish') }}</editor_block> @else {{ __('Replenish') }} @endif
-                                                                                </th>
-                                                                                <th>@if(canEditLang() && checkRequestOnEdit())
-                                                                                        <editor_block data-name='Upgrade' contenteditable="true">{{ __('Upgrade') }}</editor_block> @else {{ __('Upgrade') }} @endif
-                                                                                </th>
+{{--                                                                                <th>--}}
+{{--                                                                                    @if(canEditLang() && checkRequestOnEdit())--}}
+{{--                                                                                        <editor_block data-name='Reinvestment' contenteditable="true">{{ __('Reinvestment') }}</editor_block> @else {{ __('Reinvestment') }} @endif--}}
+{{--                                                                                </th>--}}
+{{--                                                                                <th>--}}
+{{--                                                                                    @if(canEditLang() && checkRequestOnEdit())--}}
+{{--                                                                                        <editor_block data-name='Replenish' contenteditable="true">{{ __('Replenish') }}</editor_block> @else {{ __('Replenish') }} @endif--}}
+{{--                                                                                </th>--}}
+{{--                                                                                <th>--}}
+{{--                                                                                    @if(canEditLang() && checkRequestOnEdit())--}}
+{{--                                                                                        <editor_block data-name='Upgrade' contenteditable="true">{{ __('Upgrade') }}</editor_block> @else {{ __('Upgrade') }} @endif--}}
+{{--                                                                                </th>--}}
                                                                             </tr>
                                                                             </thead>
                                                                             <tbody>
@@ -281,19 +286,21 @@
                                                                                             <td>{{ number_format($deposit->balance, $deposit->currency->precision, '.', ',') ?? 0 }} {{ $deposit->currency->symbol }}</td>
                                                                                             <th scope="col">{{number_format($deposit->total_assessed(), $deposit->currency->precision, '.', ',') ?? 0 }} {{ $deposit->currency->symbol }}</th>
                                                                                             <td>{{ $deposit->created_at->format('d-m-Y H:i') }}</td>
-                                                                                            <td>
+                                                                                        </tr>
+                                                                                        <tr >
+                                                                                            <td colspan="4" style="border-top: unset">
                                                                                                 @if($deposit->rate->reinvest)
                                                                                                     <form action="{{ route('accountPanel.deposits.set.reinvest') }}" method="post">
                                                                                                         @csrf
                                                                                                         <input type="hidden" name="deposit_id" value="{{ $deposit->id }}">
                                                                                                         <label class="col-md-12 col-form-label sm-left-text" for="u-range-{{ $deposit->id }}">@if(canEditLang() && checkRequestOnEdit())
-                                                                                                                <editor_block data-name='Reinvestment percentage' contenteditable="true">{{ __('Reinvestment percentage') }}</editor_block> @else {{ __('Reinvestment percentage') }} @endif
+                                                                                                                <editor_block data-name='Настройте процент автоматического реинвестирования прибыли' contenteditable="true">{{ __('Настройте процент автоматического реинвестирования прибыли') }}</editor_block> @else {{ __('Настройте процент автоматического реинвестирования прибыли') }} @endif
                                                                                                         </label>
                                                                                                         <div class="col-md-12 text-center">
                                                                                                             <input id="u-range-{{ $deposit->id }}" type="hidden" class="irs-hidden-input deposit-range-slider @if(!$deposit->rate->reinvest) disable @endif" tabindex="-1" name="reinvest" readonly="" data-bs-original-title="" title="">
                                                                                                         </div>
                                                                                                         <div class="text-center">
-                                                                                                            <button class="btn btn-pill btn-success btn-air-success btn-sm mt-2 @if(!$deposit->rate->reinvest) disabled @endif" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>@if(canEditLang() && checkRequestOnEdit())
+                                                                                                            <button class="btn btn-outline-success btn-sm mt-2 @if(!$deposit->rate->reinvest) disabled @endif" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>@if(canEditLang() && checkRequestOnEdit())
                                                                                                                     <editor_block data-name='Apply' contenteditable="true">{{ __('Apply') }}</editor_block> @else {{ __('Apply') }} @endif
                                                                                                             </button>
                                                                                                         </div>
@@ -324,46 +331,39 @@
                                                                                                     <strong>недоступно</strong>
                                                                                                 @endif
                                                                                             </td>
-                                                                                            <td>
+                                                                                            <td style="border-top: unset">
                                                                                                 @if($deposit->rate->reinvest)
                                                                                                     <form action="{{ route('accountPanel.deposits.add.balance') }}" method="post">
                                                                                                         @csrf
                                                                                                         <input type="hidden" name="deposit_id" value="{{ $deposit->id }}">
                                                                                                         <input type="hidden" name="wallet_id" value="{{ $deposit->wallet->id }}">
-                                                                                                        <div class="text-center">
+                                                                                                        <div class="text-center mt-2">
                                                                                                             @if(canEditLang() && checkRequestOnEdit())
                                                                                                                 <editor_block data-name='Balance' contenteditable="true">{{ __('Balance') }}</editor_block> @else {{ __('Balance') }} @endif: {{ $deposit->wallet->balance }} {{ $deposit->currency->symbol }}
                                                                                                         </div>
-                                                                                                        <div class="text-center">
+                                                                                                        <div class="text-center mt-2">
                                                                                                             <input class="form-control input-air-primary" type="text" placeholder="" name="amount" data-bs-original-title="" title="">
                                                                                                         </div>
-                                                                                                        <div class="text-center">
-                                                                                                            <button class="btn btn-pill btn-success btn-air-success btn-sm mt-2" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>@if(canEditLang() && checkRequestOnEdit())
+                                                                                                        <div class="d-flex justify-content-between mt-2">
+                                                                                                            <button class="btn btn-outline-success btn-sm mt-2" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>@if(canEditLang() && checkRequestOnEdit())
                                                                                                                     <editor_block data-name='To reinvest' contenteditable="true">{{ __('To reinvest') }}</editor_block> @else {{ __('To reinvest') }} @endif
                                                                                                             </button>
-                                                                                                        </div>
-                                                                                                    </form>
-                                                                                                @else
-                                                                                                    <strong>недоступно</strong>
-                                                                                                @endif
-                                                                                            </td>
-                                                                                            <td>
-                                                                                                @if($deposit->canUpdate())
-                                                                                                    <div class="text-center">@if(canEditLang() && checkRequestOnEdit())
-                                                                                                            <editor_block data-name='Enough funds for the upgrade' contenteditable="true">{{ __('Enough funds for the upgrade') }}</editor_block> @else {{ __('Enough funds for the upgrade') }} @endif
-                                                                                                    </div>
-                                                                                                    <form action="{{ route('accountPanel.deposits.upgrade') }}" method="post">
-                                                                                                        @csrf
-                                                                                                        <input type="hidden" name="deposit_id" value="{{ $deposit->id }}">
-                                                                                                        <div class="text-center">
-                                                                                                            <button class="btn btn-pill btn-success btn-air-success btn-sm mt-2" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>@if(canEditLang() && checkRequestOnEdit())
+                                                                                                            <button type="button" data-deposit_id="{{ $deposit->id }}" class="upgradeButton btn btn-outline-success btn-sm mt-2" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>@if(canEditLang() && checkRequestOnEdit())
                                                                                                                     <editor_block data-name='Upgrade' contenteditable="true">{{ __('Upgrade') }}</editor_block> @else {{ __('Upgrade') }} @endif
                                                                                                             </button>
                                                                                                         </div>
                                                                                                     </form>
                                                                                                 @else
-                                                                                                    <strong>недоступно</strong>
+                                                                                                    <div class="text-center">
+                                                                                                        <button type="button" data-deposit_id="{{ $deposit->id }}" class="upgradeButton btn btn-outline-success btn-sm mt-2" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>@if(canEditLang() && checkRequestOnEdit())
+                                                                                                                <editor_block data-name='Upgrade' contenteditable="true">{{ __('Upgrade') }}</editor_block> @else {{ __('Upgrade') }} @endif
+                                                                                                        </button>
+                                                                                                    </div>
                                                                                                 @endif
+                                                                                                    <form class="upgradeForm" id="{{ $deposit->id }}" action="{{ route('accountPanel.deposits.upgrade') }}" style="position: absolute" method="post">
+                                                                                                        @csrf
+                                                                                                        <input type="hidden" name="deposit_id" value="{{ $deposit->id }}">
+                                                                                                    </form>
                                                                                             </td>
                                                                                         </tr>
                                                                                     @endif
@@ -409,6 +409,10 @@
     <script src="{{ asset('accountPanel/js/range-slider/rangeslider-script.js') }}"></script>
     <script>
         $(document).ready(function () {
+            $('.upgradeButton').click(function () {
+                $('#' + $(this).data('deposit_id')).submit();
+            });
+
             $(".create-deposit-btn").on('click', function (e) {
                 e.preventDefault();
                 swal({
