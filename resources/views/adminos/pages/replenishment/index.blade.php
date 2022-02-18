@@ -171,11 +171,11 @@
 
                                                             <div class="f1-buttons" style="text-align: center;margin-top:50px;">
                                                                 @if(isset($_GET['freekassa']))
-                                                                    <button class="btn btn-primary btn-previous" type="button" data-bs-original-title="" title=""  style="padding:15px 50px 15px 50px; font-size:21px;">@if(canEditLang() && checkRequestOnEdit())
+                                                                    <button class="btn btn-primary btn-previous" type="button" data-bs-original-title="" title=""  @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif  style="padding:15px 50px 15px 50px; font-size:21px;">@if(canEditLang() && checkRequestOnEdit())
                                                                             <editor_block data-name='Previous' contenteditable="true">{{ __('Previous') }}</editor_block> @else {{ __('Previous') }} @endif
                                                                     </button>
                                                                 @endif
-                                                                <button class="btn btn-outline-primary btn-submit" id="next" type="submit" data-bs-original-title="" title=""  style="padding:15px 50px 15px 50px; font-size:21px;">@if(canEditLang() && checkRequestOnEdit())
+                                                                <button class="btn btn-outline-primary btn-submit" id="next" type="submit" data-bs-original-title=""  @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif title=""  style="padding:15px 50px 15px 50px; font-size:21px;">@if(canEditLang() && checkRequestOnEdit())
                                                                         <editor_block data-name='vnesti' contenteditable="true">{{ __('vnesti') }}</editor_block> @else {{ __('vnesti') }} @endif
                                                                 </button>
                                                             </div>
@@ -199,11 +199,11 @@
 
                                                             <div class="f1-buttons" style="text-align: center;margin-top:50px;">
                                                                 @if(isset($_GET['freekassa']))
-                                                                    <button class="btn btn-primary btn-previous" type="button" data-bs-original-title="" title=""  style="padding:15px 50px 15px 50px; font-size:21px;">@if(canEditLang() && checkRequestOnEdit())
+                                                                    <button class="btn btn-primary btn-previous" type="button" data-bs-original-title="" title=""  @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif  style="padding:15px 50px 15px 50px; font-size:21px;">@if(canEditLang() && checkRequestOnEdit())
                                                                             <editor_block data-name='Previous' contenteditable="true">{{ __('Previous') }}</editor_block> @else {{ __('Previous') }} @endif
                                                                     </button>
                                                                 @endif
-                                                                <button class="btn btn-outline-primary btn-submit" id="next" type="submit" data-bs-original-title="" title=""  style="padding:15px 50px 15px 50px; font-size:21px;">@if(canEditLang() && checkRequestOnEdit())
+                                                                <button class="btn btn-outline-primary btn-submit" id="next" type="submit" data-bs-original-title=""  @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif title=""  style="padding:15px 50px 15px 50px; font-size:21px;">@if(canEditLang() && checkRequestOnEdit())
                                                                         <editor_block data-name='vnesti' contenteditable="true">{{ __('vnesti') }}</editor_block> @else {{ __('vnesti') }} @endif
                                                                 </button>
                                                             </div>

@@ -339,7 +339,7 @@
                                         </h5>
                                     </div>
                                     <div class="panel-box-content">
-                                        <div id="visitor" style="height:317px;"></div>
+                                        <div id="visitor" style="height:435px;"></div>
                                     </div>
                                 </div>
                             </div>
@@ -360,20 +360,37 @@
                                                         <div data-label="{{ round($rankPercentage, 1) }}%" class="radial-bar radial-bar-{{ round($rankPercentage, -1) }} radial-bar-lg radial-bar-warning"></div>
 {{--                                                        <input type="text" class="dial" value="{{ round($rankPercentage, 1) }}" data-width="100" data-height="100" data-linecap="round" data-displayprevious="true" data-displayinput="true" data-readonly="true" data-fgcolor="#fe9365">--}}
                                                     </div>
-                                                    @if(!is_null($nextRank))
-                                                        <p>
-                                                            @if(canEditLang() && checkRequestOnEdit())
-                                                                <editor_block data-name='Следующий Ранг' contenteditable="true">{{ __('Следующий Ранг') }}</editor_block>
-                                                            @else {{ __('Следующий Ранг') }}@endif
-                                                        </p>
-                                                        <h6 class="yellow-link-color">
-                                                            @if(canEditLang() && checkRequestOnEdit())
-                                                                <editor_block data-name='{{ $nextRank->status_stage . ' ' . $nextRank->status_name }}' contenteditable="true">{{ __($nextRank->status_stage . ' ' . $nextRank->status_name) }}</editor_block>
-                                                            @else {{ __($nextRank->status_stage . ' ' . $nextRank->status_name) }}@endif
-                                                        </h6>
-                                                    @else
-                                                        <div class="yellow-link-color"></div>
-                                                    @endif
+                                                    <div class="d-flex justify-content-between">
+                                                        <div>
+                                                            <p>
+                                                                @if(canEditLang() && checkRequestOnEdit())
+                                                                    <editor_block data-name='Текущий Ранг' contenteditable="true">{{ __('Текущий Ранг') }}</editor_block>
+                                                                @else {{ __('Текущий Ранг') }}@endif
+                                                            </p>
+                                                            <h6 style="font-weight: bold">
+                                                                @if(!is_null($currentRank))
+                                                                    @if(canEditLang() && checkRequestOnEdit())
+                                                                        <editor_block data-name='{{ $currentRank->status_name . ' ' . $currentRank->status_stage }}' contenteditable="true">{{ __($currentRank->status_name . ' ' . $currentRank->status_stage) }}</editor_block>
+                                                                    @else {{ __($currentRank->status_name . ' ' . $currentRank->status_stage) }}@endif
+                                                                @endif
+                                                            </h6>
+                                                        </div>
+                                                        <div>
+                                                            <p>
+                                                                @if(canEditLang() && checkRequestOnEdit())
+                                                                    <editor_block data-name='Следующий Ранг' contenteditable="true">{{ __('Следующий Ранг') }}</editor_block>
+                                                                @else {{ __('Следующий Ранг') }}@endif
+                                                            </p>
+                                                            <h6 style="font-weight: bold">
+                                                                @if(!is_null($nextRank))
+                                                                    @if(canEditLang() && checkRequestOnEdit())
+                                                                        <editor_block data-name='{{ $nextRank->status_stage . ' ' . $nextRank->status_name }}' contenteditable="true">{{ __($nextRank->status_stage . ' ' . $nextRank->status_name) }}</editor_block>
+                                                                    @else {{ __($nextRank->status_stage . ' ' . $nextRank->status_name) }}@endif
+                                                                @endif
+                                                            </h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="yellow-link-color mb-3"></div>
                                                 </div>
                                                 <div class="pt-1 pl-3 pr-3">
                                                     <span class="pull-left">
@@ -453,7 +470,7 @@
                                     <div class="col-xl-12">
                                         <div class="card">
                                             <div class="card-header pt-4 pb-4">
-                                                <h4 class="mb-0">@if(canEditLang() && checkRequestOnEdit())
+                                                <h4 class="mb-0 text-center">@if(canEditLang() && checkRequestOnEdit())
                                                         <editor_block data-name='Last 5 transactions' contenteditable="true">{{ __('Last 5 transactions') }}</editor_block>
                                                     @else {{ __('Last 5 transactions') }}@endif</h4>
                                             </div>
@@ -531,35 +548,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6 appointment">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <div class="header-top">
-                                            <h5 class="m-0">@if(canEditLang() && checkRequestOnEdit())
-                                                    <editor_block data-name='Popularity by country' contenteditable="true">{{ __('Popularity by country') }}</editor_block>
-                                                @else {{ __('Popularity by country') }}@endif</h5>
-                                        </div>
-                                    </div>
-                                    <div class="card-Body">
-                                        <div class="radar-chart">
-                                            <div id="vmap" style="width:100%; height:356px;"></div>
-                                        </div>
-                                    </div>
-{{--                                    <div class="card-footer bg-dark">--}}
-{{--                                        <div class="d-flex align-items-center">--}}
-{{--                                            <img class="d-inline-block jqvmap-country-flag mr-3" alt="flag" src="/adminos/img/flag-icon-css/flags/4x3/us.svg" style="width:55px; height: auto;">--}}
-{{--                                            <h6 class="d-inline-block fw-100 m-0 text-white">--}}
-{{--                                                @if(canEditLang() && checkRequestOnEdit())--}}
-{{--                                                    <editor_block data-name='Popularity by country' contenteditable="true">{{ __('Popularity by country') }}</editor_block>--}}
-{{--                                                @else {{ __('Popularity by country') }}@endif:--}}
-{{--                                                <small class="jqvmap-country">США - {{ $countries_stat['США'] ?? 0 }}</small>--}}
-{{--                                            </h6>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-                                </div>
-                            </div>
-
-                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6">
+                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-8">
                                 <div class="chat_window panel-box">
                                     <div class="top_menu panel-box-title">
                                         <h5 class="text-center">
@@ -605,6 +594,23 @@
                                                     </div>
                                                 </div>
                                             </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 appointment">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="header-top">
+                                            <h5 class="m-0">@if(canEditLang() && checkRequestOnEdit())
+                                                    <editor_block data-name='Popularity by country' contenteditable="true">{{ __('Popularity by country') }}</editor_block>
+                                                @else {{ __('Popularity by country') }}@endif</h5>
+                                        </div>
+                                    </div>
+                                    <div class="card-Body">
+                                        <div class="radar-chart">
+                                            <div id="vmap" style="width:100%; height:446px;"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -802,7 +808,7 @@
                         display: true,
                         scaleLabel: {
                             display: true,
-                            labelString: 'Показатели %'
+                            labelString: 'Доходность %'
                         }
                     }]
                 },

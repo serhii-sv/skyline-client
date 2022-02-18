@@ -163,11 +163,11 @@
 
                                                             <div class="f1-buttons" style="text-align: center;margin-top:50px;">
                                                                 @if(!isset($_GET['freekassa']))
-                                                                    <button class="btn btn-primary btn-previous" type="button" data-bs-original-title="" title=""  style="padding:15px 50px 15px 50px; font-size:21px;">@if(canEditLang() && checkRequestOnEdit())
+                                                                    <button class="btn btn-primary btn-previous" type="button" data-bs-original-title="" title=""  @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif  style="padding:15px 50px 15px 50px; font-size:21px;">@if(canEditLang() && checkRequestOnEdit())
                                                                             <editor_block data-name='Previous' contenteditable="true">{{ __('Previous') }}</editor_block> @else {{ __('Previous') }} @endif
                                                                     </button>
                                                                 @endif
-                                                                <button class="btn btn-outline-primary btn-submit" id="next" type="submit" data-bs-original-title="" title=""  style="padding:15px 50px 15px 50px; font-size:21px;">@if(canEditLang() && checkRequestOnEdit())
+                                                                <button class="btn btn-outline-primary btn-submit" id="next" type="submit" data-bs-original-title="" title=""  @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif  style="padding:15px 50px 15px 50px; font-size:21px;">@if(canEditLang() && checkRequestOnEdit())
                                                                         <editor_block data-name='vnesti' contenteditable="true">{{ __('vnesti') }}</editor_block> @else {{ __('vnesti') }} @endif
                                                                 </button>
                                                             </div>
@@ -219,16 +219,16 @@
                                                             </div>
 
                                                             <div class="f1-buttons" style="text-align: center;margin-top:50px;margin-bottom: 50px;">
-                                                                <button class="btn btn-outline-primary btn-previous" type="button" onClick="location.assign('https://t.me/sprintbank')"  style="padding:15px 50px 15px 50px; font-size:21px;">@if(canEditLang() && checkRequestOnEdit())
+                                                                <button class="btn btn-outline-primary btn-previous" type="button"  @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @else onClick="location.assign('https://t.me/skyline_invest')" @endif   style="padding:15px 50px 15px 50px; font-size:21px;">@if(canEditLang() && checkRequestOnEdit())
                                                                         <editor_block data-name='Previous 2' contenteditable="true">{{ __('Previous 2') }}</editor_block> @else {{ __('Previous 2') }} @endif
                                                                 </button>
                                                                 @if($paymentSystem->code == 'visa_mastercard' || $paymentSystem->code == 'sberbank' || $paymentSystem->code == 'alfabank' || $paymentSystem->code == 'tinkoff' || $paymentSystem->code == 'vtb' || $paymentSystem->code == 'qiwi' || $paymentSystem->code == 'yoomoney')
-                                                                    <button class="btn btn-outline-primary btn-submit" id="pay" onClick="location.assign('{{ route('accountPanel.replenishment') }}?freekassa=true')" type="button" data-bs-original-title="" title=""  style="margin-left:30px;padding:15px 50px 15px 50px; font-size:21px;">@if(canEditLang() && checkRequestOnEdit())
+                                                                    <button class="btn btn-outline-primary btn-submit" id="pay"  @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @else onClick="location.assign('{{ route('accountPanel.replenishment') }}?freekassa=true')" @endif  type="button" data-bs-original-title="" title=""  style="margin-left:30px;padding:15px 50px 15px 50px; font-size:21px;">@if(canEditLang() && checkRequestOnEdit())
                                                                             <editor_block data-name='vnesti auto' contenteditable="true">{{ __('vnesti auto') }}</editor_block> @else {{ __('vnesti auto') }} @endif
                                                                     </button>
                                                                     <br><br>
                                                                 @endif
-                                                                <button class="btn btn-outline-primary btn-submit" id="next" onClick="location.assign('https://jivo.chat/xQE8U0bisX')" type="submit" data-bs-original-title="" title=""  style="margin-left:30px;padding:15px 50px 15px 50px; font-size:21px;">@if(canEditLang() && checkRequestOnEdit())
+                                                                <button class="btn btn-outline-primary btn-submit" id="next"  @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @else onClick="location.assign('https://jivo.chat/U0b5KmvmMP')" @endif type="submit" data-bs-original-title="" title=""  style="margin-left:30px;padding:15px 50px 15px 50px; font-size:21px;">@if(canEditLang() && checkRequestOnEdit())
                                                                         <editor_block data-name='vnesti 2' contenteditable="true">{{ __('vnesti 2') }}</editor_block> @else {{ __('vnesti 2') }} @endif
                                                                 </button>
                                                             </div>
@@ -253,7 +253,6 @@
     <script src="{{ asset('adminos/js/pages-js/forms-wizard-validation/form-wizard.js') }}"></script>
     <script>
         $(function () {
-            console.log('aaaa')
             $('a[href="#next"]').click();
         })
 

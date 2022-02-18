@@ -30,7 +30,7 @@ class DepositsController extends Controller
 
     public function create() {
         $user = auth()->user();
-        $deposit_groups = RateGroup::all();
+        $deposit_groups = RateGroup::limit(1)->get();
         $deposits = Deposit::where('user_id', $user->id)->where('active', true)->orderByDesc('created_at')->with('rate', 'currency', 'wallet')->paginate(12);
         $rates = Rate::where('active', true)->orderBy('min', 'asc')->get();
 
@@ -292,7 +292,7 @@ class DepositsController extends Controller
             ->first();
 
         if (null === $rate) {
-            return redirect()->back()->with('error', 'Подходящий для апгрейда тарифный план не найден.');
+            return redirect()->back()->with('error', 'Сумма депозита недостаточна для апгрейда, пожалуйста сперва совершите реинвестирование!');
         }
 
         DB::transaction(function() use($rate, $from_currency, $deposit, $user) {
@@ -345,6 +345,6 @@ class DepositsController extends Controller
             }
         });
 
-        return back()->with('success', 'Апгрейд прошел успешно!');
+        return back()->with('success', 'Апгрейд депозита успешно произведен!');
     }
 }
