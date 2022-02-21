@@ -82,8 +82,8 @@ class CalculateReferralsTotalInvestedAndPersonalTurnover extends Command
                 });
 
             $user->update([
-                'referrals_invested_total' => 1000,
-                'personal_turnover' => 200,
+                'referrals_invested_total' => $total_referral_invested,
+                'personal_turnover' => $personal_turnover,
                 'total_referrals_count' => $referrals_count
             ]);
         }
