@@ -371,7 +371,7 @@
                                                                             <div data-value="name" class="upload-zone dropzone dz-clickable">
                                                                                 <div class="dz-message">
                                                                                     <div>
-                                                                                        <button type="button" class="btn btn-primary" id="uploadPassportImage">
+                                                                                        <button type="button" class="btn btn-outline-primary" id="uploadPassportImage">
                                                                                             @if(canEditLang() && checkRequestOnEdit())
                                                                                                 <editor_block data-name='Выбрать' contenteditable="true">{{ __('Выбрать') }}</editor_block>
                                                                                             @else
@@ -392,7 +392,7 @@
                                                                     </div>
                                                                     <div class="col-sm-4 d-none d-sm-block">
                                                                         <div class="mx-md-4">
-                                                                            <img src="{{ asset('accountPanel/verification/images/vector-passport.png') }}" alt="vector">
+                                                                            <img src="{{ asset('images/passport.jpg') }}" alt="vector">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -442,7 +442,7 @@
                                                                             <div class="upload-zone dropzone dz-clickable">
                                                                                 <div class="dz-message">
                                                                                     <div>
-                                                                                        <button type="button" class="btn btn-primary" id="uploadIdCardFrontImage">
+                                                                                        <button type="button" class="btn btn-outline-primary" id="uploadIdCardFrontImage">
                                                                                             @if(canEditLang() && checkRequestOnEdit())
                                                                                                 <editor_block data-name='Выбрать' contenteditable="true">{{ __('Выбрать') }}</editor_block>
                                                                                             @else
@@ -463,7 +463,7 @@
                                                                     </div>
                                                                     <div class="col-sm-4 d-none d-sm-block">
                                                                         <div class="mx-md-4">
-                                                                            <img src="{{ asset('accountPanel/verification/images/vector-id-front.png') }}" alt="vector">
+                                                                            <img src="{{ asset('images/id-card.jpg') }}" alt="vector">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -481,7 +481,7 @@
                                                                             <div class="upload-zone dropzone dz-clickable">
                                                                                 <div class="dz-message">
                                                                                     <div>
-                                                                                        <button type="button" class="btn btn-primary" id="uploadIdCardBackImage">
+                                                                                        <button type="button" class="btn btn-outline-primary" id="uploadIdCardBackImage">
                                                                                             @if(canEditLang() && checkRequestOnEdit())
                                                                                                 <editor_block data-name='Выбрать' contenteditable="true">{{ __('Выбрать') }}</editor_block>
                                                                                             @else
@@ -502,7 +502,7 @@
                                                                     </div>
                                                                     <div class="col-sm-4 d-none d-sm-block">
                                                                         <div class="mx-md-4">
-                                                                            <img src="{{ asset('accountPanel/verification/images/vector-id-back.png') }}" alt="vector">
+                                                                            <img src="{{ asset('images/id-card.jpg') }}" alt="vector">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -552,7 +552,7 @@
                                                                             <div class="upload-zone dropzone dz-clickable">
                                                                                 <div class="dz-message">
                                                                                     <div>
-                                                                                        <button type="button" class="btn btn-primary" id="uploadDriverLicenseImage">
+                                                                                        <button type="button" class="btn btn-outline-primary" id="uploadDriverLicenseImage">
                                                                                             @if(canEditLang() && checkRequestOnEdit())
                                                                                                 <editor_block data-name='Выбрать' contenteditable="true">{{ __('Выбрать') }}</editor_block>
                                                                                             @else
@@ -573,7 +573,7 @@
                                                                     </div>
                                                                     <div class="col-sm-4 d-none d-sm-block">
                                                                         <div class="mx-md-4">
-                                                                            <img src="{{ asset('accountPanel/verification/images/vector-licence.png') }}" alt="vector">
+                                                                            <img src="{{ asset('images/driver-licanse.jpeg') }}" alt="vector">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -629,7 +629,7 @@
                                                                     <div data-value="address" class="upload-zone dropzone dz-clickable">
                                                                         <div class="dz-message">
                                                                             <div>
-                                                                                <button type="button" class="btn btn-primary" id="uploadAddressImage">
+                                                                                <button type="button" class="btn btn-outline-primary" id="uploadAddressImage">
                                                                                     @if(canEditLang() && checkRequestOnEdit())
                                                                                         <editor_block data-name='Выбрать' contenteditable="true">{{ __('Выбрать') }}</editor_block>
                                                                                     @else
@@ -650,7 +650,7 @@
                                                             </div>
                                                             <div class="col-sm-4 d-none d-sm-block">
                                                                 <div class="mx-md-4">
-                                                                    <img src="{{ asset('accountPanel/verification/images/vector-passport.png') }}" alt="vector">
+                                                                    <img src="{{ asset('images/address.jpg') }}" alt="vector">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -705,7 +705,7 @@
                                                                     <div data-value="photo" class="upload-zone dropzone dz-clickable">
                                                                         <div class="dz-message">
                                                                             <div>
-                                                                                <button type="button" class="btn btn-primary" id="uploadSelfie">
+                                                                                <button type="button" class="btn btn-outline-primary" id="uploadSelfie">
                                                                                     @if(canEditLang() && checkRequestOnEdit())
                                                                                         <editor_block data-name='Выбрать' contenteditable="true">{{ __('Выбрать') }}</editor_block>
                                                                                     @else
@@ -726,7 +726,7 @@
                                                             </div>
                                                             <div class="col-sm-4 d-none d-sm-block">
                                                                 <div class="mx-md-4">
-                                                                    <img src="{{ asset('accountPanel/verification/images/vector-passport.png') }}" alt="vector">
+                                                                    <img src="{{ asset('images/selfie.jpg') }}" alt="vector">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -750,7 +750,7 @@
                                                             @endif
                                                         </div>
                                                         <div class="gaps-1x"></div>
-                                                        <button class="btn btn-primary">
+                                                        <button class="btn btn-outline-primary">
                                                             @if(canEditLang() && checkRequestOnEdit())
                                                                 <editor_block data-name='Отправить данные на проверку' contenteditable="true">{{ __('Отправить данные на проверку') }}</editor_block>
                                                             @else
@@ -828,17 +828,18 @@
 @push('scripts')
     <script>
         $(document).ready(function () {
-            $('.nav-link').click(function () {
+            $('.wrapper .nav-link').click(function () {
                 let tab = $(this).attr('href');
                 if (tab) {
                     $('input[name="document_type"]').val(tab.replace('#', ''))
                     $('.tab-pane').removeClass('show').removeClass('active')
                     $(tab).addClass('show').addClass('active')
                 }
-                $('.nav-link').removeClass('active').removeClass('show')
+                $('.wrapper .nav-link').removeClass('active').removeClass('show')
                 $(this).addClass('active').addClass('show')
                 return false;
-            })
+            });
+
             $('#uploadPassportImage').click(function () {
                 document.getElementById('passportImage').click()
             })

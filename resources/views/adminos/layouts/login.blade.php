@@ -68,6 +68,10 @@
             border-radius: 15px;
         }
 
+        .container {
+            z-index: 999;
+        }
+
     </style>
 
     @yield('page-style')

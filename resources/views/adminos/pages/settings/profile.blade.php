@@ -155,7 +155,7 @@
                                             </div>
                                         </div>
                                             <div class="w-20">
-                                                <button class="btn btn-primary btn-outline" id="saveProfileData" type="button">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Save' contenteditable="true">{{ __('Save') }}</editor_block> @else {{ __('Save') }} @endif</button>
+                                                <button class="btn btn-outline-primary" id="saveProfileData" type="button">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Save' contenteditable="true">{{ __('Save') }}</editor_block> @else {{ __('Save') }} @endif</button>
                                             </div>
                                         </form>
                                     </div>
@@ -228,7 +228,7 @@
                                                                                 <div style="clear:both; margin:20px 0 20px 0;"></div>
                                                                             @endif
                                                                             <div class="col align-self-end">
-                                                                                <button class="btn btn-success btn-outline">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Save' contenteditable="true">{{ __('Save') }}</editor_block> @else {{ __('Save') }} @endif</button>
+                                                                                <button class="btn btn-outline-success">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Save' contenteditable="true">{{ __('Save') }}</editor_block> @else {{ __('Save') }} @endif</button>
                                                                             </div>
                                                                         </div>
                                                                     </form>
@@ -247,7 +247,9 @@
                                     <div class="col-xl-4">
                                         <div class="card">
                                             <div class="card-header">
-                                                <h4 class="card-title mb-0">Общие</h4>
+                                                <h4 class="card-title mb-0">
+                                                    @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Общие' contenteditable="true">{{ __('Общие') }}</editor_block> @else {{ __('Общие') }} @endif
+                                                </h4>
                                                 <div class="card-options">
                                                     <a class="card-options-collapse" href="#"
                                                        data-bs-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
@@ -260,11 +262,14 @@
                                                 <div class="form-check checkbox checkbox-success mb-3 ml-3">
                                                     <input class="form-check-input" type="checkbox" name="ffa_field"
                                                            data-bs-original-title="" title="" id="ffa_field" @if($fa_field) checked="checked" @endif>
-                                                    <label class="form-check-label" for="ffa_field">исползовать двух-факторную
-                                                        аутентификацию</label>
+                                                    <label class="form-check-label" for="ffa_field">
+                                                        @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Исползовать двух-факторную аутентификацию' contenteditable="true">{{ __('Исползовать двух-факторную аутентификацию') }}</editor_block> @else {{ __('Исползовать двух-факторную аутентификацию') }} @endif
+                                                    </label>
                                                 </div>
                                                 <div class="form-footer">
-                                                    <button class="btn btn-primary btn-outline btn-block" id="ffa_save">Применить изменения</button>
+                                                    <button class="btn btn-outline-primary btn-block" id="ffa_save">
+                                                        @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Применить изменения' contenteditable="true">{{ __('Применить изменения') }}</editor_block> @else {{ __('Применить изменения') }} @endif
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -272,7 +277,9 @@
                                     <div class="col-xl-4">
                                         <div class="card">
                                             <div class="card-header pb-2">
-                                                <h4 class="card-title mb-0">Пароль</h4>
+                                                <h4 class="card-title mb-0">
+                                                    @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Пароль' contenteditable="true">{{ __('Пароль') }}</editor_block> @else {{ __('Пароль') }} @endif
+                                                </h4>
                                                 <div class="card-options">
                                                     <a class="card-options-collapse" href="#"
                                                        data-bs-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
@@ -283,15 +290,21 @@
                                             </div>
                                             <div class="card-body pt-2">
                                                 <div class="mb-3">
-                                                    <label class="form-label">Введите старый пароль</label>
+                                                    <label class="form-label">
+                                                        @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Введите старый пароль' contenteditable="true">{{ __('Введите старый пароль') }}</editor_block> @else {{ __('Введите старый пароль') }} @endif
+                                                    </label>
                                                     <input class="form-control" id="password_old_field" type="password" name="password_old">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label class="form-label">Введите новый пароль</label>
+                                                    <label class="form-label">
+                                                        @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Введите новый пароль' contenteditable="true">{{ __('Введите новый пароль') }}</editor_block> @else {{ __('Введите новый пароль') }} @endif
+                                                    </label>
                                                     <input class="form-control" id="password_field" type="password" name="password">
                                                 </div>
                                                 <div class="form-footer">
-                                                    <button class="btn btn-primary btn-outline btn-block" id="password_save">Сменить пароль</button>
+                                                    <button class="btn btn-outline-primary btn-block" id="password_save">
+                                                        @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Сменить пароль' contenteditable="true">{{ __('Сменить пароль') }}</editor_block> @else {{ __('Сменить пароль') }} @endif
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -349,6 +362,63 @@
 
             $('#saveAvatar').click(function () {
                 $('#avatarForm').submit();
+            })
+        });
+    </script>
+    <script>
+        $(document).ready(() => {
+            $('#phone').mask('+000000000000');
+            $("#password_save").click((e) => {
+                e.preventDefault();
+
+                $.ajax({
+                    url: "{{route('accountPanel.settings.setPassword')}}",
+                    type: 'post',
+                    data: [
+                        '#password_old_field',
+                        '#password_field'
+                    ]
+                        .map((val) => $(val).attr('name') + "=" + $(val).val())
+                        .reduce((accum, next) => accum + "&" + next),
+                    success: (response) => {
+                        var $data = $.parseJSON(response);
+                        if ($data['status'] == 'good') {
+                            (new PNotify({
+                                type: 'success',
+                                text: $data['msg'],
+                            })).get();
+
+                            $('#password_field').val('');
+                            $('#password_old_field').val('');
+                        } else {
+                            (new PNotify({
+                                type: 'error',
+                                text: $data['msg'],
+                            })).get();
+                        }
+                    },
+                })
+            });
+
+            $("#ffa_save").click((e) => {
+                e.preventDefault();
+
+                $.ajax({
+                    url: "{{route('accountPanel.settings.set2FA')}}",
+                    type: 'post',
+                    data: 'ffa_field=' + $('#ffa_field').is(':checked'),
+                    success: (response) => {
+                        console.log(response);
+
+                        if (response.result === 'redirect')
+                            window.location.replace(response.to);
+
+                        (new PNotify({
+                            type: 'success',
+                            text: '<strong>Данные обновлены</strong> 2FA был изменен',
+                        })).get();
+                    }
+                })
             })
         });
     </script>

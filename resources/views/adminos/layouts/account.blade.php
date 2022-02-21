@@ -194,11 +194,11 @@
 
 <script>
     window.addEventListener("load", function(event) {
-        $('.spinner-wrapper').remove()
+        $('.spinner-wrapper').hide()
     });
     $(function () {
         setTimeout(function () {
-            $('.spinner-wrapper').remove()
+            $('.spinner-wrapper').hide()
         }, 4000)
     })
     $(document).ready(function () {

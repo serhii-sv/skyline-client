@@ -259,11 +259,11 @@
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                                 <div class="panel-box">
                                     <div class="panel-box-title">
-                                        <h5>
+                                        <h4 class="text-center">
                                             @if(canEditLang() && checkRequestOnEdit())
                                                 <editor_block data-name='Monthly Earnings' contenteditable="true">{{ __('Monthly Earnings') }}</editor_block>
                                             @else {{ __('Monthly Earnings') }}@endif
-                                        </h5>
+                                        </h4>
                                     </div>
                                     <div class="panel-box-content">
                                         <canvas id="canvas" style="width:100%; height:400px;"></canvas>
@@ -447,7 +447,7 @@
 
                                                 <div class="pt-2 pl-3 pr-3 mt-3  d-flex justify-content-center">
                                                     <span class="pull-left" style="font-weight: bold">
-                                                         <button type="button" class="btn btn-primary btn-outline btn-xs" onclick="copyToClipboard()">
+                                                         <button type="button" class="btn btn-outline-primary btn-xs" onclick="copyToClipboard()">
                                                              @if(canEditLang() && checkRequestOnEdit())
                                                                  <editor_block data-name='Скопировать ссылку' contenteditable="true">{{ __('Скопировать ссылку') }}</editor_block>
                                                              @else
@@ -635,7 +635,8 @@
                             <div class="col-lg-6 risk-col ">
                                 <div class="card total-users">
                                     <div class="card-header card-no-border pb-3 pt-3">
-                                        <h5>@if(canEditLang() && checkRequestOnEdit())
+                                        <h5 class="text-center">
+                                            @if(canEditLang() && checkRequestOnEdit())
                                                 <editor_block data-name='Transfer' contenteditable="true">{{ __('Transfer') }}</editor_block> @else {{ __('Transfer') }} @endif
                                         </h5>
                                     </div>
@@ -644,13 +645,13 @@
                                             @csrf
                                             <div class="apex-chart-container goal-status text-center">
                                                 <div class="rate-card">
-                                                    <h6 class="mb-2 mt-2 f-w-400">@if(canEditLang() && checkRequestOnEdit())
+                                                    <h6 class="mb-2 mt-2 f-w-400" style="color: green">@if(canEditLang() && checkRequestOnEdit())
                                                             <editor_block data-name='User' contenteditable="true">{{ __('User') }}</editor_block> @else {{ __('User') }} @endif
                                                     </h6>
                                                     <div class="input-group mb-3">
                                                         <input class="form-control" type="text" name="user" value="{{ old('user') ?? '' }}">
                                                     </div>
-                                                    <h6 class="mb-2 mt-2 f-w-400">@if(canEditLang() && checkRequestOnEdit())
+                                                    <h6 class="mb-2 mt-2 f-w-400" style="color: green">@if(canEditLang() && checkRequestOnEdit())
                                                             <editor_block data-name='Enter the amount' contenteditable="true">{{ __('Enter the amount') }}</editor_block> @else {{ __('Enter the amount') }} @endif
                                                     </h6>
                                                     <div class="input-group mb-3">
@@ -669,18 +670,8 @@
                                                             @endforelse
                                                         </select>
                                                     </div>
-{{--                                                    <div class="form-check checkbox mb-3">--}}
-{{--                                                        <input class="form-check-input" id="checkbox3" type="checkbox">--}}
-{{--                                                        <label class="form-check-label" for="checkbox3">--}}
-{{--                                                            @if(canEditLang() && checkRequestOnEdit())--}}
-{{--                                                                <editor_block data-name='Do insurance 1' contenteditable="true">{{ __('Do insurance 1') }}</editor_block>--}}
-{{--                                                            @else--}}
-{{--                                                                {{ __('Do insurance 1') }}--}}
-{{--                                                            @endif--}}
-{{--                                                        </label>--}}
-{{--                                                    </div>--}}
                                                     <div class="d-flex justify-content-center">
-                                                        <button class="btn btn-lg btn-primary btn-sm btn-outline btn w-50 btn-block send-money-to-user-btn" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>@if(canEditLang() && checkRequestOnEdit())
+                                                        <button class="btn btn-lg btn-outline-success btn-sm btn w-50 btn-block send-money-to-user-btn" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>@if(canEditLang() && checkRequestOnEdit())
                                                                 <editor_block data-name='Do transfer' contenteditable="true">{{ __('Do transfer') }}</editor_block> @else {{ __('Do transfer') }} @endif
                                                         </button>
                                                     </div>
@@ -796,11 +787,18 @@
                 hover: {
                     mode: 'index'
                 },
+                tooltips: {
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            return tooltipItem.value + '%';
+                        }
+                    }
+                },
                 scales: {
                     xAxes: [{
                         display: true,
                         scaleLabel: {
-                            display: true,
+                            display: false,
                             labelString: 'Дни'
                         }
                     }],
@@ -808,7 +806,12 @@
                         display: true,
                         scaleLabel: {
                             display: true,
-                            labelString: 'Доходность %'
+                            labelString: 'Доходность'
+                        },
+                        ticks: {
+                            callback: function(value, index, ticks) {
+                                return value + '%';
+                            }
                         }
                     }]
                 },

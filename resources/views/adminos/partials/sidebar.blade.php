@@ -95,13 +95,13 @@
                 <span class="nav-label">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='NFT-маркет' contenteditable="true">{{ __('NFT-маркет') }}</editor_block> @else {{ __('NFT-маркет') }} @endif</span>
             </a>
         </li>
-        <li class="nav-item {{ Route::is('accountPanel.settings.*') || Route::is('accountPanel.support-tasks.*') ? 'active' : '' }}">
+        <li class="nav-item {{ Route::is('accountPanel.settings.profile') ? 'active' : '' }}">
             <a href="{{ route('accountPanel.settings.profile') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link">
                 <i class="fa fa-gear"></i>
                 <span class="nav-label">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Settings' contenteditable="true">{{ __('Settings') }}</editor_block> @else {{ __('Settings') }} @endif</span>
             </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item {{ Route::is('accountPanel.settings.verify') ? 'active' : '' }}">
             <a href="{{ route('accountPanel.settings.verify') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link">
                 <i class="fa fa-user-secret"></i>
                 @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Verify' contenteditable="true">{{ __('Verify') }}</editor_block> @else {{ __('Verify') }} @endif
