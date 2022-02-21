@@ -68,8 +68,12 @@
             border-radius: 15px;
         }
 
-        .container {
-            z-index: 999;
+        .container, .admin-edit-lang {
+            z-index: 999 !important;
+        }
+
+        .admin-edit-lang {
+            position: relative;
         }
 
     </style>
@@ -89,6 +93,7 @@
             </div>
         </div>
     </div>
+    @include('layouts.admin_edit_lang')
     <div class="container-login100" style="/*background-image: url('/images/bg.jpeg'); */background-color: black">
         @yield('content')
     </div>

@@ -35,7 +35,7 @@
                             <form class="form-horizontal" method="POST" action="{{ route('generate2faSecret') }}">
                                 {{ csrf_field() }}
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-primary">
+                                    <button type="submit" class="btn btn-primary" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
                                         @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Generate Secret Key to Enable 2FA' contenteditable="true">{{ __('Generate Secret Key to Enable 2FA') }}</editor_block> @else {{ __('Generate Secret Key to Enable 2FA') }} @endif
                                     </button>
                                 </div>
@@ -67,7 +67,7 @@
                                         </span>
                                     @endif
                                 </div>
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary"@if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
                                     @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Enable 2FA' contenteditable="true">{{ __('Enable 2FA') }}</editor_block> @else {{ __('Enable 2FA') }} @endif
                                 </button>
                             </form>
@@ -103,7 +103,7 @@
                                         </span>
                                     @endif
                                 </div>
-                                <button type="submit" class="btn btn-primary ">
+                                <button type="submit" class="btn btn-primary " @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
                                     @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Disable 2FA' contenteditable="true">{{ __('Disable 2FA') }}</editor_block> @else {{ __('Disable 2FA') }} @endif
                                 </button>
                             </form>

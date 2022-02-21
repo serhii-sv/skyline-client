@@ -37,7 +37,7 @@
                                 </label>
                                 <input id="one_time_password" name="one_time_password" class="form-control col-md-4"  type="text" required/>
                             </div>
-                            <button class="btn btn-primary" type="submit">
+                            <button class="btn btn-primary" type="submit" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
                                 @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Authenticate' contenteditable="true">{{ __('Authenticate') }}</editor_block> @else {{ __('Authenticate') }} @endif
                             </button>
                         </form>
