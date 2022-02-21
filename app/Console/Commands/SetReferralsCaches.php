@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Transaction;
+use App\Models\TransactionType;
 use App\Models\User;
 use App\Models\Wallet;
 use Illuminate\Console\Command;
@@ -53,6 +54,9 @@ class SetReferralsCaches extends Command
             });
 
             $walletArray = Wallet::where('user_id', $user->id)->get();
+
+            $partner_type = TransactionType::where('name', 'partner')->first();
+            $dividend_type = TransactionType::where('name', 'dividend')->first();
 
             foreach ($walletArray as $wallet) {
                 $walletsStats[$wallet->id] = cache()->remember('wallets_stats_'.$user->id . '_' . $wallet->id, now()->addMinutes(60), function () use ($wallet, $dividend_type, $partner_type) {
