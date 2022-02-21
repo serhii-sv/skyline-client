@@ -88,6 +88,15 @@
         .last {
             width: 40% !important;
         }
+
+        #basic-forms .actions {
+            display: flex;
+            justify-content: center;
+        }
+
+        #basic-forms .actions a {
+            padding: 12px 35px !important;
+        }
     </style>
 @endpush
 @section('content')
@@ -249,6 +258,13 @@
 @endsection
 
 @push('scripts')
+    <script>
+        $(function () {
+            $('a[href="#next"]').on('click', function (e) {
+                $('.spinner-wrapper').show()
+            });
+        })
+    </script>
     <script src="{{ asset('adminos/plugins/jquery.steps/js/jquery.steps.js') }}"></script>
     <script src="{{ asset('adminos/js/pages-js/forms-wizard-validation/form-wizard.js') }}"></script>
     <script>

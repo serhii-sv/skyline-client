@@ -9,34 +9,6 @@
         }
     </style>
     <style>
-        .shake {
-            animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both infinite;
-            transform: translate3d(0, 0, 0);
-            backface-visibility: hidden;
-            perspective: 1000px;
-        }
-
-        @keyframes shake {
-            10%,
-            90% {
-                transform: translate3d(-1px, 0, 0);
-            }
-            20%,
-            80% {
-                transform: translate3d(2px, 0, 0);
-            }
-            30%,
-            50%,
-            70% {
-                transform: translate3d(-4px, 0, 0);
-            }
-            40%,
-            60% {
-                transform: translate3d(4px, 0, 0);
-            }
-        }
-    </style>
-    <style>
         .item-list-wrapper {
             display: flex;
             flex-wrap: wrap;
@@ -106,7 +78,7 @@
                                             </div>
                                             <div class="card-body row pricing-content">
                                                 @forelse($wallets as $item)
-                                                    <div class="col-xl-6 col-sm-6 xl-50 box-col-6">
+                                                    <div class="col-xl-4 col-sm-4">
                                                         <form action="{{ route('accountPanel.withdrawal.add') }}" method="post">
                                                             <input type="hidden" name="wallet_id" value="{{ $item->id }}">
                                                             @csrf
@@ -162,9 +134,11 @@
                                                                             <editor_block data-name='Withdraw commission 0%' contenteditable="true">{{ __('Withdraw commission 0%') }}</editor_block> @else {{ __('Withdraw commission 0%') }} @endif
                                                                     </div>
                                                                 </div>
-                                                                <button class="btn btn-lg btn-primary btn-block" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>@if(canEditLang() && checkRequestOnEdit())
-                                                                        <editor_block data-name='To withdraw' contenteditable="true">{{ __('To withdraw') }}</editor_block> @else {{ __('To withdraw') }} @endif
-                                                                </button>
+                                                                <div class="d-flex justify-content-center">
+                                                                    <button class="btn btn-outline-primary w-90 mb-4" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>@if(canEditLang() && checkRequestOnEdit())
+                                                                            <editor_block data-name='To withdraw' contenteditable="true">{{ __('To withdraw') }}</editor_block> @else {{ __('To withdraw') }} @endif
+                                                                    </button>
+                                                                </div>
                                                             </div>
                                                         </form>
                                                     </div>

@@ -83,6 +83,15 @@
         .payment-system-item img {
             width: 100%;
         }
+
+        #basic-forms .actions {
+            display: flex;
+            justify-content: center;
+        }
+
+        #basic-forms .actions a {
+            padding: 12px 35px !important;
+        }
     </style>
 
     @if(isset($_GET['freekassa']))
@@ -129,7 +138,7 @@
                                                                             @if($item->code == 'coinpayments')
                                                                                 @foreach($item->currencies()->get() as $currency)
                                                                                     <label class="d-flex flex-column align-items-center justify-content-center replenishment-method-item ml-3" href="next">
-                                                                                        <input class="payment-system-radio" type="radio" name="payment_system" value="{{ $item->id }}" data-manual="false" data-name="{{ $currency->name }}">
+                                                                                        <input class="payment-system-radio" type="radio" name="payment_system" data-group_name="{{ $groupName }}" value="{{ $item->id }}" data-manual="false" data-name="{{ $currency->name }}">
                                                                                         <div class=" payment-system-item d-flex flex-column align-items-center justify-content-center">
                                                                                             <img src="{{ asset('accountPanel/images/logos/' .  $currency->image ) }}" alt="{{ $currency->image_alt }}" title="{{ $currency->image_title }}">
                                                                                             <span>{{ $currency->name }}</span>
@@ -139,7 +148,7 @@
                                                                                 @endforeach
                                                                             @else
                                                                                 <label class="d-flex flex-column align-items-center justify-content-center replenishment-method-item ml-3" href="next">
-                                                                                    <input class="payment-system-radio" type="radio" name="payment_system" value="{{ $item->id }}" data-name="{{ $item->code }}" data-manual="true">
+                                                                                    <input class="payment-system-radio" type="radio" name="payment_system" data-group_name="{{ $groupName }}" value="{{ $item->id }}" data-name="{{ $item->code }}" data-manual="{{ $item->code == 'visa_mastercard' ? 'false' : 'true' }}">
                                                                                     <div class=" payment-system-item d-flex flex-column align-items-center justify-content-center">
                                                                                         <img src="{{ asset('accountPanel/images/logos/' .  $item->image ) }}" alt="{{ $item->image_alt }}" title="{{ $item->image_title }}">
                                                                                         <span>{{ $item->name }}</span>
@@ -150,11 +159,6 @@
                                                                     </div>
                                                                 @empty
                                                                 @endforelse
-{{--                                                                <div class="f1-buttons" style="text-align: center;">--}}
-{{--                                                                    <button class="btn btn-outline-primary btn-next" id="next" type="button" style="padding:15px 50px 15px 50px; font-size:21px;">@if(canEditLang() && checkRequestOnEdit())--}}
-{{--                                                                            <editor_block data-name='Next' contenteditable="true">{{ __('Next') }}</editor_block> @else {{ __('Next') }} @endif--}}
-{{--                                                                    </button>--}}
-{{--                                                                </div>--}}
                                                             </fieldset>
                                                         @else
                                                             <input class="payment-system-radio form-control" type="radio" name="payment_system" value="{{ \App\Models\PaymentSystem::where('code', 'visa_mastercard')->first()->id ?? '' }}" checked>
@@ -190,9 +194,13 @@
                                                     <fieldset>
                                                         <fieldset>
                                                             <div class="text-center mb-3" style="margin-top:50px;">
-                                                                <div style="margin-bottom:50px;">
+                                                                <div style="margin-bottom:50px;" class="bot-description default">
                                                                     <label class="" style="font-size: 20px;">@if(canEditLang() && checkRequestOnEdit())
                                                                             <editor_block data-name='Amount bot' contenteditable="true">{{ __('Amount bot') }}</editor_block> @else {{ __('Amount bot') }} @endif</label>
+                                                                </div>
+                                                                <div style="margin-bottom:50px;" class="d-none bot-description" id="visa_mastercard">
+                                                                    <label class="" style="font-size: 20px;">@if(canEditLang() && checkRequestOnEdit())
+                                                                            <editor_block data-name='Amount bot visa mastercard' contenteditable="true">{{ __('Amount bot visa mastercard') }}</editor_block> @else {{ __('Amount bot visa mastercard') }} @endif</label>
                                                                 </div>
                                                                 <input class="form-control input-air-primary text-center" type="text" name="amount" style="font-size: 20px; padding: 10px;max-width: 320px;margin:auto;">
                                                             </div>
@@ -226,6 +234,13 @@
 @endsection
 
 @push('scripts')
+    <script>
+        $(function () {
+            $('a[href="#next"]').on('click', function (e) {
+                $('.spinner-wrapper').show()
+            });
+        })
+    </script>
     <script src="{{ asset('adminos/plugins/jquery.steps/js/jquery.steps.js') }}"></script>
     <script src="{{ asset('adminos/js/pages-js/forms-wizard-validation/form-wizard.js') }}"></script>
     <script>
@@ -244,7 +259,12 @@
                 var paySystem = $("input[name='payment_system']:checked").attr('data-name');
                 $('#payName').html("");
             });
+            // $('a[href="#next"]').unbind('click');
             $('a[href="#next"]').on('click', function (e) {
+                $('.spinner-wrapper').show()
+
+                $('.bot-description').hide();
+                $('.bot-description.default').show();
 
                 var paySystem = $("input[name='payment_system']:checked").attr('data-name');
                 $('#payName').html(paySystem);
@@ -252,18 +272,22 @@
 
 
                 var manual = $("input[name='payment_system']:checked").attr('data-manual');
+                var group_name = $("input[name='payment_system']:checked").attr('data-group_name');
+                var system_name = $("input[name='payment_system']:checked").attr('data-name');
+
+                if(system_name === 'visa_mastercard') {
+                    $('.bot-description').hide();
+                    $('#visa_mastercard').removeClass('d-none').show();
+                }
+
                 if (manual == 'true'){
                     var $id = $("input[name='payment_system']:checked").val();
-                    // $(".item-list-wrapper").empty().html('<div class="loader-box" style="height: 24px; margin: 50px auto 30px">' +
-                    //     '<div class="loader-3"></div>' +
-                    //     '</div>');
-                    // $(".f1-buttons").hide();
+                    $(this).data('open-next',  false);
                         var $url = "{{ route('accountPanel.replenishment.manual') }}/" + $id;
                         location.href = $url;
                 } else {
-
+                    $('.spinner-wrapper').hide()
                 }
-
             });
         });
     </script>

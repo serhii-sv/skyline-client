@@ -107,7 +107,7 @@
                         @endif
                         <li class="nav-item">
                             <a href="{{ route('logout') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link">
-                                <i class="fa fa-shopping-basket mr-2"></i>
+                                <i class="feather icon-power mr-2"></i>
                                 @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Log out' contenteditable="true">{{ __('Log out') }}</editor_block> @else {{ __('Log out') }} @endif
                             </a>
                         </li>
