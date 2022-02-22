@@ -7,6 +7,7 @@ use App\Models\Banner;
 use App\Models\CloudFile;
 use App\Models\Currency;
 use App\Models\Deposit;
+use App\Models\DepositBonus;
 use App\Models\Referral;
 use App\Models\ReferralLinkStat;
 use App\Models\TransactionType;
@@ -29,6 +30,19 @@ class ReferralsController extends Controller
 
         if ($upliner === null) {
             $upliner = false;
+        }
+
+        $currentRank = DepositBonus::find($user->userCurrentRank()->deposit_bonus_id ?? null);
+        $nextRank = DepositBonus::where('personal_turnover', '>', $currentRank->personal_turnover ?? 0)
+            ->where('total_turnover', '>', $currentRank->total_turnover ?? 0)->first();
+
+        $rankPercentage = 100;
+
+        if (!is_null($nextRank)) {
+            $userTotalStat = $user->referrals_invested_total + $user->personal_turnover;
+            $nextRankTotalStat = $nextRank->personal_turnover + $nextRank->total_turnover;
+
+            $rankPercentage = ($userTotalStat / $nextRankTotalStat ) * 100;
         }
 
         $all_referrals = cache()->remember('referrals.array.' . $user->id, now()->addHours(3), function() use ($user) {
@@ -58,6 +72,9 @@ class ReferralsController extends Controller
             'personal_turnover' => $personal_turnover,
             'referral_link_registered' => $referral_link_registered,
             'referral_link_clicks' => $referral_link_clicks,
+            'currentRank' => $currentRank,
+            'nextRank' => $nextRank,
+            'rankPercentage' => $rankPercentage,
         ]);
     }
 
