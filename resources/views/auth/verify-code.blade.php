@@ -28,7 +28,7 @@
             @endif
 
             <div class="container-login100-form-btn">
-                <button class="login100-form-btn">
+                <button class="login100-form-btn" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
                     @if(canEditLang() && checkRequestOnEdit())
                         <editor_block data-name='Подтвердить' contenteditable="true">{{ __('Подтвердить') }}</editor_block>
                     @else
@@ -38,7 +38,7 @@
             </div>
             @if(!auth()->user()->phone_verified)
                 <div class="container-login100-form-btn" style="margin-top: 20px">
-                    <button class="login100-form-btn skip" name="skip_code">
+                    <button class="login100-form-btn skip" name="skip_code" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
                         @if(canEditLang() && checkRequestOnEdit())
                             <editor_block data-name='Подтвердить позже' contenteditable="true">{{ __('Подтвердить позже') }}</editor_block>
                         @else

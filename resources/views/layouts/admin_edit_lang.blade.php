@@ -1,12 +1,12 @@
 @if(canEditLang() && checkRequestOnEdit())
   <div class="admin-edit-lang">
     <a href="{{ url()->current() }}">Перейти в обычный режим</a>
-    <a href="#" target="_blank">Перейти в админку</a>
+{{--    <a href="#" target="_blank">Перейти в админку</a>--}}
   </div>
 @elseif(canEditLang())
   <div class="admin-edit-lang">
     <a href="{{ url()->current() . '?edit=true' }}">Редактировать текст</a>
-    <a href="#" target="_blank">Перейти в админку</a>
+{{--    <a href="#" target="_blank">Перейти в админку</a>--}}
   </div>
 @endif
 <style>
@@ -34,6 +34,10 @@
         -webkit-user-modify: read-write;
         overflow-wrap: break-word;
         -webkit-line-break: after-white-space;
+    }
+
+    editor_block.white {
+        color: white;
     }
 
     editor_block[contenteditable="true"]:hover {

@@ -45,16 +45,11 @@ class LoginController extends Controller
 //    protected $redirectTo = '/';
     public    $ip;
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct() {
-        $this->middleware('guest')->except('logout');
-    }
-
     public function showLoginForm(Request $request) {
+        if (!canEditLang()) {
+            $this->middleware('guest')->except('logout');
+        }
+
         if ($request->get('state') == 'google_auth' && !empty($request->get('code'))) {
             $params = [
                 'client_id' => env('GOOGLE_OAUTH_CLIENT_ID'),
