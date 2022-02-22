@@ -39,7 +39,7 @@
                                                                     @csrf
                                                                     <div class="text-center pricing-simple w-100">
                                                                         <div class="pl-5 pr-5">
-                                                                            <h3>
+                                                                            <h3 style="color: green">
                                                                                 @if(canEditLang() && checkRequestOnEdit())
                                                                                     <editor_block data-name='{{ $item->name }}' contenteditable="true">{{ __($item->name) }}</editor_block>
                                                                                 @else
@@ -58,74 +58,74 @@
                                                                                         </div>
                                                                                         <span class="title text-center">
                                                                                             @if(canEditLang() && checkRequestOnEdit())
-                                                                                                <div style="text-align:left;">
+                                                                                                <h5 style="text-align:left;">
                                                                                                     <editor_block data-name='Daily earnings {{ $item->id }}' contenteditable="true">{!! __('Daily earnings '.$item->id) !!}</editor_block>
-                                                                                                </div>
+                                                                                                </h5>
                                                                                             @else
-                                                                                                <div style="text-align:left;">
+                                                                                                <h5 style="text-align:left;">
                                                                                                     <span style="text-align:left;" class="date">{!! html_entity_decode(__('Daily earnings '.$item->id)) !!}</span>
-                                                                                                </div>
+                                                                                                </h5>
                                                                                             @endif
 
                                                                                             @if(canEditLang() && checkRequestOnEdit())
-                                                                                                <div style="text-align:left;">
+                                                                                                <h5 style="text-align:left;">
                                                                                                     <editor_block data-name='Duration {{ $item->id }}' contenteditable="true">{!! __('Duration '.$item->id) !!}</editor_block>
-                                                                                                </div>
+                                                                                                </h5>
                                                                                             @else
-                                                                                                <div style="text-align:left;">
+                                                                                                <h5 style="text-align:left;">
                                                                                                     <span  style="text-align:left;" class="date">{!! html_entity_decode(__('Duration '.$item->id)) !!}</span>
-                                                                                                </div>
+                                                                                                </h5>
                                                                                             @endif
 
                                                                                         </span>
                                                                                         @if(canEditLang() && checkRequestOnEdit())
-                                                                                            <div style="text-align:left;">
+                                                                                            <h5 style="text-align:left;">
                                                                                                 <editor_block data-name='Daily rate {{ $item->id }}' contenteditable="true">{!! __('Daily rate '.$item->id) !!}</editor_block>
-                                                                                            </div>
+                                                                                            </h5>
                                                                                         @else
-                                                                                            <div style="text-align:left;">
+                                                                                            <h5 style="text-align:left;">
                                                                                                 <span  style="text-align:left;" class="date">{!! html_entity_decode(__('Daily rate '.$item->id)) !!}</span>
-                                                                                            </div>
+                                                                                            </h5>
                                                                                         @endif
 
                                                                                         @if(canEditLang() && checkRequestOnEdit())
-                                                                                            <div style="text-align:left;">
+                                                                                            <h5 style="text-align:left;">
                                                                                                 <editor_block data-name='Add str {{ $item->id }}' contenteditable="true">{!! __('Add str '.$item->id) !!}</editor_block>
-                                                                                            </div>
+                                                                                            </h5>
                                                                                         @else
-                                                                                            <div style="text-align:left;">
+                                                                                            <h5 style="text-align:left;">
                                                                                                 <span  style="text-align:left;" class="date">{!! html_entity_decode(__('Add str '.$item->id)) !!}</span>
-                                                                                            </div>
+                                                                                            </h5>
                                                                                         @endif
 
                                                                                         @if(canEditLang() && checkRequestOnEdit())
-                                                                                            <div style="text-align:left;">
+                                                                                            <h5 style="text-align:left;">
                                                                                                 <editor_block data-name='Add str 2 {{ $item->id }}' contenteditable="true">{!! __('Add str 2 '.$item->id) !!}</editor_block>
-                                                                                            </div>
+                                                                                            </h5>
                                                                                         @else
-                                                                                            <div style="text-align:left;">
+                                                                                            <h5 style="text-align:left;">
                                                                                                 <span  style="text-align:left;" class="date">{!! html_entity_decode(__('Add str 2 '.$item->id)) !!}</span>
-                                                                                            </div>
+                                                                                            </h5>
                                                                                         @endif
 
                                                                                         @if(canEditLang() && checkRequestOnEdit())
-                                                                                            <div style="text-align:left;">
+                                                                                            <h5 style="text-align:left;">
                                                                                                 <editor_block data-name='Add str 3 {{ $item->id }}' contenteditable="true">{!! __('Add str 3 '.$item->id) !!}</editor_block>
-                                                                                            </div>
+                                                                                            </h5>
                                                                                         @else
-                                                                                            <div style="text-align:left;">
+                                                                                            <h5 style="text-align:left;">
                                                                                                 <span  style="text-align:left;" class="date">{!! html_entity_decode(__('Add str 3 '.$item->id)) !!}</span>
-                                                                                            </div>
+                                                                                            </h5>
                                                                                         @endif
 
                                                                                         @if(canEditLang() && checkRequestOnEdit())
-                                                                                            <div style="text-align:left;">
+                                                                                            <h5 style="text-align:left;">
                                                                                                 <editor_block data-name='Add str 4 {{ $item->id }}' contenteditable="true">{!! __('Add str 4 '.$item->id) !!}</editor_block>
-                                                                                            </div>
+                                                                                            </h5>
                                                                                         @else
-                                                                                            <div style="text-align:left;">
+                                                                                            <h5 style="text-align:left;">
                                                                                                 <span  style="text-align:left;" class="date">{!! html_entity_decode(__('Add str 4 '.$item->id)) !!}</span>
-                                                                                            </div>
+                                                                                            </h5>
                                                                                         @endif
                                                                                     </div>
                                                                                 </div>
@@ -182,7 +182,7 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="d-flex justify-content-center mb-4">
+                                                                        <div class="d-flex justify-content-center mb-4 mt-3">
                                                                             <button class="btn btn-outline-success create-deposit-btn w-50" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif >
                                                                                 @if(canEditLang() && checkRequestOnEdit())
                                                                                     <editor_block data-name='Invest' contenteditable="true">{{ __('Invest') }}</editor_block>
@@ -220,7 +220,7 @@
                                                                                         </tr>
                                                                                         </thead>
                                                                                         <tbody>
-                                                                                            @foreach($deposits->where('rate_id', $item->id) as $deposit)
+                                                                                            @forelse($deposits->where('rate_id', $item->id) as $deposit)
 {{--                                                                                                @if($deposit->rate_id == $item->id)--}}
                                                                                                     <tr style="vertical-align: middle;">
                                                                                                         <td>
@@ -315,7 +315,66 @@
                                                                                                         </td>
                                                                                                     </tr>
 {{--                                                                                                @endif--}}
-                                                                                            @endforeach
+                                                                                            @empty
+                                                                                                <tr style="vertical-align: middle;">
+                                                                                                    <td>---</td>
+                                                                                                    <td>---</td>
+                                                                                                    <td>---</td>
+                                                                                                    <th scope="col">---</th>
+                                                                                                    <td>---</td>
+                                                                                                </tr>
+                                                                                                <tr >
+                                                                                                    <td colspan="4" style="border-top: unset">
+                                                                                                            <form method="post">
+                                                                                                                @csrf
+                                                                                                                <label class="col-md-12 col-form-label sm-left-text" for="u-range-{{ $item->id }}">@if(canEditLang() && checkRequestOnEdit())
+                                                                                                                        <editor_block data-name='Настройте процент автоматического реинвестирования прибыли' contenteditable="true">{{ __('Настройте процент автоматического реинвестирования прибыли') }}</editor_block> @else {{ __('Настройте процент автоматического реинвестирования прибыли') }} @endif
+                                                                                                                </label>
+                                                                                                                <div class="col-md-12 text-center">
+                                                                                                                    <input id="u-range-{{ $item->id }}" type="hidden" class="irs-hidden-input deposit-range-slider disable" tabindex="-1" name="reinvest" readonly="" data-bs-original-title="" title="">
+                                                                                                                </div>
+                                                                                                            </form>
+                                                                                                            @push('scripts')
+                                                                                                                <script>
+                                                                                                                    $(document).ready(function () {
+                                                                                                                        if ($("#u-range-{{ $item->id }}").hasClass('disable')) {
+                                                                                                                            $("#u-range-{{ $item->id }}").ionRangeSlider({
+                                                                                                                                min: 0,
+                                                                                                                                max: 100,
+                                                                                                                                from: {{ !in_array($item->name, ['IDO', 'NFT']) ? $item->daily : 100 }},
+                                                                                                                                disable: true,
+                                                                                                                                postfix: "%"
+                                                                                                                            })
+                                                                                                                        } else {
+                                                                                                                            $("#u-range-{{ $item->id }}").ionRangeSlider({
+                                                                                                                                min: 0,
+                                                                                                                                max: 100,
+                                                                                                                                from: {{ !in_array($item->name, ['IDO', 'NFT']) ? $item->daily : 100 }},
+                                                                                                                                postfix: "%"
+                                                                                                                            })
+                                                                                                                        }
+                                                                                                                    });
+                                                                                                                </script>
+                                                                                                            @endpush
+                                                                                                    </td>
+                                                                                                    <td style="border-top: unset">
+                                                                                                            <form method="post">
+                                                                                                                @csrf
+                                                                                                                <div class="text-center mt-2">
+                                                                                                                    @if(canEditLang() && checkRequestOnEdit())
+                                                                                                                        <editor_block data-name='Balance' contenteditable="true">{{ __('Balance') }}</editor_block> @else {{ __('Balance') }} @endif: ---
+                                                                                                                </div>
+                                                                                                                <div class="text-center mt-2">
+                                                                                                                    <input class="form-control input-air-primary" type="text" placeholder="" name="amount" data-bs-original-title="" title="">
+                                                                                                                </div>
+                                                                                                            </form>
+                                                                                                        <form class="upgradeForm" id="{{ $deposit->id }}" action="{{ route('accountPanel.deposits.upgrade') }}" style="position: absolute" method="post">
+                                                                                                            @csrf
+                                                                                                            <input type="hidden" name="deposit_id" value="{{ $deposit->id }}">
+                                                                                                        </form>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            @endforelse
                                                                                         </tbody>
                                                                                     </table>
                                                                                 </div>

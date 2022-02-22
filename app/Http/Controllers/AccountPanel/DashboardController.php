@@ -89,8 +89,6 @@ class DashboardController extends Controller
             $dateToCreate = $dateToCreate->addDay();
         }
 
-//        dd($botStatistics);
-
         $user = Auth::user();
         $walletArray = Wallet::where('user_id', $user->id)->get();
         $wallets = $walletArray->chunk(4);
