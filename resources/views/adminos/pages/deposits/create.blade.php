@@ -368,10 +368,6 @@
                                                                                                                     <input class="form-control input-air-primary" type="text" placeholder="" name="amount" data-bs-original-title="" title="">
                                                                                                                 </div>
                                                                                                             </form>
-                                                                                                        <form class="upgradeForm" id="{{ $deposit->id }}" action="{{ route('accountPanel.deposits.upgrade') }}" style="position: absolute" method="post">
-                                                                                                            @csrf
-                                                                                                            <input type="hidden" name="deposit_id" value="{{ $deposit->id }}">
-                                                                                                        </form>
                                                                                                     </td>
                                                                                                 </tr>
                                                                                             @endforelse
