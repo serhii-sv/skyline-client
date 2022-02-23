@@ -13,6 +13,10 @@
             display: flex;
             justify-content: center;
         }
+
+        .transaction-header h5 {
+            text-align: center !important;
+        }
     </style>
 @endpush
 @section('content')
@@ -49,28 +53,6 @@
                                                                             <div class="row mt-5">
                                                                                 <div class="col-lg-6">
                                                                                     <div class="transaction-footer">
-                                                                                            <span class="amount" style="text-align:center;color:green;">
-                                                                                                @if(canEditLang() && checkRequestOnEdit())
-                                                                                                    <editor_block data-name='Лимит открытия:' contenteditable="true">{{ __('Лимит открытия:') }}</editor_block>
-                                                                                                @else
-                                                                                                    {{ __('Лимит открытия:') }}
-                                                                                                @endif
-                                                                                            </span>
-                                                                                        <div class="rate-min-max-block text-center mt-3" data-rate="{{ $item->id }}">
-                                                                                            <h5 class="sub-title">
-                                                                                                @if(canEditLang() && checkRequestOnEdit())
-                                                                                                    <editor_block data-name='Минимум:' contenteditable="true">{{ __('Минимум:') }}</editor_block>
-                                                                                                @else
-                                                                                                    {{ __('Минимум') }} {{ number_format($item->min, 2, '.', '') }}$
-                                                                                                @endif
-                                                                                                <span style="color:green;">/</span>
-                                                                                                @if(canEditLang() && checkRequestOnEdit())
-                                                                                                    <editor_block data-name='Максимум:' contenteditable="true">{{ __('Максимум:') }}</editor_block>
-                                                                                                @else
-                                                                                                    {{ __('Максимум:') }} {{ number_format($item->max, 2, '.', '') }}$
-                                                                                                @endif
-                                                                                            </h5>
-                                                                                        </div>
                                                                                         <div class="mt-3" style="text-align: center;">
                                                                                             <h6 class="mb-2" style="color:green; text-align:center;">@if(canEditLang() && checkRequestOnEdit())
                                                                                                     <editor_block data-name='Choose wallet 2' contenteditable="true">{{ __('Choose wallet 2') }}</editor_block> @else {{ __('Choose wallet 2') }} @endif
@@ -78,13 +60,36 @@
 
                                                                                             <select class="form-select form-control-inverse-fill wallet-select form-control" name="wallet_id" data-rate="{{ $item->id }}">
                                                                                                 @forelse($wallets as $wallet)
-                                                                                                    <option value="{{ $wallet->id }}" data-currency="{{ $wallet->currency_id }}"
+                                                                                                    <option value="{{ $wallet->id }}" class="text-center" data-currency="{{ $wallet->currency_id }}"
                                                                                                             @if(old('wallet_id') == $wallet->id) selected="selected" @endif>
                                                                                                         {{ $wallet->currency->name }} - {{ $wallet->balance }}{{ $wallet->currency->symbol }}
                                                                                                     </option>
                                                                                                 @empty
                                                                                                 @endforelse
                                                                                             </select>
+                                                                                            <div class="mt-3">
+                                                                                                 <h6 class="amount" style="text-align:center;color:green;">
+                                                                                                @if(canEditLang() && checkRequestOnEdit())
+                                                                                                         <editor_block data-name='Лимит открытия:' contenteditable="true">{{ __('Лимит открытия:') }}</editor_block>
+                                                                                                     @else
+                                                                                                         {{ __('Лимит открытия:') }}
+                                                                                                     @endif
+                                                                                            </h6>
+                                                                                            </div>
+                                                                                            <div class="rate-min-max-block text-center mt-1 form-control" data-rate="{{ $item->id }}">
+                                                                                                <h5 class="sub-title">
+                                                                                                    @if(canEditLang() && checkRequestOnEdit())
+                                                                                                        <editor_block data-name='Минимум:' contenteditable="true">{{ __('Минимум:') }}</editor_block>
+                                                                                                    @else
+                                                                                                        {{ __('Минимум:') }} {{ number_format($item->min, 2, '.', '') }}$
+                                                                                                    @endif
+                                                                                                    @if(canEditLang() && checkRequestOnEdit())
+                                                                                                        <editor_block data-name='Максимум:' contenteditable="true">{{ __('Максимум:') }}</editor_block>
+                                                                                                    @else
+                                                                                                        {{ __('Максимум:') }} {{ number_format($item->max, 2, '.', '') }}$
+                                                                                                    @endif
+                                                                                                </h5>
+                                                                                            </div>
                                                                                             <h6 class="mt-3" style="color:green;">
                                                                                                 @if(canEditLang() && checkRequestOnEdit())
                                                                                                     <editor_block data-name='↓ Введите сумму ↓' contenteditable="true">{{ __('↓ Введите сумму ↓') }}</editor_block>
@@ -93,20 +98,20 @@
                                                                                                 @endif
                                                                                             </h6>
                                                                                             <div class="input-group">
-                                                                                                <input class="form-control" type="text" name="amount" value="{{ old('amount') ?? '' }}">
+                                                                                                <input class="form-control text-center" type="text" name="amount" value="{{ old('amount') ?? '' }}">
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="col-lg-6">
-                                                                                    <div class="transaction-header text-center">
-                                                                                        <div class="amount mb-3" style="color:green;">
+                                                                                    <div class="transaction-header text-center ml-4">
+                                                                                        <h6 class="amount mb-3" style="color:green;">
                                                                                             @if(canEditLang() && checkRequestOnEdit())
                                                                                                 <editor_block data-name='Условия инвестирования:' contenteditable="true">{{ __('Условия инвестирования:') }}</editor_block>
                                                                                             @else
                                                                                                 {{ __('Условия инвестирования') }}
                                                                                             @endif
-                                                                                        </div>
+                                                                                        </h6>
                                                                                         <span class="title text-center">
                                                                                             @if(canEditLang() && checkRequestOnEdit())
                                                                                                 <h5 style="text-align:left;">
