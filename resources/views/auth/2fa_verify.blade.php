@@ -1,11 +1,31 @@
 @extends('adminos.layouts.login')
+@section('page-style')
+    <style>
+        .language-wrapper {
+            margin-bottom: unset !important;
+        }
+
+        .card {
+            background-color: #007aff;
+        }
+
+        .card, .card p {
+            color: white;
+        }
+    </style>
+@endsection
 @section('content')
     <div class="container">
         <div class="row justify-content-md-center">
             <div class="col-md-8 ">
                 <div class="card">
                     <div class="card-header">
-                        @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Two Factor Authentication' contenteditable="true">{{ __('Two Factor Authentication') }}</editor_block> @else {{ __('Two Factor Authentication') }} @endif
+                        <strong>
+                            @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Two Factor Authentication' contenteditable="true">{{ __('Two Factor Authentication') }}</editor_block> @else {{ __('Two Factor Authentication') }} @endif
+                        </strong>
+                        <div style="float: right">
+                            @include('adminos.partials.languages', ['removeBackButton' => true])
+                        </div>
                     </div>
                     <div class="card-body">
                         <p>

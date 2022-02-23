@@ -1,4 +1,19 @@
 @extends('adminos.layouts.login')
+@section('page-style')
+    <style>
+        .language-wrapper {
+            margin-bottom: unset !important;
+        }
+
+        .card {
+            background-color: #007aff;
+        }
+
+        .card, .card p {
+            color: white;
+        }
+    </style>
+@endsection
 @section('content')
     <div class="container">
         <div class="row justify-content-md-center">
@@ -8,6 +23,9 @@
                         <strong>
                             @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Two Factor Authentication' contenteditable="true">{{ __('Two Factor Authentication') }}</editor_block> @else {{ __('Two Factor Authentication') }} @endif
                         </strong>
+                        <div style="float: right">
+                            @include('adminos.partials.languages', ['removeBackButton' => true])
+                        </div>
                     </div>
                     <div class="card-body">
                         <p style="margin-bottom: 20px">
@@ -35,7 +53,7 @@
                             <form class="form-horizontal" method="POST" action="{{ route('generate2faSecret') }}">
                                 {{ csrf_field() }}
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-primary" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
+                                    <button type="submit" class="login100-form-btn" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
                                         @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Generate Secret Key to Enable 2FA' contenteditable="true">{{ __('Generate Secret Key to Enable 2FA') }}</editor_block> @else {{ __('Generate Secret Key to Enable 2FA') }} @endif
                                     </button>
                                 </div>
@@ -49,7 +67,7 @@
                                 {!! '1. Scan this QR code with your Google Authenticator App. Alternatively, you can use the code: ' !!} <code>{{ $secret }}</code>
                             @endif
                             <br/>
-                            <img src="{{ $google2fa_url  }}" alt="">
+                            <img style="margin-top: 20px" src="{{ $google2fa_url  }}" alt="">
                             <br/><br/>
                                 @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='2. Enter the pin from Google Authenticator app:' contenteditable="true">{{ __('2. Enter the pin from Google Authenticator app:') }}</editor_block> @else {{ __('2. Enter the pin from Google Authenticator app:') }} @endif
                                 <br/>
@@ -67,7 +85,7 @@
                                         </span>
                                     @endif
                                 </div>
-                                <button type="submit" class="btn btn-primary"@if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
+                                <button type="submit" class="btn login100-form-btn" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
                                     @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Enable 2FA' contenteditable="true">{{ __('Enable 2FA') }}</editor_block> @else {{ __('Enable 2FA') }} @endif
                                 </button>
                             </form>
@@ -103,7 +121,7 @@
                                         </span>
                                     @endif
                                 </div>
-                                <button type="submit" class="btn btn-primary " @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
+                                <button type="submit" class="login100-form-btn " @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
                                     @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Disable 2FA' contenteditable="true">{{ __('Disable 2FA') }}</editor_block> @else {{ __('Disable 2FA') }} @endif
                                 </button>
                             </form>

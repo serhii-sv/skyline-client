@@ -20,11 +20,7 @@
                                             <strong>{{ $user->login }}</strong>
                                         </span>
                             <span class="user-role">
-                                @if(canEditLang() && checkRequestOnEdit())
-                                    <editor_block data-name='{{ $user->roles()->first()->name ?? "Customer" }}' contenteditable="true">{{ __($user->roles()->first()->name ?? "Customer") }}</editor_block>
-                                @else
-                                    {{ __($user->roles()->first()->name ?? "Customer") }}
-                                @endif
+                                {{ App\Models\DepositBonus::find($user->userCurrentRank()->deposit_bonus_id ?? null)->status_name ?? '' }}
                             </span>
                             <span class="user-status">
                                             <i class="fa fa-circle text-success"></i>
