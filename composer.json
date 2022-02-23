@@ -21,6 +21,7 @@
         "joggapp/laravel-google-translate": "^7.0",
         "josiasmontag/laravel-recaptchav3": "^0.6.0",
         "lab404/laravel-impersonate": "^1.7",
+        "laravel-notification-channels/telegram": "^2.0",
         "laravel/framework": "^8.40",
         "laravel/helpers": "^1.4",
         "laravel/horizon": "^5.7",
