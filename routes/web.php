@@ -47,6 +47,7 @@ Route::group(['middleware' => ['checkSiteEnabled', 'activity-log', 'http-log']],
 
     Route::post('/ajax/change-lang', [\App\Http\Controllers\Ajax\TranslationController::class, 'changeLang'])->name('ajax.change.lang');
     Route::post('/ajax/get-paysystem-currencies', [ReplenishmentController::class, 'getPaySystemCurrencies'])->name('ajax.paysystem.currencies');
+    Route::post('/ajax/withdraw-commission', [WithdrawalContoller::class, 'commission'])->name('ajax.withdraw-commission');
 
 //    Route::get('/home', [\App\Http\Controllers\CustomerPagesController::class, 'homepage'])->name('customer.main');
 //    Route::get('/aboutus', [\App\Http\Controllers\CustomerPagesController::class, 'aboutUs'])->name('customer.aboutus');

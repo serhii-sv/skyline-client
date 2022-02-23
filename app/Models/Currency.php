@@ -167,4 +167,13 @@ class Currency extends Model
             }
         }
     }
+
+    /**
+     * @param $code
+     * @return mixed
+     */
+    public static function getByCode($code)
+    {
+        return self::where('code', $code)->first();
+    }
 }

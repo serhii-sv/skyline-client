@@ -188,4 +188,15 @@ class WithdrawalContoller extends Controller
         }
         return back()->with('error', 'Недостаточно средств на счёте для выполнения данной операции!');
     }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function commission(Request $request)
+    {
+        return response()->json([
+            'commission' => round(Wallet::convertToCurrencyStatic(Currency::getByCode('USD'), Currency::getByCode($request->currency_code), 1), 3)
+        ]);
+    }
 }
