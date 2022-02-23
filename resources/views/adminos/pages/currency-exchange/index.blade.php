@@ -143,11 +143,10 @@
                                                             <div class="col-lg-3">
                                                                 <div class="form-group row">
                                                                     <div class="col">
-                                                                        <label class="form-label">
                                                                             <label class="form-label">@if(canEditLang() && checkRequestOnEdit())
                                                                                     <editor_block data-name='Комиссия' contenteditable="true">{{ __('Комиссия') }}</editor_block> @else {{ __('Комиссия') }} @endif</label>
                                                                         <div class="input-group mb-3">
-                                                                            <input class="form-control" type="text" value="1" placeholder="1" readonly>
+                                                                            <input class="form-control" type="text" value="1$" placeholder="1$" readonly>
                                                                         </div>
                                                                     </div>
                                                                 </div>
