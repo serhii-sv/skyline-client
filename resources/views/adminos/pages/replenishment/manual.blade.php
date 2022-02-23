@@ -203,27 +203,27 @@
 
                                                                 <p style="font-size:21px !important;">
                                                                     @if(canEditLang() && checkRequestOnEdit())
-                                                                        <editor_block data-name='Replenishment text 2' contenteditable="true">{{ __('Replenishment text 2') }}</editor_block> @else {!! html_entity_decode(__('Replenishment text 2')) !!} @endif
+                                                                        <editor_block data-name='Replenishment text 2' contenteditable="true">{!! __('Replenishment text 2') !!}</editor_block> @else {!! html_entity_decode(__('Replenishment text 2')) !!} @endif
                                                                 </p>
 
                                                                 <p style="font-size:21px !important;">
                                                                     @if(canEditLang() && checkRequestOnEdit())
-                                                                        <editor_block data-name='Replenishment text 3' contenteditable="true">{{ __('Replenishment text 3') }}</editor_block> @else {!! html_entity_decode(__('Replenishment text 3')) !!} @endif
+                                                                        <editor_block data-name='Replenishment text 3' contenteditable="true">{!! __('Replenishment text 3') !!}</editor_block> @else {!! html_entity_decode(__('Replenishment text 3')) !!} @endif
                                                                 </p>
 
                                                                 <p style="font-size:21px !important;">
                                                                     @if(canEditLang() && checkRequestOnEdit())
-                                                                        <editor_block data-name='Replenishment text 4' contenteditable="true">{{ __('Replenishment text 4') }}</editor_block> @else {!! html_entity_decode(__('Replenishment text 3')) !!} @endif
+                                                                        <editor_block data-name='Replenishment text 4' contenteditable="true">{!! __('Replenishment text 4') !!}</editor_block> @else {!! html_entity_decode(__('Replenishment text 3')) !!} @endif
                                                                 </p>
 
                                                                 <p style="font-size:21px !important;">
                                                                     @if(canEditLang() && checkRequestOnEdit())
-                                                                        <editor_block data-name='Replenishment text 5' contenteditable="true">{{ __('Replenishment text 5') }}</editor_block> @else {!! html_entity_decode(__('Replenishment text 5')) !!} @endif
+                                                                        <editor_block data-name='Replenishment text 5' contenteditable="true">{!! __('Replenishment text 5') !!}</editor_block> @else {!! html_entity_decode(__('Replenishment text 5')) !!} @endif
                                                                 </p>
 
                                                                 <p style="font-size:21px !important;">
                                                                     @if(canEditLang() && checkRequestOnEdit())
-                                                                        <editor_block data-name='Replenishment text 6' contenteditable="true">{{ __('Replenishment text 6') }}</editor_block> @else {!! html_entity_decode(__('Replenishment text 6')) !!} @endif
+                                                                        <editor_block data-name='Replenishment text 6' contenteditable="true">{!! __('Replenishment text 6') !!}</editor_block> @else {!! html_entity_decode(__('Replenishment text 6')) !!} @endif
                                                                 </p>
                                                             </div>
 

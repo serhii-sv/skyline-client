@@ -82,14 +82,14 @@
                                                         <form action="{{ route('accountPanel.withdrawal.add') }}" method="post">
                                                             <input type="hidden" name="wallet_id" value="{{ $item->id }}">
                                                             @csrf
-                                                            <div class="card text-center pricing-simple">
+                                                            <div class="card text-center pricing-simple" data-currency="{{ $item->currency->code }}">
                                                                 <div class="card-body">
                                                                     <h3>{{ $item->currency->name }}</h3>
                                                                     <h1>{{ $item->balance ?? 0 }}{{ $item->currency->symbol }}</h1>
                                                                     <h6 class="mb-2 shake" style="color:green;">@if(canEditLang() && checkRequestOnEdit())
                                                                             <editor_block data-name='Choose wallet' contenteditable="true">{{ __('Choose wallet') }}</editor_block> @else {{ __('Choose wallet') }} @endif
                                                                     </h6>
-                                                                    <select class="js-example-basic-single col-sm-12 form-control" name="wallet_id">
+                                                                    <select class="js-example-basic-single col-sm-12 form-control" name="wallet_id" id="wallet_id">
                                                                         <?php
                                                                         /** @var \App\Models\Currency $currency */
                                                                         $currency = $item->currency;
@@ -127,7 +127,16 @@
                                                                     </h6>
                                                                     <div class="input-group">
                                                                         <span class="input-group-text">{{ $item->currency->symbol ?? '' }}</span>
-                                                                        <input class="form-control" type="text" name="amount">
+                                                                        <input class="form-control amount" type="text" name="amount">
+                                                                    </div>
+
+                                                                    <h6 class="mb-2 mt-2" style="color:green;">
+                                                                        @if(canEditLang() && checkRequestOnEdit())
+                                                                            <editor_block data-name='Вы получите' contenteditable="true">{{ __('Вы получите') }}</editor_block> @else {{ __('Вы получите') }} @endif
+                                                                    </h6>
+                                                                    <div class="input-group">
+                                                                        <span class="input-group-text">{{ $item->currency->symbol ?? '' }}</span>
+                                                                        <input class="form-control total" type="text" disabled value="0">
                                                                     </div>
                                                                     <div style="margin-top:30px;">
                                                                         @if(canEditLang() && checkRequestOnEdit())
@@ -168,5 +177,38 @@
                 return false;
             })
         });
+
+        let lastCurrencyCode = null;
+        let commission = 1;
+
+        $(document).on('keyup', '.amount', function () {
+            let currency = $(this).closest('.pricing-simple').data('currency');
+
+            if (currency !== lastCurrencyCode) {
+                lastCurrencyCode = currency;
+
+                $.ajax({
+                    url: '/ajax/withdraw-commission',
+                    method: 'post',
+                    data: {
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                        currency_code: currency
+                    },
+                    success: (response) => {
+                        console.log(response)
+                        commission = response.commission;
+
+                        let total = Number($(this).val()) - parseFloat(commission);
+                        total = Math.round((total + Number.EPSILON) * 100) / 100
+                        $(this).closest('.pricing-simple').find('.total').val(total <= 0 ? 0 : total)
+                    }
+                })
+            } else {
+                let total = Number($(this).val()) - parseFloat(commission);
+                total = Math.round((total + Number.EPSILON) * 100) / 100
+                $(this).closest('.pricing-simple').find('.total').val(total <= 0 ? 0 : total)
+            }
+            return false;
+        })
     </script>
 @endpush

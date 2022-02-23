@@ -45,18 +45,21 @@ class RegisterController extends Controller
     protected $redirectTo = RouteServiceProvider::HOME;
 //    protected $redirectTo = '/';
     public    $ip;
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct() {
-        $this->middleware('guest');
-    }
+//    /**
+//     * Create a new controller instance.
+//     *
+//     * @return void
+//     */
+//    public function __construct() {
+//        $this->middleware('guest');
+//    }
 
 
     public function showRegistrationForm(Request $request)
     {
+        if (!canEditLang()) {
+            $this->middleware('guest');
+        }
         $params = array(
             'client_id'     => env('GOOGLE_OAUTH_CLIENT_ID'),
             'redirect_uri'  => env('APP_URL') ? env('APP_URL') . '/login' : 'http://localhost/login',

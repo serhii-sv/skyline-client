@@ -26,13 +26,19 @@
             <div class="col-form-label text-danger">{{ $message }}</div>
         @enderror
 
-        <div class="wrap-input100 validate-input @error('email') alert-validate @enderror" data-validate="@error('email') {{ $message }} @enderror">
-            <input class="input100" type="text" name="email" placeholder="Email" value="{{ old('email') }}">
+        @if(canEditLang() && checkRequestOnEdit())
+            <span style="color: white">Перевод для:</span> <editor_block class="white" data-name='Email' contenteditable="true">{{ __('Email') }}</editor_block>
+        @endif
+        <div class="wrap-input100 validate-input @error('email') alert-validate @enderror" data-validate="@error('email') {{ $message }} @enderror" @if(canEditLang() && checkRequestOnEdit()) style="margin-top: 20px" @endif>
+            <input class="input100" type="text" name="email" placeholder="{{ __('Email') }}" value="{{ old('email') }}">
             <span class="focus-input100" data-placeholder="&#xf207;"></span>
         </div>
 
-        <div class="wrap-input100 validate-input @error('password') alert-validate @enderror" data-validate="@error('password') {{ $message }} @enderror">
-            <input class="input100" type="password" name="password" placeholder="Пароль" value="{{ old('password') }}">
+        @if(canEditLang() && checkRequestOnEdit())
+            <span style="color: white">Перевод для:</span> <editor_block class="white" data-name='Пароль' contenteditable="true">{{ __('Пароль') }}</editor_block>
+        @endif
+        <div class="wrap-input100 validate-input @error('password') alert-validate @enderror" data-validate="@error('password') {{ $message }} @enderror" @if(canEditLang() && checkRequestOnEdit()) style="margin-top: 20px" @endif>
+            <input class="input100" type="password" name="password" placeholder="{{ __('Пароль') }}" value="{{ old('password') }}">
             <span class="focus-input100" data-placeholder="&#xf191;"></span>
         </div>
 
@@ -48,7 +54,7 @@
         </div>
 
         <div class="container-login100-form-btn">
-            <button class="login100-form-btn">
+            <button class="login100-form-btn" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
                 @if(canEditLang() && checkRequestOnEdit())
                     <editor_block data-name='Войти' contenteditable="true">{{ __('Войти') }}</editor_block>
                 @else
@@ -58,7 +64,7 @@
         </div>
 
         <div class="text-center p-t-90">
-            <a class="txt1" href="{{ route('register') }}">
+            <a class="txt1" href="{{ route('register') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
                 @if(canEditLang() && checkRequestOnEdit())
                     <editor_block data-name='Зарегистрироваться' contenteditable="true">{{ __('Зарегистрироваться') }}</editor_block>
                 @else
@@ -68,7 +74,7 @@
         </div>
 
         <div class="text-center">
-            <a class="txt1" href="{{ route('password.request') }}">
+            <a class="txt1" href="{{ route('password.request') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
                 @if(canEditLang() && checkRequestOnEdit())
                     <editor_block data-name='Забыли пароль?' contenteditable="true">{{ __('Забыли пароль?') }}</editor_block>
                 @else

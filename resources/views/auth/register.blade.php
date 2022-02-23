@@ -167,22 +167,35 @@
                 @endif
             </span>
 
-            <div class="wrap-input100 validate-input @error('email') alert-validate @enderror" data-validate="@error('email') {{ $message }} @enderror">
-                <input class="input100" type="text" name="email" placeholder="Ваш Email" value="{{ request()->email ?? old('email') }}">
+            @if(canEditLang() && checkRequestOnEdit())
+                <span style="color: white">Перевод для:</span> <editor_block class="white" data-name='Ваш Email' contenteditable="true">{{ __('Ваш Email') }}</editor_block>
+            @endif
+            <div class="wrap-input100 validate-input @error('email') alert-validate @enderror" data-validate="@error('email') {{ $message }} @enderror" @if(canEditLang() && checkRequestOnEdit()) style="margin-top: 20px" @endif>
+                <input class="input100" type="text" name="email" placeholder="{{ __('Ваш Email') }}" value="{{ request()->email ?? old('email') }}">
                 <span class="focus-input100" data-placeholder="&#xf132;"></span>
             </div>
 
-            <div class="wrap-input100 validate-input @error('name') alert-validate @enderror" data-validate="@error('name') {{ $message }} @enderror">
-                <input class="input100" type="text" name="name" placeholder="Ваше имя" value="{{ old('name') }}">
+            @if(canEditLang() && checkRequestOnEdit())
+                <span style="color: white">Перевод для:</span> <editor_block class="white" data-name='Ваше имя' contenteditable="true">{{ __('Ваше имя') }}</editor_block>
+            @endif
+            <div class="wrap-input100 validate-input @error('name') alert-validate @enderror" data-validate="@error('name') {{ $message }} @enderror" @if(canEditLang() && checkRequestOnEdit()) style="margin-top: 20px" @endif>
+                <input class="input100" type="text" name="name" placeholder="{{ __('Ваше имя') }}" value="{{ old('name') }}">
                 <span class="focus-input100" data-placeholder="&#xf207;"></span>
             </div>
 
-            <div class="wrap-input100 validate-input @error('login') alert-validate @enderror" data-validate="@error('login') {{ $message }} @enderror">
-                <input class="input100" type="text" name="login" placeholder="Ваш логин" value="{{ old('login') }}">
+            @if(canEditLang() && checkRequestOnEdit())
+                <span style="color: white">Перевод для:</span> <editor_block class="white" data-name='Ваш логин' contenteditable="true">{{ __('Ваш логин') }}</editor_block>
+            @endif
+            <div class="wrap-input100 validate-input @error('login') alert-validate @enderror" data-validate="@error('login') {{ $message }} @enderror" @if(canEditLang() && checkRequestOnEdit()) style="margin-top: 20px" @endif>
+                <input class="input100" type="text" name="login" placeholder="{{ __('Ваш логин') }}" value="{{ old('login') }}">
                 <span class="focus-input100" data-placeholder="&#xf207;"></span>
             </div>
 
-            <div class="wrap-input100 phone-input-wrap validate-input @error('phone') alert-validate @enderror" data-validate="@error('phone') {{ $message }} @enderror">
+            @if(canEditLang() && checkRequestOnEdit())
+                <span style="color: white">Перевод для:</span> <editor_block class="white" data-name='Ваш телефон' contenteditable="true">{{ __('Ваш телефон') }}</editor_block>
+            @endif
+
+            <div class="wrap-input100 phone-input-wrap validate-input @error('phone') alert-validate @enderror" data-validate="@error('phone') {{ $message }} @enderror" @if(canEditLang() && checkRequestOnEdit()) style="margin-top: 20px" @endif>
                 <div class="code-wrap">
                     <select id="country-code-select"></select>
 
@@ -196,51 +209,72 @@
                     </div>
                 </div>
 
-                <input id="phone" class="input100" type="text" name="phone" placeholder="Ваш телефон" value="{{ old('phone') }}">
+                <input id="phone" class="input100" type="text" name="phone" placeholder="{{ __('Ваш телефон') }}" value="{{ old('phone') }}">
                 <span class="focus-input100" data-placeholder="&#xf2b9;"></span>
             </div>
 
-            <div class="wrap-input100 validate-input @error('password') alert-validate @enderror" data-validate="@error('password') {{ $message }} @enderror">
-                <input class="input100" type="password" name="password" placeholder="Пароль" autocomplete="new-password">
+            @if(canEditLang() && checkRequestOnEdit())
+                <span style="color: white">Перевод для:</span> <editor_block class="white" data-name='Пароль' contenteditable="true">{{ __('Пароль') }}</editor_block>
+            @endif
+            <div class="wrap-input100 validate-input @error('password') alert-validate @enderror" data-validate="@error('password') {{ $message }} @enderror" @if(canEditLang() && checkRequestOnEdit()) style="margin-top: 20px" @endif>
+                <input class="input100" type="password" name="password" placeholder="{{ __('Пароль') }}" autocomplete="new-password">
                 <span class="focus-input100" data-placeholder="&#xf191;"></span>
             </div>
 
-            <div class="wrap-input100 validate-input @error('password_confirmation') alert-validate @enderror" data-validate="@error('password_confirmation') {{ $message }} @enderror">
-                <input class="input100" type="password" name="password_confirmation" placeholder="Подтвердите пароль" autocomplete="new-password">
+            @if(canEditLang() && checkRequestOnEdit())
+                <span style="color: white">Перевод для:</span> <editor_block class="white" data-name='Подтвердите пароль' contenteditable="true">{{ __('Подтвердите пароль') }}</editor_block>
+            @endif
+            <div class="wrap-input100 validate-input @error('password_confirmation') alert-validate @enderror" data-validate="@error('password_confirmation') {{ $message }} @enderror" @if(canEditLang() && checkRequestOnEdit()) style="margin-top: 20px" @endif>
+                <input class="input100" type="password" name="password_confirmation" placeholder="{{ __('Подтвердите пароль') }}" autocomplete="new-password">
                 <span class="focus-input100" data-placeholder="&#xf191;"></span>
             </div>
 
-            <div class="wrap-input100 validate-input @error('partner_id') alert-validate @enderror" data-validate="@error('partner_id') {{ $message }} @enderror">
-                <input class="input100" type="text" name="partner_id" placeholder="ID партнёра (не обязательно)" value="{{ $_COOKIE["partner_id"] ??  old('partner_id')  }}">
+            @if(canEditLang() && checkRequestOnEdit())
+                <span style="color: white">Перевод для:</span> <editor_block class="white" data-name='ID партнёра (не обязательно)' contenteditable="true">{{ __('ID партнёра (не обязательно)') }}</editor_block>
+            @endif
+            <div class="wrap-input100 validate-input @error('partner_id') alert-validate @enderror" data-validate="@error('partner_id') {{ $message }} @enderror" @if(canEditLang() && checkRequestOnEdit()) style="margin-top: 20px" @endif>
+                <input class="input100" type="text" name="partner_id" placeholder="{{ __('ID партнёра (не обязательно)') }}" value="{{ $_COOKIE["partner_id"] ??  old('partner_id')  }}">
                 <span class="focus-input100" data-placeholder="&#xf207;"></span>
             </div>
 
             <div style="display: flex; justify-content: space-between; margin-bottom: 30px; color: white !important;">
                 <div>
-                    <label>Ваш гендер:</label>
+                    <label>
+                        @if(canEditLang() && checkRequestOnEdit())
+                            <editor_block data-name='Укажите ваш пол:' contenteditable="true">{{ __('Укажите ваш пол:') }}</editor_block>
+                        @else {{ __('Укажите ваш пол:') }}@endif
+                    </label>
                 </div>
                 <div>
-                    <input type="radio" name="sex" id="test2" value="мужской" checked>
-                    <label for="test2">Мужской</label>
+                    <input type="radio" name="sex" id="test1" value="мужской" checked>
+                    <label for="test1">
+                        @if(canEditLang() && checkRequestOnEdit())
+                            <editor_block data-name='Мужской' contenteditable="true">{{ __('Мужской') }}</editor_block>
+                        @else {{ __('Мужской') }}@endif
+                    </label>
                 </div>
 
                 <div>
-                    <input type="radio" name="sex" id="test2" value="жеский">
-                    <label for="test2">Жеский</label>
+                    <input type="radio" name="sex" id="test2" value="женский">
+                    <label for="test2">
+                        @if(canEditLang() && checkRequestOnEdit())
+                            <editor_block data-name='Женский' contenteditable="true">{{ __('Женский') }}</editor_block>
+                        @else {{ __('Женский') }}@endif
+                    </label>
                 </div>
             </div>
 
             <div class="container-login100-form-btn">
-                <button class="login100-form-btn">
+                <button class="login100-form-btn" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
                     @if(canEditLang() && checkRequestOnEdit())
-                        <editor_block data-name='Войти' contenteditable="true">{{ __('Войти') }}</editor_block>
+                        <editor_block data-name='Регистрация' contenteditable="true">{{ __('Регистрация') }}</editor_block>
                     @else
-                        {{ __('Войти') }}
+                        {{ __('Регистрация') }}
                     @endif
                 </button>
             </div>
 
-            <div class="text-center p-t-90">
+            <div class="text-center p-t-90" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
                 <a class="txt1" href="{{ route('login') }}">
                     @if(canEditLang() && checkRequestOnEdit())
                         <editor_block data-name='Авторизоваться' contenteditable="true">{{ __('Авторизоваться') }}</editor_block>
