@@ -32,7 +32,7 @@ class DepositsController extends Controller
         $user = auth()->user();
         $deposit_groups = RateGroup::limit(1)->get();
         $deposits = Deposit::where('user_id', $user->id)->where('active', true)->orderByDesc('created_at')->with('rate', 'currency', 'wallet')->get();
-        $rates = Rate::where('active', true)->orderBy('min', 'asc')->get();
+        $rates = Rate::where('active', true)->orderBy('daily', 'asc')->get();
 
         return view('adminos.pages.deposits.create', [
             'deposit_groups' => $deposit_groups,
