@@ -91,6 +91,14 @@
                 <span class="nav-label">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='NFT-маркет' contenteditable="true">{{ __('NFT-маркет') }}</editor_block> @else {{ __('NFT-маркет') }} @endif</span>
             </a>
         </li>
+        <li class="nav-item {{ Route::is('accountPanel.chat') ? 'active' : '' }}">
+            <a href="{{ route('accountPanel.chat') }}"
+               @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link">
+                <i class="fa fa-commenting-o"></i>
+                <span class="nav-label">@if(canEditLang() && checkRequestOnEdit())<editor_block data-name='Chat' contenteditable="true">{{ __('Chat') }}</editor_block> @else {{ __('Chat') }} @endif</span>
+                <span class="label label-info">{{ $total_unread_messages > 0 ? "+" . $total_unread_messages : 0 }}</span>
+            </a>
+        </li>
         <li class="nav-item {{ Route::is('accountPanel.settings.profile') ? 'active' : '' }}">
             <a href="{{ route('accountPanel.settings.profile') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link">
                 <i class="fa fa-gear"></i>
