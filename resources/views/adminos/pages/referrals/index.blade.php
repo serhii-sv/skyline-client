@@ -108,9 +108,9 @@
 {{--                                    </div>--}}
                                     <div class="info mt-4">
                                         <div class="row ml-2">
-                                            <div class="col-sm-6 col-lg-7 order-sm-1 order-xl-0">
+                                            <div class="col-sm-12 col-lg-12 order-sm-1 order-xl-0">
                                                 <div class="row">
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-2">
                                                         <div class="ttl-info text-start">
                                                             <h6>
                                                                 @if(canEditLang() && checkRequestOnEdit())
@@ -119,12 +119,12 @@
                                                             <span>{{ $referral_link_clicks ?? 0 }}</span>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-3 ttl-info text-start">
+                                                    <div class="col-md-2 ttl-info text-start">
                                                         <h6>@if(canEditLang() && checkRequestOnEdit())
                                                                 <editor_block data-name='Registered partners' contenteditable="true">{{ __('Registered partners') }}</editor_block> @else {{ __('Registered partners') }} @endif</h6>
                                                         <span>{{ $referral_link_registered }}</span>
                                                     </div>
-                                                    <div class="col-md-3 ttl-info text-start">
+                                                    <div class="col-md-2 ttl-info text-start">
                                                         <h6>@if(canEditLang() && checkRequestOnEdit())
                                                                 <editor_block data-name='Active partners' contenteditable="true">{{ __('Active partners') }}</editor_block> @else {{ __('Active partners') }} @endif</h6>
                                                         <span>{{ $activeReferrals }}</span>
@@ -148,22 +148,43 @@
                                                             <span>{{ $upliner->login }}</span>
                                                         </div>
                                                     @endif
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-5" style="text-align: center;">
-                                                <div class="follow">
-                                                    <div class="row">
-                                                        <div class="col-lg-12">
-                                                            <div class="ttl-info text-start">
-                                                                <h4 style="text-align: center;"><i class="fa fa-link"></i>&nbsp;&nbsp;&nbsp;@if(canEditLang() && checkRequestOnEdit())
-                                                                        <editor_block data-name='Your referral link' contenteditable="true">{{ __('Your referral link') }}</editor_block> @else {{ __('Your referral link') }} @endif
-                                                                </h4>
-                                                                <h4 style="text-align: center; margin-left:45px;">{{ route('ref_link', $user->my_id) }}</h4>
-                                                            </div>
+
+                                                    <div class="col-md-3 ttl-info text-start">
+                                                        <h6>
+                                                            @if(canEditLang() && checkRequestOnEdit())
+                                                                <editor_block data-name='Your referral link' contenteditable="true">{{ __('Your referral link') }}</editor_block> @else {{ __('Your referral link') }} @endif
+                                                        </h6>
+                                                        <span>{{ route('ref_link', $user->my_id) }}</span>
+
+                                                        <div class="pt-2 pl-3 pr-3  d-flex justify-content-center">
+                                                            <span class="pull-left" style="font-weight: bold">
+                                                                 <button type="button" class="btn btn-outline-primary btn-xs" onclick="copyToClipboard()">
+                                                                     @if(canEditLang() && checkRequestOnEdit())
+                                                                         <editor_block data-name='Скопировать ссылку' contenteditable="true">{{ __('Скопировать ссылку') }}</editor_block>
+                                                                     @else
+                                                                         {{ __('Скопировать ссылку') }}
+                                                                     @endif
+                                                                 </button>
+                                                            </span>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+{{--                                            <div class="col-lg-5" style="text-align: center;">--}}
+{{--                                                <div class="follow">--}}
+{{--                                                    <div class="row">--}}
+{{--                                                        <div class="col-lg-12">--}}
+{{--                                                            <div class="ttl-info text-start">--}}
+{{--                                                                <h4 style="text-align: center;">--}}
+{{--                                                                    <i class="fa fa-link"></i>&nbsp;&nbsp;&nbsp;@if(canEditLang() && checkRequestOnEdit())--}}
+{{--                                                                        <editor_block data-name='Your referral link' contenteditable="true">{{ __('Your referral link') }}</editor_block> @else {{ __('Your referral link') }} @endif--}}
+{{--                                                                </h4>--}}
+{{--                                                                <h4 style="text-align: center; margin-left:45px;">{{ route('ref_link', $user->my_id) }}</h4>--}}
+{{--                                                            </div>--}}
+{{--                                                        </div>--}}
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
 {{--                                            <div class="col-sm-12 col-lg-4 order-sm-0 order-xl-1">--}}
 {{--                                                <div class="user-designation">--}}
 {{--                                                    <div class="title">--}}
@@ -201,8 +222,8 @@
                                         </div>
                                         <hr>
                                         <div class="row">
-                                                <div class="row d-flex justify-content-center w-100">
-                                                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 pl-5 pr-5">
+                                                <div class="row d-flex justify-content-center w-50">
+                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pl-5 pr-5">
                                                         <p class="float-left">
                                                             @if(canEditLang() && checkRequestOnEdit())
                                                                 <editor_block data-name='Персональный оборот' contenteditable="true">{{ __('Персональный оборот') }}</editor_block>
@@ -214,7 +235,7 @@
                                                         </div>
                                                         <br>
                                                     </div>
-                                                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 pl-5 pr-5">
+                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pl-5 pr-5">
                                                         <p class="float-left">
                                                             @if(canEditLang() && checkRequestOnEdit())
                                                                 <editor_block data-name='Оборот структуры' contenteditable="true">{{ __('Оборот структуры') }}</editor_block>
@@ -224,20 +245,23 @@
                                                         <div class="progress" style="height: 4px; clear: both;">
                                                             <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:{{ $nextRank ? \App\Models\UserDepositBonus::getStatsPercentage($user->referrals_invested_total, $nextRank->total_turnover) : 100 }}%"></div>
                                                         </div>
-                                                        <br>
-                                                        <h5>
-                                                            @if(canEditLang() && checkRequestOnEdit())
-                                                                <editor_block data-name='Project Descriptions' contenteditable="true">{{ __('Project Descriptions') }}</editor_block>
-                                                            @else {{ __('Project Descriptions') }}@endif
-                                                        </h5>
-                                                        <p>
-                                                            @if(canEditLang() && checkRequestOnEdit())
-                                                                <editor_block data-name='Lorem ipsum text' contenteditable="true">{{ __('Lorem ipsum text') }}</editor_block>
-                                                            @else {{ __('Lorem ipsum text') }}@endif
-                                                        </p>
                                                     </div>
                                                 </div>
+                                            <div class="row d-flex justify-content-center w-50">
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pl-5 pr-5">
+                                                    <h5>
+                                                        @if(canEditLang() && checkRequestOnEdit())
+                                                            <editor_block data-name='Project Descriptions' contenteditable="true">{{ __('Project Descriptions') }}</editor_block>
+                                                        @else {{ __('Project Descriptions') }}@endif
+                                                    </h5>
+                                                    <p>
+                                                        @if(canEditLang() && checkRequestOnEdit())
+                                                            <editor_block data-name='Lorem ipsum text' contenteditable="true">{{ __('Lorem ipsum text') }}</editor_block>
+                                                        @else {{ __('Lorem ipsum text') }}@endif
+                                                    </p>
+                                                </div>
                                             </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -301,3 +325,22 @@
     </div>
 
 @endsection
+
+@push('scripts')
+    <script>
+        function copyToClipboard() {
+            var inputc = document.body.appendChild(document.createElement("input"));
+            inputc.value = '{{ route('ref_link', auth()->user()->my_id) }}';
+            // inputc.focus();
+            inputc.select();
+            document.execCommand('copy');
+            inputc.parentNode.removeChild(inputc);
+            (new PNotify({
+                type: 'success',
+                text: 'Ссылка скопирована!'
+            })).get();
+
+            return false;
+        }
+    </script>
+@endpush

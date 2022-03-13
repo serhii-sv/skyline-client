@@ -79,14 +79,14 @@
                                                                                             <div class="rate-min-max-block text-center mt-1 form-control" data-rate="{{ $item->id }}">
                                                                                                 <h5 class="sub-title">
                                                                                                     @if(canEditLang() && checkRequestOnEdit())
-                                                                                                        <editor_block data-name='Минимум:' contenteditable="true">{{ __('Минимум:') }}</editor_block>
+                                                                                                        <editor_block data-name='Минимум:' contenteditable="true">{!! html_entity_decode(__('Минимум:')) !!}</editor_block>
                                                                                                     @else
-                                                                                                        {{ __('Минимум:') }} {{ number_format($item->min, 2, '.', '') }}$
+                                                                                                        {!! html_entity_decode(__('Минимум:')) !!} {{ number_format($item->min, 2, '.', '') }}$
                                                                                                     @endif
                                                                                                     @if(canEditLang() && checkRequestOnEdit())
-                                                                                                        <editor_block data-name='Максимум:' contenteditable="true">{{ __('Максимум:') }}</editor_block>
+                                                                                                        <editor_block data-name='Максимум:' contenteditable="true">{!! html_entity_decode(__('Максимум:')) !!}</editor_block>
                                                                                                     @else
-                                                                                                        {{ __('Максимум:') }} {{ number_format($item->max, 2, '.', '') }}$
+                                                                                                            {!! html_entity_decode(__('Максимум:')) !!} {{ number_format($item->max, 2, '.', '') }}$
                                                                                                     @endif
                                                                                                 </h5>
                                                                                             </div>
