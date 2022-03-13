@@ -399,12 +399,12 @@
                                                         @else {{ __('Персональный оборот') }}@endif
                                                     </span>
                                                     @if(!is_null($nextRank))
-                                                        <span class="pull-right">{{ $user->personal_turnover }}/{{ $nextRank->personal_turnover }} ({{ \App\Models\UserDepositBonus::getStatsPercentage($user->personal_turnover, $nextRank->personal_turnover) }}%)</span>
+                                                        <span class="pull-right">{{ number_format($user->personal_turnover, 2) }}/{{ $nextRank->personal_turnover }} ({{ \App\Models\UserDepositBonus::getStatsPercentage($user->personal_turnover, $nextRank->personal_turnover) }}%)</span>
                                                         <div class="progress" style="height: 4px; clear: both;">
                                                             <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width:{{ \App\Models\UserDepositBonus::getStatsPercentage($user->personal_turnover, $nextRank->personal_turnover) }}%;"></div>
                                                         </div>
                                                     @else
-                                                        <span class="pull-right">{{ $user->personal_turnover }}</span>
+                                                        <span class="pull-right">{{ number_format($user->personal_turnover, 2) }}</span>
                                                         <div class="progress" style="height: 4px; clear: both;">
                                                             <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%;"></div>
                                                         </div>
@@ -417,12 +417,12 @@
                                                         @else {{ __('Оборот структуры') }}@endif
                                                     </span>
                                                     @if(!is_null($nextRank))
-                                                        <span class="pull-right">{{ $user->referrals_invested_total }}/{{ $nextRank->total_turnover }} ({{ \App\Models\UserDepositBonus::getStatsPercentage($user->referrals_invested_total, $nextRank->total_turnover) }}%)</span>
+                                                        <span class="pull-right">{{ number_format($user->referrals_invested_total, 2) }}/{{ $nextRank->total_turnover }} ({{ \App\Models\UserDepositBonus::getStatsPercentage($user->referrals_invested_total, $nextRank->total_turnover) }}%)</span>
                                                         <div class="progress" style="height: 4px; clear: both;">
                                                             <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width:{{ \App\Models\UserDepositBonus::getStatsPercentage($user->referrals_invested_total, $nextRank->total_turnover) }}%;"></div>
                                                         </div>
                                                     @else
-                                                        <span class="pull-right">{{ $user->personal_turnover }}</span>
+                                                        <span class="pull-right">{{ number_format($user->personal_turnover, 2) }}</span>
                                                         <div class="progress" style="height: 4px; clear: both;">
                                                             <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%;"></div>
                                                         </div>

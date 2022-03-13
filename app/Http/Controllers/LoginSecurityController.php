@@ -68,7 +68,7 @@ class LoginSecurityController extends Controller
         $login_security->google2fa_secret = $google2fa->generateSecretKey();
         $login_security->save();
 
-        return redirect('/2fa')->with('success',"Секретный ключ сгенерирова успешно");
+        return redirect('/2fa')->with('success', __("Секретный ключ сгенерирован успешно"));
     }
 
     /**
