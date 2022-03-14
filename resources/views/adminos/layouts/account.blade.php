@@ -136,7 +136,7 @@
             <a href="https://skyline.limited/">
                 <img class="logo-element-img img-logo" id="logo" src="{{ asset('images/Skyline.png') }}" alt="">
             </a>
-            <a href="https://skyline.limited/" class="close-canvas-menu text-white float-right"><i class="fa fa-times"></i></a>
+            <a href="#" class="close-canvas-menu text-white float-right"><i class="fa fa-times"></i></a>
         </div>
         @include('adminos.partials.sidebar')
     </nav>
