@@ -246,6 +246,14 @@
         .d-grid .btn-danger:hover {
             color: #7e2f38 !important;
         }
+
+        @media screen and (max-width: 620px) {
+            .pin-board {
+                display: flex;
+                margin: 20px -40px;
+            }
+
+        }
     </style>
 @endpush
 @section('content')

@@ -17,6 +17,20 @@
         .transaction-header h5 {
             text-align: center !important;
         }
+
+        @media screen and (max-width: 620px) {
+            .pricing-simple .pl-5 {
+                padding-left: unset !important;
+            }
+
+            .pricing-simple .pr-5 {
+                padding-right: unset !important;
+            }
+
+            .table-responsive {
+                max-width: 70%;
+            }
+        }
     </style>
 @endpush
 @section('content')

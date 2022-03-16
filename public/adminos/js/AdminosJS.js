@@ -336,10 +336,8 @@ $(document).ready(function () {
         localStorage.setItem('sidebar-collapsed', localStorage.getItem('sidebar-collapsed') !== 'true')
     });
 
-    if (localStorage.getItem('sidebar-collapsed') === 'true') {
         $("body").toggleClass("mini-navbar");
         $(".navbar-mini i").toggleClass("icon-toggle-left icon-toggle-right");
-    }
     // Tooltips demo
     $('.tooltip-demo').tooltip({
         selector: "[data-toggle=tooltip]",
@@ -555,13 +553,16 @@ $(document).ready(function () {
                 function () {
                     $('#side-menu').fadeIn(400);
                 }, 200);
+            localStorage.setItem('sidebar-collapsed', true)
         } else if ($('body').hasClass('fixed-sidebar')) {
             $('#side-menu').hide();
+            localStorage.setItem('sidebar-collapsed', true)
             setTimeout(
                 function () {
                     $('#side-menu').fadeIn(400);
                 }, 100);
         } else {
+            localStorage.setItem('sidebar-collapsed', true)
             // Remove all inline style from jquery fadeIn function to reset menu state
             $('#side-menu').removeAttr('style');
         }

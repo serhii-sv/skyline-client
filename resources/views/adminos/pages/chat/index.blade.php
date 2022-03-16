@@ -25,6 +25,32 @@
         .message_input {
             width: 80% !important;
         }
+
+        #openContacts {
+            display: none;
+        }
+
+        .text-grey {
+            color: grey;
+        }
+
+        .close-chat-contacts {
+            display: none;
+        }
+
+        @media screen and (max-width: 1100px) {
+            #chat {
+                display: none;
+            }
+
+            #openContacts {
+                display: block;
+            }
+
+            .close-chat-contacts {
+                display: block;
+            }
+        }
     </style>
 @endpush
 
@@ -46,6 +72,10 @@
                                                     <strong>{{ $companion->name }}&nbsp;&nbsp;({{ $companion->login }})&nbsp;&nbsp;</strong>
                                                 @endif
                                             </h5>
+                                            <button type="button" id="openContacts" class="btn btn-outline-primary float-right btn-xs">
+                                                @if(canEditLang() && checkRequestOnEdit())
+                                                    <editor_block data-name='Список контактов' contenteditable="true">{{ __('Список контактов') }}</editor_block> @else {{ __('Список контактов') }} @endif
+                                            </button>
                                         </div>
                                         <div class="panel-box-content msg-menu chat-history">
                                             <ul class="messages messages-responsive chat-msg-list">
@@ -95,6 +125,9 @@
                     <div id="chat" class="sticky-top chat-open">
                         <div class="chat-messages">
                             <div class="search-friends">
+                                <div>
+                                    <a href="#" class="close-chat-contacts text-grey mb-2"><i class="fa fa-times"></i></a>
+                                </div>
                                 <form class="theme-form" action="{{ route('accountPanel.chat') }}">
                                     <div class="input-group mb-3 search">
                                         <input type="text" class="form-control" id="search-users" name="login" placeholder="Search" value="{{ $login }}">
@@ -186,6 +219,20 @@
         <script src="{{ asset('/js/app.js') }}"></script>
         <script>
             $(document).ready(function () {
+
+                $('#openContacts').click(function () {
+                    console.log(document.getElementById("chat").style.display)
+                    if(document.getElementById("chat").style.display === "block") {
+                        $('#chat').hide();
+                    } else {
+                        $('#chat').show();
+                    }
+                })
+
+                $('.close-chat-contacts').click(function () {
+                    $('#chat').hide();
+                })
+
                 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "June",
                     "July", "Aug", "Sep", "Oct", "Nov", "Dec"
                 ];
