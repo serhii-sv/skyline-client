@@ -19307,9 +19307,9 @@ body.rtls #notification-menu .menu-title {
     .navbar-header a {
         font-size: 20px;
     }
-    .user-profile span {
-        display: none;
-    }
+    /*.user-profile span {*/
+    /*    display: none;*/
+    /*}*/
     .navbar-top-links ul li a {
         color: #333;
     }
