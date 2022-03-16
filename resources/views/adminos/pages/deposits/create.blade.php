@@ -28,7 +28,15 @@
             }
 
             .table-responsive {
-                max-width: 70%;
+                max-width: 99%;
+            }
+
+            .rate-min-max-block {
+                height: auto;
+            }
+
+            .sub-title {
+                display: grid !important;
             }
         }
     </style>
@@ -43,7 +51,7 @@
                         <div class="row">
                                 @if(!empty($rates))
 {{--                                    @forelse($deposit_groups as $group)--}}
-                                            <div class="row">
+{{--                                            <div class="row">--}}
                                                 <div class="col-lg-12">
                                                     @include('partials.inform')
                                                 </div>
@@ -403,7 +411,7 @@
                                                     {{--                                                            @endif--}}
                                                 @empty
                                                 @endforelse
-                                            </div>
+{{--                                            </div>--}}
 {{--                                    @empty--}}
 {{--                                    @endforelse--}}
                                 @endif

@@ -249,8 +249,12 @@
 
         @media screen and (max-width: 620px) {
             .pin-board {
-                display: flex;
-                margin: 20px -40px;
+                display: block;
+                padding-left: 30px;
+            }
+
+            .risk-col {
+                margin-left: 15%;
             }
 
         }
@@ -640,7 +644,7 @@
                                         </ul>
                             </div>
 
-                            <div class="col-lg-6 risk-col ">
+                            <div class="col-lg-6">
                                 <div class="card total-users">
                                     <div class="card-header card-no-border pb-3 pt-3">
                                         <h5 class="text-center">
