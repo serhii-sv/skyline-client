@@ -126,6 +126,10 @@ $(document).ready(function () {
         $("body").toggleClass("mini-navbar");
         SmoothlyMenu();
     });
+
+    function collapseMenu() {
+        // localStorage.put
+    }
     // Close Top Centered Menu
     $("#toggle-top-menu").on("click", function() {
       $("body").toggleClass("close-top-menu open-top-menu");
@@ -551,6 +555,7 @@ $(document).ready(function () {
     }
     function SmoothlyMenu() {
         if (!$('body').hasClass('mini-navbar') || $('body').hasClass('body-small')) {
+            console.log('xxxxxxxx')
             // Hide menu in order to smoothly turn on when maximize menu
             $('#side-menu').hide();
             // For smoothly turn on menu
@@ -558,13 +563,18 @@ $(document).ready(function () {
                 function () {
                     $('#side-menu').fadeIn(400);
                 }, 200);
+            localStorage.setItem('sidebar-collapsed', 1)
         } else if ($('body').hasClass('fixed-sidebar')) {
+            console.log('bbbbb')
             $('#side-menu').hide();
+            localStorage.setItem('sidebar-collapsed', 1)
             setTimeout(
                 function () {
                     $('#side-menu').fadeIn(400);
                 }, 100);
         } else {
+            console.log('aaaa')
+            localStorage.setItem('sidebar-collapsed', 0)
             // Remove all inline style from jquery fadeIn function to reset menu state
             $('#side-menu').removeAttr('style');
         }

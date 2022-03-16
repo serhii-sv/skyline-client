@@ -81,6 +81,16 @@
         .card.hovercard .cardheader {
             height: 400px !important;
         }
+
+        @media screen and (max-width: 620px) {
+            .row.w-50 {
+                width: 100% !important;
+            }
+
+            .row.w-50:nth-child(2) {
+                margin-top: 30px;
+            }
+        }
     </style>
     <link rel="stylesheet" href="{{ asset('adminos/css/profile/profile.css') }}">
 @endpush
