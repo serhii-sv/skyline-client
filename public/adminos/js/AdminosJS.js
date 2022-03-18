@@ -336,8 +336,11 @@ $(document).ready(function () {
         localStorage.setItem('sidebar-collapsed', localStorage.getItem('sidebar-collapsed') !== 'true')
     });
 
+    if ($(document).width() < 1200 || localStorage.getItem('sidebar-collapsed') === 'true') {
         $("body").toggleClass("mini-navbar");
         $(".navbar-mini i").toggleClass("icon-toggle-left icon-toggle-right");
+    }
+
     // Tooltips demo
     $('.tooltip-demo').tooltip({
         selector: "[data-toggle=tooltip]",
