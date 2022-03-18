@@ -25,6 +25,9 @@ use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
+    /**
+     *
+     */
     public function __construct() {
         $this->middleware('auth');
 
@@ -214,6 +217,10 @@ class DashboardController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function sendMoney(Request $request) {
         $request->validate(
             [
@@ -285,6 +292,10 @@ class DashboardController extends Controller
         }
     }
 
+    /**
+     * @param $days
+     * @return array
+     */
     public function getPeriodDays($days = 7) {
         $period = [];
         for ($i = 0, $j = $days; $j >= $i; $j--) {
@@ -299,19 +310,50 @@ class DashboardController extends Controller
         return $period;
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function storeUserVideo(Request $request) {
         $video = $request->get('video');
         if (!strlen($video) > 0) {
             return back()->with('error', 'Поле "Ссылка на видео" обязательно для заполнения!');
         }
 
+        $link = $this->getYoutubeVideoLinkForFrame($video);
+
+        if ($link == 'error') {
+            return back()->with('error', 'Неизвестный формат ссылки');
+        }
+
         $user_video = new UserVideo();
-        $user_video->link = htmlspecialchars($video);
+        $user_video->link = '<iframe width="560" height="315" src="' . $link . '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
         $user_video->user_id = Auth::user()->id;
 
         if ($user_video->save()) {
             return back()->with('success', 'Ваше видео передано в обработку!');
         }
         return back()->with('error', 'Не удалось загрузить!');
+    }
+
+    /**
+     * @param $link
+     * @return string
+     */
+    private function getYoutubeVideoLinkForFrame($link)
+    {
+        if (strpos($link,'https://www.youtube.com/') !== false) {
+            return 'https://www.youtube.com/embed/' . explode('v=', $link)[1] ?? '';
+        }
+
+        if (strpos($link, 'https://youtu.be') !== false) {
+            return 'https://www.youtube.com/embed/' . explode('https://youtu.be/', $link)[1] ?? '';
+        }
+
+        if (strpos($link, 'https://www.youtube.com/embed') !== false) {
+            return $link;
+        }
+
+        return 'error';
     }
 }
