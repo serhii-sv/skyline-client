@@ -61,7 +61,7 @@ class DepositsController extends Controller
             $currency_usd = Currency::where('code', 'USD')->first();
             if ($currency_usd === null){
                 return json_encode([
-                    'rate_min_max' => '<h5 class="sub-title">'.html_entity_decode(__('Минимум:')).' ' .  number_format($rate->min, 2,'.',',') .'$ '.html_entity_decode(__('Максимум:')).' ' . number_format($rate->max, 2,'.',' ') .'$</h5>',
+                    'rate_min_max' => '<h5 class="sub-title">'.html_entity_decode(__('Минимум:')).' ' .  number_format($rate->min, 2,'.',',') .'<br>$ '.html_entity_decode(__('Максимум:')).' ' . number_format($rate->max, 2,'.',' ') .'$</h5>',
                 ]);
             }
 
@@ -69,7 +69,7 @@ class DepositsController extends Controller
             $max = Wallet::convertToCurrencyStatic($currency_usd, $currency, $rate->max);
 
             return json_encode([
-                'rate_min_max' => '<h5 class="sub-title">'.html_entity_decode(__('Минимум:')).' ' . number_format($min, $currency->precision, '.', ',') . $currency->symbol . ' ' . html_entity_decode(__('Максимум:')).' ' . number_format($max, $currency->precision, '.', ' ') . $currency->symbol . '</h5 >',
+                'rate_min_max' => '<h5 class="sub-title">'.html_entity_decode(__('Минимум:')).' ' . number_format($min, $currency->precision, '.', ',') . $currency->symbol . '<br> ' . html_entity_decode(__('Максимум:')).' ' . number_format($max, $currency->precision, '.', ' ') . $currency->symbol . '</h5 >',
             ]);
         }
         return json_encode([
