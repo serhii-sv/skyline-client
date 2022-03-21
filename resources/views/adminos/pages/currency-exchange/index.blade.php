@@ -41,8 +41,7 @@
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h5 class="mt-3">@if(canEditLang() && checkRequestOnEdit())<editor_block data-name='Sky Token rate' contenteditable="true">{{ __('Sky Token rate') }}</editor_block> @else {{ __('Sky Token rate') }} @endif
-                                        </h5>
+                                        <h5 class="mt-3">@if(canEditLang() && checkRequestOnEdit())<editor_block data-name='Sky Token' contenteditable="true">{{ __('Sky Token') }}</editor_block> @else {{ __('Sky Token') }} <b>{{ $sky_rate->s_value ?? 0 }}</b>@endif </h5>
                                     </div>
                                     <div class="card-body">
                                         <div id="chart-widget13"></div>

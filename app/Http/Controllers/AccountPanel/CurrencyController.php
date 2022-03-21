@@ -31,6 +31,7 @@ class CurrencyController extends Controller
         return view('adminos.pages.currency-exchange.index', [
             'exchange_rate_log' => $exchange_rate_log,
             'wallets' => Wallet::where('user_id', Auth::user()->id)->get(),
+            'sky_rate' => $sky_rate
         ]);
     }
 
