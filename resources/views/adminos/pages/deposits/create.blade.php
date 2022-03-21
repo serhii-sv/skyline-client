@@ -18,6 +18,10 @@
             text-align: center !important;
         }
 
+        .rate-min-max-block {
+            height: 100%;
+        }
+
         @media screen and (max-width: 620px) {
             .pricing-simple .pl-5 {
                 padding-left: unset !important;
