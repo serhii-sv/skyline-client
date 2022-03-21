@@ -59,4 +59,14 @@ class Product extends Model
         'active',
         'image'
     ];
+
+
+    /**
+     * @param $slug
+     * @return mixed
+     */
+    public static function findBySlug($slug)
+    {
+        return self::where('slug', $slug)->first() ?? abort(404);
+    }
 }

@@ -150,6 +150,8 @@ class RegisterController extends Controller
                 'referral' => $data['login'],
             ];
 
+            cache()->forget('referrals.array.' . $partner->id);
+
             Notification::sendNotification($notification_data, 'new_referral');
         }
 

@@ -296,7 +296,7 @@
                                                     <div class="panel-box-content">
                                                         <div class="row">
                                                             <div class="col-6 statistic-box">
-                                                                <h5 class="text-white">{{ $item->currency->symbol }}{{ number_format($item->balance) ?? 0 }}</h5>
+                                                                <h5 class="text-white">{{ $item->currency->symbol }}{{ $item->currency->code == 'BTC' ? number_format($item->balance, 5) : number_format($item->balance, 2) }}</h5>
                                                                 <h6 class="m-b-0 text-white">{{ $item->currency->name }}</h6>
                                                             </div>
                                                             <div class="col-6 pl-1 pl-2 statistic-charts pt-3">

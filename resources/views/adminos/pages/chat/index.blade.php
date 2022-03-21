@@ -137,17 +137,6 @@
                             </div>
                             @if(!empty($filteredReferrals))
                                 @forelse($filteredReferrals as $filteredReferral)
-                                    <li class="clearfix">
-                                        <a href="{{ route('accountPanel.chat', $filteredReferral->getReferralChatId()) }}">
-                                            <img class="rounded-circle user-image" src="{{ $filteredReferral->avatar ? route('accountPanel.profile.get.avatar',auth()->user()->partner()->first()->id) : asset('accountPanel/images/user/user.png')  }}" alt="">
-                                            <div class="status-circle {{  $filteredReferral->getLastActivityAttribute()['is_online'] ? 'online' : 'offline' }}"></div>
-                                            <div class="about">
-                                                <div class="name">{{ $filteredReferral->login }}</div>
-                                                <div class="status">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Referral' contenteditable="true">{{ __('Referral') }}</editor_block> @else {{ __('Referral') }} @endif</div>
-                                            </div>
-                                            <span class="unread badge round-badge-primary">{{$filteredReferral->getReferralChat()->getUnreadMessagesCount(auth()->user()->id) > 0 ? '+' .  $filteredReferral->getReferralChat()->getUnreadMessagesCount(auth()->user()->id) : '' }}</span>
-                                        </a>
-                                    </li>
                                     <div class="friends  show-chat-msg">
                                         <a href="{{ route('accountPanel.chat', $filteredReferral->getReferralChatId()) }}">
                                             <img alt="image" class="img-friends" src="{{ $filteredReferral->avatar ? route('accountPanel.profile.get.avatar',auth()->user()->partner()->first()->id) : asset('accountPanel/images/user/user.png')  }}">
@@ -183,18 +172,17 @@
                                     </div>
                                 @endif
                                 {{--                    @if(!empty(auth()->user()->hasReferrals()))--}}
-                                @foreach($activeChats as $activeChat)
-                                    <li class="clearfix">
-                                        <a href="{{ route('accountPanel.chat', $activeChat->userReferral->getReferralChatId()) }}">
-                                            <img class="rounded-circle user-image" src="{{ $activeChat->userReferral->avatar ? route('accountPanel.profile.get.avatar',$activeChat->userReferral->id) : asset('accountPanel/images/user/user.png') }}" alt="">
-                                            <div class="status-circle {{ $activeChat->userReferral->getLastActivityAttribute()['is_online'] ? 'online' : 'offline' }}"></div>
-                                            <div class="about">
-                                                <div class="name">{{ $activeChat->userReferral->login }}</div>
-                                                <div class="status">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Referral' contenteditable="true">{{ __('Referral') }}</editor_block> @else {{ __('Referral') }} @endif</div>
-                                            </div>
-                                            <span class="unread badge round-badge-primary">{{ $activeChat->userReferral->getReferralChat()->getUnreadMessagesCount(auth()->user()->id) > 0 ? '+' .  $activeChat->userReferral->getReferralChat()->getUnreadMessagesCount(auth()->user()->id) : '' }}</span>
-                                        </a>
-                                    </li>
+                                @foreach(auth()->user()->referrals()->get() as $activeChat)
+                                        <div class="friends  show-chat-msg">
+                                            <a href="{{ route('accountPanel.chat', $activeChat->getReferralChatId()) }}">
+                                                <img alt="image" class="img-friends" src="{{ $activeChat->avatar ? route('accountPanel.profile.get.avatar',$activeChat->id) : asset('accountPanel/images/user/user.png')  }}">
+                                                <strong class="username pt-3">{{ $activeChat->login }} (@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Partner' contenteditable="true">{{ __('Partner') }}</editor_block> @else {{ __('Partner') }} @endif)</strong>
+                                                <span class="unread badge round-badge-primary">{{$activeChat->getReferralChat()->getUnreadMessagesCount(auth()->user()->id) > 0 ? '+' .  $activeChat->getReferralChat()->getUnreadMessagesCount(auth()->user()->id) : '' }}</span>
+                                                <div class="online float-right">
+                                                    <i class="fa fa-circle {{  $activeChat->getLastActivityAttribute()['is_online'] ? 'text-success' : 'text-danger' }}"></i>
+                                                </div>
+                                            </a>
+                                        </div>
                                 @endforeach
                             @endif
                         </div>

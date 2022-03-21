@@ -400,6 +400,18 @@
                 })
             });
 
+            $(document).ready(function () {
+                $('.card .nav-link').click(function () {
+                    let hash = $(this).attr('href')
+                    $('.card .nav-link').removeClass('active');
+                    $(this).addClass('active');
+
+                    $('.tab-pane').removeClass('active show');
+                    $('.tab-pane[id="' +hash.substring(1) +'"]').addClass('active show');
+                    return false;
+                })
+            });
+
             $("#ffa_save").click((e) => {
                 e.preventDefault();
 
