@@ -65,6 +65,8 @@ class UserDepositBonus extends Model
 
             self::addBonusToUserWallet($user, $bonus->reward);
         }
+
+        self::setPreviousBonuses($user);
     }
 
     /**
@@ -102,13 +104,7 @@ class UserDepositBonus extends Model
     public static function userHasBonus($user, $bonus)
     {
         if (!is_null($bonus)) {
-            return (bool)UserDepositBonus::where('user_id', $user->id)
-                ->where(function ($q) use ($bonus) {
-                    $q->orWhere('deposit_bonus_id', $bonus->id)
-                        ->orWhere('deposit_bonus_total_turnover', $bonus->total_turnover)
-                        ->orWhere('deposit_bonus_personal_turnover', $bonus->total_turnover)
-                        ->orWhere('deposit_bonus_reward', $bonus->revard);
-                })->count();
+            return (bool)UserDepositBonus::where('user_id', $user->id)->where('deposit_bonus_id', $bonus->id)->count();
         }
         return false;
     }
@@ -144,5 +140,35 @@ class UserDepositBonus extends Model
         }
 
         return round((($first / $second) * 100), 2);
+    }
+
+    /**
+     * @param $user
+     * @return void
+     */
+    private static function setPreviousBonuses($user): void
+    {
+        foreach (DepositBonus::all() as $bonus) {
+
+            $userHasBonus = self::userHasBonus($user, $bonus);
+
+            $personalIsHigher = $user->personal_turnover > $bonus->personal_turnover;
+            $totalIsHigher = $user->referrals_invested_total > $bonus->total_turnover;
+
+            if (!$userHasBonus && $personalIsHigher && $totalIsHigher) {
+                $user->userDepositBonuses()->create([
+                    'deposit_bonus_id' => $bonus->id,
+                    'personal_turnover' => $user->personal_turnover,
+                    'total_turnover' => $user->referrals_invested_total,
+                    'deposit_bonus_personal_turnover' => $bonus->personal_turnover,
+                    'deposit_bonus_total_turnover' => $bonus->total_turnover,
+                    'deposit_bonus_leadership_bonus' => $bonus->leadership_bonus,
+                    'deposit_bonus_reward' => $bonus->reward,
+                    'delayed' => 0
+                ]);
+
+                self::addBonusToUserWallet($user, $bonus->reward);
+            }
+        }
     }
 }
