@@ -397,7 +397,8 @@ class Wallet extends Model
      */
     public function exchangeCurrency(Wallet $wallet_from, Wallet $wallet_to, float $amount, float $commission = 0)
     {
-        $converted = $this->convertToCurrency($this->currency, $wallet_to->currency, abs($amount) - $commission);
+        $converted = $this->convertToCurrency($this->currency, $wallet_to->currency, abs($amount)) - $commission;
+
         $transaction_in = Transaction::exchangeInCurrency($wallet_to, $converted);
 
         if ((float) $converted <= 0) {
