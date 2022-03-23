@@ -402,7 +402,7 @@ class Wallet extends Model
         $transaction_in = Transaction::exchangeInCurrency($wallet_to, $converted);
 
         if ((float) $converted <= 0) {
-            throw new \Exception('no rate for change '.$this->currency->code.' -> '.$wallet_to->currency->code);
+            throw new \Exception('Недостатачная сумма для проведения конвертации '.$this->currency->code.' -> '.$wallet_to->currency->code);
         }
 
         $transaction_out = Transaction::exchangeOutCurrency($wallet_from, $amount);
