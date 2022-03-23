@@ -864,7 +864,7 @@
             precision: 2,
             valueAxes: [{
                 id: "v2",
-                title: "Доходност",
+                title: "Доходность",
                 gridAlpha: 0,
                 position: "right",
                 autoGridCount: !1
