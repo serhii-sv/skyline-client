@@ -76,9 +76,12 @@ class TransactionsController extends Controller
             }
         }
 
+        $transferOut = TransactionType::getByName('transfer_out');
+
         return view('adminos.pages.transactions.index',[
             'transactions' => $transactions,
             'type' => $type,
+            'transferOut' => $transferOut,
             'transactions_count' => $transactions_count,
             'transaction_types' => $transaction_types,
             'partners' => $partners ?? null,

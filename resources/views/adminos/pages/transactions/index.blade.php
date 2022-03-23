@@ -121,7 +121,7 @@
                                                     <tbody>
                                                         @forelse($transactions as $operation)
                                                             <tr>
-                                                                <td>@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='{{ 'locale.' . $operation->type->name }}' contenteditable="true">{{ __('locale.' . $operation->type->name) }}</editor_block> @else {{ __('locale.' . $operation->type->name) }} @endif</td>
+                                                                <td>@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='{{ 'locale.' . $operation->type->name }}' contenteditable="true">{{ __('locale.' . $operation->type->name) }}</editor_block> @else {{ __('locale.' . $operation->type->name) }} @include('adminos.pages.transactions.fromWho') @endif</td>
                                                                 <td>
                                                                     <span class="">{{$operation->currency->symbol}} {{ number_format($operation->amount, $operation->currency->precision, '.', ',') ?? 0 }}</span>
                                                                     @if(!preg_match('/USD/', $operation->currency->code))
