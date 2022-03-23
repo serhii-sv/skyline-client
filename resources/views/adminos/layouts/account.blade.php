@@ -106,6 +106,10 @@
             right: 0;
         }
 
+        .navbar-static-top .navbar-header a i {
+            color: #007aff !important;
+        }
+
         .menu-log {
             position: absolute;
             top: 30px
