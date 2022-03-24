@@ -45,7 +45,8 @@ class SetReferralsCaches extends Command
         foreach (User::orderBy('referrals_invested_total', 'asc')->get() as $user) {
             $this->info('work with user '.$user->login);
 
-//            cache()->forget('referrals.array.' . $user->id);
+            cache()->forget('referrals.array.' . $user->id);
+
             cache()->put('referrals.array.' . $user->id, $user->getAllReferralsInArray(), now()->addHours(3));
             $all_referrals = cache()->get('referrals.array.' . $user->id);
 
