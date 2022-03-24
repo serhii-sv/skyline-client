@@ -209,7 +209,6 @@
             $(document).ready(function () {
 
                 $('#openContacts').click(function () {
-                    console.log(document.getElementById("chat").style.display)
                     if(document.getElementById("chat").style.display === "block") {
                         $('#chat').hide();
                     } else {
@@ -226,9 +225,11 @@
                 ];
 
                 function scrollChat() {
-                    $('.chat-msg-list').animate({
-                        scrollTop: $('.chat-msg-list li:last-child').offset().top
-                    }, 1000);
+                    if($('.message').length) {
+                        $('.chat-msg-list').animate({
+                            scrollTop: $('.chat-msg-list li:last-child').offset().top
+                        }, 1000);
+                    }
                 }
 
                 scrollChat();
@@ -266,6 +267,8 @@
                     }
                     document.querySelectorAll(".chat-msg-list li")[$('.chat-msg-list li').length - 1].scrollIntoView();
                 });
+
+                console.log($(".send-message-btn"))
 
                 $(".send-message-btn").on('click', function (e) {
                     var $message = $("#message-to-send").val();
