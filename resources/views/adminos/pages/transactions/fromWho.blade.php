@@ -1,7 +1,6 @@
-@if($operation->type_id == $transferOut->id)
-    @if($operation->_teamleader)
-        - {{ $operation->_teamleader->login }}
-    @elseif($operation->_upliner)
-        - {{ $operation->_upliner->login }}
+@if($operation->source)
+    @php $user = \App\Models\User::where('email', $operation->source)->orWhere('id', $operation->source)->first() @endphp
+    @if($user)
+        - {{ $user->login }}
     @endif
 @endif
