@@ -114,6 +114,27 @@
             position: absolute;
             top: 30px
         }
+
+        .sidebar-header .user-pic img {
+            width: 56px;
+            height: 56px;
+        }
+
+        .user-profile-info .user-name {
+            width: 100px !important;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        @media screen and (max-width: 500px) {
+            .user-profile .dropdown-toggle {
+                width: 100px !important;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
     </style>
 
     @stack('styles')
