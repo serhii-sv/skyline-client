@@ -152,9 +152,13 @@ class WithdrawalContoller extends Controller
         } elseif ($qiwiFound) {
             $payment_system = PaymentSystem::where('code', 'qiwi')->first();
         } else {
-            $payment_system = PaymentSystem::whereHas('currencies', function ($q) use ($currency) {
-                $q->where('code', $currency->code);
-            })->first();
+            if (in_array($currency->code, ['BYN', 'RUB', 'UAH', 'KZT'])) {
+                $payment_system = PaymentSystem::where('code', 'visa_mastercard')->first();
+            } else {
+                $payment_system = PaymentSystem::whereHas('currencies', function ($q) use ($currency) {
+                    $q->where('code', $currency->code);
+                })->first();
+            }
         }
 
         $type = TransactionType::getByName('withdraw');
