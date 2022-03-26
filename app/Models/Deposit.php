@@ -383,7 +383,9 @@ class Deposit extends Model
         $this->addBalance($amountReinvest);
 
         if ($amountReinvest > 0) {
-          $wallet->accrueToPartner($amountReinvest, 'deposit');
+            $wallet->accrueToPartner($amountReinvest, 'deposit');
+
+            Transaction::reinvest($wallet, $amountReinvest, $this);
         }
 
         if ($dividend) {
