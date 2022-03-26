@@ -76,6 +76,10 @@
             position: relative;
         }
 
+        .wrap-input100.alert-validate {
+            border-bottom: 2px solid rgb(255 0 0 / 70%);
+        }
+
     </style>
 
     @yield('page-style')
