@@ -136,7 +136,7 @@
                                                                     <div class="mb-3 item-list-wrapper">
                                                                         @foreach($payment_systems as $item)
                                                                             @if($item->code == 'coinpayments')
-                                                                                @foreach($item->currencies()->get() as $currency)
+                                                                                @foreach($item->currencies()->get()->unique() as $currency)
                                                                                     <label class="d-flex flex-column align-items-center justify-content-center replenishment-method-item ml-3" href="next">
                                                                                         <input class="payment-system-radio" type="radio" name="payment_system" data-group_name="{{ $groupName }}" value="{{ $item->id }}" data-manual="false" data-name="{{ $currency->name }}">
                                                                                         <div class=" payment-system-item d-flex flex-column align-items-center justify-content-center">
