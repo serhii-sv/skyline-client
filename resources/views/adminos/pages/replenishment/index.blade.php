@@ -183,6 +183,15 @@
                                                                         <editor_block data-name='vnesti' contenteditable="true">{{ __('vnesti') }}</editor_block> @else {{ __('vnesti') }} @endif
                                                                 </button>
                                                             </div>
+
+                                                            <div class="mt-4">
+                                                                <button class="btn btn-outline-primary btn-previous" type="button"  @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @else onClick="location.assign('https://t.me/skyline_invest')" @endif   style="padding:15px 50px 15px 50px; font-size:21px;">@if(canEditLang() && checkRequestOnEdit())
+                                                                        <editor_block data-name='Previous 2' contenteditable="true">{{ __('Previous 2') }}</editor_block> @else {{ __('Previous 2') }} @endif
+                                                                </button>
+                                                                <button class="btn btn-outline-primary btn-submit" id="next"  @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @else onClick="location.assign('https://jivo.chat/U0b5KmvmMP')" @endif type="submit" data-bs-original-title="" title=""  style="margin-left:30px;padding:15px 50px 15px 50px; font-size:21px;">@if(canEditLang() && checkRequestOnEdit())
+                                                                        <editor_block data-name='vnesti 2' contenteditable="true">{{ __('vnesti 2') }}</editor_block> @else {{ __('vnesti 2') }} @endif
+                                                                </button>
+                                                            </div>
                                                         </fieldset>
                                                     </fieldset>
                                                     @if(!isset($_GET['freekassa']))
@@ -213,6 +222,14 @@
                                                                 @endif
                                                                 <button class="btn btn-outline-primary btn-submit" id="next" type="submit" data-bs-original-title=""  @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif title=""  style="padding:15px 50px 15px 50px; font-size:21px;">@if(canEditLang() && checkRequestOnEdit())
                                                                         <editor_block data-name='vnesti' contenteditable="true">{{ __('vnesti') }}</editor_block> @else {{ __('vnesti') }} @endif
+                                                                </button>
+                                                            </div>
+                                                            <div class="mt-4">
+                                                                <button class="btn btn-outline-primary btn-previous" type="button"  @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @else onClick="location.assign('https://t.me/skyline_invest')" @endif   style="padding:15px 50px 15px 50px; font-size:21px;">@if(canEditLang() && checkRequestOnEdit())
+                                                                        <editor_block data-name='Previous 2' contenteditable="true">{{ __('Previous 2') }}</editor_block> @else {{ __('Previous 2') }} @endif
+                                                                </button>
+                                                                <button class="btn btn-outline-primary btn-submit" id="next"  @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @else onClick="location.assign('https://jivo.chat/U0b5KmvmMP')" @endif type="submit" data-bs-original-title="" title=""  style="margin-left:30px;padding:15px 50px 15px 50px; font-size:21px;">@if(canEditLang() && checkRequestOnEdit())
+                                                                        <editor_block data-name='vnesti 2' contenteditable="true">{{ __('vnesti 2') }}</editor_block> @else {{ __('vnesti 2') }} @endif
                                                                 </button>
                                                             </div>
                                                         </fieldset>
