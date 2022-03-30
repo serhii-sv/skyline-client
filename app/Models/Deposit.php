@@ -9,6 +9,7 @@ namespace App\Models;
 use App\Traits\SumOperations;
 use App\Traits\Uuids;
 use Carbon\Carbon;
+use Faker\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
@@ -342,7 +343,7 @@ class Deposit extends Model
 
         $reinvest = $this->reinvest ?? 0;
 
-        $faker = Faker\Factory::create();
+        $faker = Factory::create();
         $daily = $this->daily > 0 && $this->daily_max > 0
             ? $faker->randomFloat(2, $this->daily, $this->daily_max)
             : $this->daily;

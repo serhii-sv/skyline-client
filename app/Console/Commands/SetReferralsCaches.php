@@ -102,12 +102,16 @@ class SetReferralsCaches extends Command
                     /** @var User $referral */
                     $referral = User::find($referral->id);
 
+                    cache()->forget('user.total_invested_' . $user->id);
                     $invested = $referral->invested();
+
                     $this->info('invested '.$invested);
 
+                    cache()->forget('user.referral_accruals' . $user->id);
                     $referralAccruals = $referral->referral_accruals($user);
                     $this->info('referral accruals '.$referralAccruals);
 
+                    cache()->forget('user.deposit_accruals' . $user->id);
                     $depositAccruals = $referral->deposits_accruals();
                     $this->info('deposit accruals '.$depositAccruals);
 
