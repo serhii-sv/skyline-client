@@ -169,11 +169,6 @@
         @include('adminos.partials.top-nav')
         @yield('content')
     </div>
-    @include('adminos.partials.notifications')
-{{--    <div class="selector-toggle">--}}
-{{--        <a href="javascript:void(0)" class="right-sidebar-toggle"><i class="feather icon-settings rotate-icon"></i></a>--}}
-{{--    </div>--}}
-{{--    @include('adminos.partials.right-sidebar')--}}
 </div>
 <!-- Mainly scripts -->
 <script src="{{ asset('adminos/plugins/jquery/jquery-3.1.1.min.js') }}"></script>
