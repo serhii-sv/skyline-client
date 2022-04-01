@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\AccountPanel;
 
 use App\Http\Controllers\Controller;
+use App\Mail\RegistrationNotification;
 use App\Models\Banner;
 use App\Models\BotStatistic;
 use App\Models\Deposit;
@@ -21,6 +22,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 
 class DashboardController extends Controller
@@ -42,18 +44,29 @@ class DashboardController extends Controller
 
         $userStickers = collect();
         if (auth()->user()->stickers->count() < 2) {
-            $stickerData = [
-                'user_id' => auth()->id(),
-                'category' => '',
-                'title' => 'Моя мотивация',
-                'description' => 'Описание вашей мотивации',
-                'text_color' => '',
-                'sticker_color' => '',
-                'order' => 0
+            $stickersData = [
+                [
+                    'user_id' => auth()->id(),
+                    'category' => '',
+                    'title' => 'Моя мотивация',
+                    'description' => 'Описание вашей мотивации',
+                    'text_color' => '',
+                    'sticker_color' => '',
+                    'order' => 0
+                ],
+                [
+                    'user_id' => auth()->id(),
+                    'category' => '',
+                    'title' => 'Цель',
+                    'description' => 'Цели',
+                    'text_color' => '',
+                    'sticker_color' => '',
+                    'order' => 0
+                ]
             ];
             for ($i = auth()->user()->stickers->count(); $i <= 1; $i++) {
                 $userSticker = new UserSticker();
-                $userSticker->fill($stickerData);
+                $userSticker->fill($stickersData[$i]);
 
                 $userSticker->save();
 

@@ -65,6 +65,16 @@ class ReferralsController extends Controller
 
         $referral_link_registered = count($all_referrals);
 
+        $search = \request()->search;
+
+        $filteredReferrals = [];
+
+        if ($search) {
+            $filteredReferrals = User::whereIn('id', array_keys($all_referrals))->where(function ($q) use ($search) {
+               $q->where('login', 'like', '%' . $search . '%')->orWhere('email', 'like', '%' . $search . '%');
+            })->get();
+        }
+
         $personal_turnover = $user->personal_turnover;
 
         return view('adminos.pages.referrals.index', [
@@ -79,6 +89,7 @@ class ReferralsController extends Controller
             'currentRank' => $currentRank,
             'nextRank' => $nextRank,
             'rankPercentage' => $rankPercentage,
+            'filteredReferrals' => $filteredReferrals
         ]);
     }
 

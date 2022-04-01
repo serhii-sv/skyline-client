@@ -369,7 +369,7 @@
                                             <div class="col-12 text-center">
                                                 <div class="col-12">
                                                     <div class="mt-2">
-                                                        <div data-label="{{ round($rankPercentage, 1) }}%" class="radial-bar radial-bar-{{ round($rankPercentage, -1) }} radial-bar-lg radial-bar-warning"></div>
+                                                        <div data-label="{{ round($rankPercentage, 1) }}%" class="radial-bar radial-bar-{{ $rankPercentage <= 100 ?round($rankPercentage, -1) : 100 }} radial-bar-lg radial-bar-info"></div>
 {{--                                                        <input type="text" class="dial" value="{{ round($rankPercentage, 1) }}" data-width="100" data-height="100" data-linecap="round" data-displayprevious="true" data-displayinput="true" data-readonly="true" data-fgcolor="#fe9365">--}}
                                                     </div>
                                                     <div class="d-flex justify-content-between">
@@ -411,7 +411,7 @@
                                                         @else {{ __('Персональный оборот') }}@endif
                                                     </span>
                                                     @if(!is_null($nextRank))
-                                                        <span class="pull-right">{{ number_format($user->personal_turnover, 2) }}/{{ $nextRank->personal_turnover }} ({{ \App\Models\UserDepositBonus::getStatsPercentage($user->personal_turnover, $nextRank->personal_turnover) }}%)</span>
+                                                        <span class="pull-right">{{ number_format($user->personal_turnover, 2) }}$ / {{ $nextRank->personal_turnover }}$ ({{ \App\Models\UserDepositBonus::getStatsPercentage($user->personal_turnover, $nextRank->personal_turnover) }}%)</span>
                                                         <div class="progress" style="height: 4px; clear: both;">
                                                             <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width:{{ \App\Models\UserDepositBonus::getStatsPercentage($user->personal_turnover, $nextRank->personal_turnover) }}%;"></div>
                                                         </div>
@@ -429,7 +429,7 @@
                                                         @else {{ __('Оборот структуры') }}@endif
                                                     </span>
                                                     @if(!is_null($nextRank))
-                                                        <span class="pull-right">{{ number_format($user->referrals_invested_total, 2) }}/{{ $nextRank->total_turnover }} ({{ \App\Models\UserDepositBonus::getStatsPercentage($user->referrals_invested_total, $nextRank->total_turnover) }}%)</span>
+                                                        <span class="pull-right">{{ number_format($user->referrals_invested_total, 2) }}$ / {{ $nextRank->total_turnover }}$ ({{ \App\Models\UserDepositBonus::getStatsPercentage($user->referrals_invested_total, $nextRank->total_turnover) }}%)</span>
                                                         <div class="progress" style="height: 4px; clear: both;">
                                                             <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width:{{ \App\Models\UserDepositBonus::getStatsPercentage($user->referrals_invested_total, $nextRank->total_turnover) }}%;"></div>
                                                         </div>

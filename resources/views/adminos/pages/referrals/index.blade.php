@@ -104,7 +104,7 @@
                     <div class="user-profile">
                         <div class="row">
                             <!-- user profile first-style start-->
-                            <div class="col-sm-12 mt-5">
+                            <div class="col-sm-12 mt-3">
                                 <div class="card hovercard text-center">
 {{--                                    <div class="cardheader"--}}{{-- style="background: url('{{ asset('images/crypto.png') }}') no-repeat; background-size: cover;max-height: 600px;"--}}{{--></div>--}}
 {{--                                    <div class="user-image">--}}
@@ -239,19 +239,19 @@
                                                                 <editor_block data-name='Персональный оборот' contenteditable="true">{{ __('Персональный оборот') }}</editor_block>
                                                             @else {{ __('Персональный оборот') }}@endif
                                                         </p>
-                                                        <p class="float-right">{{ $nextRank ? \App\Models\UserDepositBonus::getStatsPercentage($user->personal_turnover, $nextRank->personal_turnover) : 100 }}%</p>
+                                                        <p class="float-right">{{ $nextRank ? number_format($user->personal_turnover, 2) . '$ / '. $nextRank->personal_turnover . '$ (' .  \App\Models\UserDepositBonus::getStatsPercentage($user->personal_turnover, $nextRank->personal_turnover) . '%)' : 100 . '%' }}</p>
                                                         <div class="progress" style="height: 4px; clear: both;">
                                                             <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:{{ $nextRank ? \App\Models\UserDepositBonus::getStatsPercentage($user->personal_turnover, $nextRank->personal_turnover) : 100 }}%"></div>
                                                         </div>
                                                         <br>
                                                     </div>
-                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pl-5 pr-5">
+                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pl-5 pr-5 mb-4">
                                                         <p class="float-left">
                                                             @if(canEditLang() && checkRequestOnEdit())
                                                                 <editor_block data-name='Оборот структуры' contenteditable="true">{{ __('Оборот структуры') }}</editor_block>
                                                             @else {{ __('Оборот структуры') }}@endif
                                                         </p>
-                                                        <p class="float-right">{{ $nextRank ? \App\Models\UserDepositBonus::getStatsPercentage($user->referrals_invested_total, $nextRank->total_turnover) : 100 }}%</p>
+                                                        <p class="float-right">{{ $nextRank ? number_format($user->referrals_invested_total, 2) . '$ / '. $nextRank->total_turnover . '$ (' .  \App\Models\UserDepositBonus::getStatsPercentage($user->referrals_invested_total, $nextRank->total_turnover) . '%)' : 100 . '%' }}</p>
                                                         <div class="progress" style="height: 4px; clear: both;">
                                                             <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:{{ $nextRank ? \App\Models\UserDepositBonus::getStatsPercentage($user->referrals_invested_total, $nextRank->total_turnover) : 100 }}%"></div>
                                                         </div>
@@ -281,6 +281,23 @@
                         <div class="col-xl-12">
                             <div class="card">
                                 <div class="card-body">
+                                    <div class="d-flex justify-content-center">
+                                        <div class="w-50">
+                                            <form class="form-inline mb-4 d-flex justify-content-center" action="/referrals/progress" method="get">
+                                                <div class="form-group mr-3">
+                                                    <label for="pwd" class="mr-3">
+                                                        @if(canEditLang() && checkRequestOnEdit())
+                                                            <editor_block data-name='Поиск партнеров:' contenteditable="true">{{ __('Поиск партнеров:') }}</editor_block> @else {{ __('Поиск партнеров:') }} @endif
+                                                    </label>
+                                                    <input type="text" name="search" class="form-control" id="pwd" value="{{ request()->search }}">
+                                                </div>
+                                                <button type="submit" class="btn btn-outline-primary mt-1">
+                                                    @if(canEditLang() && checkRequestOnEdit())
+                                                        <editor_block data-name='Поиск' contenteditable="true">{{ __('Поиск') }}</editor_block> @else {{ __('Поиск') }} @endif
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
                                     <div class="best-seller-table responsive-tbl">
                                         <div class="item">
                                             <div class="table-responsive product-list">
@@ -312,7 +329,9 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    @if(cache()->has('referrals.array.' . auth()->user()->id))
+                                                    @if(count($filteredReferrals))
+                                                        @include('adminos.pages.referrals.filtered')
+                                                    @elseif(cache()->has('referrals.array.' . auth()->user()->id))
                                                         @include('adminos.pages.referrals.childrens', ['us' => auth()->user(), 'level' => 0])
                                                     @endif
                                                     </tbody>
