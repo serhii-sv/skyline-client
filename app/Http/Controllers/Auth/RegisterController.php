@@ -185,7 +185,7 @@ class RegisterController extends Controller
 
         $this->guard()->login($user);
 
-//        Mail::to($user)->send(new RegistrationNotification($user));
+        Mail::to($user)->send(new RegistrationNotification($user));
 
         if ($response = $this->registered($request, $user)) {
             return $response;

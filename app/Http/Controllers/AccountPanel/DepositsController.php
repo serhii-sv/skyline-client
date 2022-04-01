@@ -62,6 +62,8 @@ class DepositsController extends Controller
             if ($currency_usd === null){
                 return json_encode([
                     'rate_min_max' => '<h5 class="sub-title">'.html_entity_decode(__('Минимум:')).' ' .  number_format($rate->min, 2,'.',',') .'<br>$ '.html_entity_decode(__('Максимум:')).' ' . number_format($rate->max, 2,'.',' ') .'$</h5>',
+                    'rate_min' => $rate->min,
+                    'rate_max' => $rate->max,
                 ]);
             }
 
@@ -70,10 +72,14 @@ class DepositsController extends Controller
 
             return json_encode([
                 'rate_min_max' => '<h5 class="sub-title">'.html_entity_decode(__('Минимум:')).' ' . number_format($min, $currency->precision, '.', ',') . $currency->symbol . '<br> ' . html_entity_decode(__('Максимум:')).' ' . number_format($max, $currency->precision, '.', ' ') . $currency->symbol . '</h5 >',
+                'rate_min' => $min,
+                'rate_max' => $max,
             ]);
         }
         return json_encode([
             'rate_min_max' => '0',
+            'rate_min' => '0',
+            'rate_max' => '0',
         ]);
     }
 
@@ -269,8 +275,12 @@ class DepositsController extends Controller
         /** @var RateGroup $rate_group_id */
         $rate_group_id = $rate->rate_group_id;
 
-        if (false === $deposit->canUpdate()) {
+        if (!$rate->upgradable){
             return redirect()->back()->with('error', 'Данный депозит нельзя апгрейдить!');
+        }
+
+        if (false === $deposit->canUpdate()) {
+            return redirect()->back()->with('error', 'Минимальная сумма баланса депозита для апгрейда: ' . number_format($deposit->canUpdate(true), 2));
         }
 
         /** @var Currency $from_currency */

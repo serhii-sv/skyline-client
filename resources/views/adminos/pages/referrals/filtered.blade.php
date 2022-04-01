@@ -1,12 +1,6 @@
-@php($parent = cache()->remember('us.referrals.'.$us->id, now()->addHours(3), function() use($us) { return $us->getAllReferrals(false, 1, 1); }))
-@php($self = $parent['self'])
-
-@if(null !== $self)
-
-    @if($level > 0)
+@foreach($filteredReferrals as $self)
     <tr>
-        @php($p = $level > 3 ? 3 : $level)
-        <td style="padding-left:{{ $p * 15 }}px;">
+        <td>
             <div class="d-flex align-items-center">
                 <div>
                     <img class="img-40 ml-15 rounded-circle align-top" src="{{ $self->image ? route('accountPanel.profile.get.avatar', $self->id) : asset('accountPanel/images/user/user.png') }}" alt="">
@@ -14,7 +8,7 @@
                 <div class="d-inline-block mt-3 ml-4">
                     <span style="font-size: 18px;">{{ $self->name }}</span>
                     <p class="font-roboto" style="font-size: 15px; margin-bottom:0;">{{ $self->login }}</p>
-                    <p style="margin-top:0;">линия {{ $level }}</p>
+{{--                    <p style="margin-top:0;">линия {{ $level }}</p>--}}
                 </div>
             </div>
         </td>
@@ -36,17 +30,4 @@
         </td>
 
     </tr>
-    @endif
-
-    @foreach($level == 0 ? \App\Helpers\PaginationHelper::paginate(collect($parent['referrals']), 5) : collect($parent['referrals']) as $referralParent)
-        @php($self = $referralParent['self'])
-        @if(request()->search)
-            @if(stripos($self['login'], request()->search) !== false || stripos($self['email'], request()->search) !== false)
-                @include('adminos.pages.referrals.childrens', ['us' => $self, 'level' => $level+1])
-            @endif
-        @else
-            @include('adminos.pages.referrals.childrens', ['us' => $self, 'level' => $level+1])
-        @endif
-    @endforeach
-
-@endif
+@endforeach

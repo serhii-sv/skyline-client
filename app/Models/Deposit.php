@@ -547,7 +547,7 @@ class Deposit extends Model
     /**
      * @return bool
      */
-    public function canUpdate() {
+    public function canUpdate($get_max_rate = false) {
 //        if (!$this->rate->upgradable){
 //            return false;
 //        }
@@ -561,7 +561,7 @@ class Deposit extends Model
         /** @var float $rate_max */
         $rate_max = Wallet::convertToCurrencyStatic($from_currency, $to_currency, $this->rate->max);
 
-        return $rate_max > 0
+        return $get_max_rate ? $rate_max :  $rate_max > 0
             && $this->balance >= ($rate_max + 1); // +1 обычно следующий план на доллар дороже
     }
 }

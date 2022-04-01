@@ -86,7 +86,7 @@
 
                                                                                             <select class="form-select form-control-inverse-fill wallet-select form-control" name="wallet_id" data-rate="{{ $item->id }}">
                                                                                                 @forelse($wallets as $wallet)
-                                                                                                    <option value="{{ $wallet->id }}" class="text-center" data-currency="{{ $wallet->currency_id }}"
+                                                                                                    <option value="{{ $wallet->id }}" class="text-center" data-balance="{{ $wallet->balance }}" data-currency="{{ $wallet->currency_id }}"
                                                                                                             @if(old('wallet_id') == $wallet->id) selected="selected" @endif>
                                                                                                         {{ $wallet->currency->name }} - {{ $wallet->balance }}{{ $wallet->currency->symbol }}
                                                                                                     </option>
@@ -124,7 +124,8 @@
                                                                                                 @endif
                                                                                             </h6>
                                                                                             <div class="input-group">
-                                                                                                <input class="form-control text-center" type="text" name="amount" value="{{ old('amount') ?? '' }}">
+                                                                                                <input class="form-control text-center" type="number" min="{{ number_format($item->min) }}" max="{{ number_format($item->max) }}" name="amount" value="{{ old('amount') ?? '' }}">
+                                                                                                <button type="button" class="btn btn-outline-primary set-max" data-rate_max="{{ $item->max }}">Max</button>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -485,6 +486,16 @@
     </script>
     <script>
         $(document).ready(function () {
+
+            $('input[type="number"]').on('keyup', function () {
+                if ($(this).val() > $(this).attr('max') * 1) {
+                    $(this).val($(this).attr('max'));
+                }
+
+                if ($(this).val() < $(this).attr('min') * 1) {
+                    $(this).val($(this).attr('min'));
+                }
+            });
             $(".wallet-select").on('change', function () {
                 var $rate_id = $(this).attr('data-rate');
                 var $currency_id = $(this).find('option:selected').attr('data-currency');
@@ -499,8 +510,20 @@
                     headers: {
                         'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
                     },
-                    success: function success(data) {
+                    success: (data) => {
                         var $data = $.parseJSON(data);
+
+                        let min = $data['rate_min'];
+                        let max = $data['rate_max'];
+
+                        let input = $(this).closest('.transaction-footer').find('input');
+
+                        $(input).attr('min', min);
+                        $(input).attr('max', max);
+
+                        $(input).val(null);
+
+                        $(this).closest('.transaction-footer').find('.set-max').data('rate_max', max)
 
                         $(".rate-min-max-block[data-rate='" + $rate_id + "']").html($data['rate_min_max']);
 
@@ -508,6 +531,24 @@
                 });
 
             });
+
+            $('.set-max').click(function () {
+                let rate_max = parseFloat($(this).data('rate_max'));
+
+                console.log(rate_max)
+
+                let balance = parseFloat($(this).closest('.transaction-footer').find('.wallet-select option:selected').data('balance'));
+
+                let max;
+
+                if (rate_max < balance) {
+                    max = rate_max
+                } else {
+                    max = balance;
+                }
+
+                $(this).closest('.transaction-footer').find('input').val(max)
+            })
         });
     </script>
 @endpush
