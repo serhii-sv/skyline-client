@@ -88,6 +88,7 @@ class Rate extends Model
         'upgradable',
         'overall',
         'rate_group_id',
+        'image'
     ];
 
     /**
