@@ -487,15 +487,15 @@
     <script>
         $(document).ready(function () {
 
-            $('input[type="number"]').on('keyup', function () {
-                if ($(this).val() > $(this).attr('max') * 1) {
-                    $(this).val($(this).attr('max'));
-                }
-
-                if ($(this).val() < $(this).attr('min') * 1) {
-                    $(this).val($(this).attr('min'));
-                }
-            });
+            // $('input[type="number"]').on('keyup', function () {
+            //     if ($(this).val() > $(this).attr('max') * 1) {
+            //         $(this).val($(this).attr('max'));
+            //     }
+            //
+            //     if ($(this).val() < $(this).attr('min') * 1) {
+            //         $(this).val($(this).attr('min'));
+            //     }
+            // });
             $(".wallet-select").on('change', function () {
                 var $rate_id = $(this).attr('data-rate');
                 var $currency_id = $(this).find('option:selected').attr('data-currency');
