@@ -22,6 +22,11 @@
             height: 100%;
         }
 
+
+        .sub-title {
+            display: grid !important;
+        }
+
         @media screen and (max-width: 620px) {
             .pricing-simple .pl-5 {
                 padding-left: unset !important;
@@ -37,10 +42,6 @@
 
             .rate-min-max-block {
                 height: auto;
-            }
-
-            .sub-title {
-                display: grid !important;
             }
         }
     </style>
@@ -77,7 +78,12 @@
                                                                                 @endif
                                                                             </h3>
                                                                             <div class="row mt-5">
-                                                                                <div class="col-lg-6">
+                                                                                @if($item->image)
+                                                                                    <div class="col-lg-4">
+                                                                                        <img class="mt-3 p-relative" height="300" width="auto" src="{{ asset($item->image) }}">
+                                                                                    </div>
+                                                                                @endif
+                                                                                <div class="{{ $item->image ? 'col-lg-4' : 'col-lg-6' }}">
                                                                                     <div class="transaction-footer">
                                                                                         <div class="mt-3" style="text-align: center;">
                                                                                             <h6 class="mb-2" style="color:green; text-align:center;">@if(canEditLang() && checkRequestOnEdit())
@@ -130,8 +136,8 @@
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
-                                                                                <div class="col-lg-6">
-                                                                                    <div class="transaction-header text-center ml-4">
+                                                                                <div class="{{ $item->image ? 'col-lg-4' : 'col-lg-6' }}">
+                                                                                    <div class="transaction-header text-center mt-3 ml-4">
                                                                                         <h6 class="amount mb-3" style="color:green;">
                                                                                             @if(canEditLang() && checkRequestOnEdit())
                                                                                                 <editor_block data-name='Условия инвестирования:' contenteditable="true">{{ __('Условия инвестирования:') }}</editor_block>
