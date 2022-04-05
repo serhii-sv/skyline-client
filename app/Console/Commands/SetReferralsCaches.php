@@ -54,6 +54,19 @@ class SetReferralsCaches extends Command
                 return $this->getChildrens($user, 7);
             });
 
+            cache()->forget('user.total_invested_' . $user->id);
+            $invested = $user->invested();
+
+            $this->info('invested '.$invested);
+
+            cache()->forget('user.referral_accruals' . $user->id);
+            $referralAccruals = $user->referral_accruals($user);
+            $this->info('referral accruals '.$referralAccruals);
+
+            cache()->forget('user.deposit_accruals' . $user->id);
+            $depositAccruals = $user->deposits_accruals();
+            $this->info('deposit accruals '.$depositAccruals);
+
             $walletArray = Wallet::where('user_id', $user->id)->get();
 
             $partner_type = TransactionType::where('name', 'partner')->first();
