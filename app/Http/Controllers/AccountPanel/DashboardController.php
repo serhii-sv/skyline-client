@@ -86,7 +86,7 @@ class DashboardController extends Controller
             'Sun' => 'Воскресенье'
         ];
 
-        $statisticData = BotStatistic::where('date', '>=', now()->subDays(10))
+        $statisticData = BotStatistic::where('date', '>=', now()->subDays(7))
             ->orderBy('date', 'asc')
             ->get();
 
@@ -95,7 +95,7 @@ class DashboardController extends Controller
         }
 
         $date = now();
-        $dateToCreate = now()->subDays(9);
+        $dateToCreate = now()->subDays(6);
 
         while (true) {
             $botStatistics['labels'][] = $ru_weekdays[$dateToCreate->format('D')];
