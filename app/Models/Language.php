@@ -72,13 +72,13 @@ class Language extends Model
     public function createTranslation()
     {
         if (Storage::disk('lang')->exists('ru.json')) {
-            $translations = Storage::disk('lang')->exists('ru.json');
+            $translations = Storage::disk('lang')->get('ru.json');
 
             Storage::disk('lang')->put($this->code . '.json', $translations);
         }
 
         if (Storage::disk('lang')->exists('ru_manual.json')) {
-            $translations = Storage::disk('lang')->exists('ru_manual.json');
+            $translations = Storage::disk('lang')->get('ru_manual.json');
 
             Storage::disk('lang')->put($this->code . '_manual.json', $translations);
         }
