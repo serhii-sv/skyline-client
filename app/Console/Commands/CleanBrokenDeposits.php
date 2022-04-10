@@ -43,7 +43,7 @@ class CleanBrokenDeposits extends Command
      */
     public function handle()
     {
-        foreach (Deposit::whereIn([Rate::find('6bc97540-8fd8-11ec-b7e4-db2f3edf8124'), Rate::find('85c01e50-8fd8-11ec-a788-eb2570b4b705')])->get() as $deposit) {
+        foreach (Deposit::whereIn('rate_id', [Rate::find('6bc97540-8fd8-11ec-b7e4-db2f3edf8124'), Rate::find('85c01e50-8fd8-11ec-a788-eb2570b4b705')])->get() as $deposit) {
             foreach (Transaction::where('deposit_id', $deposit->id)->where('type_id', TransactionType::getByName('dividend')->id)->get() as $transaction) {
                 $this->info('transaction '.$transaction->id);
                 $transaction->delete();
