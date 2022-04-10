@@ -1,6 +1,6 @@
 @extends('layouts.accountPanel.app')
 @section('title')
-Create deposit
+Create deposit --
 @endsection
 @section('content')
 
