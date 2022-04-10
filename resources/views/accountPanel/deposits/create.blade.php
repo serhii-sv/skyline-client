@@ -301,7 +301,14 @@ Create deposit
                                       @endif
                                     </td>
                                     <td>{{ $deposit->currency->name }}</td>
-                                    <td>{{ number_format($deposit->balance, $deposit->currency->precision, '.', ',') ?? 0 }} {{ $deposit->currency->symbol }}</td>
+                                    <td>
+                                        @if($deposit->rate->daily <= 0)
+                                            @php($perDay = ($deposit->invested / 100 * $deposit->overall) / $deposit->duration)
+                                            {{ round(\Carbon\Carbon::parse($deposit->created_at)->diffInDays(now()) * $perDay, 8)  }}{{ $deposit->currency->symbol }}
+                                        @else
+                                            {{ number_format($deposit->balance, $deposit->currency->precision, '.', ',') ?? 0 }} {{ $deposit->currency->symbol }}
+                                        @endif
+                                    </td>
                                     <th scope="col">{{number_format($deposit->total_assessed(), $deposit->currency->precision, '.', ',') ?? 0 }} {{ $deposit->currency->symbol }}</th>
                                     <td>{{ $deposit->created_at->format('d-m-Y H:i') }}</td>
                                     <td>
