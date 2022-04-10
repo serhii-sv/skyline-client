@@ -40,7 +40,7 @@
                         <td>
                             @if($deposit->rate->daily <= 0)
                             @php($perDay = ($deposit->invested / 100 * $deposit->overall) / $deposit->duration)
-                            {{ round(\Carbon\Carbon::parse($deposit->created_at)->diffInDays(now()) * $perDay, 8)  }}{{ $deposit->currency->symbol }}
+                            -> ({{ $deposit->duration }}, {{ $deposit->overall }}, {{ $perDay }}) {{ round(\Carbon\Carbon::parse($deposit->created_at)->diffInDays(now()) * $perDay, 8)  }}{{ $deposit->currency->symbol }}
                             @else
                             {{ number_format($deposit->balance, $deposit->currency->precision, '.', ',') ?? 0 }} {{ $deposit->currency->symbol }}
                             @endif
