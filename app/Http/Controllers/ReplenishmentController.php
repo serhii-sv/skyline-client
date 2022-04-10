@@ -16,7 +16,8 @@ class ReplenishmentController extends Controller
         $payment_systems_by_groups = [
             PaymentSystem::BANK_GROUP => [],
             PaymentSystem::CRYPTO_GROUP => [],
-            PaymentSystem::ONLINE_PAYMENT_GROUP => []
+            PaymentSystem::ONLINE_PAYMENT_GROUP => [],
+            'one_more_category' => []
         ];
 
         foreach ($payment_systems as $payment_system) {
@@ -107,7 +108,12 @@ class ReplenishmentController extends Controller
     public function manual($id = null) {
         $payment_systems = PaymentSystem::where('code', '!=', 'bonus')->get();
 
-        $payment_systems_by_groups = [];
+        $payment_systems_by_groups = [
+            PaymentSystem::BANK_GROUP => [],
+            PaymentSystem::CRYPTO_GROUP => [],
+            PaymentSystem::ONLINE_PAYMENT_GROUP => [],
+            'one_more_category' => []
+        ];
 
         foreach ($payment_systems as $payment_system) {
             if (isset(PaymentSystem::BY_GROUP[$payment_system->code])) {
@@ -136,7 +142,7 @@ class ReplenishmentController extends Controller
                 }
                 foreach ($currencies as $currency) {
                     $html[] = '<label class="d-flex flex-column align-items-center justify-content-center currency-wrapper-item">
-                        <input class="payment-system-radio" type="radio" name="currency" value="{{ $item->id }}" required>
+                        <input class="payment-system-radio" type="radio" name="currency" value="' . $item->id . '" required>
                         <div class=" payment-system-item d-flex flex-column align-items-center justify-content-center">
                           <img src="' . asset("accountPanel/images/logos/" . $currency->image) . '" alt="' . $currency->image_alt . '" title="' . $currency->image_title . '">
                           <span>' . $currency->name . '</span>

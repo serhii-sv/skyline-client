@@ -6020,7 +6020,7 @@ body.rtls.mini-navbar .navbar-fixed-top {
     position: absolute;
 }
 .navbar-static-top .navbar-header a i {
-    color: #cfd1d3;
+    color: #007aff;
 }
 .navbar-fixed-top,
 .navbar-static-top {
@@ -6746,7 +6746,7 @@ body.top-navigation.canvas-menu.default-theme.mini-navbar nav.navbar-static-side
     }
     .navbar-right {
         float: right !important;
-        margin-right: 15px;
+        /*margin-right: 15px;*/
     }
     .dropdown-alerts {
         float: right !important;
@@ -19307,9 +19307,9 @@ body.rtls #notification-menu .menu-title {
     .navbar-header a {
         font-size: 20px;
     }
-    .user-profile span {
-        display: none;
-    }
+    /*.user-profile span {*/
+    /*    display: none;*/
+    /*}*/
     .navbar-top-links ul li a {
         color: #333;
     }

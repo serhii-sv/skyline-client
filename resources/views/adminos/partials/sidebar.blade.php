@@ -20,11 +20,7 @@
                                             <strong>{{ $user->login }}</strong>
                                         </span>
                             <span class="user-role">
-                                @if(canEditLang() && checkRequestOnEdit())
-                                    <editor_block data-name='{{ $user->roles()->first()->name ?? "Customer" }}' contenteditable="true">{{ __($user->roles()->first()->name ?? "Customer") }}</editor_block>
-                                @else
-                                    {{ __($user->roles()->first()->name ?? "Customer") }}
-                                @endif
+                                {{ App\Models\DepositBonus::find($user->userCurrentRank()->deposit_bonus_id ?? null)->status_name ?? '' }}
                             </span>
                             <span class="user-status">
                                             <i class="fa fa-circle text-success"></i>
@@ -65,13 +61,13 @@
                 <span class="nav-label">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Transactions' contenteditable="true">{{ __('Transactions') }}</editor_block> @else {{ __('Transactions') }} @endif</span>
             </a>
         </li>
-        <li class="nav-item {{ Route::is('accountPanel.referrals.*') ? 'active' : '' }}">
+        <li class="nav-item {{ Route::is('accountPanel.referrals.progress') ? 'active' : '' }}">
             <a href="{{ route('accountPanel.referrals.progress') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link">
                 <i class="fa fa-users"></i>
                 <span class="nav-label">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Referrals' contenteditable="true">{{ __('Referrals') }}</editor_block> @else {{ __('Referrals') }} @endif</span>
             </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item {{ Route::is('accountPanel.referrals.tree') ? 'active' : '' }}">
             <a href="{{ route('accountPanel.referrals.tree') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link">
                 <i class="fa fa-area-chart"></i>
                 @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Referral tree' contenteditable="true">{{ __('Referral tree') }}</editor_block> @else {{ __('Referral tree') }} @endif
@@ -95,13 +91,21 @@
                 <span class="nav-label">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='NFT-маркет' contenteditable="true">{{ __('NFT-маркет') }}</editor_block> @else {{ __('NFT-маркет') }} @endif</span>
             </a>
         </li>
-        <li class="nav-item {{ Route::is('accountPanel.settings.*') || Route::is('accountPanel.support-tasks.*') ? 'active' : '' }}">
+        <li class="nav-item {{ Route::is('accountPanel.chat') ? 'active' : '' }}">
+            <a href="{{ route('accountPanel.chat') }}"
+               @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link">
+                <i class="fa fa-commenting-o"></i>
+                <span class="nav-label">@if(canEditLang() && checkRequestOnEdit())<editor_block data-name='Chat' contenteditable="true">{{ __('Chat') }}</editor_block> @else {{ __('Chat') }} @endif</span>
+                <span class="label label-info">{{ $total_unread_messages > 0 ? "+" . $total_unread_messages : 0 }}</span>
+            </a>
+        </li>
+        <li class="nav-item {{ Route::is('accountPanel.settings.profile') ? 'active' : '' }}">
             <a href="{{ route('accountPanel.settings.profile') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link">
                 <i class="fa fa-gear"></i>
                 <span class="nav-label">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Settings' contenteditable="true">{{ __('Settings') }}</editor_block> @else {{ __('Settings') }} @endif</span>
             </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item {{ Route::is('accountPanel.settings.verify') ? 'active' : '' }}">
             <a href="{{ route('accountPanel.settings.verify') }}" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="nav-link">
                 <i class="fa fa-user-secret"></i>
                 @if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Verify' contenteditable="true">{{ __('Verify') }}</editor_block> @else {{ __('Verify') }} @endif

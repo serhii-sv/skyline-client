@@ -575,7 +575,7 @@ class User extends Authenticatable
      */
     public function userCurrentRank()
     {
-        return $this->userDepositBonuses()->orderBy('created_at', 'desc')->first();
+        return $this->userDepositBonuses()->orderBy('deposit_bonus_reward', 'desc')->first();
     }
 
     /**

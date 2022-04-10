@@ -41,8 +41,7 @@
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h5 class="mt-3">@if(canEditLang() && checkRequestOnEdit())<editor_block data-name='Sky Token rate' contenteditable="true">{{ __('Sky Token rate') }}</editor_block> @else {{ __('Sky Token rate') }} @endif
-                                        </h5>
+                                        <h5 class="mt-3">@if(canEditLang() && checkRequestOnEdit())<editor_block data-name='Sky Token' contenteditable="true">{{ __('Sky Token') }}</editor_block> @else {{ __('Sky Token') }} <b>{{ $sky_rate->s_value ?? 0 }}</b>@endif </h5>
                                     </div>
                                     <div class="card-body">
                                         <div id="chart-widget13"></div>
@@ -79,7 +78,7 @@
                                                                     <div class="col-lg-8">
 
                                                                     </div>
-                                                                    <select id="fromWallet" class="form-control">
+                                                                    <select id="fromWallet" class="form-control" name="wallet_from">
                                                                         @forelse($wallets as $wallet)
                                                                             <option value="{{ $wallet->id }}" data-id="{{ $wallet->id }}" data-prefix="{{ $wallet->currency->symbol }}" data-step="{{ $wallet->currency->precision }}" data-max="{{ $wallet->balance }}">{{ $wallet->currency->name ?? '' }} - {{ $wallet->balance ?? '' }} {{ $wallet->currency->symbol ?? '' }}</option>
 {{--                                                                            <input class="currency-exchange-radio wallet_from" type="radio" id="wal1{{ $wallet->id }}" name="wallet_from" value="{{ $wallet->id }}">--}}
@@ -98,7 +97,7 @@
                                                                     <div class="currency-exchange-label col-form-label">@if(canEditLang() && checkRequestOnEdit())
                                                                             <editor_block data-name='Choose a second wallet' contenteditable="true">{{ __('Choose a second wallet') }}</editor_block> @else {{ __('Choose a second wallet') }} @endif
                                                                     </div>
-                                                                    <select id="walletTo" class="form-control">
+                                                                    <select id="walletTo" class="form-control" name="wallet_to">
                                                                         @forelse($wallets as $wallet)
                                                                             <option value="{{ $wallet->id }}" data-id="{{ $wallet->id }}" data-prefix="{{ $wallet->currency->symbol }}" data-step="{{ $wallet->currency->precision }}" data-max="{{ $wallet->balance }}">{{ $wallet->currency->name ?? '' }} - {{ $wallet->balance ?? '' }} {{ $wallet->currency->symbol ?? '' }}</option>
 {{--                                                                            <input class="currency-exchange-radio wallet_to" type="radio" id="wal2{{ $wallet->id }}" name="wallet_to" value="{{ $wallet->id }}">--}}
@@ -143,11 +142,10 @@
                                                             <div class="col-lg-3">
                                                                 <div class="form-group row">
                                                                     <div class="col">
-                                                                        <label class="form-label">
                                                                             <label class="form-label">@if(canEditLang() && checkRequestOnEdit())
                                                                                     <editor_block data-name='Комиссия' contenteditable="true">{{ __('Комиссия') }}</editor_block> @else {{ __('Комиссия') }} @endif</label>
                                                                         <div class="input-group mb-3">
-                                                                            <input class="form-control" type="text" value="1" placeholder="1" readonly>
+                                                                            <input class="form-control" type="text" value="1$" placeholder="1$" readonly>
                                                                         </div>
                                                                     </div>
                                                                 </div>

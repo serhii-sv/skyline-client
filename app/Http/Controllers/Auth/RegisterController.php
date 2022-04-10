@@ -45,18 +45,21 @@ class RegisterController extends Controller
     protected $redirectTo = RouteServiceProvider::HOME;
 //    protected $redirectTo = '/';
     public    $ip;
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct() {
-        $this->middleware('guest');
-    }
+//    /**
+//     * Create a new controller instance.
+//     *
+//     * @return void
+//     */
+//    public function __construct() {
+//        $this->middleware('guest');
+//    }
 
 
     public function showRegistrationForm(Request $request)
     {
+        if (!canEditLang()) {
+            $this->middleware('guest');
+        }
         $params = array(
             'client_id'     => env('GOOGLE_OAUTH_CLIENT_ID'),
             'redirect_uri'  => env('APP_URL') ? env('APP_URL') . '/login' : 'http://localhost/login',
@@ -82,7 +85,7 @@ class RegisterController extends Controller
     protected function validator(array $data) {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'login' => ['required', 'string', 'max:50', 'unique:users,login'],
+            'login' => ['required', 'string', 'max:29', 'unique:users,login'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'phone' => ['required', 'min:6'],
@@ -147,6 +150,8 @@ class RegisterController extends Controller
                 'referral' => $data['login'],
             ];
 
+            cache()->forget('referrals.array.' . $partner->id);
+
             Notification::sendNotification($notification_data, 'new_referral');
         }
 
@@ -180,7 +185,7 @@ class RegisterController extends Controller
 
         $this->guard()->login($user);
 
-//        Mail::to($user)->send(new RegistrationNotification($user));
+        Mail::to($user)->send(new RegistrationNotification($user));
 
         if ($response = $this->registered($request, $user)) {
             return $response;

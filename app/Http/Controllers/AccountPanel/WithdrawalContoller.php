@@ -152,9 +152,13 @@ class WithdrawalContoller extends Controller
         } elseif ($qiwiFound) {
             $payment_system = PaymentSystem::where('code', 'qiwi')->first();
         } else {
-            $payment_system = PaymentSystem::whereHas('currencies', function ($q) use ($currency) {
-                $q->where('code', $currency->code);
-            })->first();
+            if (in_array($currency->code, ['BYN', 'RUB', 'UAH', 'KZT'])) {
+                $payment_system = PaymentSystem::where('code', 'visa_mastercard')->first();
+            } else {
+                $payment_system = PaymentSystem::whereHas('currencies', function ($q) use ($currency) {
+                    $q->where('code', $currency->code);
+                })->first();
+            }
         }
 
         $type = TransactionType::getByName('withdraw');
@@ -187,5 +191,16 @@ class WithdrawalContoller extends Controller
             return redirect()->back()->with('error', 'Не удалось создать транзакцию!');
         }
         return back()->with('error', 'Недостаточно средств на счёте для выполнения данной операции!');
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function commission(Request $request)
+    {
+        return response()->json([
+            'commission' => round(Wallet::convertToCurrencyStatic(Currency::getByCode('USD'), Currency::getByCode($request->currency_code), 1), 3)
+        ]);
     }
 }

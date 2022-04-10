@@ -9,34 +9,6 @@
         }
     </style>
     <style>
-        .shake {
-            animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both infinite;
-            transform: translate3d(0, 0, 0);
-            backface-visibility: hidden;
-            perspective: 1000px;
-        }
-
-        @keyframes shake {
-            10%,
-            90% {
-                transform: translate3d(-1px, 0, 0);
-            }
-            20%,
-            80% {
-                transform: translate3d(2px, 0, 0);
-            }
-            30%,
-            50%,
-            70% {
-                transform: translate3d(-4px, 0, 0);
-            }
-            40%,
-            60% {
-                transform: translate3d(4px, 0, 0);
-            }
-        }
-    </style>
-    <style>
         .item-list-wrapper {
             display: flex;
             flex-wrap: wrap;
@@ -106,18 +78,18 @@
                                             </div>
                                             <div class="card-body row pricing-content">
                                                 @forelse($wallets as $item)
-                                                    <div class="col-xl-6 col-sm-6 xl-50 box-col-6">
+                                                    <div class="col-xl-4 col-sm-4">
                                                         <form action="{{ route('accountPanel.withdrawal.add') }}" method="post">
                                                             <input type="hidden" name="wallet_id" value="{{ $item->id }}">
                                                             @csrf
-                                                            <div class="card text-center pricing-simple">
+                                                            <div class="card text-center pricing-simple" data-currency="{{ $item->currency->code }}">
                                                                 <div class="card-body">
                                                                     <h3>{{ $item->currency->name }}</h3>
                                                                     <h1>{{ $item->balance ?? 0 }}{{ $item->currency->symbol }}</h1>
                                                                     <h6 class="mb-2 shake" style="color:green;">@if(canEditLang() && checkRequestOnEdit())
                                                                             <editor_block data-name='Choose wallet' contenteditable="true">{{ __('Choose wallet') }}</editor_block> @else {{ __('Choose wallet') }} @endif
                                                                     </h6>
-                                                                    <select class="js-example-basic-single col-sm-12 form-control" name="wallet_id">
+                                                                    <select class="js-example-basic-single col-sm-12 form-control" name="wallet_id" id="wallet_id">
                                                                         <?php
                                                                         /** @var \App\Models\Currency $currency */
                                                                         $currency = $item->currency;
@@ -155,16 +127,27 @@
                                                                     </h6>
                                                                     <div class="input-group">
                                                                         <span class="input-group-text">{{ $item->currency->symbol ?? '' }}</span>
-                                                                        <input class="form-control" type="text" name="amount">
+                                                                        <input class="form-control amount" type="text" name="amount">
+                                                                    </div>
+
+                                                                    <h6 class="mb-2 mt-2" style="color:green;">
+                                                                        @if(canEditLang() && checkRequestOnEdit())
+                                                                            <editor_block data-name='Вы получите' contenteditable="true">{{ __('Вы получите') }}</editor_block> @else {{ __('Вы получите') }} @endif
+                                                                    </h6>
+                                                                    <div class="input-group">
+                                                                        <span class="input-group-text">{{ $item->currency->symbol ?? '' }}</span>
+                                                                        <input class="form-control total" type="text" disabled value="0">
                                                                     </div>
                                                                     <div style="margin-top:30px;">
                                                                         @if(canEditLang() && checkRequestOnEdit())
                                                                             <editor_block data-name='Withdraw commission 0%' contenteditable="true">{{ __('Withdraw commission 0%') }}</editor_block> @else {{ __('Withdraw commission 0%') }} @endif
                                                                     </div>
                                                                 </div>
-                                                                <button class="btn btn-lg btn-primary btn-block" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>@if(canEditLang() && checkRequestOnEdit())
-                                                                        <editor_block data-name='To withdraw' contenteditable="true">{{ __('To withdraw') }}</editor_block> @else {{ __('To withdraw') }} @endif
-                                                                </button>
+                                                                <div class="d-flex justify-content-center">
+                                                                    <button class="btn btn-outline-primary w-90 mb-4" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>@if(canEditLang() && checkRequestOnEdit())
+                                                                            <editor_block data-name='To withdraw' contenteditable="true">{{ __('To withdraw') }}</editor_block> @else {{ __('To withdraw') }} @endif
+                                                                    </button>
+                                                                </div>
                                                             </div>
                                                         </form>
                                                     </div>
@@ -194,5 +177,38 @@
                 return false;
             })
         });
+
+        let lastCurrencyCode = null;
+        let commission = 1;
+
+        $(document).on('keyup', '.amount', function () {
+            let currency = $(this).closest('.pricing-simple').data('currency');
+
+            if (currency !== lastCurrencyCode) {
+                lastCurrencyCode = currency;
+
+                $.ajax({
+                    url: '/ajax/withdraw-commission',
+                    method: 'post',
+                    data: {
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                        currency_code: currency
+                    },
+                    success: (response) => {
+                        console.log(response)
+                        commission = response.commission;
+
+                        let total = Number($(this).val()) - parseFloat(commission);
+                        total = Math.round((total + Number.EPSILON) * 100) / 100
+                        $(this).closest('.pricing-simple').find('.total').val(total <= 0 ? 0 : total)
+                    }
+                })
+            } else {
+                let total = Number($(this).val()) - parseFloat(commission);
+                total = Math.round((total + Number.EPSILON) * 100) / 100
+                $(this).closest('.pricing-simple').find('.total').val(total <= 0 ? 0 : total)
+            }
+            return false;
+        })
     </script>
 @endpush

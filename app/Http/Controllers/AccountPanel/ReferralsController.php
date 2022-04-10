@@ -7,6 +7,7 @@ use App\Models\Banner;
 use App\Models\CloudFile;
 use App\Models\Currency;
 use App\Models\Deposit;
+use App\Models\DepositBonus;
 use App\Models\Referral;
 use App\Models\ReferralLinkStat;
 use App\Models\TransactionType;
@@ -31,6 +32,19 @@ class ReferralsController extends Controller
             $upliner = false;
         }
 
+        $currentRank = DepositBonus::find($user->userCurrentRank()->deposit_bonus_id ?? null);
+        $nextRank = DepositBonus::where('personal_turnover', '>', $currentRank->personal_turnover ?? 0)
+            ->where('total_turnover', '>', $currentRank->total_turnover ?? 0)->first();
+
+        $rankPercentage = 100;
+
+        if (!is_null($nextRank)) {
+            $userTotalStat = $user->referrals_invested_total + $user->personal_turnover;
+            $nextRankTotalStat = $nextRank->personal_turnover + $nextRank->total_turnover;
+
+            $rankPercentage = ($userTotalStat / $nextRankTotalStat ) * 100;
+        }
+
         $all_referrals = cache()->remember('referrals.array.' . $user->id, now()->addHours(3), function() use ($user) {
             return $user->getAllReferralsInArray();
         });
@@ -39,13 +53,27 @@ class ReferralsController extends Controller
 
         $activeReferrals = $user->total_referrals_count;
 
-        $referral_link_clicks = cache()->remember('user.'.$user->id, now()->addHours(3), function() use($user) {
-            return ReferralLinkStat::where('partner_id', $user->id)->sum('click_count');
-        });
+//        $referral_link_clicks = cache()->remember('user.'.$user->id, now()->addHours(3), function() use($user) {
+//            return ReferralLinkStat::where('partner_id', $user->id)->sum('click_count');
+//        });
 
-        $referral_link_registered = cache()->remember('referrals_count.'.$user->id, now()->addHours(3), function() use($all_referrals) {
-            return count($all_referrals);
-        });
+        $referral_link_clicks = ReferralLinkStat::where('partner_id', $user->id)->sum('click_count');
+
+//        $referral_link_registered = cache()->remember('referrals_count.'.$user->id, now()->addHours(3), function() use($all_referrals) {
+//            return count($all_referrals);
+//        });
+
+        $referral_link_registered = count($all_referrals);
+
+        $search = \request()->search;
+
+        $filteredReferrals = [];
+
+        if ($search) {
+            $filteredReferrals = User::whereIn('id', array_keys($all_referrals))->where(function ($q) use ($search) {
+               $q->where('login', 'like', '%' . $search . '%')->orWhere('email', 'like', '%' . $search . '%');
+            })->get();
+        }
 
         $personal_turnover = $user->personal_turnover;
 
@@ -58,6 +86,10 @@ class ReferralsController extends Controller
             'personal_turnover' => $personal_turnover,
             'referral_link_registered' => $referral_link_registered,
             'referral_link_clicks' => $referral_link_clicks,
+            'currentRank' => $currentRank,
+            'nextRank' => $nextRank,
+            'rankPercentage' => $rankPercentage,
+            'filteredReferrals' => $filteredReferrals
         ]);
     }
 

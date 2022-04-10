@@ -246,6 +246,18 @@
         .d-grid .btn-danger:hover {
             color: #7e2f38 !important;
         }
+
+        @media screen and (max-width: 620px) {
+            .pin-board {
+                display: block;
+                padding-left: 30px;
+            }
+
+            .risk-col {
+                margin-left: 15%;
+            }
+
+        }
     </style>
 @endpush
 @section('content')
@@ -259,11 +271,11 @@
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                                 <div class="panel-box">
                                     <div class="panel-box-title">
-                                        <h5>
+                                        <h4 class="text-center">
                                             @if(canEditLang() && checkRequestOnEdit())
                                                 <editor_block data-name='Monthly Earnings' contenteditable="true">{{ __('Monthly Earnings') }}</editor_block>
                                             @else {{ __('Monthly Earnings') }}@endif
-                                        </h5>
+                                        </h4>
                                     </div>
                                     <div class="panel-box-content">
                                         <canvas id="canvas" style="width:100%; height:400px;"></canvas>
@@ -284,7 +296,7 @@
                                                     <div class="panel-box-content">
                                                         <div class="row">
                                                             <div class="col-6 statistic-box">
-                                                                <h5 class="text-white">{{ $item->currency->symbol }}{{ number_format($item->balance) ?? 0 }}</h5>
+                                                                <h5 class="text-white">{{ $item->currency->symbol }}{{ $item->currency->code == 'BTC' ? number_format($item->balance, 5) : number_format($item->balance, 2) }}</h5>
                                                                 <h6 class="m-b-0 text-white">{{ $item->currency->name }}</h6>
                                                             </div>
                                                             <div class="col-6 pl-1 pl-2 statistic-charts pt-3">
@@ -339,7 +351,7 @@
                                         </h5>
                                     </div>
                                     <div class="panel-box-content">
-                                        <div id="visitor" style="height:317px;"></div>
+                                        <div id="visitor" style="height:435px;"></div>
                                     </div>
                                 </div>
                             </div>
@@ -357,23 +369,40 @@
                                             <div class="col-12 text-center">
                                                 <div class="col-12">
                                                     <div class="mt-2">
-                                                        <div data-label="{{ round($rankPercentage, 1) }}%" class="radial-bar radial-bar-{{ round($rankPercentage, -1) }} radial-bar-lg radial-bar-warning"></div>
+                                                        <div data-label="{{ round($rankPercentage, 1) }}%" class="radial-bar radial-bar-{{ $rankPercentage <= 100 ?round($rankPercentage, -1) : 100 }} radial-bar-lg radial-bar-info"></div>
 {{--                                                        <input type="text" class="dial" value="{{ round($rankPercentage, 1) }}" data-width="100" data-height="100" data-linecap="round" data-displayprevious="true" data-displayinput="true" data-readonly="true" data-fgcolor="#fe9365">--}}
                                                     </div>
-                                                    @if(!is_null($nextRank))
-                                                        <p>
-                                                            @if(canEditLang() && checkRequestOnEdit())
-                                                                <editor_block data-name='Следующий Ранг' contenteditable="true">{{ __('Следующий Ранг') }}</editor_block>
-                                                            @else {{ __('Следующий Ранг') }}@endif
-                                                        </p>
-                                                        <h6 class="yellow-link-color">
-                                                            @if(canEditLang() && checkRequestOnEdit())
-                                                                <editor_block data-name='{{ $nextRank->status_stage . ' ' . $nextRank->status_name }}' contenteditable="true">{{ __($nextRank->status_stage . ' ' . $nextRank->status_name) }}</editor_block>
-                                                            @else {{ __($nextRank->status_stage . ' ' . $nextRank->status_name) }}@endif
-                                                        </h6>
-                                                    @else
-                                                        <div class="yellow-link-color"></div>
-                                                    @endif
+                                                    <div class="d-flex justify-content-between">
+                                                        <div>
+                                                            <p>
+                                                                @if(canEditLang() && checkRequestOnEdit())
+                                                                    <editor_block data-name='Текущий Ранг' contenteditable="true">{{ __('Текущий Ранг') }}</editor_block>
+                                                                @else {{ __('Текущий Ранг') }}@endif
+                                                            </p>
+                                                            <h6 style="font-weight: bold">
+                                                                @if(!is_null($currentRank))
+                                                                    @if(canEditLang() && checkRequestOnEdit())
+                                                                        <editor_block data-name='{{ $currentRank->status_name . ' ' . $currentRank->status_stage }}' contenteditable="true">{{ __($currentRank->status_name . ' ' . $currentRank->status_stage) }}</editor_block>
+                                                                    @else {{ __($currentRank->status_name . ' ' . $currentRank->status_stage) }}@endif
+                                                                @endif
+                                                            </h6>
+                                                        </div>
+                                                        <div>
+                                                            <p>
+                                                                @if(canEditLang() && checkRequestOnEdit())
+                                                                    <editor_block data-name='Следующий Ранг' contenteditable="true">{{ __('Следующий Ранг') }}</editor_block>
+                                                                @else {{ __('Следующий Ранг') }}@endif
+                                                            </p>
+                                                            <h6 style="font-weight: bold">
+                                                                @if(!is_null($nextRank))
+                                                                    @if(canEditLang() && checkRequestOnEdit())
+                                                                        <editor_block data-name='{{ $nextRank->status_stage . ' ' . $nextRank->status_name }}' contenteditable="true">{{ __($nextRank->status_stage . ' ' . $nextRank->status_name) }}</editor_block>
+                                                                    @else {{ __($nextRank->status_stage . ' ' . $nextRank->status_name) }}@endif
+                                                                @endif
+                                                            </h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="yellow-link-color mb-3"></div>
                                                 </div>
                                                 <div class="pt-1 pl-3 pr-3">
                                                     <span class="pull-left">
@@ -382,12 +411,12 @@
                                                         @else {{ __('Персональный оборот') }}@endif
                                                     </span>
                                                     @if(!is_null($nextRank))
-                                                        <span class="pull-right">{{ $user->personal_turnover }}/{{ $nextRank->personal_turnover }} ({{ \App\Models\UserDepositBonus::getStatsPercentage($user->personal_turnover, $nextRank->personal_turnover) }}%)</span>
+                                                        <span class="pull-right">{{ number_format($user->personal_turnover, 2) }}$ / {{ $nextRank->personal_turnover }}$ ({{ \App\Models\UserDepositBonus::getStatsPercentage($user->personal_turnover, $nextRank->personal_turnover) }}%)</span>
                                                         <div class="progress" style="height: 4px; clear: both;">
                                                             <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width:{{ \App\Models\UserDepositBonus::getStatsPercentage($user->personal_turnover, $nextRank->personal_turnover) }}%;"></div>
                                                         </div>
                                                     @else
-                                                        <span class="pull-right">{{ $user->personal_turnover }}</span>
+                                                        <span class="pull-right">{{ number_format($user->personal_turnover, 2) }}</span>
                                                         <div class="progress" style="height: 4px; clear: both;">
                                                             <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%;"></div>
                                                         </div>
@@ -400,12 +429,12 @@
                                                         @else {{ __('Оборот структуры') }}@endif
                                                     </span>
                                                     @if(!is_null($nextRank))
-                                                        <span class="pull-right">{{ $user->referrals_invested_total }}/{{ $nextRank->total_turnover }} ({{ \App\Models\UserDepositBonus::getStatsPercentage($user->referrals_invested_total, $nextRank->total_turnover) }}%)</span>
+                                                        <span class="pull-right">{{ number_format($user->referrals_invested_total, 2) }}$ / {{ $nextRank->total_turnover }}$ ({{ \App\Models\UserDepositBonus::getStatsPercentage($user->referrals_invested_total, $nextRank->total_turnover) }}%)</span>
                                                         <div class="progress" style="height: 4px; clear: both;">
                                                             <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width:{{ \App\Models\UserDepositBonus::getStatsPercentage($user->referrals_invested_total, $nextRank->total_turnover) }}%;"></div>
                                                         </div>
                                                     @else
-                                                        <span class="pull-right">{{ $user->personal_turnover }}</span>
+                                                        <span class="pull-right">{{ number_format($user->personal_turnover, 2) }}</span>
                                                         <div class="progress" style="height: 4px; clear: both;">
                                                             <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%;"></div>
                                                         </div>
@@ -430,7 +459,7 @@
 
                                                 <div class="pt-2 pl-3 pr-3 mt-3  d-flex justify-content-center">
                                                     <span class="pull-left" style="font-weight: bold">
-                                                         <button type="button" class="btn btn-primary btn-outline btn-xs" onclick="copyToClipboard()">
+                                                         <button type="button" class="btn btn-outline-primary btn-xs" onclick="copyToClipboard()">
                                                              @if(canEditLang() && checkRequestOnEdit())
                                                                  <editor_block data-name='Скопировать ссылку' contenteditable="true">{{ __('Скопировать ссылку') }}</editor_block>
                                                              @else
@@ -453,7 +482,7 @@
                                     <div class="col-xl-12">
                                         <div class="card">
                                             <div class="card-header pt-4 pb-4">
-                                                <h4 class="mb-0">@if(canEditLang() && checkRequestOnEdit())
+                                                <h4 class="mb-0 text-center">@if(canEditLang() && checkRequestOnEdit())
                                                         <editor_block data-name='Last 5 transactions' contenteditable="true">{{ __('Last 5 transactions') }}</editor_block>
                                                     @else {{ __('Last 5 transactions') }}@endif</h4>
                                             </div>
@@ -531,35 +560,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6 appointment">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <div class="header-top">
-                                            <h5 class="m-0">@if(canEditLang() && checkRequestOnEdit())
-                                                    <editor_block data-name='Popularity by country' contenteditable="true">{{ __('Popularity by country') }}</editor_block>
-                                                @else {{ __('Popularity by country') }}@endif</h5>
-                                        </div>
-                                    </div>
-                                    <div class="card-Body">
-                                        <div class="radar-chart">
-                                            <div id="vmap" style="width:100%; height:356px;"></div>
-                                        </div>
-                                    </div>
-{{--                                    <div class="card-footer bg-dark">--}}
-{{--                                        <div class="d-flex align-items-center">--}}
-{{--                                            <img class="d-inline-block jqvmap-country-flag mr-3" alt="flag" src="/adminos/img/flag-icon-css/flags/4x3/us.svg" style="width:55px; height: auto;">--}}
-{{--                                            <h6 class="d-inline-block fw-100 m-0 text-white">--}}
-{{--                                                @if(canEditLang() && checkRequestOnEdit())--}}
-{{--                                                    <editor_block data-name='Popularity by country' contenteditable="true">{{ __('Popularity by country') }}</editor_block>--}}
-{{--                                                @else {{ __('Popularity by country') }}@endif:--}}
-{{--                                                <small class="jqvmap-country">США - {{ $countries_stat['США'] ?? 0 }}</small>--}}
-{{--                                            </h6>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-                                </div>
-                            </div>
-
-                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6">
+                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-8">
                                 <div class="chat_window panel-box">
                                     <div class="top_menu panel-box-title">
                                         <h5 class="text-center">
@@ -610,6 +611,23 @@
                                 </div>
                             </div>
 
+                            <div class="col-lg-4 appointment">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="header-top">
+                                            <h5 class="m-0">@if(canEditLang() && checkRequestOnEdit())
+                                                    <editor_block data-name='Popularity by country' contenteditable="true">{{ __('Popularity by country') }}</editor_block>
+                                                @else {{ __('Popularity by country') }}@endif</h5>
+                                        </div>
+                                    </div>
+                                    <div class="card-Body">
+                                        <div class="radar-chart">
+                                            <div id="vmap" style="width:100%; height:446px;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="col-lg-6 risk-col ">
                                         <ul class="pin-board mt-5" id="draggablePanelList">
                                             @foreach($userStickers as $userSticker)
@@ -626,10 +644,11 @@
                                         </ul>
                             </div>
 
-                            <div class="col-lg-6 risk-col ">
+                            <div class="col-lg-6">
                                 <div class="card total-users">
                                     <div class="card-header card-no-border pb-3 pt-3">
-                                        <h5>@if(canEditLang() && checkRequestOnEdit())
+                                        <h5 class="text-center">
+                                            @if(canEditLang() && checkRequestOnEdit())
                                                 <editor_block data-name='Transfer' contenteditable="true">{{ __('Transfer') }}</editor_block> @else {{ __('Transfer') }} @endif
                                         </h5>
                                     </div>
@@ -638,13 +657,13 @@
                                             @csrf
                                             <div class="apex-chart-container goal-status text-center">
                                                 <div class="rate-card">
-                                                    <h6 class="mb-2 mt-2 f-w-400">@if(canEditLang() && checkRequestOnEdit())
+                                                    <h6 class="mb-2 mt-2 f-w-400" style="color: green">@if(canEditLang() && checkRequestOnEdit())
                                                             <editor_block data-name='User' contenteditable="true">{{ __('User') }}</editor_block> @else {{ __('User') }} @endif
                                                     </h6>
                                                     <div class="input-group mb-3">
                                                         <input class="form-control" type="text" name="user" value="{{ old('user') ?? '' }}">
                                                     </div>
-                                                    <h6 class="mb-2 mt-2 f-w-400">@if(canEditLang() && checkRequestOnEdit())
+                                                    <h6 class="mb-2 mt-2 f-w-400" style="color: green">@if(canEditLang() && checkRequestOnEdit())
                                                             <editor_block data-name='Enter the amount' contenteditable="true">{{ __('Enter the amount') }}</editor_block> @else {{ __('Enter the amount') }} @endif
                                                     </h6>
                                                     <div class="input-group mb-3">
@@ -663,18 +682,8 @@
                                                             @endforelse
                                                         </select>
                                                     </div>
-{{--                                                    <div class="form-check checkbox mb-3">--}}
-{{--                                                        <input class="form-check-input" id="checkbox3" type="checkbox">--}}
-{{--                                                        <label class="form-check-label" for="checkbox3">--}}
-{{--                                                            @if(canEditLang() && checkRequestOnEdit())--}}
-{{--                                                                <editor_block data-name='Do insurance 1' contenteditable="true">{{ __('Do insurance 1') }}</editor_block>--}}
-{{--                                                            @else--}}
-{{--                                                                {{ __('Do insurance 1') }}--}}
-{{--                                                            @endif--}}
-{{--                                                        </label>--}}
-{{--                                                    </div>--}}
                                                     <div class="d-flex justify-content-center">
-                                                        <button class="btn btn-lg btn-primary btn-sm btn-outline btn w-50 btn-block send-money-to-user-btn" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>@if(canEditLang() && checkRequestOnEdit())
+                                                        <button class="btn btn-lg btn-outline-success btn-sm btn w-50 btn-block send-money-to-user-btn" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>@if(canEditLang() && checkRequestOnEdit())
                                                                 <editor_block data-name='Do transfer' contenteditable="true">{{ __('Do transfer') }}</editor_block> @else {{ __('Do transfer') }} @endif
                                                         </button>
                                                     </div>
@@ -790,11 +799,18 @@
                 hover: {
                     mode: 'index'
                 },
+                tooltips: {
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            return tooltipItem.value + '%';
+                        }
+                    }
+                },
                 scales: {
                     xAxes: [{
                         display: true,
                         scaleLabel: {
-                            display: true,
+                            display: false,
                             labelString: 'Дни'
                         }
                     }],
@@ -802,7 +818,12 @@
                         display: true,
                         scaleLabel: {
                             display: true,
-                            labelString: 'Показатели %'
+                            labelString: 'Доходность'
+                        },
+                        ticks: {
+                            callback: function(value, index, ticks) {
+                                return value + '%';
+                            }
                         }
                     }]
                 },
@@ -843,7 +864,7 @@
             precision: 2,
             valueAxes: [{
                 id: "v2",
-                title: "Доходност",
+                title: "Доходность",
                 gridAlpha: 0,
                 position: "right",
                 autoGridCount: !1

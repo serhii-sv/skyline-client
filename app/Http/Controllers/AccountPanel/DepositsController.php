@@ -30,9 +30,9 @@ class DepositsController extends Controller
 
     public function create() {
         $user = auth()->user();
-        $deposit_groups = RateGroup::all();
-        $deposits = Deposit::where('user_id', $user->id)->where('active', true)->orderByDesc('created_at')->with('rate', 'currency', 'wallet')->paginate(12);
-        $rates = Rate::where('active', true)->orderBy('min', 'asc')->get();
+        $deposit_groups = RateGroup::limit(1)->get();
+        $deposits = Deposit::where('user_id', $user->id)->where('active', true)->orderByDesc('created_at')->with('rate', 'currency', 'wallet')->get();
+        $rates = Rate::where('active', true)->orderBy('daily', 'asc')->get();
 
         return view('adminos.pages.deposits.create', [
             'deposit_groups' => $deposit_groups,
@@ -61,8 +61,9 @@ class DepositsController extends Controller
             $currency_usd = Currency::where('code', 'USD')->first();
             if ($currency_usd === null){
                 return json_encode([
-                    'rate_min_max' => '<h5 class="sub-title">'.__('Min '.$rate_id).' ' .  number_format($rate->min, 2,'.',',') .'$</h5>
-                                    <h5 class="sub-title">'.__('Max '.$rate_id).' ' . number_format($rate->max, 2,'.',' ') .'$</h5>',
+                    'rate_min_max' => '<h5 class="sub-title">'.html_entity_decode(__('Минимум:')).' ' .  number_format($rate->min, 2,'.',',') .'<br>$ '.html_entity_decode(__('Максимум:')).' ' . number_format($rate->max, 2,'.',' ') .'$</h5>',
+                    'rate_min' => $rate->min,
+                    'rate_max' => $rate->max,
                 ]);
             }
 
@@ -70,12 +71,15 @@ class DepositsController extends Controller
             $max = Wallet::convertToCurrencyStatic($currency_usd, $currency, $rate->max);
 
             return json_encode([
-                'rate_min_max' => '<h5 class="sub-title">'.__('Min '.$rate_id).' ' . number_format($min, $currency->precision, '.', ',') . ' '. $currency->symbol . '</h5>
-                <h5 class="sub-title">'.__('Max '.$rate_id).' ' . number_format($max, $currency->precision, '.', ' ') . ' '. $currency->symbol . '</h5 >',
+                'rate_min_max' => '<h5 class="sub-title">'.html_entity_decode(__('Минимум:')).' ' . number_format($min, $currency->precision, '.', ',') . $currency->symbol . '<br> ' . html_entity_decode(__('Максимум:')).' ' . number_format($max, $currency->precision, '.', ' ') . $currency->symbol . '</h5 >',
+                'rate_min' => $min,
+                'rate_max' => $max,
             ]);
         }
         return json_encode([
             'rate_min_max' => '0',
+            'rate_min' => '0',
+            'rate_max' => '0',
         ]);
     }
 
@@ -271,8 +275,12 @@ class DepositsController extends Controller
         /** @var RateGroup $rate_group_id */
         $rate_group_id = $rate->rate_group_id;
 
-        if (false === $deposit->canUpdate()) {
+        if (!$rate->upgradable){
             return redirect()->back()->with('error', 'Данный депозит нельзя апгрейдить!');
+        }
+
+        if (false === $deposit->canUpdate()) {
+            return redirect()->back()->with('error', 'Минимальная сумма баланса депозита для апгрейда: ' . number_format($deposit->canUpdate(true), 2));
         }
 
         /** @var Currency $from_currency */
@@ -292,7 +300,7 @@ class DepositsController extends Controller
             ->first();
 
         if (null === $rate) {
-            return redirect()->back()->with('error', 'Подходящий для апгрейда тарифный план не найден.');
+            return redirect()->back()->with('error', 'Сумма депозита недостаточна для апгрейда, пожалуйста сперва совершите реинвестирование!');
         }
 
         DB::transaction(function() use($rate, $from_currency, $deposit, $user) {
@@ -345,6 +353,6 @@ class DepositsController extends Controller
             }
         });
 
-        return back()->with('success', 'Апгрейд прошел успешно!');
+        return back()->with('success', 'Апгрейд депозита успешно произведен!');
     }
 }

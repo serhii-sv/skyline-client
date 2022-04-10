@@ -397,11 +397,12 @@ class Wallet extends Model
      */
     public function exchangeCurrency(Wallet $wallet_from, Wallet $wallet_to, float $amount, float $commission = 0)
     {
-        $converted = $this->convertToCurrency($this->currency, $wallet_to->currency, (abs($amount) - (abs($amount) / 100) - $commission));
+        $converted = $this->convertToCurrency($this->currency, $wallet_to->currency, abs($amount)) - $commission;
+
         $transaction_in = Transaction::exchangeInCurrency($wallet_to, $converted);
 
         if ((float) $converted <= 0) {
-            throw new \Exception('no rate for change '.$this->currency->code.' -> '.$wallet_to->currency->code);
+            throw new \Exception('Недостатачная сумма для проведения конвертации '.$this->currency->code.' -> '.$wallet_to->currency->code);
         }
 
         $transaction_out = Transaction::exchangeOutCurrency($wallet_from, $amount);
@@ -419,7 +420,7 @@ class Wallet extends Model
         $currency_exchange->amount_out = $transaction_out->amount;
         $currency_exchange->main_currency_amount_in = $transaction_in->main_currency_amount;
         $currency_exchange->main_currency_amount_out = $transaction_out->main_currency_amount;
-        $currency_exchange->commission = abs($amount) / 100 * $commission;
+        $currency_exchange->commission = $commission;
         $currency_exchange->save();
 
         return true;

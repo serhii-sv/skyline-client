@@ -106,9 +106,34 @@
             right: 0;
         }
 
+        .navbar-static-top .navbar-header a i {
+            color: #007aff !important;
+        }
+
         .menu-log {
             position: absolute;
             top: 30px
+        }
+
+        .sidebar-header .user-pic img {
+            width: 56px;
+            height: 56px;
+        }
+
+        .user-profile-info .user-name {
+            width: 100px !important;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        @media screen and (max-width: 500px) {
+            .user-profile .dropdown-toggle {
+                width: 100px !important;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
         }
     </style>
 
@@ -133,8 +158,10 @@
 {{--            <a href="https://skyline.limited/" target="_blank">--}}
 {{--                <span class="site-logo" style="color: white;font-size: 30px;font-weight: bold">Skyline</span>--}}
 {{--            </a>--}}
-            <img class="logo-element-img img-logo" id="logo" src="{{ asset('images/Skyline.png') }}" alt="">
-            <a href="https://skyline.limited/" class="close-canvas-menu text-white float-right"><i class="fa fa-times"></i></a>
+            <a href="https://skyline.limited/">
+                <img class="logo-element-img img-logo" id="logo" src="{{ asset('images/Skyline.png') }}" alt="">
+            </a>
+            <a href="#" class="close-canvas-menu text-white float-right"><i class="fa fa-times"></i></a>
         </div>
         @include('adminos.partials.sidebar')
     </nav>
@@ -142,11 +169,6 @@
         @include('adminos.partials.top-nav')
         @yield('content')
     </div>
-    @include('adminos.partials.notifications')
-{{--    <div class="selector-toggle">--}}
-{{--        <a href="javascript:void(0)" class="right-sidebar-toggle"><i class="feather icon-settings rotate-icon"></i></a>--}}
-{{--    </div>--}}
-{{--    @include('adminos.partials.right-sidebar')--}}
 </div>
 <!-- Mainly scripts -->
 <script src="{{ asset('adminos/plugins/jquery/jquery-3.1.1.min.js') }}"></script>
@@ -192,11 +214,11 @@
 
 <script>
     window.addEventListener("load", function(event) {
-        $('.spinner-wrapper').remove()
+        $('.spinner-wrapper').hide()
     });
     $(function () {
         setTimeout(function () {
-            $('.spinner-wrapper').remove()
+            $('.spinner-wrapper').hide()
         }, 4000)
     })
     $(document).ready(function () {

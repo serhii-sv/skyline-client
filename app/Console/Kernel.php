@@ -39,7 +39,7 @@ class Kernel extends ConsoleKernel
             ->runInBackground()
             ->withoutOverlapping();
         $schedule->command('referrals-caches:set')
-            ->everyThirtyMinutes()
+            ->everyMinute()
             ->runInBackground()
             ->withoutOverlapping();
         $schedule->command('calculate:invested-total-and-turnover')

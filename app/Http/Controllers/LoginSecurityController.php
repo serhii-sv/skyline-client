@@ -68,7 +68,7 @@ class LoginSecurityController extends Controller
         $login_security->google2fa_secret = $google2fa->generateSecretKey();
         $login_security->save();
 
-        return redirect('/2fa')->with('success',"Секретный ключ сгенерирова успешно");
+        return redirect('/2fa')->with('success', __("Секретный ключ сгенерирован успешно"));
     }
 
     /**
@@ -84,7 +84,7 @@ class LoginSecurityController extends Controller
         if($valid){
             $user->loginSecurity->google2fa_enable = true;
             $user->loginSecurity->save();
-            return redirect('accountPanel.customer.main')->with('success',"2FA включена успешно.");
+            return redirect('/')->with('success',"2FA включена успешно.");
         }else{
             return redirect('2fa')->with('error',"Неверный код верификации, попробуйте пожалуйста позже.");
         }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\AccountPanel;
 
 use App\Http\Controllers\Controller;
+use App\Mail\RegistrationNotification;
 use App\Models\Banner;
 use App\Models\BotStatistic;
 use App\Models\Deposit;
@@ -21,10 +22,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 
 class DashboardController extends Controller
 {
+    /**
+     *
+     */
     public function __construct() {
         $this->middleware('auth');
 
@@ -39,18 +44,29 @@ class DashboardController extends Controller
 
         $userStickers = collect();
         if (auth()->user()->stickers->count() < 2) {
-            $stickerData = [
-                'user_id' => auth()->id(),
-                'category' => '',
-                'title' => 'Моя мотивация',
-                'description' => 'Описание вашей мотивации',
-                'text_color' => '',
-                'sticker_color' => '',
-                'order' => 0
+            $stickersData = [
+                [
+                    'user_id' => auth()->id(),
+                    'category' => '',
+                    'title' => 'Моя мотивация',
+                    'description' => 'Описание вашей мотивации',
+                    'text_color' => '',
+                    'sticker_color' => '',
+                    'order' => 0
+                ],
+                [
+                    'user_id' => auth()->id(),
+                    'category' => '',
+                    'title' => 'Цель',
+                    'description' => 'Цели',
+                    'text_color' => '',
+                    'sticker_color' => '',
+                    'order' => 0
+                ]
             ];
             for ($i = auth()->user()->stickers->count(); $i <= 1; $i++) {
                 $userSticker = new UserSticker();
-                $userSticker->fill($stickerData);
+                $userSticker->fill($stickersData[$i]);
 
                 $userSticker->save();
 
@@ -70,7 +86,7 @@ class DashboardController extends Controller
             'Sun' => 'Воскресенье'
         ];
 
-        $statisticData = BotStatistic::where('date', '>=', now()->subDays(10))
+        $statisticData = BotStatistic::where('date', '>=', now()->subDays(7))
             ->orderBy('date', 'asc')
             ->get();
 
@@ -79,7 +95,7 @@ class DashboardController extends Controller
         }
 
         $date = now();
-        $dateToCreate = now()->subDays(9);
+        $dateToCreate = now()->subDays(6);
 
         while (true) {
             $botStatistics['labels'][] = $ru_weekdays[$dateToCreate->format('D')];
@@ -88,8 +104,6 @@ class DashboardController extends Controller
             }
             $dateToCreate = $dateToCreate->addDay();
         }
-
-//        dd($botStatistics);
 
         $user = Auth::user();
         $walletArray = Wallet::where('user_id', $user->id)->get();
@@ -216,6 +230,10 @@ class DashboardController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function sendMoney(Request $request) {
         $request->validate(
             [
@@ -287,6 +305,10 @@ class DashboardController extends Controller
         }
     }
 
+    /**
+     * @param $days
+     * @return array
+     */
     public function getPeriodDays($days = 7) {
         $period = [];
         for ($i = 0, $j = $days; $j >= $i; $j--) {
@@ -301,19 +323,50 @@ class DashboardController extends Controller
         return $period;
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function storeUserVideo(Request $request) {
         $video = $request->get('video');
         if (!strlen($video) > 0) {
             return back()->with('error', 'Поле "Ссылка на видео" обязательно для заполнения!');
         }
 
+        $link = $this->getYoutubeVideoLinkForFrame($video);
+
+        if ($link == 'error') {
+            return back()->with('error', 'Неизвестный формат ссылки');
+        }
+
         $user_video = new UserVideo();
-        $user_video->link = htmlspecialchars($video);
+        $user_video->link = '<iframe width="560" height="315" src="' . $link . '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
         $user_video->user_id = Auth::user()->id;
 
         if ($user_video->save()) {
             return back()->with('success', 'Ваше видео передано в обработку!');
         }
         return back()->with('error', 'Не удалось загрузить!');
+    }
+
+    /**
+     * @param $link
+     * @return string
+     */
+    private function getYoutubeVideoLinkForFrame($link)
+    {
+        if (strpos($link,'https://www.youtube.com/') !== false) {
+            return 'https://www.youtube.com/embed/' . explode('v=', $link)[1] ?? '';
+        }
+
+        if (strpos($link, 'https://youtu.be') !== false) {
+            return 'https://www.youtube.com/embed/' . explode('https://youtu.be/', $link)[1] ?? '';
+        }
+
+        if (strpos($link, 'https://www.youtube.com/embed') !== false) {
+            return $link;
+        }
+
+        return 'error';
     }
 }

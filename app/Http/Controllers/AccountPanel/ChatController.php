@@ -51,9 +51,9 @@ class ChatController extends Controller
         $filteredReferrals = [];
         $activeCats = [];
         if (is_null(\request()->login)) {
-            $activeCats = Chat::with('userReferral')->whereHas('chatMessages')->where(function ($q) use ($user) {
-                $q->where('user_partner', $user->id);
-            })->get();
+//            $activeCats = Chat::with('userReferral')->whereHas('chatMessages')->where(function ($q) use ($user) {
+//                $q->where('user_partner', $user->id);
+//            })->get();
         } else {
             $filteredReferrals = $user->referrals()->where('login', 'like', '%' . \request()->login . '%')->get();
         }

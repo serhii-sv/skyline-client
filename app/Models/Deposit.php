@@ -9,6 +9,7 @@ namespace App\Models;
 use App\Traits\SumOperations;
 use App\Traits\Uuids;
 use Carbon\Carbon;
+use Faker\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
@@ -342,7 +343,7 @@ class Deposit extends Model
 
         $reinvest = $this->reinvest ?? 0;
 
-        $faker = Faker\Factory::create();
+        $faker = Factory::create();
         $daily = $this->daily > 0 && $this->daily_max > 0
             ? $faker->randomFloat(2, $this->daily, $this->daily_max)
             : $this->daily;
@@ -383,7 +384,9 @@ class Deposit extends Model
         $this->addBalance($amountReinvest);
 
         if ($amountReinvest > 0) {
-          $wallet->accrueToPartner($amountReinvest, 'deposit');
+            $wallet->accrueToPartner($amountReinvest, 'deposit');
+
+            Transaction::reinvest($wallet, $amountReinvest, $this);
         }
 
         if ($dividend) {
@@ -544,10 +547,10 @@ class Deposit extends Model
     /**
      * @return bool
      */
-    public function canUpdate() {
-        if (!$this->rate->upgradable){
-            return false;
-        }
+    public function canUpdate($get_max_rate = false) {
+//        if (!$this->rate->upgradable){
+//            return false;
+//        }
 
         /** @var Currency $to_currency */
         $to_currency = $this->currency;
@@ -558,7 +561,7 @@ class Deposit extends Model
         /** @var float $rate_max */
         $rate_max = Wallet::convertToCurrencyStatic($from_currency, $to_currency, $this->rate->max);
 
-        return $rate_max > 0
+        return $get_max_rate ? $rate_max :  $rate_max > 0
             && $this->balance >= ($rate_max + 1); // +1 обычно следующий план на доллар дороже
     }
 }

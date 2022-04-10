@@ -4,6 +4,16 @@
 @endsection
 @push('scripts')
     <link rel="stylesheet" href="{{ asset('adminos/css/ecommerce/ecommerce.css') }}">
+    <style>
+        .product-image img {
+            height: unset !important;
+        }
+
+        /*.product-image, .product-image a {*/
+        /*    display: flex !important;*/
+        /*    align-items: center !important;*/
+        /*}*/
+    </style>
 @endpush
 @section('content')
     <div class="main-content">
@@ -28,9 +38,11 @@
                             <div class="col-md-4 col-sm-6 mb-4">
                                 <div class="product-grid">
                                     <div class="product-image img-height-8">
-                                        <a href="#">
-                                            <img class="pic-1" src="{{ $productImage = ($product->image ? \Illuminate\Support\Facades\Storage::disk('do_spaces')->url($product->image) : asset('images/product-default.png')) }}" alt="image">
-                                            <img class="pic-2" src="{{ $productImage }}" alt="image">
+                                        <a href="#" class="d-flex align-items-center h-100">
+                                            <div class="">
+                                                <img class="pic-1" src="{{ $productImage = ($product->image ? \Illuminate\Support\Facades\Storage::disk('do_spaces')->url($product->image) : asset('images/product-default.png')) }}" alt="image">
+                                            </div>
+{{--                                            <img class="pic-2" src="{{ $productImage }}" alt="image">--}}
                                         </a>
                                         <ul class="social-btn">
                                             <li><a href="{{ route('accountPanel.products.show', $product->slug) }}" data-tip="Просмотр"><i class="fa fa-search"></i></a></li>

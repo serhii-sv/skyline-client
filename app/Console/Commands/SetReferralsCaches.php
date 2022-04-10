@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Transaction;
+use App\Models\TransactionType;
 use App\Models\User;
 use App\Models\Wallet;
 use Illuminate\Console\Command;
@@ -44,7 +45,8 @@ class SetReferralsCaches extends Command
         foreach (User::orderBy('referrals_invested_total', 'asc')->get() as $user) {
             $this->info('work with user '.$user->login);
 
-//            cache()->forget('referrals.array.' . $user->id);
+            cache()->forget('referrals.array.' . $user->id);
+
             cache()->put('referrals.array.' . $user->id, $user->getAllReferralsInArray(), now()->addHours(3));
             $all_referrals = cache()->get('referrals.array.' . $user->id);
 
@@ -52,7 +54,23 @@ class SetReferralsCaches extends Command
                 return $this->getChildrens($user, 7);
             });
 
+//            cache()->forget('user.total_invested_' . $user->id);
+//            $invested = $user->invested();
+//
+//            $this->info('invested '.$invested);
+//
+//            cache()->forget('user.referral_accruals' . $user->id);
+//            $referralAccruals = $user->referral_accruals($user);
+//            $this->info('referral accruals '.$referralAccruals);
+//
+//            cache()->forget('user.deposit_accruals' . $user->id);
+//            $depositAccruals = $user->deposits_accruals();
+//            $this->info('deposit accruals '.$depositAccruals);
+
             $walletArray = Wallet::where('user_id', $user->id)->get();
+
+            $partner_type = TransactionType::where('name', 'partner')->first();
+            $dividend_type = TransactionType::where('name', 'dividend')->first();
 
             foreach ($walletArray as $wallet) {
                 $walletsStats[$wallet->id] = cache()->remember('wallets_stats_'.$user->id . '_' . $wallet->id, now()->addMinutes(60), function () use ($wallet, $dividend_type, $partner_type) {
@@ -97,12 +115,16 @@ class SetReferralsCaches extends Command
                     /** @var User $referral */
                     $referral = User::find($referral->id);
 
+//                    cache()->forget('user.total_invested_' . $user->id);
                     $invested = $referral->invested();
+
                     $this->info('invested '.$invested);
 
+//                    cache()->forget('user.referral_accruals' . $user->id);
                     $referralAccruals = $referral->referral_accruals($user);
                     $this->info('referral accruals '.$referralAccruals);
 
+//                    cache()->forget('user.deposit_accruals' . $user->id);
                     $depositAccruals = $referral->deposits_accruals();
                     $this->info('deposit accruals '.$depositAccruals);
 

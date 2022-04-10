@@ -1060,10 +1060,10 @@ function renderPagination(wizard, options, state)
 
         if (!options.forceMoveForward)
         {
-            buttons += buttonTemplate.format("previous", 'Предыдущий');
+            buttons += buttonTemplate.format("previous", 'Назад');
         }
 
-        buttons += buttonTemplate.format("next", 'Следующий');
+        buttons += buttonTemplate.format("next", 'Далее');
 
         if (options.enableFinishButton)
         {
