@@ -272,9 +272,8 @@
                                                                                                         <td>{{ number_format($deposit->balance, $deposit->currency->precision, '.', ',') ?? 0 }} {{ $deposit->currency->symbol }}</td>
                                                                                                         <th scope="col">
                                                                                                             @if($deposit->rate->daily <= 0)
-                                                                                                                @php($perDayPercent = $deposit->overall / $deposit->duration)
-                                                                                                                @php($perDay = $deposit->invested / $deposit->duration)
-                                                                                                                @php($perDay = $perDay + $perDay / 100 * $perDayPercent)
+                                                                                                                @php($perc = ($deposit->overall - 100) / $deposit->duration)
+                                                                                                                @php($perDay = $deposit->invested / 100 * $perc)
                                                                                                                 {{ round(\Carbon\Carbon::parse($deposit->created_at)->diffInDays(now()) * $perDay, $deposit->currency->precision)  }}{{ $deposit->currency->symbol }}
                                                                                                             @else
                                                                                                                 {{number_format($deposit->total_assessed(), $deposit->currency->precision, '.', ',') ?? 0 }} {{ $deposit->currency->symbol }}
