@@ -44,6 +44,10 @@
                 height: auto;
             }
         }
+
+        .main-content .card {
+            background: rgba(255, 255, 255, 0.62);
+        }
     </style>
 @endpush
 @section('content')
