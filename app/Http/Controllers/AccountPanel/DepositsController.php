@@ -32,7 +32,7 @@ class DepositsController extends Controller
         $user = auth()->user();
         $deposit_groups = RateGroup::limit(1)->get();
         $deposits = Deposit::where('user_id', $user->id)->where('active', true)->orderByDesc('created_at')->with('rate', 'currency', 'wallet')->get();
-        $rates = Rate::where('active', true)->orderBy('daily', 'asc')->get();
+        $rates = Rate::where('active', true)->orderBy('duration', 'desc')->get();
 
         return view('adminos.pages.deposits.create', [
             'deposit_groups' => $deposit_groups,
@@ -303,7 +303,7 @@ class DepositsController extends Controller
             return redirect()->back()->with('error', 'Сумма депозита недостаточна для апгрейда, пожалуйста сперва совершите реинвестирование!');
         }
 
-        DB::transaction(function() use($rate, $from_currency, $deposit, $user) {
+//        DB::transaction(function() use($rate, $from_currency, $deposit, $user) {
             $checkExists = $user->deposits()
                 ->where('created_at', '>=', now()->subSeconds(60)->toDateTimeString())
                 ->count();
@@ -351,7 +351,7 @@ class DepositsController extends Controller
 
                 $deposit_new->createSequence();
             }
-        });
+//        });
 
         return back()->with('success', 'Апгрейд депозита успешно произведен!');
     }
