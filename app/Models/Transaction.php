@@ -198,6 +198,7 @@ class Transaction extends Model
         }
 
         $precision = $this->currency->precision ?? 2;
+        $precision = $this->currency->code == 'USD' ? 3 : $precision;
 
         if ($precision > 8) {
             $precision = 8;

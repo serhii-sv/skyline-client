@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Language;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 use JoggApp\GoogleTranslate\GoogleTranslate;
@@ -14,7 +15,7 @@ class TranslateFilesCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'translate:files {from} {to}';
+    protected $signature = 'translate:files {from?} {to?}';
 
     /**
      * The console command description.
@@ -45,6 +46,13 @@ class TranslateFilesCommand extends Command
         $from = $this->argument('from');
         $to = $this->argument('to');
 
+        if (!$from && !$to) {
+            $toArray = Language::where('code', '<>', 'ru')->pluck('code');
+            $from = 'ru';
+        } else {
+            $toArray = [$to];
+        }
+
         $this->info('available languages');
         $this->info(print_r($translate->getAvaliableTranslationsFor($from),true));
 
@@ -64,28 +72,35 @@ class TranslateFilesCommand extends Command
 
         // ---
 
-        $toArray = [];
-        $toManualArray = [];
+        foreach ($toArray as $to) {
 
-        foreach ($fromArray as $key => $val) {
-            $toArray[$key] = $translate->translate($val, $to)['translated_text'] ?? $val;
-            $this->info(print_r($val,true).' translated to '.print_r($toArray[$key],true));
+            $this->info('Translate from ' . $from . ' to ' . $to);
+
+            $toArray = [];
+            $toManualArray = [];
+
+            foreach ($fromArray as $key => $val) {
+                $val = html_entity_decode($val);
+                $toArray[$key] = $translate->translate($val, $to)['translated_text'] ?? $val;
+                $this->info(print_r($val, true) . ' translated to ' . print_r($toArray[$key], true));
+            }
+
+            foreach ($fromManualArray as $key => $val) {
+                $val = html_entity_decode($val);
+                $toManualArray[$key] = $translate->translate($val, $to)['translated_text'] ?? $val;
+                $this->info(print_r($val, true) . ' translated to ' . print_r($toManualArray[$key], true));
+            }
+
+            // ---
+
+            $toArray = json_encode($toArray);
+            $toManualArray = json_encode($toManualArray);
+
+            Storage::disk('lang')->put($to . '.json', $toArray);
+            Storage::disk('lang')->put($to . '_manual.json', $toManualArray);
+
+            $this->info('success');
         }
-
-        foreach ($fromManualArray as $key => $val) {
-            $toManualArray[$key] = $translate->translate($val, $to)['translated_text'] ?? $val;
-            $this->info(print_r($val,true).' translated to '.print_r($toManualArray[$key],true));
-        }
-
-        // ---
-
-        $toArray = json_encode($toArray);
-        $toManualArray = json_encode($toManualArray);
-
-        Storage::disk('lang')->put($to.'.json', $toArray);
-        Storage::disk('lang')->put($to.'_manual.json', $toManualArray);
-
-        $this->info('success');
 
         return Command::SUCCESS;
     }

@@ -264,12 +264,17 @@
                                                             <editor_block data-name='Project Descriptions' contenteditable="true">{{ __('Project Descriptions') }}</editor_block>
                                                         @else {{ __('Project Descriptions') }}@endif
                                                     </h5>
-                                                    <p>
+                                                    <p style="font-size: 12px">
                                                         @if(canEditLang() && checkRequestOnEdit())
                                                             <editor_block data-name='Lorem ipsum text' contenteditable="true">{{ __('Lorem ipsum text') }}</editor_block>
                                                         @else {{ __('Lorem ipsum text') }}@endif
                                                     </p>
                                                 </div>
+                                                <a href="https://www.youtube.com/watch?v=JTIKXvLGosU" target="_blank" class="btn btn-outline-primary" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
+                                                    @if(canEditLang() && checkRequestOnEdit())
+                                                        <editor_block data-name='Презентация' contenteditable="true">{{ __('Презентация') }}</editor_block>
+                                                    @else {{ __('Презентация') }}@endif
+                                                </a>
                                             </div>
                                         </div>
                                     </div>

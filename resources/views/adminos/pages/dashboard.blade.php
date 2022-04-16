@@ -519,10 +519,12 @@
                                                                                     <editor_block data-name='{{ 'locale.' . $transaction->type->name }}' contenteditable="true">{{ __('locale.' . $transaction->type->name) }}</editor_block> @else {{ __('locale.' . $transaction->type->name) }}@endif
                                                                                 {{-- {{ __('locale.' . $transaction->type->name) ?? 'Не указано' }}--}}</td>
                                                                             <td>
-                                                                                <span class="">{{$transaction->currency->symbol}} {{ number_format($transaction->amount, $transaction->currency->precision, '.', ',') ?? 0 }}</span>
                                                                                 @if(!preg_match('/USD/', $transaction->currency->code))
+                                                                                    <span class="">{{$transaction->currency->symbol}} {{ number_format($transaction->amount, $transaction->currency->precision, '.', ',') ?? 0 }}</span>
                                                                                     <br>
                                                                                     <span class="badge rounded-pill pill-badge-info">$ {{ number_format($transaction->main_currency_amount, 2, '.', ',') ?? 0 }}</span>
+                                                                                @else
+                                                                                    <span class="">{{$transaction->currency->symbol}} {{ number_format($transaction->amount, 3, '.', ',') ?? 0 }}</span>
                                                                                 @endif
                                                                             </td>
                                                                             <td>
