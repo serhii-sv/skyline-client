@@ -57,8 +57,8 @@ class DashboardController extends Controller
                 [
                     'user_id' => auth()->id(),
                     'category' => '',
-                    'title' => 'Цель',
-                    'description' => 'Цели',
+                    'title' => 'Моя цель',
+                    'description' => 'Описание вашей цели',
                     'text_color' => '',
                     'sticker_color' => '',
                     'order' => 0
