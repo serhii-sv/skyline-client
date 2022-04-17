@@ -86,24 +86,30 @@ class DashboardController extends Controller
             'Sun' => 'Воскресенье'
         ];
 
-        $statisticData = BotStatistic::where('date', '>=', now()->subDays(7))
-            ->orderBy('date', 'asc')
-            ->get();
+        $botStatistics = [];
 
-        foreach ($statisticData as $data) {
-            $botStatistics['values'][$data->bot_name][] = $data->value;
-        }
+        $botStatistics = cache()->remember('bot_stats', now()->addMinutes(200), function () use ($ru_weekdays, $botStatistics) {
+            $statisticData = BotStatistic::where('date', '>=', now()->subDays(7))
+                ->orderBy('date', 'asc')
+                ->get();
 
-        $date = now();
-        $dateToCreate = now()->subDays(6);
-
-        while (true) {
-            $botStatistics['labels'][] = $ru_weekdays[$dateToCreate->format('D')];
-            if ($date < $dateToCreate) {
-                break;
+            foreach ($statisticData as $data) {
+                $botStatistics['values'][$data->bot_name][] = $data->value;
             }
-            $dateToCreate = $dateToCreate->addDay();
-        }
+
+            $date = now();
+            $dateToCreate = now()->subDays(6);
+
+            while (true) {
+                $botStatistics['labels'][] = $ru_weekdays[$dateToCreate->format('D')];
+                if ($date < $dateToCreate) {
+                    break;
+                }
+                $dateToCreate = $dateToCreate->addDay();
+            }
+
+            return $botStatistics;
+        });
 
         $user = Auth::user();
         $walletArray = Wallet::where('user_id', $user->id)->get();
