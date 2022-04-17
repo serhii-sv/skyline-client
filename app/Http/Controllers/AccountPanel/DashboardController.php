@@ -76,19 +76,9 @@ class DashboardController extends Controller
             $userStickers = auth()->user()->stickers()->get();
         }
 
-        $ru_weekdays = [
-            'Mon' => 'Понедельник',
-            'Tue' => 'Вторник',
-            'Wed' => 'Среда',
-            'Thu' => 'Четверг',
-            'Fri' => 'Пятница',
-            'Sat' => 'Суббота',
-            'Sun' => 'Воскресенье'
-        ];
-
         $botStatistics = [];
 
-        $botStatistics = cache()->remember('bot_stats_' . app()->getLocale(), now()->addMinutes(200), function () use ($ru_weekdays, $botStatistics) {
+        $botStatistics = cache()->remember('bot_stats_' . app()->getLocale(), now()->addMinutes(200), function () use ($botStatistics) {
             $statisticData = BotStatistic::where('date', '>=', now()->subDays(7))
                 ->orderBy('date', 'asc')
                 ->get();
@@ -101,7 +91,7 @@ class DashboardController extends Controller
             $dateToCreate = now()->subDays(6);
 
             while (true) {
-                $botStatistics['labels'][] = app()->getLocale() == 'ru' ? $ru_weekdays[$dateToCreate->format('D')] : $dateToCreate->format('D');
+                $botStatistics['labels'][] = ucfirst($dateToCreate->locale(app()->getLocale())->dayName);
                 if ($date < $dateToCreate) {
                     break;
                 }

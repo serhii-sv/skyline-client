@@ -151,6 +151,19 @@
             transform: scale(1);
         }
 
+        label a {
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: white;
+            text-decoration: underline;
+            font-family: Poppins-Regular, sans-serif;
+        }
+
+        input[type="checkbox"]:checked {
+            border: 1px solid white;
+        }
+
     </style>
 @endsection
 
@@ -264,6 +277,27 @@
                 </div>
             </div>
 
+            <div style="display: flex; justify-content: space-between; margin-bottom: 30px; color: white !important;">
+                <div>
+                    <input type="checkbox" name="privacy-policy" value="1">
+                </div>
+                <div style="margin-left: 10px">
+                    <label>
+                        @if(canEditLang() && checkRequestOnEdit())
+                            <editor_block data-name='Подтверждаю, что ознакомлен с' contenteditable="true">{{ __('Подтверждаю, что ознакомлен с') }}</editor_block>
+                        @else {{ __('Подтверждаю, что ознакомлен с') }}@endif
+                        <a href="https://skyline.limited/privacy-policy" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
+                            @if(canEditLang() && checkRequestOnEdit())
+                                <editor_block data-name='Политикой приватности' contenteditable="true">{{ __('Политикой приватности') }}</editor_block>
+                            @else {{ __('Политикой приватности') }}@endif
+                        </a>
+                            @if(canEditLang() && checkRequestOnEdit())
+                                <editor_block data-name='этого сайта' contenteditable="true">{{ __('этого сайта') }}</editor_block>
+                            @else {{ __('этого сайта') }}@endif
+                    </label>
+                </div>
+            </div>
+
             <div class="container-login100-form-btn">
                 <button class="login100-form-btn" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
                     @if(canEditLang() && checkRequestOnEdit())
@@ -308,7 +342,6 @@
                 };
 
                 var onError = function (error) {
-                    console.log(error);
                     init();
 
                 };
