@@ -636,15 +636,25 @@
                             </div>
 
                             @if(canEditLang() && checkRequestOnEdit())
-                                <div class="col-lg-12"
+                                <div class="col-lg-12">
+                                <div>
                                     @if(canEditLang() && checkRequestOnEdit())<editor_block data-name='Введите заголовок' contenteditable="true">{{ __('Введите заголовок') }}</editor_block> @endif
+                                </div>
+                                    <div>
                                     @if(canEditLang() && checkRequestOnEdit())<editor_block data-name='Ваше сообщение' contenteditable="true">{{ __('Ваше сообщение') }}</editor_block> @endif
-
+                                    </div>
+                                    <div>
                                     @if(canEditLang() && checkRequestOnEdit())<editor_block data-name='Заметки' contenteditable="true">{{ __('Заметки') }}</editor_block> @endif
+                                    </div>
+                                    <div>
                                     @if(canEditLang() && checkRequestOnEdit())<editor_block data-name='Например: перезвонить и помочь партнеру с регистрацией в 20:00.' contenteditable="true">{{ __('Например: перезвонить и помочь партнеру с регистрацией в 20:00.') }}</editor_block> @endif
-
+                                    </div>
+                                    <div>
                                     @if(canEditLang() && checkRequestOnEdit())<editor_block data-name='Мотивация' contenteditable="true">{{ __('Мотивация') }}</editor_block> @endif
+                                    </div>
+                                    <div>
                                     @if(canEditLang() && checkRequestOnEdit())<editor_block data-name='Например: покупка автомобиля, отдых на море.' contenteditable="true">{{ __('Например: покупка автомобиля, отдых на море.') }}</editor_block> @endif
+                                    </div>
                                 </div>
                             @endif
 
