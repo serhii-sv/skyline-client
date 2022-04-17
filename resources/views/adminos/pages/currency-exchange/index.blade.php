@@ -132,7 +132,8 @@
                                                             <div class="col-lg-3">
                                                                 <div class="form-group row">
                                                                     <div class="col">
-                                                                        <label class="form-label">КУРС</label>
+                                                                        <label class="form-label">@if(canEditLang() && checkRequestOnEdit())
+                                                                                <editor_block data-name='КУРС' contenteditable="true">{{ __('КУРС') }}</editor_block> @else {{ __('КУРС') }} @endif</label>
                                                                         <div class="input-group mb-3">
                                                                             <input class="form-control" type="text" id="rate" value="" placeholder="0.1" readonly>
                                                                         </div>
@@ -153,7 +154,8 @@
                                                             <div class="col-lg-3">
                                                                 <div class="form-group row">
                                                                     <div class="col">
-                                                                        <label class="form-label">Вы получаете</label>
+                                                                        <label class="form-label">@if(canEditLang() && checkRequestOnEdit())
+                                                                                <editor_block data-name='Вы получаете' contenteditable="true">{{ __('Вы получаете') }}</editor_block> @else {{ __('Вы получаете') }} @endif</label>
                                                                         <div class="input-group mb-3">
                                                                             <input class="form-control" type="text" id="toAmount" value="" placeholder="0.1" readonly>
                                                                         </div>

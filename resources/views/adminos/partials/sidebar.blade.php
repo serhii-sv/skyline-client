@@ -20,7 +20,7 @@
                                             <strong>{{ $user->login }}</strong>
                                         </span>
                             <span class="user-role">
-                                {{ App\Models\DepositBonus::find($user->userCurrentRank()->deposit_bonus_id ?? null)->status_name ?? '' }}
+                                {{ __(App\Models\DepositBonus::find($user->userCurrentRank()->deposit_bonus_id ?? null)->status_name ?? '') }}
                             </span>
                             <span class="user-status">
                                             <i class="fa fa-circle text-success"></i>
