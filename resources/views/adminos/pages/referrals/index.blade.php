@@ -270,7 +270,7 @@
                                                         @else {{ __('Lorem ipsum text') }}@endif
                                                     </p>
                                                 </div>
-                                                <a href="https://www.youtube.com/watch?v=JTIKXvLGosU" target="_blank" class="btn btn-outline-primary" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
+                                                <a href="{{ asset('pdf/SKYLINE.pdf') }}" target="_blank" class="btn btn-outline-primary" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
                                                     @if(canEditLang() && checkRequestOnEdit())
                                                         <editor_block data-name='Презентация' contenteditable="true">{{ __('Презентация') }}</editor_block>
                                                     @else {{ __('Презентация') }}@endif
