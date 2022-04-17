@@ -6,6 +6,7 @@
 
 namespace App\Models;
 
+use App\Jobs\UpdateReferralAccruals;
 use App\Traits\ConvertCurrency;
 use App\Traits\SumOperations;
 use App\Traits\Uuids;
@@ -358,6 +359,9 @@ class Transaction extends Model
             'source' => $referral->id,
             'approved' => true,
         ]);
+
+        UpdateReferralAccruals::dispatchSync($transaction);
+
         return $transaction->save() ? $transaction : null;
     }
 
