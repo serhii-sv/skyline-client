@@ -48,8 +48,8 @@ class DashboardController extends Controller
                 [
                     'user_id' => auth()->id(),
                     'category' => '',
-                    'title' => 'Моя мотивация',
-                    'description' => 'Описание вашей мотивации',
+                    'title' => 'Заметки',
+                    'description' => 'Например: перезвонить и помочь партнеру с регистарцией в 20:00.',
                     'text_color' => '',
                     'sticker_color' => '',
                     'order' => 0
@@ -57,8 +57,8 @@ class DashboardController extends Controller
                 [
                     'user_id' => auth()->id(),
                     'category' => '',
-                    'title' => 'Моя цель',
-                    'description' => 'Описание вашей цели',
+                    'title' => 'Мотивация',
+                    'description' => 'Например: покупка автомобил, отдых на море.',
                     'text_color' => '',
                     'sticker_color' => '',
                     'order' => 0
@@ -86,24 +86,30 @@ class DashboardController extends Controller
             'Sun' => 'Воскресенье'
         ];
 
-        $statisticData = BotStatistic::where('date', '>=', now()->subDays(7))
-            ->orderBy('date', 'asc')
-            ->get();
+        $botStatistics = [];
 
-        foreach ($statisticData as $data) {
-            $botStatistics['values'][$data->bot_name][] = $data->value;
-        }
+        $botStatistics = cache()->remember('bot_stats_' . app()->getLocale(), now()->addMinutes(200), function () use ($ru_weekdays, $botStatistics) {
+            $statisticData = BotStatistic::where('date', '>=', now()->subDays(7))
+                ->orderBy('date', 'asc')
+                ->get();
 
-        $date = now();
-        $dateToCreate = now()->subDays(6);
-
-        while (true) {
-            $botStatistics['labels'][] = $ru_weekdays[$dateToCreate->format('D')];
-            if ($date < $dateToCreate) {
-                break;
+            foreach ($statisticData as $data) {
+                $botStatistics['values'][$data->bot_name][] = $data->value;
             }
-            $dateToCreate = $dateToCreate->addDay();
-        }
+
+            $date = now();
+            $dateToCreate = now()->subDays(6);
+
+            while (true) {
+                $botStatistics['labels'][] = app()->getLocale() == 'ru' ? $ru_weekdays[$dateToCreate->format('D')] : $dateToCreate->format('D');
+                if ($date < $dateToCreate) {
+                    break;
+                }
+                $dateToCreate = $dateToCreate->addDay();
+            }
+
+            return $botStatistics;
+        });
 
         $user = Auth::user();
         $walletArray = Wallet::where('user_id', $user->id)->get();
