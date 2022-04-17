@@ -48,8 +48,8 @@ class DashboardController extends Controller
                 [
                     'user_id' => auth()->id(),
                     'category' => '',
-                    'title' => 'Моя мотивация',
-                    'description' => 'Описание вашей мотивации',
+                    'title' => 'Заметки',
+                    'description' => 'Например: перезвонить и помочь партнеру с регистарцией в 20:00.',
                     'text_color' => '',
                     'sticker_color' => '',
                     'order' => 0
@@ -57,8 +57,8 @@ class DashboardController extends Controller
                 [
                     'user_id' => auth()->id(),
                     'category' => '',
-                    'title' => 'Моя цель',
-                    'description' => 'Описание вашей цели',
+                    'title' => 'Мотивация',
+                    'description' => 'Например: покупка автомобил, отдых на море.',
                     'text_color' => '',
                     'sticker_color' => '',
                     'order' => 0
@@ -88,7 +88,7 @@ class DashboardController extends Controller
 
         $botStatistics = [];
 
-        $botStatistics = cache()->remember('bot_stats', now()->addMinutes(200), function () use ($ru_weekdays, $botStatistics) {
+        $botStatistics = cache()->remember('bot_stats_' . app()->getLocale(), now()->addMinutes(200), function () use ($ru_weekdays, $botStatistics) {
             $statisticData = BotStatistic::where('date', '>=', now()->subDays(7))
                 ->orderBy('date', 'asc')
                 ->get();
@@ -101,7 +101,7 @@ class DashboardController extends Controller
             $dateToCreate = now()->subDays(6);
 
             while (true) {
-                $botStatistics['labels'][] = $ru_weekdays[$dateToCreate->format('D')];
+                $botStatistics['labels'][] = app()->getLocale() == 'ru' ? $ru_weekdays[$dateToCreate->format('D')] : $dateToCreate->format('D');
                 if ($date < $dateToCreate) {
                     break;
                 }
