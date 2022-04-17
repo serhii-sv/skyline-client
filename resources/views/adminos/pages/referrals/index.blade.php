@@ -126,18 +126,24 @@
                                                                 @if(canEditLang() && checkRequestOnEdit())
                                                                     <editor_block data-name='Referral link transitions' contenteditable="true">{{ __('Referral link transitions') }}</editor_block> @else {{ __('Referral link transitions') }} @endif
                                                             </h6>
-                                                            <span>{{ $referral_link_clicks ?? 0 }}</span>
+                                                            <div class="pt-2">
+                                                                <span>{{ $referral_link_clicks ?? 0 }}</span>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-2 ttl-info text-start">
                                                         <h6>@if(canEditLang() && checkRequestOnEdit())
                                                                 <editor_block data-name='Registered partners' contenteditable="true">{{ __('Registered partners') }}</editor_block> @else {{ __('Registered partners') }} @endif</h6>
-                                                        <span>{{ $referral_link_registered }}</span>
+                                                        <div class="pt-2">
+                                                            <span>{{ $referral_link_registered }}</span>
+                                                        </div>
                                                     </div>
                                                     <div class="col-md-2 ttl-info text-start">
                                                         <h6>@if(canEditLang() && checkRequestOnEdit())
                                                                 <editor_block data-name='Active partners' contenteditable="true">{{ __('Active partners') }}</editor_block> @else {{ __('Active partners') }} @endif</h6>
-                                                        <span>{{ $activeReferrals }}</span>
+                                                        <div class="pt-2">
+                                                            <span>{{ $activeReferrals }}</span>
+                                                        </div>
                                                     </div>
 
 
@@ -147,7 +153,9 @@
                                                                 @if(canEditLang() && checkRequestOnEdit())
                                                                     <editor_block data-name='Your login' contenteditable="true">{{ __('Your login') }}</editor_block> @else {{ __('Your login') }} @endif
                                                             </h6>
-                                                            <span>{{ $user->login }}</span>
+                                                            <div class="pt-2">
+                                                                <span>{{ $user->login }}</span>
+                                                            </div>
                                                         </div>
                                                     @else
                                                         <div class="col-md-2 ttl-info text-start">
@@ -155,7 +163,9 @@
                                                                 @if(canEditLang() && checkRequestOnEdit())
                                                                     <editor_block data-name='Your upliner' contenteditable="true">{{ __('Your upliner') }}</editor_block> @else {{ __('Your upliner') }} @endif
                                                             </h6>
-                                                            <span>{{ $upliner->login }}</span>
+                                                            <div class="pt-2">
+                                                                <span>{{ $upliner->login }}</span>
+                                                            </div>
                                                         </div>
                                                     @endif
 
@@ -164,9 +174,11 @@
                                                             @if(canEditLang() && checkRequestOnEdit())
                                                                 <editor_block data-name='Your referral link' contenteditable="true">{{ __('Your referral link') }}</editor_block> @else {{ __('Your referral link') }} @endif
                                                         </h6>
-                                                        <span>{{ route('ref_link', $user->my_id) }}</span>
+                                                        <div class="pt-2">
+                                                            <span>{{ route('ref_link', $user->my_id) }}</span>
+                                                        </div>
 
-                                                        <div class="pt-2 pl-3 pr-3  d-flex justify-content-center">
+                                                        <div class="pt-2 pl-3 pr-3 mt-2 d-flex justify-content-center">
                                                             <span class="pull-left" style="font-weight: bold">
                                                                  <button type="button" class="btn btn-outline-primary btn-xs" onclick="copyToClipboard()">
                                                                      @if(canEditLang() && checkRequestOnEdit())
@@ -234,6 +246,13 @@
                                         <div class="row">
                                                 <div class="row d-flex justify-content-center w-50">
                                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pl-5 pr-5">
+                                                        <h5>
+                                                            @if(canEditLang() && checkRequestOnEdit())
+                                                                <editor_block data-name='Ваш карьерный статус:' contenteditable="true">{{ __('Ваш карьерный статус:') }}</editor_block>
+                                                            @else {{ __('Ваш карьерный статус:') }}@endif @if($currentRank) {{ __($currentRank->status_name . ' ' . $currentRank->status_stage) }} @endif
+                                                        </h5>
+                                                    </div>
+                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pl-5 pr-5">
                                                         <p class="float-left">
                                                             @if(canEditLang() && checkRequestOnEdit())
                                                                 <editor_block data-name='Персональный оборот' contenteditable="true">{{ __('Персональный оборот') }}</editor_block>
@@ -264,7 +283,7 @@
                                                             <editor_block data-name='Project Descriptions' contenteditable="true">{{ __('Project Descriptions') }}</editor_block>
                                                         @else {{ __('Project Descriptions') }}@endif
                                                     </h5>
-                                                    <p style="font-size: 12px">
+                                                    <p style="font-size: 12px; margin-top: 40px">
                                                         @if(canEditLang() && checkRequestOnEdit())
                                                             <editor_block data-name='Lorem ipsum text' contenteditable="true">{{ __('Lorem ipsum text') }}</editor_block>
                                                         @else {{ __('Lorem ipsum text') }}@endif
