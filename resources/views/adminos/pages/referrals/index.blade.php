@@ -249,7 +249,7 @@
                                                         <h5>
                                                             @if(canEditLang() && checkRequestOnEdit())
                                                                 <editor_block data-name='Ваш карьерный статус:' contenteditable="true">{{ __('Ваш карьерный статус:') }}</editor_block>
-                                                            @else {{ __('Ваш карьерный статус:') }}@endif @if($currentRank) {{ __($currentRank->status_name . ' ' . $currentRank->status_stage) }} @endif
+                                                            @else {{ __('Ваш карьерный статус:') }}@endif @if($currentRank) {{ __($currentRank->status_name) }} @endif {{ $currentRank->status_stage }}
                                                         </h5>
                                                     </div>
                                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pl-5 pr-5">
@@ -315,7 +315,7 @@
                                                     </label>
                                                     <input type="text" name="search" class="form-control" id="pwd" value="{{ request()->search }}">
                                                 </div>
-                                                <button type="submit" class="btn btn-outline-primary mt-1">
+                                                <button type="submit" class="btn btn-outline-primary mt-1" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
                                                     @if(canEditLang() && checkRequestOnEdit())
                                                         <editor_block data-name='Поиск' contenteditable="true">{{ __('Поиск') }}</editor_block> @else {{ __('Поиск') }} @endif
                                                 </button>
@@ -361,8 +361,12 @@
                                                     </tbody>
                                                 </table>
                                                 <div class="f1-buttons mb-4" style="text-align: center; margin-top:50px;">
-                                                    <button class="btn btn-outline-primary btn-next" type="button" style="padding:15px 50px 15px 50px; font-size:21px;" onClick="location.assign('/referrals/progress?page={{ request()->has('page') && request('page') >= 2 ? request('page') - 1 : 1 }}')"> Предыдущая страница</button>
-                                                    <button class="btn btn-outline-primary btn-next" type="button" style="padding:15px 50px 15px 50px; font-size:21px;" onClick="location.assign('/referrals/progress?page={{ request()->has('page') ? request('page') + 1 : 2 }}')"> Следующая страница</button>
+                                                    <button class="btn btn-outline-primary btn-next" type="button" style="padding:15px 50px 15px 50px; font-size:21px;" @if(canEditLang() && checkRequestOnEdit()) @else onClick="location.assign('/referrals/progress?page={{ request()->has('page') && request('page') >= 2 ? request('page') - 1 : 1 }}')" @endif> @if(canEditLang() && checkRequestOnEdit())
+                                                            <editor_block data-name='Предыдущая страница' contenteditable="true">{{ __('Предыдущая страница') }}</editor_block>
+                                                        @else {{ __('Предыдущая страница') }}@endif</button>
+                                                    <button class="btn btn-outline-primary btn-next" type="button" style="padding:15px 50px 15px 50px; font-size:21px;" @if(canEditLang() && checkRequestOnEdit()) @else onClick="location.assign('/referrals/progress?page={{ request()->has('page') ? request('page') + 1 : 2 }}')" @endif> @if(canEditLang() && checkRequestOnEdit())
+                                                            <editor_block data-name='Следующая страница' contenteditable="true">{{ __('Следующая страница') }}</editor_block>
+                                                        @else {{ __('Следующая страница') }}@endif</button>
                                                 </div>
                                             </div>
                                         </div>

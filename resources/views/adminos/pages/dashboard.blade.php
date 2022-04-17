@@ -271,6 +271,9 @@
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                                 <div class="panel-box">
                                     <div class="panel-box-title">
+                                        @if(canEditLang() && checkRequestOnEdit())<editor_block data-name='Выводы' contenteditable="true">{{ __('Выводы') }}</editor_block> @endif
+                                        @if(canEditLang() && checkRequestOnEdit())<editor_block data-name='Прибыль' contenteditable="true">{{ __('Прибыль') }}</editor_block> @endif
+                                        @if(canEditLang() && checkRequestOnEdit())<editor_block data-name='Доходность' contenteditable="true">{{ __('Доходность') }}</editor_block> @endif
                                         <h4 class="text-center">
                                             @if(canEditLang() && checkRequestOnEdit())
                                                 <editor_block data-name='Monthly Earnings' contenteditable="true">{{ __('Monthly Earnings') }}</editor_block>
@@ -382,8 +385,8 @@
                                                             <h6 style="font-weight: bold">
                                                                 @if(!is_null($currentRank))
                                                                     @if(canEditLang() && checkRequestOnEdit())
-                                                                        <editor_block data-name='{{ $currentRank->status_name . ' ' . $currentRank->status_stage }}' contenteditable="true">{{ __($currentRank->status_name . ' ' . $currentRank->status_stage) }}</editor_block>
-                                                                    @else {{ __($currentRank->status_name . ' ' . $currentRank->status_stage) }}@endif
+                                                                        <editor_block data-name='{{ $currentRank->status_name }}' contenteditable="true">{{ __($currentRank->status_name) }}</editor_block>
+                                                                    @else {{ __($currentRank->status_name) }}@endif {{ $currentRank->status_stage }}
                                                                 @endif
                                                             </h6>
                                                         </div>
@@ -396,8 +399,8 @@
                                                             <h6 style="font-weight: bold">
                                                                 @if(!is_null($nextRank))
                                                                     @if(canEditLang() && checkRequestOnEdit())
-                                                                        <editor_block data-name='{{ $nextRank->status_stage . ' ' . $nextRank->status_name }}' contenteditable="true">{{ __($nextRank->status_stage . ' ' . $nextRank->status_name) }}</editor_block>
-                                                                    @else {{ __($nextRank->status_stage . ' ' . $nextRank->status_name) }}@endif
+                                                                        <editor_block data-name='{{ $nextRank->status_name }}' contenteditable="true">{{ __($nextRank->status_name) }}</editor_block>
+                                                                    @else {{ __($nextRank->status_name) }}@endif {{ $nextRank->status_stage }}
                                                                 @endif
                                                             </h6>
                                                         </div>
@@ -595,9 +598,11 @@
                                                     @include('partials.inform')
                                                 </div>
                                                 <div class="d-flex justify-content-between mt-4">
+                                                    @if(canEditLang() && checkRequestOnEdit())
+                                                        <editor_block data-name='Ссылка на youtube видео' contenteditable="true">{{ __('Ссылка на youtube видео') }}</editor_block> @endif
                                                     <div class="input-group mb-4">
                                                         <span class="input-group-text"><i class="icofont icofont-link"></i></span>
-                                                        <input class="form-control" name="video" value="{{ old('video') ?? '' }}" type="text" placeholder="Ссылка на youtube видео" aria-label="">
+                                                        <input class="form-control" name="video" value="{{ old('video') ?? '' }}" type="text" placeholder="{{ __('Ссылка на youtube видео') }}" aria-label="">
                                                     </div>
                                                     <div class="">
                                                         <button type="submit" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif class="btn btn-outline-success">
@@ -630,6 +635,19 @@
                                 </div>
                             </div>
 
+                            @if(canEditLang() && checkRequestOnEdit())
+                                <div class="col-lg-12"
+                                    @if(canEditLang() && checkRequestOnEdit())<editor_block data-name='Введите заголовок' contenteditable="true">{{ __('Введите заголовок') }}</editor_block> @endif
+                                    @if(canEditLang() && checkRequestOnEdit())<editor_block data-name='Ваше сообщение' contenteditable="true">{{ __('Ваше сообщение') }}</editor_block> @endif
+
+                                    @if(canEditLang() && checkRequestOnEdit())<editor_block data-name='Заметки' contenteditable="true">{{ __('Заметки') }}</editor_block> @endif
+                                    @if(canEditLang() && checkRequestOnEdit())<editor_block data-name='Например: перезвонить и помочь партнеру с регистрацией в 20:00.' contenteditable="true">{{ __('Например: перезвонить и помочь партнеру с регистрацией в 20:00.') }}</editor_block> @endif
+
+                                    @if(canEditLang() && checkRequestOnEdit())<editor_block data-name='Мотивация' contenteditable="true">{{ __('Мотивация') }}</editor_block> @endif
+                                    @if(canEditLang() && checkRequestOnEdit())<editor_block data-name='Например: покупка автомобиля, отдых на море.' contenteditable="true">{{ __('Например: покупка автомобиля, отдых на море.') }}</editor_block> @endif
+                                </div>
+                            @endif
+
                             <div class="col-lg-6 risk-col ">
                                         <ul class="pin-board mt-5" id="draggablePanelList">
                                             @foreach($userStickers as $userSticker)
@@ -638,8 +656,8 @@
                                                         <small class="pull-right editable editable-click date" data-type="text" data-placement="right" style="padding-top: 2px;">
                                                             <i class="far fa-clock"></i> {{ $userSticker->updated_at->format('Y-m-d H:i') }}
                                                         </small>
-                                                        <h4 class="editable editable-click pin-board-title  mt-5" data-type="text" data-field="title" data-placement="right" data-title="Введите заголовок">{{ $userSticker->title }}</h4>
-                                                        <p data-type="textarea" data-pk="1" data-field="description" data-placeholder="Ваше сообщение здесь" data-title="Введите сообщение" class="editable editable-pre-wrapped editable-click pin-board-text pin-board-message change-color">{{ $userSticker->description }}</p>
+                                                        <h4 class="editable editable-click pin-board-title  mt-5" data-type="text" data-field="title" data-placement="right" data-title="{{ __('Введите заголовок') }}">{{ __($userSticker->title) }}</h4>
+                                                        <p data-type="textarea" data-pk="1" data-field="description" data-placeholder="{{ __('Ваше сообщение') }}" data-title="{{ __('Введите сообщение') }}" class="editable editable-pre-wrapped editable-click pin-board-text pin-board-message change-color">{{ __($userSticker->description) }}</p>
                                                     </div>
                                                 </li>
                                             @endforeach
@@ -673,9 +691,9 @@
                                                     </div>
                                                     <div class="input-group mb-3">
                                                         <select class="form-select form-control" name="wallet_id">
-                                                            <option value="" disabled selected hidden>
-                                                                Выберите баланс аккаунта
-                                                            </option>
+{{--                                                            <option value="" disabled selected hidden>--}}
+{{--                                                                Выберите баланс аккаунта--}}
+{{--                                                            </option>--}}
                                                             @forelse($wallets as $items)
                                                                 @foreach($items as $wallet)
                                                                     <option value="{{ $wallet->id }}" @if(old('wallet_id') == $wallet->id) selected="selected" @endif>{{ $wallet->currency->name }} - {{ $wallet->balance }}{{ $wallet->currency->symbol }}</option>
@@ -809,18 +827,18 @@
                     }
                 },
                 scales: {
-                    xAxes: [{
-                        display: true,
-                        scaleLabel: {
-                            display: false,
-                            labelString: 'Дни'
-                        }
-                    }],
+                    {{--xAxes: [{--}}
+                    {{--    display: true,--}}
+                    {{--    scaleLabel: {--}}
+                    {{--        display: false,--}}
+                    {{--        labelString: '{{ __('Дни') }}'--}}
+                    {{--    }--}}
+                    {{--}],--}}
                     yAxes: [{
                         display: true,
                         scaleLabel: {
                             display: true,
-                            labelString: 'Доходность'
+                            labelString: '{{ __('Доходность') }}'
                         },
                         ticks: {
                             callback: function(value, index, ticks) {
@@ -866,7 +884,7 @@
             precision: 2,
             valueAxes: [{
                 id: "v2",
-                title: "Доходность",
+                title: "{{ __('Доходность') }}",
                 gridAlpha: 0,
                 position: "right",
                 autoGridCount: !1
@@ -882,7 +900,7 @@
                 lineThickness: 2,
                 lineColor: "#0df3a3",
                 type: "smoothedLine",
-                title: "Прибыль",
+                title: "{{ __('Прибыль') }}",
                 useLineColorForBulletBorder: !0,
                 valueField: "replenishment",
                 balloonText: "[[title]]<br /><b style='font-size: 130%'>[[value]]</b>"
@@ -897,7 +915,7 @@
                 lineThickness: 2,
                 lineColor: "#fe5d70",
                 dashLength: 5,
-                title: "Выводы",
+                title: "{{ __('Выводы') }}",
                 useLineColorForBulletBorder: !0,
                 valueField: "withdrawals",
                 balloonText: "[[title]]<br /><b style='font-size: 130%'>[[value]]</b>"

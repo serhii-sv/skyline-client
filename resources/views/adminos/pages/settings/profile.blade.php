@@ -105,15 +105,21 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-6 col-md-6">
+                                                @if(canEditLang() && checkRequestOnEdit())<editor_block data-name='мужской' contenteditable="true">{{ __('мужской') }}</editor_block> @endif
+                                                @if(canEditLang() && checkRequestOnEdit())<editor_block data-name='женский' contenteditable="true">{{ __('женский') }}</editor_block> @endif
+                                                @if(canEditLang() && checkRequestOnEdit())<editor_block data-name='Не выбран' contenteditable="true">{{ __('Не выбран') }}</editor_block> @endif
+
                                                 <div class="mb-3">
                                                     <label class="form-label">@if(canEditLang() && checkRequestOnEdit()) <editor_block data-name='Gender' contenteditable="true">{{ __('Gender') }}</editor_block> @else {{ __('Gender') }} @endif</label>
                                                     <select class="form-control" name="sex" type="text">
-                                                        <option value="">Не выбран</option>
+                                                        <option value="">{{ __('Не выбран') }}</option>
                                                         <option value="мужской"
-                                                                @if($user->sex == 'мужской') selected="selected" @endif>Мужской
+                                                                @if($user->sex == 'мужской') selected="selected" @endif>
+                                                            {{ __('Мужской') }}
                                                         </option>
                                                         <option value="женский"
-                                                                @if($user->sex == 'женский') selected="selected" @endif>Женский
+                                                                @if($user->sex == 'женский') selected="selected" @endif>
+                                                            {{ __('Женский') }}
                                                         </option>
                                                     </select>
                                                 </div>

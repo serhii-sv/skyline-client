@@ -263,6 +263,15 @@
             $('a[href="#next"]').on('click', function (e) {
                 $('.spinner-wrapper').show()
             });
+
+            var existCondition = setInterval(function() {
+                if ($('a[href="#next"]').length) {
+                    console.log("Exists!");
+                    clearInterval(existCondition);
+                    $('a[href="#next"]').text('{{ __('Далее') }}')
+                    $('a[href="#previous"]').text('{{ __('Назад') }}')
+                }
+            }, 100);
         })
     </script>
     <script src="{{ asset('adminos/plugins/jquery.steps/js/jquery.steps.js') }}"></script>

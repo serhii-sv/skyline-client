@@ -49,7 +49,7 @@ class DashboardController extends Controller
                     'user_id' => auth()->id(),
                     'category' => '',
                     'title' => 'Заметки',
-                    'description' => 'Например: перезвонить и помочь партнеру с регистарцией в 20:00.',
+                    'description' => 'Например: перезвонить и помочь партнеру с регистрацией в 20:00.',
                     'text_color' => '',
                     'sticker_color' => '',
                     'order' => 0
@@ -58,7 +58,7 @@ class DashboardController extends Controller
                     'user_id' => auth()->id(),
                     'category' => '',
                     'title' => 'Мотивация',
-                    'description' => 'Например: покупка автомобил, отдых на море.',
+                    'description' => 'Например: покупка автомобиля, отдых на море.',
                     'text_color' => '',
                     'sticker_color' => '',
                     'order' => 0
