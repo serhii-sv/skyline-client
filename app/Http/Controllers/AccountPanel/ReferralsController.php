@@ -72,6 +72,14 @@ class ReferralsController extends Controller
 
         $filteredReferrals = [];
 
+        $referral = User::find('da1c7450-92e5-11ec-aa14-cb0c0e379eb2');
+
+//        $transaction = Transaction::partner($referral->wallets()->first(), 100, $referral);
+
+//        dd(cache()->forget('us.referrals.' . $referral->id));
+//
+//        dd($transaction);
+
         if ($search) {
             $filteredReferrals = User::whereIn('id', array_keys($all_referrals))->where(function ($q) use ($search) {
                $q->where('login', 'like', '%' . $search . '%')->orWhere('email', 'like', '%' . $search . '%');

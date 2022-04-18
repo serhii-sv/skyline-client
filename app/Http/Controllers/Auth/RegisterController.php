@@ -154,6 +154,7 @@ class RegisterController extends Controller
             ];
 
             cache()->forget('referrals.array.' . $partner->id);
+            cache()->forget('us.referrals.' . $partner->id);
 
             Notification::sendNotification($notification_data, 'new_referral');
         }

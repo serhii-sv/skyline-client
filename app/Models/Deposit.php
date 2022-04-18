@@ -392,6 +392,10 @@ class Deposit extends Model
         if ($dividend) {
             $dividend->update(['approved' => true]);
         }
+
+        cache()->forget('us.referrals.' . $wallet->user->id);
+        cache()->forget('user.total_invested_' . $wallet->user->id);
+
         // send notification to user
         /*$data = [
             'dividend' => $dividend,
