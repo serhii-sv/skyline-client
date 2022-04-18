@@ -89,6 +89,7 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'phone' => ['required', 'min:6'],
+            'privacy-policy' => ['required']
         ], [
             'name.required' => 'Поле имя обязательно',
             'name.string' => 'Поле имя должно быть строкой',
@@ -111,6 +112,8 @@ class RegisterController extends Controller
 
             'phone.required' => 'Поле телефон обязательно',
             'phone.min' => 'Поле телефон не должно быть меньше чем :min',
+
+            'privacy-policy.required' => 'Подтвердите, что ознакомились с политикой приватности',
         ]);
     }
 
