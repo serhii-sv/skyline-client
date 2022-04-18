@@ -14,7 +14,14 @@
                 <div class="d-inline-block mt-3 ml-4">
                     <span style="font-size: 18px;">{{ $self->name }}</span>
                     <p class="font-roboto" style="font-size: 15px; margin-bottom:0;">{{ $self->login }}</p>
-                    <p style="margin-top:0;">линия {{ $level }}</p>
+                    <p style="margin-top:0;">
+                        @if(canEditLang() && checkRequestOnEdit())
+                            <editor_block data-name='Линия' contenteditable="true">{{ __('Линия') }}</editor_block>
+                        @else
+                            {{ __('Линия') }}
+                        @endif
+                        {{ $level }}
+                    </p>
                 </div>
             </div>
         </td>
