@@ -298,6 +298,12 @@
                 </div>
             </div>
 
+            @error('privacy-policy')
+                <div>
+                    <span style="color: red">{{ $message }}</span>
+                </div>
+            @enderror
+
             <div class="container-login100-form-btn">
                 <button class="login100-form-btn" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
                     @if(canEditLang() && checkRequestOnEdit())

@@ -186,14 +186,16 @@
 @endsection
 
 @push('scripts')
-    <script>
-        $(document).ready(function () {
-            $('.wrapper .nav-link').click(function () {
-                location.href = $(this).attr('href');
-                return false;
-            })
-        });
-    </script>
+    @if(!canEditLang() && !checkRequestOnEdit())
+        <script>
+            $(document).ready(function () {
+                $('.wrapper .nav-link').click(function () {
+                    location.href = $(this).attr('href');
+                    return false;
+                })
+            });
+        </script>
+    @endif
 
     @if($type == 'event-calendar')
         <script src="{{ asset('accountPanel/js/calendar/tui-code-snippet.min.js') }}"></script>
