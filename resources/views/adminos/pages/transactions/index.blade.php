@@ -186,7 +186,7 @@
 @endsection
 
 @push('scripts')
-    @if(!canEditLang() && !checkRequestOnEdit())
+    @if(!checkRequestOnEdit())
         <script>
             $(document).ready(function () {
                 $('.wrapper .nav-link').click(function () {
