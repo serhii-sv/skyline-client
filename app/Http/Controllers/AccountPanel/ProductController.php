@@ -23,24 +23,24 @@ class ProductController extends Controller
     }
 
     /**
-     * @param $slug
+     * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function show($slug)
+    public function show($id)
     {
         return view('adminos.pages.products.show', [
-            'product' => Product::findBySlug($slug)
+            'product' => Product::find($id)
         ]);
     }
 
     /**
-     * @param $slug
+     * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function buy($slug)
+    public function buy($id)
     {
         return view('adminos.pages.products.buy', [
-            'product' => Product::findBySlug($slug)
+            'product' => Product::find($id)
         ]);
     }
 

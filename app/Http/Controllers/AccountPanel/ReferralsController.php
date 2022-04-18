@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\AccountPanel;
 
+use App\Helpers\CollectionHelper;
 use App\Http\Controllers\Controller;
+use App\Jobs\UpdateReferralAccruals;
 use App\Models\Banner;
 use App\Models\CloudFile;
 use App\Models\Currency;
@@ -10,6 +12,7 @@ use App\Models\Deposit;
 use App\Models\DepositBonus;
 use App\Models\Referral;
 use App\Models\ReferralLinkStat;
+use App\Models\Transaction;
 use App\Models\TransactionType;
 use App\Models\User;
 use App\Models\Wallet;
