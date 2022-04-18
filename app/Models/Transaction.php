@@ -360,7 +360,7 @@ class Transaction extends Model
             'approved' => true,
         ]);
 
-        UpdateReferralAccruals::dispatchSync($transaction);
+//        UpdateReferralAccruals::dispatchSync($transaction);
 
         return $transaction->save() ? $transaction : null;
     }
