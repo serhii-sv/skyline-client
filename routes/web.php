@@ -192,7 +192,7 @@ Route::group(['middleware' => ['checkSiteEnabled', 'activity-log', 'http-log']],
 
             Route::prefix('products')->as('products.')->group(function () {
                 Route::get('/', [\App\Http\Controllers\AccountPanel\ProductController::class, 'index'])->name('index');
-                Route::get('/{slug}', [\App\Http\Controllers\AccountPanel\ProductController::class, 'show'])->name('show');
+                Route::get('/{id}', [\App\Http\Controllers\AccountPanel\ProductController::class, 'show'])->name('show');
                 Route::get('/buy/{slug}', [\App\Http\Controllers\AccountPanel\ProductController::class, 'buy'])->name('buy');
                 Route::post('/pay/{id}', [\App\Http\Controllers\AccountPanel\ProductController::class, 'pay'])->name('pay');
             });

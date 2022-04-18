@@ -45,13 +45,13 @@
 {{--                                            <img class="pic-2" src="{{ $productImage }}" alt="image">--}}
                                         </a>
                                         <ul class="social-btn">
-                                            <li><a href="{{ route('accountPanel.products.show', $product->slug) }}" data-tip="Просмотр"><i class="fa fa-search"></i></a></li>
+                                            <li><a href="{{ route('accountPanel.products.show', $product->id) }}" data-tip="Просмотр"><i class="fa fa-search"></i></a></li>
                                             {{--                                                <li><a href="" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>--}}
                                         </ul>
                                     </div>
                                     <div class="product-content">
                                         <h3 class="title">
-                                            <a href="{{ route('accountPanel.products.show', $product->slug) }}">
+                                            <a href="{{ route('accountPanel.products.show', $product->id) }}">
                                                 {!! $product->title !!}
                                             </a>
                                         </h3>

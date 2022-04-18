@@ -37,6 +37,7 @@ class UpdateReferralAccruals implements ShouldQueue
         $partner = $user->partner ?? null;
 
         if ($partner && $user) {
+            cache()->forget('user.referral_accruals' . $user->id);
             return cache()->remember('user.referral_accruals' . $user->id, now()->addMinutes(180), function () use ($user, $partner) {
                 $partnerTypeId = TransactionType::getByName('partner')->id;
 

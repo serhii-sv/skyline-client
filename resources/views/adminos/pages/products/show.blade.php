@@ -47,7 +47,7 @@
                                                                 </div>
                                                                 <div class="row p-3">
                                                                     <div class="col-xl-12 text-center p-0">
-                                                                        <a href="{{ route('accountPanel.products.buy', $product->slug) }}" class="btn btn-success m-r-10" type="button" title=""> <i class="fa fa-shopping-cart me-1"></i>
+                                                                        <a href="{{ route('accountPanel.products.buy', $product->id) }}" class="btn btn-success m-r-10" type="button" title=""> <i class="fa fa-shopping-cart me-1"></i>
                                                                             @if(canEditLang() && checkRequestOnEdit())
                                                                                 <editor_block data-name='Buy Now' contenteditable="true">{{ __('Buy Now') }}</editor_block>
                                                                             @else

@@ -112,23 +112,23 @@
                                                             </div>
                                                         </div>
                                                         <ul class="qty">
-                                                            <li>{!! $product->title !!} <span>${{ $product->price }}</span></li>
+                                                            <li>{!! $product->title !!} <span class="mt-3">${{ $product->price }}</span></li>
                                                         </ul>
                                                         <ul class="sub-total total">
-                                                            <li>
+                                                            <li class="pt-4 w-100 d-flex justify-content-between">
                                                                 @if(canEditLang() && checkRequestOnEdit())
                                                                     <editor_block data-name='Валюта' contenteditable="true">{{ __('Валюта') }}</editor_block>
                                                                 @else
                                                                     {{ __('Валюта') }}
                                                                 @endif
                                                                 <span class="count">
-                                                <select name="currency_id" class="form-select digits form-control">
-                                                    <option selected disabled value="">Выберите валюту для оплаты</option>
-                                                    @foreach(\App\Models\Currency::all() as $currency)
-                                                        <option value="{{ $currency->id }}">{{ $currency->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </span>
+                                                                    <select name="currency_id" class="form-select digits form-control">
+                    {{--                                                    <option selected disabled value="">Выберите валюту для оплаты</option>--}}
+                                                                        @foreach(\App\Models\Currency::all() as $currency)
+                                                                            <option value="{{ $currency->id }}">{{ $currency->name }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </span>
                                                             </li>
                                                         </ul>
                                                         @include('partials.inform')
