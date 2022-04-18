@@ -78,7 +78,7 @@
                                                                                 @if(canEditLang() && checkRequestOnEdit())
                                                                                     <editor_block data-name='{{ $item->name }}' contenteditable="true">{{ __($item->name) }}</editor_block>
                                                                                 @else
-                                                                                    {{ $item->name }}
+                                                                                    {{ __($item->name) }}
                                                                                 @endif
                                                                             </h3>
                                                                             <div class="row mt-5">
@@ -146,7 +146,7 @@
                                                                                             @if(canEditLang() && checkRequestOnEdit())
                                                                                                 <editor_block data-name='Условия инвестирования:' contenteditable="true">{{ __('Условия инвестирования:') }}</editor_block>
                                                                                             @else
-                                                                                                {{ __('Условия инвестирования') }}
+                                                                                                {{ __('Условия инвестирования:') }}
                                                                                             @endif
                                                                                         </h6>
                                                                                         <span class="title text-center">
