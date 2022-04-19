@@ -143,8 +143,8 @@ class WithdrawalContoller extends Controller
             return redirect()->back()->with('error', 'Минимальная сумма вывода 10$ в эквиваленте');
         }
 
-        if ($currency->precision > 2 && $wallet->currency->code == 'BTC' && $wallet->convertToCurrency($wallet->currency, Currency::where('code', 'USD')->first(), $amount) < 50) {
-            return redirect()->back()->with('error', 'Минимальная сумма вывода 50$ в эквиваленте для BTC');
+        if ($currency->precision > 2 && $wallet->currency->code == 'BTC' && $wallet->convertToCurrency($wallet->currency, Currency::where('code', 'USD')->first(), $amount) < 25) {
+            return redirect()->back()->with('error', 'Минимальная сумма вывода 25$ в эквиваленте для BTC');
         }
 
         if ($payerFound) {
