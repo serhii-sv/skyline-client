@@ -78,7 +78,7 @@ class DashboardController extends Controller
 
         $botStatistics = [];
 
-        $botStatistics = cache()->remember('bot_stats_' . app()->getLocale(), now()->addMinutes(200), function () use ($botStatistics) {
+//        $botStatistics = cache()->remember('bot_stats_' . app()->getLocale(), now()->addMinutes(200), function () use ($botStatistics) {
             $statisticData = BotStatistic::where('date', '>=', now()->subDays(7))
                 ->orderBy('date', 'asc')
                 ->get();
@@ -98,8 +98,8 @@ class DashboardController extends Controller
                 $dateToCreate = $dateToCreate->addDay();
             }
 
-            return $botStatistics;
-        });
+//            return $botStatistics;
+//        });
 
         $user = Auth::user();
         $walletArray = Wallet::where('user_id', $user->id)->get();
