@@ -82,8 +82,6 @@ class ReferralsController extends Controller
 
         $personal_turnover = $user->personal_turnover;
 
-//        dd($user->getAllReferrals());
-
         return view('adminos.pages.referrals.index', [
             'all_referrals' => $all_referrals,
             'activeReferrals' => $activeReferrals,
