@@ -41,14 +41,23 @@ class SetReferralsCaches extends Command
      */
     public function handle()
     {
+        $start = now();
         /** @var User $user */
         foreach (User::orderBy('referrals_invested_total', 'asc')->get() as $user) {
             $this->info('work with user '.$user->login);
 
 //            cache()->forget('referrals.array.' . $user->id);
 
-            cache()->put('referrals.array.' . $user->id, $user->getAllReferralsInArray(), now()->addHours(3));
-            $all_referrals = cache()->get('referrals.array.' . $user->id);
+//            $this->info('get referrals for '.$user->login);
+//            cache()->forget('us.referrals.' . $user->id);
+            cache()->remember('referrals.array.' . $user->id, now()->addHours(3), function() use ($user) {
+                return $user->getAllReferralsInArray();
+            });
+
+            cache()->put('us.referrals.' . $user->id, $user->getAllReferrals(false, 1, 1), now()->addHours(3));
+//            $this->info('us referrals count '.count(cache()->get('us.referrals.' . $user->id)['referrals'] ?? []));
+
+            $all_referrals = cache()->get('us.referrals.' . $user->id);
 
             cache()->remember('reftree.'.$user->id, now()->addHours(3), function() use ($user) {
                 return $this->getChildrens($user, 7);
@@ -122,18 +131,16 @@ class SetReferralsCaches extends Command
                         $this->info('deposit accruals ' . $depositAccruals);
                     }
 
-                    $this->comment('work with ref '.$referral->login);
+//                    $this->comment('work with ref '.$referral->login);
 //                    cache()->forget('us.referrals.' . $referral->id);
-                    cache()->put('us.referrals.' . $referral->id, $referral->getAllReferrals(false, 1, 1), now()->addHours(3));
-                    $this->info('referrals count '.count(cache()->get('us.referrals.' . $referral->id)['referrals'] ?? []));
+//                    cache()->put('us.referrals.' . $referral->id, $referral->getAllReferrals(false, 1, 1), now()->addHours(3));
+//                    $this->info('referrals count '.count(cache()->get('us.referrals.' . $referral->id)['referrals'] ?? []));
                 }
             }
-
-            $this->info('get referrals for '.$user->login);
-//            cache()->forget('us.referrals.' . $user->id);
-            cache()->put('us.referrals.' . $user->id, $user->getAllReferrals(false, 1, 1), now()->addHours(3));
-            $this->info('us referrals count '.count(cache()->get('us.referrals.' . $user->id)['referrals'] ?? []));
         }
+
+        $this->warn(now()->diffInSeconds($start));
+        $this->warn(now()->diffInMinutes($start));
 
         return Command::SUCCESS;
     }
