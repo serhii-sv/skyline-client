@@ -36,10 +36,10 @@ trait ConvertCurrency
             return $amount;
         }
 
-        $rateInUsd = \App\Models\Setting::getValue(strtolower($fromCurrency->code).'_to_usd', 0);
+        $rateInUsd = \App\Models\Setting::getValue(strtolower($fromCurrency->code).'_to_usd', 0, true);
         $amountInUsd = (float) $amount * (float) $rateInUsd;
 
-        $rateInTarget = \App\Models\Setting::getValue('usd_to_'.strtolower($toCurrency->code), 0);
+        $rateInTarget = \App\Models\Setting::getValue('usd_to_'.strtolower($toCurrency->code), 0, true);
         $amountInTarget = $amountInUsd * $rateInTarget;
 
         return $amountInTarget;

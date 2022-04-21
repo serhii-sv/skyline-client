@@ -553,8 +553,6 @@
             $('.set-max').click(function () {
                 let rate_max = parseFloat($(this).data('rate_max'));
 
-                console.log(rate_max)
-
                 let balance = parseFloat($(this).closest('.transaction-footer').find('.wallet-select option:selected').data('balance'));
 
                 let max;
