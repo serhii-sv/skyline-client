@@ -52,7 +52,9 @@
                 @include('adminos.pages.referrals.childrens', ['us' => $self, 'level' => $level+1])
             @endif
         @else
-            @include('adminos.pages.referrals.childrens', ['us' => $self, 'level' => $level+1])
+            @if($level < 3)
+                @include('adminos.pages.referrals.childrens', ['us' => $self, 'level' => $level+1])
+            @endif
         @endif
     @endforeach
 
