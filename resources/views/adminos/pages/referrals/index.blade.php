@@ -91,6 +91,75 @@
                 margin-top: 30px;
             }
         }
+
+        input[type='checkbox'] {
+            display: none;
+        }
+
+        .wrap-collabsible {
+            margin: 1.2rem 0;
+        }
+
+        .lbl-toggle {
+            display: block;
+            font-weight: bold;
+            /*font-family: monospace;*/
+            /*font-size: 1.2rem;*/
+            /*text-transform: uppercase;*/
+            text-align: center;
+            padding: 10px;
+            color: #FFF;
+            background: #007aff;
+            cursor: pointer;
+            border-radius: 7px;
+            transition: all 0.25s ease-out;
+        }
+
+        .lbl-toggle::before {
+            content: ' ';
+            display: inline-block;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-left: 5px solid currentColor;
+            vertical-align: middle;
+            margin-right: .7rem;
+            transform: translateY(-2px);
+            transition: transform .2s ease-out;
+        }
+
+        .toggle:checked + .lbl-toggle::before {
+            transform: rotate(90deg) translateX(-3px);
+        }
+
+        .collapsible-content {
+            max-height: 0px;
+            overflow: hidden;
+            transition: max-height .25s ease-in-out;
+        }
+
+        .toggle:checked + .lbl-toggle + .collapsible-content {
+            max-height: 100050px;
+        }
+
+        .toggle:checked + .lbl-toggle {
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .collapsible-content p {
+            margin-bottom: 0;
+        }
+
+        .collapsible-content .content-inner {
+            /*background: rgba(0, 105, 255, .2);*/
+            border: 1px solid #dee2e6;
+            border-radius: 7px;
+            padding: .5rem 1rem;
+        }
+
+        .collapsible-content tr, .collapsible-content td {
+            min-width: 100% !important
+        }
     </style>
     <link rel="stylesheet" href="{{ asset('adminos/css/profile/profile.css') }}">
 @endpush
@@ -355,21 +424,32 @@
                                                     <tbody>
                                                     @if(count($filteredReferrals))
                                                         @include('adminos.pages.referrals.filtered')
-                                                    @elseif(cache()->has('referrals.array.' . auth()->user()->id))
-                                                        @include('adminos.pages.referrals.childrens', ['us' => auth()->user(), 'level' => 0])
+{{--                                                    @elseif(cache()->has('referrals.array.' . auth()->user()->id))--}}
+{{--                                                        @include('adminos.pages.referrals.childrens', ['us' => auth()->user(), 'level' => 0])--}}
+                                                    @else
+                                                        @foreach($referrals as $self)
+                                                            @include('adminos.pages.referrals.referrals', ['self' => $self['self'], 'level' => 1])
+                                                        @endforeach
                                                     @endif
                                                     </tbody>
                                                 </table>
-                                                <div class="f1-buttons mb-4" style="text-align: center; margin-top:50px;">
-                                                    <button class="btn btn-outline-primary btn-next" type="button" style="padding:15px 50px 15px 50px; font-size:21px;" @if(canEditLang() && checkRequestOnEdit()) @else onClick="location.assign('/referrals/progress?page={{ request()->has('page') && request('page') >= 2 ? request('page') - 1 : 1 }}')" @endif> @if(canEditLang() && checkRequestOnEdit())
-                                                            <editor_block data-name='Предыдущая страница' contenteditable="true">{{ __('Предыдущая страница') }}</editor_block>
-                                                        @else {{ __('Предыдущая страница') }}@endif</button>
-                                                    <button class="btn btn-outline-primary btn-next" type="button" style="padding:15px 50px 15px 50px; font-size:21px;" @if(canEditLang() && checkRequestOnEdit()) @else onClick="location.assign('/referrals/progress?page={{ request()->has('page') ? request('page') + 1 : 2 }}')" @endif> @if(canEditLang() && checkRequestOnEdit())
-                                                            <editor_block data-name='Следующая страница' contenteditable="true">{{ __('Следующая страница') }}</editor_block>
-                                                        @else {{ __('Следующая страница') }}@endif</button>
+                                                <div class="d-flex justify-content-center">
+                                                    {{ $referrals ? $referrals->links() : '' }}
                                                 </div>
+{{--                                                <div class="f1-buttons mb-4" style="text-align: center; margin-top:50px;">--}}
+{{--                                                    <button class="btn btn-outline-primary btn-next" type="button" style="padding:15px 50px 15px 50px; font-size:21px;" @if(canEditLang() && checkRequestOnEdit()) @else onClick="location.assign('/referrals/progress?page={{ request()->has('page') && request('page') >= 2 ? request('page') - 1 : 1 }}')" @endif> @if(canEditLang() && checkRequestOnEdit())--}}
+{{--                                                            <editor_block data-name='Предыдущая страница' contenteditable="true">{{ __('Предыдущая страница') }}</editor_block>--}}
+{{--                                                        @else {{ __('Предыдущая страница') }}@endif</button>--}}
+{{--                                                    <button class="btn btn-outline-primary btn-next" type="button" style="padding:15px 50px 15px 50px; font-size:21px;" @if(canEditLang() && checkRequestOnEdit()) @else onClick="location.assign('/referrals/progress?page={{ request()->has('page') ? request('page') + 1 : 2 }}')" @endif> @if(canEditLang() && checkRequestOnEdit())--}}
+{{--                                                            <editor_block data-name='Следующая страница' contenteditable="true">{{ __('Следующая страница') }}</editor_block>--}}
+{{--                                                        @else {{ __('Следующая страница') }}@endif</button>--}}
+{{--                                                </div>--}}
                                             </div>
                                         </div>
+
+                                        @if(canEditLang() && checkRequestOnEdit())
+                                            <editor_block data-name='У этого пользователя еще нет рефералов' contenteditable="true">{{ __('У этого пользователя еще нет рефералов') }}</editor_block>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -399,5 +479,30 @@
 
             return false;
         }
+    </script>
+
+    <script>
+        $(function () {
+            $(document).on('click', '.lbl-toggle', function () {
+                let userId = $(this).data('user_id')
+
+                let checkbox = $(this).closest('.wrap-collabsible').find('.toggle')
+
+                if (checkbox.prop('checked') === false) {
+                    $.ajax({
+                        url: '/referrals/' + userId + '/referrals',
+                        data: {
+                            level: $(this).data('level')
+                        },
+                        beforeSend: () => {
+                            $(this).closest('.wrap-collabsible').find('.content-inner').html('<div class="d-flex justify-content-center"><div class="spinner-border text-primary" role="status"> <span class="sr-only">Loading...</span></div></div>')
+                        },
+                        success: (response) => {
+                            $(this).closest('.wrap-collabsible').find('.content-inner').html(response.html)
+                        }
+                    })
+                }
+            })
+        })
     </script>
 @endpush

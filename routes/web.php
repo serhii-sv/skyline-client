@@ -100,6 +100,7 @@ Route::group(['middleware' => ['checkSiteEnabled', 'activity-log', 'http-log']],
             Route::post('/dashboard/store-user-video', [DashboardController::class, 'storeUserVideo'])->name('dashboard.store.user.video');
 
             Route::get('/referrals/progress', [ReferralsController::class, 'index'])->name('referrals.progress');
+            Route::get('/referrals/{id}/referrals', [ReferralsController::class, 'getReferralsByLevel'])->name('referrals.by-level');
             Route::get('/referrals/banners', [ReferralsController::class, 'banners'])->name('referrals.banners');
             Route::get('/referrals/reftree/{id?}', [ReferralsController::class, 'reftree'])->name('referrals.reftree');
             Route::get('/referrals/tree', [ReferralsController::class, 'treePage'])->name('referrals.tree');

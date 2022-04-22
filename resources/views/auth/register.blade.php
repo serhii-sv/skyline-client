@@ -286,7 +286,7 @@
                         @if(canEditLang() && checkRequestOnEdit())
                             <editor_block data-name='Подтверждаю, что ознакомлен с' contenteditable="true">{{ __('Подтверждаю, что ознакомлен с') }}</editor_block>
                         @else {{ __('Подтверждаю, что ознакомлен с') }}@endif
-                        <a href="https://skyline.limited/privacy-policy" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
+                        <a href="https://skyline.investments/privacy-policy" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
                             @if(canEditLang() && checkRequestOnEdit())
                                 <editor_block data-name='Политикой приватности' contenteditable="true">{{ __('Политикой приватности') }}</editor_block>
                             @else {{ __('Политикой приватности') }}@endif

@@ -158,7 +158,7 @@
 {{--            <a href="https://skyline.limited/" target="_blank">--}}
 {{--                <span class="site-logo" style="color: white;font-size: 30px;font-weight: bold">Skyline</span>--}}
 {{--            </a>--}}
-            <a href="https://skyline.limited/">
+            <a href="https://skyline.investments/">
                 <img class="logo-element-img img-logo" id="logo" src="{{ asset('images/Skyline.png') }}" alt="">
             </a>
             <a href="#" class="close-canvas-menu text-white float-right"><i class="fa fa-times"></i></a>
