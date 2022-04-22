@@ -6,12 +6,12 @@
 
 namespace App\Models;
 
-use App\Jobs\UpdateReferralAccruals;
 use App\Traits\ConvertCurrency;
 use App\Traits\SumOperations;
 use App\Traits\Uuids;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * App\Models\Transaction
@@ -79,6 +79,7 @@ class Transaction extends Model
     use ConvertCurrency;
     use Uuids;
     use SumOperations;
+    use SoftDeletes;
 
     public $keyType = 'string';
     /** @var bool $incrementing */

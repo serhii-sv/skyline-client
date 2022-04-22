@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\AccountPanel;
 
 use App\Helpers\CollectionHelper;
+use App\Helpers\PaginationHelper;
 use App\Http\Controllers\Controller;
 use App\Jobs\UpdateReferralAccruals;
 use App\Models\Banner;
@@ -24,6 +25,10 @@ use function React\Promise\all;
 class ReferralsController extends Controller
 {
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @throws \Exception
+     */
     public function index() {
         /** @var User $user */
         $user = Auth::user();
@@ -78,6 +83,8 @@ class ReferralsController extends Controller
             $filteredReferrals = User::whereIn('id', array_keys($all_referrals))->where(function ($q) use ($search) {
                $q->where('login', 'like', '%' . $search . '%')->orWhere('email', 'like', '%' . $search . '%');
             })->get();
+        } else {
+            $referrals =  CollectionHelper::paginate(collect($user->getAllReferrals(false, 1, 1)['referrals']), 5);
         }
 
         $personal_turnover = $user->personal_turnover;
@@ -94,10 +101,14 @@ class ReferralsController extends Controller
             'currentRank' => $currentRank,
             'nextRank' => $nextRank,
             'rankPercentage' => $rankPercentage,
-            'filteredReferrals' => $filteredReferrals
+            'filteredReferrals' => $filteredReferrals,
+            'referrals' => $referrals ?? []
         ]);
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function banners() {
         $banners = Banner::orderBy('created_at', 'desc')->get();
         return view('adminos.pages.referrals.banners', [
@@ -105,6 +116,9 @@ class ReferralsController extends Controller
         ]);
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function treePage() {
         $user = Auth::user();
         return view('adminos.pages.referrals.reftree', [
@@ -112,6 +126,11 @@ class ReferralsController extends Controller
         ]);
     }
 
+    /**
+     * @param $id
+     * @return array|mixed
+     * @throws \Exception
+     */
     public function reftree($id = null) {
         if (null == $id) {
             throw new \Exception('id реф дерева null');
@@ -126,6 +145,11 @@ class ReferralsController extends Controller
         });
     }
 
+    /**
+     * @param User $user
+     * @param $limit
+     * @return array
+     */
     private function getChildrens(User $user, $limit = 3) {
         if ($limit === 0) {
             return [];
@@ -147,6 +171,11 @@ class ReferralsController extends Controller
         return $referrals;
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     */
     public function getBanner($id) {
         $banner_id = Banner::findOrFail($id)->image;
 
@@ -158,5 +187,26 @@ class ReferralsController extends Controller
             'Content-type' => $file->mime,
         ]);
 
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getReferralsByLevel(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+
+        $html = '';
+
+        foreach ($user->getAllReferrals(false, 1, 1)['referrals'] as $referral) {
+            $html .= view('adminos.pages.referrals.referrals', ['self' => $referral['self'], 'level' => $request->level + 1])->render();
+        }
+
+        return response()->json([
+            'html' => $html == ''  ? view('adminos.pages.referrals.no-referrals')->render() : view('adminos.pages.referrals.headers') . $html
+        ]);
     }
 }

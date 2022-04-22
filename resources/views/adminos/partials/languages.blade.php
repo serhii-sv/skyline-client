@@ -12,7 +12,7 @@
     @if(!isset($removeBackButton))
         @if(!Route::is('accountPanel.*'))
             <div class="">
-                <a class="back" href="https://skyline.limited/" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
+                <a class="back" href="https://skyline.investments/" @if(canEditLang() && checkRequestOnEdit()) onclick="event.preventDefault()" @endif>
                     @if(canEditLang() && checkRequestOnEdit())
                         <editor_block data-name='Вернуться на сайт' contenteditable="true">{{ __('Вернуться на сайт') }}</editor_block>
                     @else
