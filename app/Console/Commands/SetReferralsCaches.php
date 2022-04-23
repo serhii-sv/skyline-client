@@ -46,19 +46,6 @@ class SetReferralsCaches extends Command
         foreach (User::orderBy('referrals_invested_total', 'asc')->get() as $user) {
             $this->info('work with user '.$user->login);
 
-//            cache()->forget('referrals.array.' . $user->id);
-
-//            $this->info('get referrals for '.$user->login);
-//            cache()->forget('us.referrals.' . $user->id);
-            cache()->remember('referrals.array.' . $user->id, now()->addHours(3), function() use ($user) {
-                return $user->getAllReferralsInArray();
-            });
-
-            cache()->put('us.referrals.' . $user->id, $user->getAllReferrals(false, 1, 1), now()->addHours(3));
-//            $this->info('us referrals count '.count(cache()->get('us.referrals.' . $user->id)['referrals'] ?? []));
-
-            $all_referrals = cache()->get('us.referrals.' . $user->id);
-
             cache()->remember('reftree.'.$user->id, now()->addHours(3), function() use ($user) {
                 return $this->getChildrens($user, 7);
             });
@@ -101,41 +88,20 @@ class SetReferralsCaches extends Command
                 return $user->partner->name ?? 'undefined';
             });
 
-            if (!empty($all_referrals)) {
-                foreach ($all_referrals as $referral) {
-                    if (is_array($referral)) {
-                        $this->warn('is array');
-                        continue 2;
-                    }
+            if (!cache()->has('user.total_invested_' . $user->id)) {
+                $invested = $user->invested();
 
-                    /** @var User $referral */
-                    $referral = User::find($referral->id);
+                $this->info('invested ' . $invested);
+            }
 
-//                    cache()->forget('user.total_invested_' . $user->id);
+            if ($user->partner) {
+                $referralAccruals = $user->referral_accruals($user->partner);
+                $this->info('referral accruals '.$referralAccruals);
+            }
 
-                    if (!cache()->has('user.total_invested_' . $referral->id)) {
-                        $invested = $referral->invested();
-
-                        $this->info('invested ' . $invested);
-                    }
-
-//                    cache()->forget('user.referral_accruals' . $user->id);
-                    if (!cache()->has('user.referral_accruals' . $referral->id)) {
-                        $referralAccruals = $referral->referral_accruals($user);
-                        $this->info('referral accruals '.$referralAccruals);
-                    }
-
-//                    cache()->forget('user.deposit_accruals' . $user->id);
-                    if (!cache()->has('user.deposit_accruals' . $referral->id)) {
-                        $depositAccruals = $referral->deposits_accruals();
-                        $this->info('deposit accruals ' . $depositAccruals);
-                    }
-
-//                    $this->comment('work with ref '.$referral->login);
-//                    cache()->forget('us.referrals.' . $referral->id);
-//                    cache()->put('us.referrals.' . $referral->id, $referral->getAllReferrals(false, 1, 1), now()->addHours(3));
-//                    $this->info('referrals count '.count(cache()->get('us.referrals.' . $referral->id)['referrals'] ?? []));
-                }
+            if (!cache()->has('user.deposit_accruals' . $user->id)) {
+                $depositAccruals = $user->deposits_accruals();
+                $this->info('deposit accruals ' . $depositAccruals);
             }
         }
 
