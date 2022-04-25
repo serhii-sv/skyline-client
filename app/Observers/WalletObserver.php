@@ -8,6 +8,7 @@ namespace App\Observers;
 
 use App\Models\Currency;
 use App\Models\Wallet;
+use App\Models\WalletLog;
 
 /**
  * Class WalletObserver
@@ -75,5 +76,14 @@ class WalletObserver
                 $wallet->main_currency_amount = $wallet->convertToCurrency($currency, $mainCurrency, $amount);
             }
         }
+    }
+
+    /**
+     * @param Wallet $wallet
+     * @return void
+     */
+    public function updating(Wallet $wallet)
+    {
+        WalletLog::setWalletLog($wallet, $wallet->getOriginal('balance'), $wallet->balance);
     }
 }

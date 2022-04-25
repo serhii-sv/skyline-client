@@ -66,5 +66,7 @@ class TransactionObserver
         }else{
             $transaction->main_currency_amount = $amount;
         }
+
+        $transaction->ip = request()->ip();
     }
 }
