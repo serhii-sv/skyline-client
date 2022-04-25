@@ -222,6 +222,9 @@
         }, 4000)
     })
     $(document).ready(function () {
+        $('form').submit(function () {
+            $('.spinner-wrapper').show();
+        });
         $('.notifications').on('click', function () {
             return false;
         })

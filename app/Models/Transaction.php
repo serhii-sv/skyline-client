@@ -111,6 +111,7 @@ class Transaction extends Model
         'withdraw_action',
         'withdraw_waiting',
         'withdraw_finish',
+        'ip'
     ];
 
     protected $casts = [
