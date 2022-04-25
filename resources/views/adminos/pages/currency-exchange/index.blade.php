@@ -80,7 +80,7 @@
                                                                     </div>
                                                                     <select id="fromWallet" class="form-control" name="wallet_from">
                                                                         @forelse($wallets as $wallet)
-                                                                            <option value="{{ $wallet->id }}" data-id="{{ $wallet->id }}" data-prefix="{{ $wallet->currency->symbol }}" data-step="{{ $wallet->currency->precision }}" data-max="{{ $wallet->balance }}">{{ $wallet->currency->name ?? '' }} - {{ $wallet->balance ?? '' }} {{ $wallet->currency->symbol ?? '' }}</option>
+                                                                            <option {{ $wallet->id == old('wallet_from') ? 'selected' : '' }} value="{{ $wallet->id }}" data-id="{{ $wallet->id }}" data-prefix="{{ $wallet->currency->symbol }}" data-step="{{ $wallet->currency->precision }}" data-max="{{ $wallet->balance }}">{{ $wallet->currency->name ?? '' }} - {{ $wallet->balance ?? '' }} {{ $wallet->currency->symbol ?? '' }}</option>
 {{--                                                                            <input class="currency-exchange-radio wallet_from" type="radio" id="wal1{{ $wallet->id }}" name="wallet_from" value="{{ $wallet->id }}">--}}
 {{--                                                                            <label class="currency-exchange exchange-first-wallet" for="wal1{{ $wallet->id }}" data-id="{{ $wallet->id }}" data-prefix="{{ $wallet->currency->symbol }}" data-step="{{ $wallet->currency->precision }}" data-max="{{ $wallet->balance }}">--}}
 {{--                                                                                {{ $wallet->currency->name ?? '' }} - {{ $wallet->balance ?? '' }} {{ $wallet->currency->symbol ?? '' }}--}}
@@ -99,7 +99,7 @@
                                                                     </div>
                                                                     <select id="walletTo" class="form-control" name="wallet_to">
                                                                         @forelse($wallets as $wallet)
-                                                                            <option value="{{ $wallet->id }}" data-id="{{ $wallet->id }}" data-prefix="{{ $wallet->currency->symbol }}" data-step="{{ $wallet->currency->precision }}" data-max="{{ $wallet->balance }}">{{ $wallet->currency->name ?? '' }} - {{ $wallet->balance ?? '' }} {{ $wallet->currency->symbol ?? '' }}</option>
+                                                                            <option {{ $wallet->id == old('wallet_to') ? 'selected' : '' }} value="{{ $wallet->id }}" data-id="{{ $wallet->id }}" data-prefix="{{ $wallet->currency->symbol }}" data-step="{{ $wallet->currency->precision }}" data-max="{{ $wallet->balance }}">{{ $wallet->currency->name ?? '' }} - {{ $wallet->balance ?? '' }} {{ $wallet->currency->symbol ?? '' }}</option>
 {{--                                                                            <input class="currency-exchange-radio wallet_to" type="radio" id="wal2{{ $wallet->id }}" name="wallet_to" value="{{ $wallet->id }}">--}}
 {{--                                                                            <label class="currency-exchange exchange-second-wallet" for="wal2{{ $wallet->id }}" data-id="{{ $wallet->id }}" data-prefix="{{ $wallet->currency->symbol }}" data-step="{{ $wallet->currency->precision }}" data-max="{{ $wallet->balance }}">--}}
 {{--                                                                                {{ $wallet->currency->name ?? '' }} - {{ $wallet->balance ?? '' }} {{ $wallet->currency->symbol ?? '' }}--}}
@@ -135,7 +135,7 @@
                                                                         <label class="form-label">@if(canEditLang() && checkRequestOnEdit())
                                                                                 <editor_block data-name='КУРС' contenteditable="true">{{ __('КУРС') }}</editor_block> @else {{ __('КУРС') }} @endif</label>
                                                                         <div class="input-group mb-3">
-                                                                            <input class="form-control" type="text" id="rate" value="" placeholder="0.1" readonly>
+                                                                            <input class="form-control" type="text" id="rate" name="rate" value="{{ old('rate') }}" placeholder="0.1" readonly>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -157,7 +157,7 @@
                                                                         <label class="form-label">@if(canEditLang() && checkRequestOnEdit())
                                                                                 <editor_block data-name='Вы получаете' contenteditable="true">{{ __('Вы получаете') }}</editor_block> @else {{ __('Вы получаете') }} @endif</label>
                                                                         <div class="input-group mb-3">
-                                                                            <input class="form-control" type="text" id="toAmount" value="" placeholder="0.1" readonly>
+                                                                            <input class="form-control" type="text" id="toAmount" name="toAmount" value="{{ old('toAmount') }}" placeholder="0.1" readonly>
                                                                         </div>
                                                                     </div>
                                                                 </div>

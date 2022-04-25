@@ -54,7 +54,7 @@ class CurrencyController extends Controller
         );
 
         if ($request->get('wallet_from') == $request->get('wallet_to')){
-            return redirect()->back()->with('error', 'Кошельки должны отличаться!');
+            return redirect()->back()->with('error', 'Кошельки должны отличаться!')->withInput();
         }
 
         /** @var float $amount */
@@ -71,7 +71,7 @@ class CurrencyController extends Controller
 
         //  $balance = $wallet_from->convertToCurrency($wallet->currency()->first(), $toCurrency, abs($wallet->balance));
         if ($amount > $wallet_from->balance) {
-            return redirect()->back()->with('error', 'Недостаточно средств на балансе!');
+            return redirect()->back()->with('error', 'Недостаточно средств на балансе!')->withInput();
         }
 
         /** @var User $user */
@@ -82,7 +82,7 @@ class CurrencyController extends Controller
             ->count() > 0;
 
         if ($existsLatestCurrencyExchange > 0) {
-            return redirect()->back()->with('error', 'Нельзя проводить обмены чаще чем раз в 6 часов.');
+            return redirect()->back()->with('error', 'Нельзя проводить обмены чаще чем раз в 6 часов.')->withInput();
         }
 
         DB::beginTransaction();
@@ -92,11 +92,11 @@ class CurrencyController extends Controller
                 DB::commit();
                 return redirect()->back()->with('success', 'Обмен успешно произведён!');
             } else {
-                return back()->with('error', 'Ошибка! Не получилось обменять');
+                return back()->with('error', 'Ошибка! Не получилось обменять')->withInput();
             }
         } catch (\Exception $exception) {
             DB::rollBack();
-            return back()->with('error', 'Ошибка! ' . $exception->getMessage());
+            return back()->with('error', 'Ошибка! ' . $exception->getMessage())->withInput();
         }
     }
 
