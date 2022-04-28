@@ -88,6 +88,11 @@ class Currency extends Model
     {
         return $this->hasMany(Deposit::class, 'currency_id');
     }
+
+    public function getCodeAttribute()
+    {
+        return str_replace('.BEP20', '', $this->name);
+    }
 //
 //    /**
 //     * @return \Illuminate\Database\Eloquent\Relations\HasMany
