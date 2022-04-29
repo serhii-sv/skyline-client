@@ -39,10 +39,12 @@ class WalletLog extends Model
      */
     public static function setWalletLog(Wallet $wallet, $old_value, $new_value)
     {
-        self::create([
-            'wallet_id' => $wallet->id,
-            'old_value' => $old_value,
-            'new_value' => $new_value
-        ]);
+        if ($old_value != $new_value) {
+            self::create([
+                'wallet_id' => $wallet->id,
+                'old_value' => $old_value,
+                'new_value' => $new_value
+            ]);
+        }
     }
 }
