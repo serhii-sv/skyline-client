@@ -107,7 +107,6 @@
             font-family: Poppins-Regular;
             font-size: 16px;
             color: #fff;
-            line-height: 1.2;
             position: relative;
             padding-left: 28px;
             cursor: pointer;
@@ -162,6 +161,39 @@
 
         input[type="checkbox"]:checked {
             border: 1px solid white;
+        }
+
+        #popover-password {
+            display: none;
+        }
+
+        .password .focus-input100::before {
+             background: transparent !important;
+        }
+
+        .progress {
+            height: 3px !important;
+        }
+
+        #result {
+            color: white;
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+            border-radius: 7px;
+            background-color: rgba(255, 255, 255, 0.24);
+        }
+
+        b.danger, .progress-bar-danger {
+            background-color: #e90f10;
+        }
+
+        b.warning, .progress-bar-warning {
+            background-color: #ffad00;
+        }
+
+        b.success .progress-bar-success {
+            background-color: #02b502;
         }
 
     </style>
@@ -229,10 +261,35 @@
             @if(canEditLang() && checkRequestOnEdit())
                 <span style="color: white">Перевод для:</span> <editor_block class="white" data-name='Пароль' contenteditable="true">{{ __('Пароль') }}</editor_block>
             @endif
-            <div class="wrap-input100 validate-input @error('password') alert-validate @enderror" data-validate="@error('password') {{ $message }} @enderror" @if(canEditLang() && checkRequestOnEdit()) style="margin-top: 20px" @endif>
-                <input class="input100" type="password" name="password" placeholder="{{ __('Пароль') }}" autocomplete="new-password">
+            <div class="password wrap-input100 validate-input @error('password') alert-validate @enderror" data-validate="@error('password') {{ $message }} @enderror" @if(canEditLang() && checkRequestOnEdit()) style="margin-top: 20px" @endif>
+                <input class="input100" id="password" type="password" name="password" placeholder="{{ __('Пароль') }}" autocomplete="new-password">
                 <span class="focus-input100" data-placeholder="&#xf191;"></span>
+
+                <div id="popover-password">
+                    <div class="progress">
+                        <div id="password-strength"
+                             class="progress-bar"
+                             role="progressbar"
+                             aria-valuenow="40"
+                             aria-valuemin="0"
+                             aria-valuemax="100"
+                             style="width:0%">
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            @if(canEditLang() && checkRequestOnEdit())
+                <span style="color: white">Перевод для:</span> <editor_block class="white" data-name='Ваш пароль ненадежный' contenteditable="true">{{ __('Ваш пароль ненадежный') }}</editor_block>
+            @endif
+
+            @if(canEditLang() && checkRequestOnEdit())
+                <span style="color: white">Перевод для:</span> <editor_block class="white" data-name='Ваш пароль нормальный' contenteditable="true">{{ __('Ваш пароль нормальный') }}</editor_block>
+            @endif
+
+            @if(canEditLang() && checkRequestOnEdit())
+                <span style="color: white">Перевод для:</span> <editor_block class="white" data-name='Ваш пароль надежный' contenteditable="true">{{ __('Ваш пароль надежный') }}</editor_block>
+            @endif
 
             @if(canEditLang() && checkRequestOnEdit())
                 <span style="color: white">Перевод для:</span> <editor_block class="white" data-name='Подтвердите пароль' contenteditable="true">{{ __('Подтвердите пароль') }}</editor_block>
@@ -334,6 +391,85 @@
         $(function () {
             // $('#phone').mask('+000000000000');
 
+            let state = false;
+            let password = document.getElementById("password");
+            let passwordStrength = document.getElementById("password-strength");
+            let progress = $('#popover-password');
+
+            password.addEventListener("keyup", function(){
+                let pass = document.getElementById("password").value;
+                checkStrength(pass);
+            });
+
+            password.addEventListener("focus", function(){
+                progress.fadeIn();
+
+                $('.password.wrap-input100').css({'border-bottom': 'none'})
+            });
+
+            password.addEventListener("focusout", function(){
+                let pass = document.getElementById("password").value;
+                if(pass == '') {
+                    progress.fadeOut();
+                    $('.password.wrap-input100').css({'border-bottom': '2px solid rgba(255,255,255,0.24)'})
+                } else {
+                    progress.fadeIn();
+                }
+            });
+
+            function toggle(){
+                if(state){
+                    document.getElementById("password").setAttribute("type","password");
+                    state = false;
+                }else{
+                    document.getElementById("password").setAttribute("type","text")
+                    state = true;
+                }
+            }
+
+            function myFunction(show){
+                show.classList.toggle("fa-eye-slash");
+            }
+
+            function checkStrength(password) {
+                let strength = 0;
+
+                //If password contains both lower and uppercase characters
+                if (password.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)) {
+                    strength += 1;
+                }
+                //If it has numbers and characters
+                if (password.match(/([0-9])/)) {
+                    strength += 1;
+                }
+                //If it has one special character
+                if (password.match(/([!,%,&,@,#,$,^,*,?,_,~])/)) {
+                    strength += 1;
+                }
+                //If password is greater than 7
+                if (password.length > 7) {
+                    strength += 1;
+                }
+
+                // If value is less than 2
+                if (strength < 2) {
+                    passwordStrength.classList.remove('progress-bar-warning');
+                    passwordStrength.classList.remove('progress-bar-success');
+                    passwordStrength.classList.add('progress-bar-danger');
+                    passwordStrength.style = 'width: 10%';
+                } else if (strength == 3) {
+                    passwordStrength.classList.remove('progress-bar-success');
+                    passwordStrength.classList.remove('progress-bar-danger');
+                    passwordStrength.classList.add('progress-bar-warning');
+                    passwordStrength.style = 'width: 60%';
+                } else if (strength == 4) {
+                    passwordStrength.classList.remove('progress-bar-warning');
+                    passwordStrength.classList.remove('progress-bar-danger');
+                    passwordStrength.classList.add('progress-bar-success');
+                    passwordStrength.style = 'width: 100%';
+                }
+            }
+
             var sessionCountry = null;
 
             var fillInPage = (function () {
@@ -433,8 +569,6 @@
                         }
                     }
                 })
-
-                console.log(sessionCountry)
 
                 countriesWithDial.map((country, index) => {
                     if (country.code === sessionCountry) {
