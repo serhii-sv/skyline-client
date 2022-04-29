@@ -318,7 +318,7 @@
                                                         <h5>
                                                             @if(canEditLang() && checkRequestOnEdit())
                                                                 <editor_block data-name='Ваш карьерный статус:' contenteditable="true">{{ __('Ваш карьерный статус:') }}</editor_block>
-                                                            @else {{ __('Ваш карьерный статус:') }}@endif @if($currentRank) {{ __($currentRank->status_name) }} @endif {{ $currentRank->status_stage }}
+                                                            @else {{ __('Ваш карьерный статус:') }}@endif @if($currentRank) {{ __($currentRank->status_name) }} {{ $currentRank->status_stage }} @endif
                                                         </h5>
                                                     </div>
                                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 pl-5 pr-5">
