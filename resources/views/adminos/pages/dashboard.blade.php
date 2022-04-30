@@ -368,6 +368,12 @@
                                         </h6>
                                     </div>
                                     <div class="panel-box-content">
+                                        @if(canEditLang() && checkRequestOnEdit())
+                                        @foreach(\App\Models\DepositBonus::all()->unique('status_name')->all() as $rank)
+                                                <editor_block data-name='{{ $rank->status_name }}' contenteditable="true">{{ __($rank->status_name) }}</editor_block>
+                                            <br>
+                                            @endforeach
+                                        @endif
                                         <div class="row">
                                             <div class="col-12 text-center">
                                                 <div class="col-12">
