@@ -382,7 +382,7 @@
                                                                     <editor_block data-name='Текущий Ранг' contenteditable="true">{{ __('Текущий Ранг') }}</editor_block>
                                                                 @else {{ __('Текущий Ранг') }}@endif
                                                             </p>
-                                                            <h6 style="font-weight: bold">
+                                                            <h6 style="font-weight: bold" data-rank="{{ $currentRank->status_name }}">
                                                                 @if(!is_null($currentRank))
                                                                     @if(canEditLang() && checkRequestOnEdit())
                                                                         <editor_block data-name='{{ $currentRank->status_name }}' contenteditable="true">{{ __($currentRank->status_name) }}</editor_block>
@@ -396,7 +396,7 @@
                                                                     <editor_block data-name='Следующий Ранг' contenteditable="true">{{ __('Следующий Ранг') }}</editor_block>
                                                                 @else {{ __('Следующий Ранг') }}@endif
                                                             </p>
-                                                            <h6 style="font-weight: bold">
+                                                            <h6 style="font-weight: bold" data-rank="{{ $currentRank->status_name }}">
                                                                 @if(!is_null($nextRank))
                                                                     @if(canEditLang() && checkRequestOnEdit())
                                                                         <editor_block data-name='{{ $nextRank->status_name }}' contenteditable="true">{{ __($nextRank->status_name) }}</editor_block>
