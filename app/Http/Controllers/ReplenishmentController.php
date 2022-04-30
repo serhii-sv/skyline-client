@@ -63,11 +63,14 @@ class ReplenishmentController extends Controller
             return back()->with('error', "Неизвестная валюта")->withInput();
         }
 
-        $psMinimumTopupArray = @json_decode($paymentSystem->minimum_topup, true);
-        $psMinimumTopup = isset($psMinimumTopupArray[$currency->code]) ? $psMinimumTopupArray[$currency->code] : 0;
+        extract($paymentSystem->getMinMax($currency), EXTR_PREFIX_SAME, "wddx");
 
-        if ($request->amount < $psMinimumTopup) {
-            return back()->with('error', "Минимальная сумма пополнения баланса составляет" . $psMinimumTopup . $currency->symbol)->withInput();
+        if ($min && $request->amount < $min) {
+            return back()->with('error', "Минимальная сумма пополнения баланса составляет " . $min . $currency->symbol)->withInput();
+        }
+
+        if ($max && $request->amount > $max) {
+            return back()->with('error', "Максимальная сумма пополнения баланса составляет " . $max . $currency->symbol)->withInput();
         }
 
         session()->flash('topup.payment_system', $paymentSystem);

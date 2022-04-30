@@ -65,7 +65,9 @@ class PaymentSystem extends Model
         'minimum_withdraw',
         'image',
         'image_alt',
-        'image_title'
+        'image_title',
+        'minimum',
+        'maximum'
     ];
 
     const BANK_GROUP = 'bank';
@@ -204,6 +206,15 @@ class PaymentSystem extends Model
                 $balances[$ps->code] = $ps->getClassName()::getBalances();
             }
         }
+    }
+
+    public function getMinMax($currency)
+    {
+        $currency_usd = Currency::where('code', 'USD')->first();
+        return [
+            'min' => $this->minimum ? Wallet::convertToCurrencyStatic($currency_usd, $currency, $this->minimum) : null,
+            'max' => $this->maximum ? Wallet::convertToCurrencyStatic($currency_usd, $currency, $this->maximum) : null
+        ];
     }
 
 }

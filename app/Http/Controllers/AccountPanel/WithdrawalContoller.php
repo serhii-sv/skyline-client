@@ -173,6 +173,16 @@ class WithdrawalContoller extends Controller
 //            return redirect()->back()->with('error', 'Amount is more than you can withdraw!');
 //        }
 
+        extract($payment_system->getMinMax($currency), EXTR_PREFIX_SAME, "wddx");
+
+        if ($min && $request->amount < $min) {
+            return back()->with('error', "Минимальная сумма вывода баланса составляет " . $min . $currency->symbol)->withInput();
+        }
+
+        if ($max && $request->amount > $max) {
+            return back()->with('error', "Максимальная сумма выводы баланса составляет " . $max . $currency->symbol)->withInput();
+        }
+
         if ($wallet->balance >= $amount) {
             $transaction = Transaction::withdraw($wallet, $amount, $payment_system);
             if (null !== $transaction) {
