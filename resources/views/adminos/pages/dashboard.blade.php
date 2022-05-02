@@ -398,13 +398,14 @@
                                                             </h6>
                                                         </div>
                                                         @endif
+                                                        @if(!empty($nextRank))
                                                         <div>
                                                             <p>
                                                                 @if(canEditLang() && checkRequestOnEdit())
                                                                     <editor_block data-name='Следующий Ранг' contenteditable="true">{{ __('Следующий Ранг') }}</editor_block>
                                                                 @else {{ __('Следующий Ранг') }}@endif
                                                             </p>
-                                                            <h6 style="font-weight: bold" data-rank="{{ $currentRank->status_name }}">
+                                                            <h6 style="font-weight: bold" data-rank="{{ $nextRank->status_name }}">
                                                                 @if(!is_null($nextRank))
                                                                     @if(canEditLang() && checkRequestOnEdit())
                                                                         <editor_block data-name='{{ $nextRank->status_name }}' contenteditable="true">{{ __($nextRank->status_name) }}</editor_block>
@@ -412,6 +413,7 @@
                                                                 @endif
                                                             </h6>
                                                         </div>
+                                                            @endif
                                                     </div>
                                                     <div class="yellow-link-color mb-3"></div>
                                                 </div>
