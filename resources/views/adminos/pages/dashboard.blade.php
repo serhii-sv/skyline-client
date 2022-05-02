@@ -382,6 +382,7 @@
 {{--                                                        <input type="text" class="dial" value="{{ round($rankPercentage, 1) }}" data-width="100" data-height="100" data-linecap="round" data-displayprevious="true" data-displayinput="true" data-readonly="true" data-fgcolor="#fe9365">--}}
                                                     </div>
                                                     <div class="d-flex justify-content-between">
+                                                        @if(!empty($currentRank))
                                                         <div>
                                                             <p>
                                                                 @if(canEditLang() && checkRequestOnEdit())
@@ -396,6 +397,7 @@
                                                                 @endif
                                                             </h6>
                                                         </div>
+                                                        @endif
                                                         <div>
                                                             <p>
                                                                 @if(canEditLang() && checkRequestOnEdit())
