@@ -155,9 +155,7 @@ class WithdrawalContoller extends Controller
             if (in_array($currency->code, ['BYN', 'RUB', 'UAH', 'KZT'])) {
                 $payment_system = PaymentSystem::where('code', 'visa_mastercard')->first();
             } else {
-                $payment_system = PaymentSystem::whereHas('currencies', function ($q) use ($currency) {
-                    $q->where('code', $currency->code);
-                })->first();
+                $payment_system = $currency->paymentSystems()->first();
             }
         }
 
