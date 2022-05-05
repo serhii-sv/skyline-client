@@ -179,6 +179,9 @@ class Currency extends Model
      */
     public static function getByCode($code)
     {
+        if ($code == 'BNB') {
+            $code = 'BNB.BEP20';
+        }
         return self::where('code', $code)->first();
     }
 }

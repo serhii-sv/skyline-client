@@ -67,7 +67,7 @@ class CurrencyController extends Controller
         $wallet_to = Wallet::where('user_id', Auth::user()->id)->where('id', $request->get('wallet_to'))->first();
 
         /** @var float $commission */
-        $commission = Wallet::convertToCurrencyStatic(Currency::getByCode('USD'), Currency::getByCode($wallet_to->currency->code), 1); // $
+        $commission = Wallet::convertToCurrencyStatic(Currency::getByCode('USD'), $wallet_to->currency, 1); // $
 
         //  $balance = $wallet_from->convertToCurrency($wallet->currency()->first(), $toCurrency, abs($wallet->balance));
         if ($amount > $wallet_from->balance) {
