@@ -8,6 +8,7 @@ use App\Mail\RegistrationNotification;
 use App\Models\Language;
 use App\Models\Notification;
 use App\Models\ReferralLinkStat;
+use App\Models\Role;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use App\Rules\PhoneNumber;
@@ -185,6 +186,12 @@ class RegisterController extends Controller
                 $stats->user_id = $user->id;
                 $stats->save();
             }
+        }
+
+        $role = Role::where('name', 'Клиент')->first();
+
+        if ($role) {
+            $user->roles()->sync([$role->id]);
         }
 
         $this->guard()->login($user);
